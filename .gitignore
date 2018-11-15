@@ -16,3 +16,6 @@ application/logs/*
 !application/logs/.htaccess
 /vendor/
 /user_guide/
+
+#data
+*.sql

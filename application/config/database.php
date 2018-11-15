@@ -49,8 +49,8 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'texas';
-$db['default']['password'] = 'flood';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'password';
 $db['default']['database'] = 'shropsdb';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
