@@ -1,8 +1,6 @@
 
 <?php
 
-
-
 $spp_form_atts = array(
             'class' => 'select_form', 
             'id' => 'species_select_form',
