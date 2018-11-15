@@ -1,8 +1,6 @@
 
 <?php
 
-
-
 $spp_form_atts = array(
             'class' => 'select_form', 
             'id' => 'species_select_form',
@@ -11,14 +9,14 @@ $spp_form_atts = array(
 
 echo form_open('shrops/species/',$spp_form_atts);
 
-echo '<div id=findspecies>Find Records for Species</div>'; 
+echo '<div id="findspecies">Find Records for Species</div>'; 
 
 echo '<table id = "species_form_table" border="0" cellpadding="4">';
 $spp_name_label_atts = array(
     'id' => 'species_name_label',
    
 );
-echo '<tr><td>'.form_label('Enter all or part of a species name', 'speciesname',$spp_name_label_atts).'</td>';
+echo '<tr><td>'.form_label('Enter all or part of a species name', 'speciesname', $spp_name_label_atts).'</td>';
 
 $atts = array(
               'name'        => 'speciesname',
@@ -53,16 +51,13 @@ $taxon_group_atts = array(
 
 echo '<tr><td>'.form_label('Choose a species group', 'taxon-group',$taxon_group_atts).'</td>';
 
-
 $groupatts = 'id= "taxongroup"';
 //print_r($groups) ;   
 echo '<td>'.form_dropdown('taxon-group', $groups,'0',$groupatts). '</td></tr>';
 //Parameters are: name,options list,selected index,other atts
 
-
 $axios_label_atts = array(
     'id' => 'axioslabel',
-   
 );
 
 echo  '<tr><td>'.form_label('Show axiophytes only', 'axiosonly',$axios_label_atts).'</td>';
@@ -92,17 +87,17 @@ $common_name_atts = array(
 echo '<td>'.form_checkbox($common_name_atts). '</td></tr>';
 
 
-
 echo '<tr><td>'.form_submit('submit_species', 'List Species');
 echo form_reset('reset_species', 'Reset','enable_species_name()').'</td>';
 echo '<td></td></tr></table>';
 echo  form_close();
 
+
 echo '<div id="start_page_error_species">';
 if (isset ($error) && $type == 'species') echo $error;
 echo '</div>';
 //
-// End of species section
+// End of species section **********************************************************
 //
 
 
@@ -215,7 +210,6 @@ echo '</div>';
 // End of Tetrads section
 
 ?>
-
 
 
 
