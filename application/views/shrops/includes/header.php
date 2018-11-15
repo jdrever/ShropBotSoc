@@ -12,5 +12,5 @@
         <div id ="header-img-container">
             <img  id ="header-img"src ="/assets/images/stiperstones.png"  >
         </div>
-        <div class="menulinks"><a href="/" title="Shropshire Database Home">Start page</a></div>      
+        <div class="menulinks"><a href="/" title="Shropshire Database Home">Start Page</a></div>      
 
