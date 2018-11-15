@@ -15,6 +15,7 @@ application/logs/*
 
 #data
 *.sql
+*.db
 
 #notes
 /application.old/
