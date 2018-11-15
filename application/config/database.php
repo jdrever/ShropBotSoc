@@ -75,17 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'password',
-	'database' => 'shropsdb',
-	'dbdriver' => 'mysqli',
-/* Sqlite
 	'hostname' => '',
 	'username' => '',
 	'password' => '',
 	'database' => './application/database/shropsdb.db',
-	'dbdriver' => 'sqlite3',*/
+	'dbdriver' => 'sqlite3',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

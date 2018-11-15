@@ -139,14 +139,14 @@ class Shrops_model extends CI_Model
     public function get_groups()
     {
         //First query the database table "group"
-        $this->db->select('grpid');
+        $this->db->select('grpId');
         $this->db->select('grpName');
         $this->db->from('group');
         $query = $this->db->get();
-        //Then add grpid and grpName as key|value pairs to the array $groups
+        //Then add grpId and grpName as key|value pairs to the array $groups
         $groups = array();
         foreach ($query->result_array() as $row) {
-            $groups[$row['grpid']] = $row['grpName'];
+            $groups[$row['grpId']] = $row['grpName'];
         }
         return $groups;
     }
