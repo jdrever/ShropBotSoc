@@ -15,3 +15,8 @@ Convert the MySql database like this
 Then run the built in server.
 
     php -S localhost:8080 -c debug.ini
+
+If running on the GAE 
+
+    dev_appserver.py --php_executable_path=/usr/bin/php-cgi --support_datastore_emulator=False ./app.yaml
+

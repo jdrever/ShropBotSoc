@@ -18,9 +18,9 @@ $page_title="Species Distribution Map";
 <tr><td align = 'center'><font color='darkblue'>Click on a dot to view records for the tetrad</font></td></tr>
 <tr>
 <td align = 'center'>
-<form method = 'post' action='<?php echo base_url();?>index.php/shrops/records_for_map_tetrad/species/<?php echo "$speciesname[sppid]"; ?> '>
+<form method = 'post' action='<?php echo base_url();?>shrops/records_for_map_tetrad/species/<?php echo "$speciesname[sppid]"; ?> '>
 
-<input type='image' src= '<?php echo base_url();?>index.php/shrops/makemap/sppid/<?php echo "$speciesname[sppid]";?>' alt='Shropshire' 
+<input type='image' src= '<?php echo base_url();?>shrops/makemap/sppid/<?php echo "$speciesname[sppid]";?>' alt='Shropshire' 
      width = '521' height = '605' border = '0' name = 'map' onMouseMove='DisplayCoords(this)'>
 
 </form>

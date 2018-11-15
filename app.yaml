@@ -1,0 +1,9 @@
+runtime: php72
+# https://cloud.google.com/appengine/docs/standard/php7/config/appref#handlers_element
+
+handlers:
+- url: /assets
+  static_dir: assets
+  
+- url: /.*
+  script: auto
