@@ -19,3 +19,6 @@ application/logs/*
 
 #data
 *.sql
+
+#notes
+/application.old/
