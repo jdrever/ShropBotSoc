@@ -11,7 +11,7 @@
         <div id ="header-img-container">
             <img  id ="header-img"src ="<?php echo base_url('assets/images/stiperstones.png'); ?>"  >
         </div>
-        <div class="menulinks"><a href="<?php echo base_url('/'); ?>" title="Shropshire Database Home">New Start Page</a></div>
+        <div class="menulinks"><a href="<?php echo base_url('/'); ?>" title="Shropshire Database Home">Start Page</a></div>
         <?php
             $this->load->view($main_content);
         ?>
