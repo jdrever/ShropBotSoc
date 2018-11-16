@@ -71,9 +71,6 @@ switch (ENVIRONMENT)
 	break;
 
 	case 'testing':
-		error_reporting(-1);
-		ini_set('display_errors', 1);
-		print "We Testing on port ".$_SERVER["WEBSITE_MYSQL_PORT"];
 
 	case 'production':
 		ini_set('display_errors', 0);
