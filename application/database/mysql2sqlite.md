@@ -1,3 +1,3 @@
 # Convert from MySql to Sqlite
 
-./mysql2sqlite.sh shropsdb.sql | sqlite3 shropsdb.db
+./mysql2sqlite.sh test_data.sql | sqlite3 test_data.db

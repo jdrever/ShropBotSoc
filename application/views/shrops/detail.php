@@ -23,7 +23,4 @@ function display_array($this_array)
     echo '</table>';
 }
       
-
-
-
 ?>
