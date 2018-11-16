@@ -218,8 +218,8 @@ class Shrops extends CI_Controller
                     $data['alpha_links'] = true;
                     $data['taxon_group'] = $this->input->post('taxon-group');
                     $data['species_list'] = $this->shrops_model->get_species($name_type, 'A', $this->input->post('taxon-group'), 1, $axio);
-                } elseif ($this->input->post('speciesname') !== '')
-                //We've come here from the start form and a species name string was entered
+                } 
+                elseif ($this->input->post('speciesname') !== '')//We've come here from the start form and a species name string was entered
                 {
                     if ($this->input->post('search_common') == 'ischecked') {
                         $name_type = 'sppCommon';
@@ -235,7 +235,7 @@ class Shrops extends CI_Controller
                 }
             }
 
-            /*Once you've added everyting else you need to $data
+            /*Once you've added everything else you need to $data
             specify that the shrops/species View goes into 'main_content' and then
             load that into the template View */
             $data['groups'] = $this->shrops_model->get_groups();

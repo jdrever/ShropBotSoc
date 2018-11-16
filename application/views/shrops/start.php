@@ -7,7 +7,7 @@ $spp_form_atts = array(
             'name' => 'speciesselectform')
           ;
 
-echo form_open('shrops/species/',$spp_form_atts);
+echo form_open('shrops/species/', $spp_form_atts);
 
 echo '<div id="findspecies">Find Records for Species</div>'; 
 
