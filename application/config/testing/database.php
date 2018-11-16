@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
-| DEVELOPMENT - DATABASE CONNECTIVITY SETTINGS
+| TESTING - DATABASE CONNECTIVITY SETTINGS
 | -------------------------------------------------------------------
 */
 $active_group = 'default';

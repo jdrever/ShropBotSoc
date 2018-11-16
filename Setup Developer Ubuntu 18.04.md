@@ -15,6 +15,17 @@ Create the MySql database like this
     mysql> source /mnt/c/Users/username/botanical_records/application/database/test_data.sql;
     mysql> quit;
 
+If the root user cannot connect try this
+
+    mysql> DROP USER 'root'@'localhost';
+        Query OK, 0 rows affected (0.00 sec)
+    mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'password';
+        Query OK, 0 rows affected (0.00 sec)
+    mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+        Query OK, 0 rows affected (0.00 sec)
+    mysql> FLUSH PRIVILEGES;
+        Query OK, 0 rows affected (0.00 sec)
+
 Then run the built in server.
 
     php -S localhost:8080 -c debug.ini
