@@ -70,3 +70,72 @@ Start the servers
 And visit
 
     <http://localhost/botanical_records>
+
+## Debugging with VSCode
+
+1. Install vscode https://code.visualstudio.com/.
+2. Add the PHP debug extension https://github.com/felixfbecker/vscode-php-debug
+3. Add the PHP formatter extension https://github.com/kokororin/vscode-phpfmt 
+4. Add this launch.json to the .vscode directory
+
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Listen for XDebug",
+                "type": "php",
+                "request": "launch",
+                "port": 9000,
+                // server -> local
+                "pathMappings": {
+                    "/mnt/c/": "c:/",
+                }
+            }
+        ]
+    }
+
+5. And add this to the workplace settings.json
+
+    {
+        "php.validate.executablePath": "C:\\Users\\joejc\\php.cmd",
+        "phpfmt.cakephp": true,
+        "phpfmt.php_bin": "C:\\Users\\joejc\\php.cmd"
+    }
+
+6.	Put this php.cmd some place handy so it can be used to access PHP no the WSL from Windows and vscode.
+
+    @echo OFF
+    setlocal ENABLEDELAYEDEXPANSION
+
+    :: Collect the arguments and replace:
+    :: '\' with '/'
+    :: 'c:' with 'mnt/c'
+    :: The original version replace '"' with '\"' but I found that
+    :: clashed with the PHP Formatter which was passing in a PHP 
+    :: command and expecting a response.
+    set v_params=%*
+    set v_params=%v_params:\=/%
+    set v_params=%v_params:C:=/mnt/c%
+    set v_params=%v_params%
+    :: set v_params=%v_params:"=\"%
+
+    :: Call the windows-php inside WSL.
+    :: windows-php is just a script which passes the arguments onto
+    :: the original php executable and converts its output from UNIX
+    :: syntax to Windows syntax.
+    C:\Windows\System32\wsl.exe php %v_params%
+
+7. Install Xdebug
+
+    sudo apt-get install php-xdebug
+
+8. Open the php.ini
+
+    sudo nano /etc/php/7.2/apache2/php.ini
+
+And add this to the bottom.
+
+    [XDebug]
+    xdebug.remote_enable = 1
+    xdebug.remote_autostart = 1
+

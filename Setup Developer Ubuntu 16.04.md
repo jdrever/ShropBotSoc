@@ -83,27 +83,30 @@ Start Apache and test
 2.	Add the PHP debug extension https://github.com/felixfbecker/vscode-php-debug
 3.	Add the PHP formatter extension https://github.com/kokororin/vscode-phpfmt 
 4.	Add this launch.json to the .vscode directory
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Listen for XDebug",
-            "type": "php",
-            "request": "launch",
-            "port": 9000,
-            // server -> local
-            "pathMappings": {
-                "/mnt/c/": "c:/",
-            }
-        }
-    ]
-}
+
+	{
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Listen for XDebug",
+				"type": "php",
+				"request": "launch",
+				"port": 9000,
+				// server -> local
+				"pathMappings": {
+					"/mnt/c/": "c:/",
+				}
+			}
+		]
+	}
+
 5.	And add this to the workplace settings.json
- {
-    "php.validate.executablePath": "C:\\Users\\joejc\\php.cmd",
-    "phpfmt.cakephp": true,
-    "phpfmt.php_bin": "C:\\Users\\joejc\\php.cmd"
-}
+ 
+	{
+		"php.validate.executablePath": "C:\\Users\\joejc\\php.cmd",
+		"phpfmt.cakephp": true,
+		"phpfmt.php_bin": "C:\\Users\\joejc\\php.cmd"
+	}
 
 6.	Put this php.cmd some place handy so it can be used to access PHP no the WSL from Windows and vscode.
 
@@ -132,7 +135,10 @@ Start Apache and test
 
 	sudo nano /etc/php/5.6/apache2/php.ini
 	
-	[XDebug]
-	xdebug.remote_enable = 1
-	xdebug.remote_autostart = 1
+And add this to the bottom.
 
+    [XDebug]
+    xdebug.remote_enable = 1
+    xdebug.remote_autostart = 1
+
+Xdebug was installed earlier so it should be available.

@@ -11,7 +11,6 @@ class Shrops extends CI_Controller
         $this->load->model('shrops_model');
         $this->load->library('table'); //For constructing HTML tables
         $this->load->library('pagination');
-        $this->load->library('parser');
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->helper('map');
