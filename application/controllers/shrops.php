@@ -17,33 +17,40 @@ class Shrops extends CI_Controller
         $this->load->helper('download');
     }
 
+    /**
+     * Get the drop load list of species groups and present the
+     * landing page.
+     */
     public function index()
     {
         $data['groups'] = $this->shrops_model->get_groups(); //For the drop-down list of groups on the form
         $data['main_content'] = 'shrops/start';
-        $this->load->view('shrops/includes/template', $data);
-
+        $this->load->view('layout', $data);
     }
 
+    /**
+     * In the event of an error post a message on the landing page.
+     */
     public function index_error($error, $type)
     {
         $data['error'] = $error;
         $data['type'] = $type; //Is it a species or sites error?
         $data['groups'] = $this->shrops_model->get_groups(); //For the drop-down list of groups on the form
         $data['main_content'] = 'shrops/start';
-        $this->load->view('shrops/includes/template', $data);
+        $this->load->view('layout', $data);
     }
 
+    /**
+     * Show the records for a species
+     */
     public function showrecords()
     {
-
         //Generate an array from the elements of the uri in the link used to access this script
         $get = $this->uri->uri_to_assoc();
 
         if (isset($get['species']))
         //We're looking for records for a species
         {
-
             //Make the pagination array
             $config = array();
             $config['base_url'] = base_url('/index.php/shrops/showrecords/species/' . $get['species'] . '/offset');
@@ -85,10 +92,9 @@ class Shrops extends CI_Controller
             $data['main_content'] = 'shrops/records-for-species';
 
             //Send the $data array to the template
-            $this->load->view('shrops/includes/template', $data);
+            $this->load->view('layout', $data);
 
-        } elseif (isset($get['sites']))
-        //We're looking for records for sites
+        } elseif (isset($get['sites'])) //We're looking for records for sites
         //See the species section comments for explanation of following
         {
             $config = array();
@@ -115,7 +121,7 @@ class Shrops extends CI_Controller
             $data['total_rows'] = $config['total_rows'];
             $data['links'] = $this->pagination->create_links();
             $data['main_content'] = 'shrops/records-for-sites';
-            $this->load->view('shrops/includes/template', $data);
+            $this->load->view('layout', $data);
         } elseif (isset($get['tetrads'])) {
             $config = array();
             $config['base_url'] = base_url('index.php/shrops/showrecords/tetrads/' . $get['tetrads'] . '/offset');
@@ -142,11 +148,14 @@ class Shrops extends CI_Controller
             $data['total_rows'] = $config['total_rows'];
             $data['links'] = $this->pagination->create_links();
             $data['main_content'] = 'shrops/records-for-tetrads';
-            $this->load->view('shrops/includes/template', $data);
+            $this->load->view('layout', $data);
         }
 
     }
 
+    /**
+     * Details
+     */
     public function detail()
     {
         $get = $this->uri->uri_to_assoc(); //This works in place of URL parameters
@@ -155,8 +164,7 @@ class Shrops extends CI_Controller
         $data['details'] = $this->shrops_model->get_details($get['record']);
 
         $data['main_content'] = 'shrops/detail';
-        $this->load->view('shrops/includes/template', $data);
-
+        $this->load->view('layout', $data);
     }
 
     public function species()
@@ -169,7 +177,9 @@ class Shrops extends CI_Controller
             and $this->input->post('all-species') !== 'ischecked' and $this->input->post('speciesname') == '') {
             $error_message = 'ERROR - you must enter a species name or check the box to browse all species';
             $this->index_error($error_message, 'species');
-        } else {
+        } 
+        else 
+        {
 
             $axio = '0';
             if ($this->input->post('axiosonly') == 'ischecked') {
@@ -191,15 +201,20 @@ class Shrops extends CI_Controller
                 $data['taxon_group'] = $group;
                 $data['alpha_links'] = true;
                 $data['species_list'] = $this->shrops_model->get_species($name_type, $letter, $group, 0, $get['axio']);
-            } else {
+            } 
+            else 
+            {
                 $letter = 'NONE';
                 if ($this->input->post('all-species') == 'ischecked')
                 //We've come here from the start form and all species checkbox is checked
                 {
                     //Determine if Common name is selected
-                    if ($this->input->post('search_common') == 'ischecked') {
+                    if ($this->input->post('search_common') == 'ischecked') 
+                    {
                         $name_type = 'sppCommon';
-                    } else {
+                    } 
+                    else 
+                    {
                         $name_type = 'sppName';
                     }
 
@@ -218,8 +233,7 @@ class Shrops extends CI_Controller
                     $data['alpha_links'] = true;
                     $data['taxon_group'] = $this->input->post('taxon-group');
                     $data['species_list'] = $this->shrops_model->get_species($name_type, 'A', $this->input->post('taxon-group'), 1, $axio);
-                } 
-                elseif ($this->input->post('speciesname') !== '')//We've come here from the start form and a species name string was entered
+                } elseif ($this->input->post('speciesname') !== '') //We've come here from the start form and a species name string was entered
                 {
                     if ($this->input->post('search_common') == 'ischecked') {
                         $name_type = 'sppCommon';
@@ -243,20 +257,22 @@ class Shrops extends CI_Controller
             //for groups so that in the shrops/species view the key in $taxon_group
             //can be used to get the group name. Is theer a better way?
             $data['main_content'] = 'shrops/species';
-            $this->load->view('shrops/includes/template', $data);
+            $this->load->view('layout', $data);
         }
     } //End of function species()
 
+
+    /**
+     * 
+     */
     public function tetradmap()
     {
         $get = $this->uri->uri_to_assoc();
         $data['speciesname'] = $this->shrops_model->get_species_name($get['species']);
 
         $data['main_content'] = 'shrops/map';
-        $this->load->view('shrops/includes/template', $data);
-    } // End of function tetradmap()
-
-    //
+        $this->load->view('layout', $data);
+    } 
 
     public function records_for_map_tetrad()
     {
@@ -272,14 +288,14 @@ class Shrops extends CI_Controller
         $data["thetetrad"] = $tetrad;
         $data['tetrecsforspp'] = $this->shrops_model->get_tetrecs_for_species($get['species'], $tetrad);
         $data['main_content'] = 'shrops/tetrad-records-for-species';
-        $this->load->view('shrops/includes/template', $data);
+        $this->load->view('layout', $data);
     } //End of function records_for_tetrads()
 
     public function findtetradsfrommap()
     {
 
         $data['main_content'] = 'shrops/map-find-tetrads';
-        $this->load->view('shrops/includes/template', $data);
+        $this->load->view('layout', $data);
     } // End of function findtetradsfrommap()
 
     public function all_records_for_map_tetrad()
@@ -325,7 +341,7 @@ class Shrops extends CI_Controller
         $data['total_rows'] = $config['total_rows'];
         $data['links'] = $this->pagination->create_links();
         $data['main_content'] = 'shrops/records-for-tetrads';
-        $this->load->view('shrops/includes/template', $data);
+        $this->load->view('layout', $data);
     } //End of function records_for_tetrads()
 
     public function makemap()
@@ -414,12 +430,10 @@ class Shrops extends CI_Controller
             load that into the template View */
 
             $data['main_content'] = 'shrops/sites';
-            $this->load->view('shrops/includes/template', $data);
+            $this->load->view('layout', $data);
         }
     } //End of function sites()
 
-
-    
     public function tetrads()
     {
         //Get a list of tetrads - either all tetrads, names based on search string, or
@@ -473,7 +487,7 @@ class Shrops extends CI_Controller
                 load that into the template View */
 
                 $data['main_content'] = 'shrops/tetrads';
-                $this->load->view('shrops/includes/template', $data);
+                $this->load->view('layout', $data);
 
             }
 
@@ -505,7 +519,7 @@ class Shrops extends CI_Controller
             $data['tetrad_header'] = "All Tetrads in Shropshire";
             $data['tetrads'] = $this->shrops_model->get_tetrads($all_tetrads, $config['per_page'], $page);
             $data['main_content'] = 'shrops/tetrads';
-            $this->load->view('shrops/includes/template', $data);
+            $this->load->view('layout', $data);
         }
 
     } //End of function tetrads()
