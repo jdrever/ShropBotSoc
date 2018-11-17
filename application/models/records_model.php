@@ -116,8 +116,10 @@ class Records_model extends CI_Model
         return $results;
     }
 
+    /**
+     * Query the database for a single record to show details
+     */
     public function get_details($recid)
-    //Query the database for a single record to show details
     {
         $this->db->select('recid AS "Record ID",sppName AS "Taxon Name",siteName AS "Site Name",
                 recFullgrid AS "Full Grid Ref",recTetrad AS "Tetrad",
@@ -138,17 +140,9 @@ class Records_model extends CI_Model
      */
     public function get_groups()
     {
-        //First query the database table "group"
-        $this->db->select('grpId');
-        $this->db->select('grpName');
-        $this->db->from('group');
+        $this->db->select('grpId, grpName')->from('group');
         $query = $this->db->get();
-        //Then add grpId and grpName as key|value pairs to the array $groups
-        $groups = array();
-        foreach ($query->result_array() as $row) {
-            $groups[$row['grpId']] = $row['grpName'];
-        }
-        return $groups;
+        return $query->result();
     }
 
     public function get_species($name_type, $spp_name, $group_id, $code, $axio)

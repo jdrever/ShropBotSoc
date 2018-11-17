@@ -1,4 +1,4 @@
-<h1>Find for Species</h1>
+<h1>Find Species</h1>
 
 <form action="<?php echo base_url('/records/species/'); ?>" id="species_select_form" name="speciesselectform"
     method="post" accept-charset="utf-8">
@@ -26,9 +26,9 @@
     <div class="form-group">
         <label for="taxonGroup">Choose a species group</label>
         <select name="taxon-group" id="taxonGroup">
-            <?php foreach ($groups as $key => $group):?>
-            <option value="<?=$key?>">
-                <?=$group?>
+            <?php foreach ($groups as $group):?>
+            <option value="<?=$group->grpId?>">
+                <?=$group->grpName?>
             </option>
             <?php endforeach;?>
         </select>
