@@ -1,12 +1,12 @@
 <h1>Find Species</h1>
 
-<form action="<?php echo base_url('/records/species/'); ?>" id="species_select_form" name="speciesselectform"
+<form action="<?php echo base_url('/records/species/'); ?>" id="species-select-form" name="species-select-form"
     method="post" accept-charset="utf-8">
 
     <div class="form-group">
-        <label for="speciesName">Enter all or part of a species name</label>
-        <input type="text" class="form-control" id="speciesName" aria-describedby="speciesNameHelp" placeholder="Enter a species">
-        <small id="speciesNameHelp" class="form-text text-muted">Try something like "Farus".</small>
+        <label for="species-name">Enter all or part of a species name</label>
+        <input type="text" class="form-control" id="species-name" aria-describedby="species-name-help" placeholder="Enter a species">
+        <small id="species-name-help" class="form-text text-muted">Try something like "Farus".</small>
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="allSpeciesCheck">

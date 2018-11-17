@@ -25,13 +25,13 @@
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('/records/species/'); ?>">Species</a>
+          <a class="nav-link" href="<?php echo base_url('/species/'); ?>">Species</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('/records/sites/'); ?>">Sites</a>
+          <a class="nav-link" href="<?php echo base_url('/sites/'); ?>">Sites</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('/records/tetrads/'); ?>">Tetrads</a>
+          <a class="nav-link" href="<?php echo base_url('/tetrads/'); ?>">Tetrads</a>
         </li>
       </ul>
       <ul class="nav navbar-nav ml-auto">
