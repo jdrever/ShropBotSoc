@@ -8,7 +8,11 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
-  <title><?=$title?></title>
+  <!-- Custom styles for this template -->
+  <link href="<?php echo base_url('assets/css/sticky-footer.css'); ?>" rel="stylesheet">
+  <title>
+    <?=$title?>
+  </title>
 </head>
 
 <body>
@@ -37,12 +41,22 @@
       </ul>
     </div>
   </nav>
+  <?php if (isset ($error)):?>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <?=$error?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <?php endif;?>
   <div class="container">
     <?php echo $content; ?>
   </div>
-  <div id="footer">
-    <p>Shropshire</p>
-  </div>
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">Shropshire Botanical Data</span>
+    </div>
+  </footer>
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
