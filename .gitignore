@@ -18,3 +18,8 @@ application/logs/*
 
 #notes
 /application.old/
+/user_guide/
+
+#IDEs
+/.vs
+/nbproject

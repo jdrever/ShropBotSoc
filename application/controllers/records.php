@@ -1,5 +1,5 @@
 <?php
-class Records extends CI_Controller
+class Records extends MY_Controller
 {
 
     /**
@@ -11,7 +11,6 @@ class Records extends CI_Controller
         $this->load->model('shrops_model');
         $this->load->library('table'); //For constructing HTML tables
         $this->load->library('pagination');
-        $this->load->library('parser');
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->helper('map');
@@ -35,13 +34,17 @@ class Records extends CI_Controller
     /**
      * Speices lists
      * https://stackoverflow.com/questions/3675135/codeigniter-best-way-to-structure-partial-views
+     * 
+     * Maybe this for errors
+     * https://itsolutionstuff.com/post/how-to-implement-flash-messages-in-php-codeigniterexample.html
      */
     public function species()
     {
         $data = array('title' => 'Species');
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') // post back
+        $data['groups'] = $this->shrops_model->get_groups();
+        if ($this->isPostBack()) // post back
         {
-            echo "we posting";
+            $data['title'] = $data['title']." - results";
             //Get a list of species - either all species, names based on search string, or
             //names beginning with a specified letter. Send them for display in a table
             $get = $this->uri->uri_to_assoc();
@@ -136,12 +139,12 @@ class Records extends CI_Controller
         }
         else // not a post back
         {
-            $this->parser->parse('records/species', $data);
-            echo "we not posting";
+            $data['title'] = $data['title']." - not postback";
+            $this->load->view('records/species', $data);
         }
 
 
-    } //End of function species()
+    } 
 
 
     /**
