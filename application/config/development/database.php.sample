@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
-| TESTING - DATABASE CONNECTIVITY SETTINGS
+| DEVELOPMENT - DATABASE CONNECTIVITY SETTINGS
 | -------------------------------------------------------------------
 */
 $active_group = 'default';
@@ -11,10 +11,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1:'.$_SERVER["WEBSITE_MYSQL_PORT"],
-	'username' => 'azure',
-	'password' => $_SERVER["WEBSITE_MYSQL_PASSWORD"],
-	'database' => 'localdb',
+	'hostname' => 'my_host',
+	'username' => 'my_username',
+	'password' => 'my_password',
+	'database' => 'my_database',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

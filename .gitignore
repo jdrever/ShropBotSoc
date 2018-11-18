@@ -1,5 +1,5 @@
 #junk
-*/config/development
+*/config/development/*.php
 */logs/log-*.php
 !*/logs/index.html
 */cache/*
