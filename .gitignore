@@ -15,6 +15,7 @@ application/logs/*
 
 #data
 *.db
+*/database/nbn/*
 
 #notes
 /application.old/
