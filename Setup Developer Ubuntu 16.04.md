@@ -33,8 +33,8 @@ Start MySql
 	sudo service mysql start
 	mysql -u root -p
 	mysql> show databases;
-	mysql> CREATE DATABASE ers_school;
-	mysql> USE ers_school;
+	mysql> CREATE DATABASE shropsdb;
+	mysql> USE shropsdb;
 	mysql> source /mnt/c/Users/joejc/Documents/Projects/jjc_www_php_shropshire_botany/application/database/shropsdb.sql
 	mysql> quit;
 	

@@ -64,7 +64,7 @@ Add a symbolic link in the /var/www/html directory
 
 Start the servers
 
-    sudo service apache start
+    sudo service mysql start
     sudo service apache2 start
 
 And visit
