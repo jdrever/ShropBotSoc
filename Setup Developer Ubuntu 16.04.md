@@ -68,7 +68,7 @@ Use nano do to the editing….
 Add a symbolic link in the /var/www/html directory
 
 	cd /var/www/html
-	sudo ln -s /mnt/c/Users/joejc/Documents/Projects/jjc_www_php_shropshire_botany sbtest
+	sudo ln -s /mnt/c/Users/joejc/Documents/Projects/jjc_www_php_captain_blue sbtest
 
 Start Apache and test
 

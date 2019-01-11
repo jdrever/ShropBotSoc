@@ -60,7 +60,7 @@ This is necessary to the rewrite rules in the .htaccess file work.  Of course th
 
 Add a symbolic link in the /var/www/html directory
 
-    sudo ln -s /mnt/c/Users/username/botanical_records /var/www/html/botanical_records
+    sudo ln -s /mnt/c/Users/username/botanical_records /var/www/html/sbtest
 
 Start the servers
 
@@ -69,4 +69,4 @@ Start the servers
 
 And visit
 
-    <http://localhost/botanical_records>
+    <http://localhost/sbtest>
