@@ -1,4 +1,4 @@
-# Setup for Ubuntu 18.04
+# Setup for Ubuntu 18.04 (on Windows Subsystem for Linux)
 
 Assuming...
 
@@ -21,9 +21,9 @@ Create change the security on MySql and create a database
     mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
     mysql> FLUSH PRIVILEGES;
     mysql> show databases;
-    mysql> CREATE DATABASE shropsdb;
-    mysql> USE shropsdb;
-    mysql> source /mnt/c/Users/username/botanical_records/application/database/test_data.sql;
+    mysql> CREATE DATABASE captainblue;
+    mysql> USE captainblue;
+    mysql> source /mnt/c/Users/username/captain-blue/application/database/test_data.sql;
     mysql> quit;
 
 Then run the built in server.
@@ -60,7 +60,7 @@ This is necessary to the rewrite rules in the .htaccess file work.  Of course th
 
 Add a symbolic link in the /var/www/html directory
 
-    sudo ln -s /mnt/c/Users/username/botanical_records /var/www/html/sbtest
+    sudo ln -s /mnt/c/Users/username/botanical_records /var/www/html/captain-blue
 
 Start the servers
 
@@ -69,4 +69,4 @@ Start the servers
 
 And visit
 
-    <http://localhost/sbtest>
+    <http://localhost/captain-blue>

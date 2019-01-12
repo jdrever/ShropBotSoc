@@ -1,6 +1,6 @@
 # This is so the local development works similar to the testing
 RewriteEngine on
-RewriteBase /botanical_records/
+RewriteBase /captain-blue/
 RewriteCond $1 !^(index.php|resources|robots.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
