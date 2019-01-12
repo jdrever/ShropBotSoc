@@ -1,31 +1,7 @@
 # Captain Blue
 
-Botanical records
+Legacy botanical records website uses:
 
-dev branch published to 
-
-<>
-
-Kudu process explorer
-
-<https://captain-blue.scm.azurewebsites.net/>.  60 minutes of computer per day
-
-Deployed from 
-
-Azure Pipelines
-
-PHP 7.2
-
-
-
-CI_ENV = testing
-PHP_INI_SCAN_DIR = d:\home\site\ini
-
-User Id=azure;
-
-Password= secret
-
-MySQL In App
-
-
-WEBSITE_MYSQL_PASSWORD = 
+* PHP 7.2
+* Codeignitor 3.1.9
+* MySql 5.6.24
