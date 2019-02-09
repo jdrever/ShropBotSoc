@@ -5,23 +5,17 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
-
-
 body{
     background: #FFFFFF;
-   
     font-family: arial;
     font-size:100%;
 }
 
 #content-area {
-    
    background-color:#f0f0f0; 
 }
 
 #start_page_error_species{
-   
     margin-left:auto;
     margin-right:auto;
     text-align: center;
@@ -29,12 +23,9 @@ body{
     position:relative;
     top: 10px;
     color: red;
-    
-    
 }
 
 #start_page_error_sites{
-   
     margin-left:auto;
     margin-right:auto;
     text-align: center;
@@ -42,11 +33,9 @@ body{
     position:relative;
     top: 10px;
     color: red;
-    
-    
 }
+
 #start_page_error_tetrads{
-   
     margin-left:auto;
     margin-right:auto;
     text-align: center;
@@ -54,9 +43,8 @@ body{
     position:relative;
     top: 10px;
     color: red;
-    
-    
 }
+
 #species_select_form{
     background-color: #f0f0f0;
     width: 520px;
@@ -150,61 +138,52 @@ float: left;
      float: left; 
      width: 290px;
      margin-bottom: 0px;
-     
 }
 
 .regular-checkbox {
     -webkit-appearance: checkbox;
     background-color: #fafafa;
-    margin-bottom:0px;
-   
-     
+    margin-bottom:0px;  
 } 
+
 #taxon_group_label {
     display: inline-block; 
     width: 200px; 
     float: left; 
-  
-     margin-left: 0px;
-       margin-right: 10px;
- 
-  
+    margin-left: 0px;
+    margin-right: 10px;
 }
 
 #taxongroup {
-     
-      display: block;
-  -webkit-border-radius: 1px;
+    display: block;
+    -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
-     height: 25px;
-     width: 210px;
-     margin-right: 0px;
+    height: 25px;
+    width: 210px;
+    margin-right: 0px;
     margin-left: 0px;
     margin-top:0px;
     margin-bottom: 0px;
-     background-color: #FFFFE0;
-     color: blue;
-     padding: 3px;
-     float: right;
-    
+    background-color: #FFFFE0;
+    color: blue;
+    padding: 3px;
+    float: right;
 }
 
 .regular-checkbox {
     -webkit-appearance: checkbox;
-    background-color: #fafafa;
-  
-    
-    
-}  
+    background-color: #fafafa;  
+}
+
 #axioslabel {
     display: inline-block;
     align:left;
     margin-right:10px;
     margin-left:0px;
 }
+
 #axiosonly {
     display: inline-block;
-    
 }
 
 /*This is to hide the first column in the html table
@@ -231,17 +210,14 @@ h2{
 }
 
 .center {
-
-margin-left:auto;
-margin-right:auto;
-margin-top: 10px;
-margin-bottom: auto;
-width:350px;
-height: 40px;
-
-text-align: center;
-color: blue;
-
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 10px;
+    margin-bottom: auto;
+    width:350px;
+    height: 40px;
+    text-align: center;
+    color: blue;
 }
 
 .menulinks{
@@ -262,13 +238,10 @@ a:visited {text-decoration:none;}
 a:hover {text-decoration:underline;}
 a:active {text-decoration:underline;}
 
-
-
 .center {
     margin-left:auto;
     margin-right:auto;
 }
-
 
 #site_select_form, #tetrad_select_form{
     background-color: #f0f0f0;
@@ -278,10 +251,9 @@ a:active {text-decoration:underline;}
     margin-right:auto;
     border: 1px solid white;
     padding: 10px;
-    
 }
+
 #sites_form_table,#tetrads_form_table{
-    
     width: 100%;
     background-color: #99CCFF;
     border: 1px solid black;
@@ -295,59 +267,45 @@ a:active {text-decoration:underline;}
    color: darkblue;
    font-weight : bold;
    font-size: 1.8em;
- 
 }
 
 #header-img-container{
-    
     position:relative;
     margin-left:auto;
-   margin-right:auto;  
-   background-color:#f0f0f0;
+    margin-right:auto;  
+    background-color:#f0f0f0;
 }
 
 #header-img {
     margin-left:auto;
     margin-right:auto;
     display:block;
-    width:1000px;
-    height:200px;
-
-    
 }
 
 #header-text{
-    
- font-size:30px; 
- font-weight:bold;
- color:blue; 
- 
- margin-right:auto;
- position:absolute;
- margin-top:10px;
- margin-left:300px; 
- 
+    font-size:30px; 
+    font-weight:bold;
+    color:blue; 
+    margin-right:auto;
+    position:absolute;
+    margin-top:10px;
+    margin-left:300px; 
 }
 
-
 #alpha-menu{
-    
    font-size:25px;  
 }
 
 #alpha-menu-sites{
-    
    font-size:25px;  
 }
 
 #pagination{
-
    margin-bottom: 12px; /*Spaces the links away from top of the table of records */
    width : 810px;
    height: 50px;
    color: red;
    font-size:20px;
-
 }
 
 #csvbutton{

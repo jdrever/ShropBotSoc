@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id ="header-img-container">
-            <img  id ="header-img"src ="<?php echo base_url('assets/images/stiperstones.png'); ?>"  >
+            <img  id ="header-img"src ="<?php echo base_url('assets/images/shropshire-botanical-society.png'); ?>"  >
         </div>
         <div class="menulinks"><a href="<?php echo base_url('/'); ?>" title="Shropshire Database Home">Start Page</a></div>
         <?php
