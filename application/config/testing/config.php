@@ -7,4 +7,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |--------------------------------------------------------------------------
 */
 
-$config['base_url'] = 'https://records.shropshirebotany.org';
+$config['base_url'] = 'https://captain-blue.azurewebsites.net';
