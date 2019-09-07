@@ -1,0 +1,20 @@
+#junk
+*/config/development/*.php
+*/logs/log-*.php
+!*/logs/index.html
+*/cache/*
+!*/cache/index.html
+!*/cache/.htaccess
+
+#codeigniter 3
+application/logs/*
+!application/logs/index.html
+!application/logs/.htaccess
+/vendor/
+/user_guide/
+
+#data
+*.db
+
+#notes
+/application.old/
