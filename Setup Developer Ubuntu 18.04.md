@@ -26,6 +26,13 @@ Create change the security on MySql and create a database
     mysql> source /mnt/c/Users/username/captain-blue/application/database/test_data.sql;
     mysql> quit;
 
+Edit the configuration file `application\config\development\database.php` to include these lines so the database connects.
+
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'password',
+	'database' => 'captainblue',
+
 Then run the built in server.
 
     php -S localhost:8080 -c debug.ini
