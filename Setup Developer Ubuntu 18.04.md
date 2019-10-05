@@ -38,7 +38,7 @@ Use nano do to the editing….
 
 	sudo nano /etc/apache2/apache2.conf
 
-...and add this to the apache2.conf so symbolic links to your Projects directory with work.
+...and add this to the apache2.conf so symbolic links to your Projects directory will work.
 
     <Directory /mnt/c/Users/Username/Projects/>
             Options Indexes FollowSymLinks
@@ -54,13 +54,13 @@ Use nano do to the editing….
             Require all granted
     </Directory>
 
-This is necessary to the rewrite rules in the .htaccess file work.  Of course the rewrite needs to be enabled as well.
+This is necessary for the rewrite rules in the `.htaccess` file work.  Of course the rewrite needs to be enabled as well.
 
     sudo a2enmod rewrite
 
-Add a symbolic link in the /var/www/html directory
+Add a symbolic link in the `/var/www/html` directory
 
-    sudo ln -s /mnt/c/Users/username/botanical_records /var/www/html/captain-blue
+    sudo ln -s /mnt/c/Users/username/captain-blue /var/www/html/captain-blue
 
 Start the servers
 
@@ -133,9 +133,12 @@ And visit
 
     sudo nano /etc/php/7.2/apache2/php.ini
 
-And add this to the bottom.
+    And add this to the bottom.
 
     [XDebug]
     xdebug.remote_enable = 1
     xdebug.remote_autostart = 1
 
+9. Then restart Apache
+
+    sudo service apache2 restart
