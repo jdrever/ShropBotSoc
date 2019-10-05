@@ -47,7 +47,7 @@ class Species extends MY_Controller
         }
         else // not a post back
         {
-            // so don't do anything but show the form.
+            $this->data['taxa'] = $this->records_model->getTaxa();
         };
         $this->load->view('species/search', $this->data);
     }

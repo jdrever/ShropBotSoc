@@ -30,3 +30,10 @@
     <button type="submit" class="btn btn-primary">List Species</button>
 </form>
 
+<?php if (isset($taxa)):?>
+    <table>
+        <?php foreach ($taxa as $taxon):?>
+        <tr><td><?=$taxon->label?></td></td>
+        <?php endforeach;?>
+    </table>
+<?php endif ?>
