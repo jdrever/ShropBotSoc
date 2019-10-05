@@ -69,6 +69,12 @@ Add a symbolic link in the `/var/www/html` directory
 
     sudo ln -s /mnt/c/Users/username/captain-blue /var/www/html/captain-blue
 
+Make sure the cache is writable
+
+    sudo umount /mnt/c
+    sudo mount -t drvfs C: /mnt/c -o metadata
+    sudo chmod -R 777 ./application/cache
+
 Start the servers
 
     sudo service mysql start

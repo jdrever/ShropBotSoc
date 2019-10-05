@@ -17,15 +17,15 @@
         <label class="form-check-label" for="common-names-check">Search common names</label>
     </div>
     <div class="form-group">
+        <label for="taxon-group">Species group</label>
         <select name="taxon-group" id="taxon-group">
-            <?php isset($groupSelected) ? : $groupSelected = 0 ?>
+            <?php isset($groupSelected) ? : $groupSelected = $groups[0]->name ?>
             <?php foreach ($groups as $group):?>
-            <option value="<?=$group->grpId?>" <?=($groupSelected == $group->grpId ? 'selected' : '')?>>
-                <?=$group->grpName?> 
+            <option <?=($groupSelected == $group->name ? 'selected' : '')?>>
+                <?=$group->name?> 
             </option>
             <?php endforeach;?>
         </select>
-        <label for="taxon-group">Species group</label>
     </div>
     <button type="submit" class="btn btn-primary">List Species</button>
 </form>

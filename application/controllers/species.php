@@ -29,7 +29,7 @@ class Species extends MY_Controller
      */
     public function index()
     {
-        $this->data['groups'] = $this->records_model->get_groups();
+        $this->data['groups'] = $this->records_model->getGroups();
         if ($this->isPostBack()) // post back
         {
             $this->data['title'] = $this->data['title']." - results";
@@ -58,6 +58,8 @@ class Species extends MY_Controller
      */
     public function search($speciesName, $axiophytesOnlyCheck, $commonNamesCheck)
     {
+
+
         if (isset($speciesName))
         //This script is accessed from one of the alphabetic links
         {
