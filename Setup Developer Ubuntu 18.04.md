@@ -45,7 +45,7 @@ Use nano do to the editing….
 
 	sudo nano /etc/apache2/apache2.conf
 
-...and add this to the apache2.conf so symbolic links to your Projects directory with work.
+...and add this to the apache2.conf so symbolic links to your Projects directory will work.
 
     <Directory /mnt/c/Users/Username/Projects/>
             Options Indexes FollowSymLinks
@@ -61,13 +61,13 @@ Use nano do to the editing….
             Require all granted
     </Directory>
 
-This is necessary to the rewrite rules in the .htaccess file work.  Of course the rewrite needs to be enabled as well.
+This is necessary for the rewrite rules in the `.htaccess` file work.  Of course the rewrite needs to be enabled as well.
 
     sudo a2enmod rewrite
 
-Add a symbolic link in the /var/www/html directory
+Add a symbolic link in the `/var/www/html` directory
 
-    sudo ln -s /mnt/c/Users/username/botanical_records /var/www/html/captain-blue
+    sudo ln -s /mnt/c/Users/username/captain-blue /var/www/html/captain-blue
 
 Start the servers
 
@@ -77,3 +77,75 @@ Start the servers
 And visit
 
     <http://localhost/captain-blue>
+
+## Debugging with VSCode
+
+1. Install vscode https://code.visualstudio.com/.
+2. Add the PHP debug extension https://github.com/felixfbecker/vscode-php-debug
+3. Add the PHP formatter extension https://github.com/kokororin/vscode-phpfmt 
+4. Add this launch.json to the .vscode directory
+
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Listen for XDebug",
+                "type": "php",
+                "request": "launch",
+                "port": 9000,
+                // server -> local
+                "pathMappings": {
+                    "/mnt/c/": "c:/",
+                }
+            }
+        ]
+    }
+
+5. And add this to the workplace settings.json
+
+    {
+        "php.validate.executablePath": "C:\\Users\\joejc\\php.cmd",
+        "phpfmt.cakephp": true,
+        "phpfmt.php_bin": "C:\\Users\\joejc\\php.cmd"
+    }
+
+6.	Put this php.cmd some place handy so it can be used to access PHP no the WSL from Windows and vscode.
+
+    @echo OFF
+    setlocal ENABLEDELAYEDEXPANSION
+
+    :: Collect the arguments and replace:
+    :: '\' with '/'
+    :: 'c:' with 'mnt/c'
+    :: The original version replace '"' with '\"' but I found that
+    :: clashed with the PHP Formatter which was passing in a PHP 
+    :: command and expecting a response.
+    set v_params=%*
+    set v_params=%v_params:\=/%
+    set v_params=%v_params:C:=/mnt/c%
+    set v_params=%v_params%
+    :: set v_params=%v_params:"=\"%
+
+    :: Call the windows-php inside WSL.
+    :: windows-php is just a script which passes the arguments onto
+    :: the original php executable and converts its output from UNIX
+    :: syntax to Windows syntax.
+    C:\Windows\System32\wsl.exe php %v_params%
+
+7. Install Xdebug
+
+    sudo apt-get install php-xdebug
+
+8. Open the php.ini
+
+    sudo nano /etc/php/7.2/apache2/php.ini
+
+    And add this to the bottom.
+
+    [XDebug]
+    xdebug.remote_enable = 1
+    xdebug.remote_autostart = 1
+
+9. Then restart Apache
+
+    sudo service apache2 restart

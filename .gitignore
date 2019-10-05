@@ -15,6 +15,12 @@ application/logs/*
 
 #data
 *.db
+*/database/nbn/*
 
 #notes
 /application.old/
+/user_guide/
+
+#IDEs
+/.vs
+/nbproject
