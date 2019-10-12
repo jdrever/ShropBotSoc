@@ -43,11 +43,11 @@ class Species extends MY_Controller
             $groupSelected = $this->input->post('taxon-group'); 
             $this->data['groupSelected'] = $groupSelected;
             // Search for the species
-            // $this->search($speciesName, $axiophytesOnlyCheck, $commonNamesCheck);
+            $this->data['taxa'] = $this->nbn_model->getTaxa($speciesName, $groupSelected);
         }
-        else // not a post back
+        else // not a post back but the first viewing
         {
-            $this->data['taxa'] = $this->nbn_model->getTaxa();
+            $this->data['taxa'] = $this->nbn_model->getTaxa('A', 'ALL_SPECIES');
         };
         $this->load->view('species/search', $this->data);
     }

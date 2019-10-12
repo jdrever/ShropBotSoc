@@ -33,13 +33,19 @@ Edit the configuration file `application\config\development\database.php` to inc
 	'password' => 'password',
 	'database' => 'captainblue',
 
+Configure WSL so the caching works (otherwise you get a `PHP chmod(): Operation not permitted` error).  Create and open 
+`/etc/wsl.conf` and add the following:
+
+    [automount]
+    options = "metadata"
+
 Then run the built in server.
 
-    php -S localhost:8080 -c debug.ini
+    sudo php -S localhost:8080 -c debug.ini
 
 This server tends to crash with ImageCreateFromPNG() in PHP, so it might be as well to use Apache.
 
-## Running on Apache
+## Running on Apache because ImageCreateFromPNG() crashes
 
 Use nano do to the editing….
 
@@ -142,7 +148,7 @@ And visit
 
     sudo apt-get install php-xdebug
 
-8. Open the php.ini
+8. If you are using Apache open the php.ini
 
     sudo nano /etc/php/7.2/apache2/php.ini
 

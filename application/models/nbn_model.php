@@ -2,6 +2,9 @@
 
 class Nbn_model extends CI_Model
 {
+    private const NBN_URL = 'https://records-ws.nbnatlas.org/';
+    private const FACET_PARAMETERS = '&sort=taxon_name&fsort=index&pageSize=12';
+
     public function __construct()
     {
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
@@ -15,7 +18,7 @@ class Nbn_model extends CI_Model
         $cache_name = 'get_groups';
         if ( ! $get_groups = $this->cache->get($cache_name))
         {
-            $groups_url = "https://records-ws.nbnatlas.org/explore/groups?q=data_resource_uid:dr782";
+            $groups_url = self::NBN_URL."explore/groups?q=data_resource_uid:dr782";
             $groups_json = file_get_contents($groups_url);
             $get_groups = json_decode($groups_json);
             $this->cache->save($cache_name, $get_groups, CACHE_TIME);
@@ -24,20 +27,26 @@ class Nbn_model extends CI_Model
     }
 
     /**
-     * Just getting the A records as a demonstration
+     * Just getting the records as a demonstration, not sure whether to use
+     * the `occurrence` or the `explore` API.  I will use `explore` for the 
+     * since it has a means of separating the groups.
      * 
      * https://records-ws.nbnatlas.org/occurrence/facets?facets=taxon_name&q=data_resource_uid:dr782+AND+taxon_name:A*
+     * 
+     * https://records-ws.nbnatlas.org/explore/group/Birds?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
+     * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
      */
-    public function getTaxa()
+    public function getTaxa($taxon_name, $group_name)
     {
-        $cache_name = 'get_taxa';
+        $taxon_name = ucfirst($taxon_name); //because the API respects the case
+        $cache_name = "get-taxa-$group_name-$taxon_name";
         if ( ! $get_taxa = $this->cache->get($cache_name))
         {
-            $taxa_url = "https://records-ws.nbnatlas.org/occurrence/facets?facets=taxon_name&q=data_resource_uid:dr782+AND+taxon_name:A*&sort=taxon_name&fsort=index";
+            $taxa_url = self::NBN_URL."explore/group/$group_name?fq=data_resource_uid:dr782+AND+taxon_name:$taxon_name*".self::FACET_PARAMETERS;
             $taxa_json = file_get_contents($taxa_url);
             $get_taxa = json_decode($taxa_json);
             $this->cache->save($cache_name, $get_taxa, CACHE_TIME);
         }
-        return $get_taxa[0]->fieldResult;
+        return $get_taxa;
     }
 }
