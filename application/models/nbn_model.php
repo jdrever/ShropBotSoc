@@ -74,7 +74,7 @@ class Nbn_model extends CI_Model
             usort($get_records, function ($a, $b) {
                 return $b->year <=> $a->year;
             });
-            $this->cache->save($cache_name, $get_records, CACHE_TIME);
+            //$this->cache->save($cache_name, $get_records, CACHE_TIME);
        // }
         return $get_records;
     }
