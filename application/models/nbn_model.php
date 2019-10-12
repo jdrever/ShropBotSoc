@@ -10,6 +10,10 @@ class Nbn_model extends CI_Model
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
     }
 
+    private function IsNullOrEmptyString($str){
+        return (!isset($str) || trim($str) === '');
+    }
+
    /**
      * Get the list of groups for SEDN from the NBN and cache them.
      */
@@ -38,6 +42,8 @@ class Nbn_model extends CI_Model
      */
     public function getTaxa($taxon_search_string, $group_name)
     {
+        // So the cache files look neater
+        if ($this->IsNullOrEmptyString($taxon_search_string)) $taxon_search_string = "A"; 
         $taxon_search_string = ucfirst($taxon_search_string); //because the API respects the case
         $cache_name = "get-taxa-$group_name-$taxon_search_string";
         if ( ! $get_taxa = $this->cache->get($cache_name))
@@ -55,11 +61,10 @@ class Nbn_model extends CI_Model
      * 
      * Not sure what to make of the NBN API, I find it confusing but I'll use this URL.
      * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=12
-     * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba
      */
     public function getRecords($taxon_name)
     {
-        // Encoding needs to be different on Azure...not sure why.
+        // Encoding needs to be different on Azure otherwise the API returns nothing...not sure why.
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') $taxon_name = rawurlencode($taxon_name);
         $cache_name = urldecode($taxon_name);
         $cache_name = str_replace(' ', '-', $cache_name);
@@ -77,7 +82,6 @@ class Nbn_model extends CI_Model
         }
         return $get_records;
     }
-
 
 
 }

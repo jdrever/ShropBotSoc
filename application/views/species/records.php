@@ -7,7 +7,7 @@
         <?php foreach ($records as $record):?>
         <tr>
             <td>?</td>
-            <td><a href="http://www.google.com/maps/place/<?=$record->decimalLatitude?>,<?=$record->decimalLongitude?>">Google Map</a></td>
+            <td><a target="_blank" href="http://www.google.com/maps/place/<?=$record->decimalLatitude?>,<?=$record->decimalLongitude?>">Google Map</a></td>
             <td><?=$record->collector?></td>
             <td><?=$record->year?></td>
         </tr>
