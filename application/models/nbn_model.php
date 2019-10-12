@@ -15,7 +15,7 @@ class Nbn_model extends CI_Model
      */
     public function getGroups()
     {
-        $cache_name = 'get_groups';
+        $cache_name = 'get-groups';
         if ( ! $get_groups = $this->cache->get($cache_name))
         {
             $groups_url = self::NBN_URL."explore/groups?q=data_resource_uid:dr782";
