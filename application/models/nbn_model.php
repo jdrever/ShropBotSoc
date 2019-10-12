@@ -57,13 +57,15 @@ class Nbn_model extends CI_Model
      * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=12
      * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba
      * 
-     * TODO: This doesn't seem to work correctly, the `json_decode` appears not to decode
-     * the entirety of the json returned, so the things like the `collectors` are missing.  
-     * I am not sure if it is matter of depth or some fixed limit in the PHP `json_decode`. 
+     * TODO: When deployed to Azure (Windows) the cache ends up empty (which is
+     * odd) but it means nothing gets returned in the records list.
      */
     public function getRecords($taxon_name)
     {
-        $cache_name = "get-records-$taxon_name";
+        $cache_name = urldecode($taxon_name);
+        $cache_name = str_replace(' ', '-', $cache_name);
+        $cache_name = strtolower($cache_name);
+        $cache_name = "get-records-$cache_name";
         if ( ! $get_records = $this->cache->get($cache_name))
         {
             $records_url = self::NBN_URL."occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:$taxon_name".self::FACET_PARAMETERS;
