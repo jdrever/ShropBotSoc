@@ -1,7 +1,5 @@
 <h2><?=urldecode($speciesName)?></h2>
 
-<?= $records ?>
-
 <?php if (isset($records)):?>
     <table class="table">
         <thead><tr><th>Site</th><th>Location</th><th>Collector</th><th>Year</th></tr></thead>

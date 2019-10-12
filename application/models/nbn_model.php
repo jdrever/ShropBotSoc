@@ -56,13 +56,11 @@ class Nbn_model extends CI_Model
      * Not sure what to make of the NBN API, I find it confusing but I'll use this URL.
      * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=12
      * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba
-     * 
-     * TODO: When deployed to Azure (Windows) the cache ends up empty (which is
-     * odd) but it means nothing gets returned in the records list.
      */
     public function getRecords($taxon_name)
     {
-        /*
+        // Encoding needs to be different on Azure...not sure why.
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') $taxon_name = rawurlencode($taxon_name);
         $cache_name = urldecode($taxon_name);
         $cache_name = str_replace(' ', '-', $cache_name);
         $cache_name = strtolower($cache_name);
@@ -77,10 +75,6 @@ class Nbn_model extends CI_Model
             });
             $this->cache->save($cache_name, $get_records, CACHE_TIME);
         }
-        */
-        $records_url = "https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=12";
-        $records_json = file_get_contents($records_url);
-        $get_records = json_decode($records_json)->occurrences;
         return $get_records;
     }
 
