@@ -1,5 +1,7 @@
 <h2><?=urldecode($speciesName)?></h2>
 
+<?=json_encode($records, JSON_PRETTY_PRINT);?>
+
 <?php if (isset($records)):?>
     <table class="table">
         <thead><tr><th>Site</th><th>Location</th><th>Collector</th><th>Year</th></tr></thead>
