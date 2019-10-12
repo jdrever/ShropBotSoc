@@ -1,6 +1,6 @@
 <h2><?=urldecode($speciesName)?></h2>
 
-<?=json_encode($records, JSON_PRETTY_PRINT);?>
+<?= $records ?>
 
 <?php if (isset($records)):?>
     <table class="table">
@@ -17,3 +17,5 @@
         </tbody>
     </table>
 <?php endif ?>
+
+
