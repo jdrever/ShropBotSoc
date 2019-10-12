@@ -4,9 +4,10 @@
     <table class="table">
         <thead><tr><th>Site</th><th>Location</th><th>Collector</th><th>Year</th></tr></thead>
         <tbody>
-        <?php foreach ($records->occurrences as $record):?>
+        <?php foreach ($records as $record):?>
         <tr>
-            <td>?</td><td><?=$record->decimalLatitude?>, <?=$record->decimalLongitude?></td>
+            <td>?</td>
+            <td><a href="http://www.google.com/maps/place/<?=$record->decimalLatitude?>,<?=$record->decimalLongitude?>">Google Map</a></td>
             <td><?=$record->collector?></td>
             <td><?=$record->year?></td>
         </tr>

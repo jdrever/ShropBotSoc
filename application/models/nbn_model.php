@@ -66,13 +66,19 @@ class Nbn_model extends CI_Model
         $cache_name = str_replace(' ', '-', $cache_name);
         $cache_name = strtolower($cache_name);
         $cache_name = "get-records-$cache_name";
-        if ( ! $get_records = $this->cache->get($cache_name))
-        {
+       // if ( ! $get_records = $this->cache->get($cache_name))
+       // {
             $records_url = self::NBN_URL."occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:$taxon_name".self::FACET_PARAMETERS;
             $records_json = file_get_contents($records_url);
-            $get_records = json_decode($records_json);
+            $get_records = json_decode($records_json)->occurrences;
+            usort($get_records, function ($a, $b) {
+                return $b->year <=> $a->year;
+            });
             $this->cache->save($cache_name, $get_records, CACHE_TIME);
-        }
+       // }
         return $get_records;
     }
+
+
+
 }
