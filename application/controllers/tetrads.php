@@ -8,7 +8,7 @@ class Tetrads extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('records_model');
+        $this->load->model('nbn_model');
         $this->load->library('table'); // for constructing HTML tables
         $this->load->library('pagination');
         $this->load->helper('url');

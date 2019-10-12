@@ -1,6 +1,6 @@
 <?php
 
-class Records_model extends CI_Model
+class Nbn_model extends CI_Model
 {
     public function __construct()
     {

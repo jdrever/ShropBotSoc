@@ -10,7 +10,7 @@ class Species extends MY_Controller
     {
         parent::__construct();
         $this->load->model('shrops_model');
-        $this->load->model('records_model');
+        $this->load->model('nbn_model');
         $this->load->library('table'); // for constructing HTML tables
         $this->load->library('pagination');
         $this->load->helper('url');
@@ -29,7 +29,7 @@ class Species extends MY_Controller
      */
     public function index()
     {
-        $this->data['groups'] = $this->records_model->getGroups();
+        $this->data['groups'] = $this->nbn_model->getGroups();
         if ($this->isPostBack()) // post back
         {
             $this->data['title'] = $this->data['title']." - results";
@@ -47,7 +47,7 @@ class Species extends MY_Controller
         }
         else // not a post back
         {
-            $this->data['taxa'] = $this->records_model->getTaxa();
+            $this->data['taxa'] = $this->nbn_model->getTaxa();
         };
         $this->load->view('species/search', $this->data);
     }
