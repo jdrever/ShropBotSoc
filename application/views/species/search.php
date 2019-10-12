@@ -16,14 +16,16 @@
         <input type="checkbox" class="form-check-input" name="common-names-check" id="common-names-check" <?=(isset($commonNamesCheck)) ? 'checked="checked"' : '' ?>">
         <label class="form-check-label" for="common-names-check">Search common names</label>
     </div>
-    <div class="form-group">
-        <label for="taxon-group">Species group</label>
+    <div class="form-check form-check-inline">
+        <label for="taxon-group">Group</label>
         <select name="taxon-group" id="taxon-group">
             <?php isset($groupSelected) ? : $groupSelected = $groups[0]->name ?>
             <?php foreach ($groups as $group):?>
-            <option <?=($groupSelected == $group->name ? 'selected' : '')?>>
-                <?=$group->name?> 
-            </option>
+                <?php if ($group->count > 0):?>
+                <option <?=($groupSelected == $group->name ? 'selected' : '')?>>
+                    <?=$group->name?> 
+                </option>
+                <?php endif ?>
             <?php endforeach;?>
         </select>
     </div>
