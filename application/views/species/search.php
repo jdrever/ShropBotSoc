@@ -6,7 +6,7 @@
         <label for="species-name">Enter all or part of a species name</label>
         <input type="text" class="form-control" name="species-name" id="species-name" 
             aria-describedby="species-name-help" placeholder="Enter a species" value="<?=(isset($speciesName)) ? $speciesName : '' ?>">
-        <small id="species-name-help" class="form-text text-muted">Try something like "Farus".</small>
+        <small id="species-name-help" class="form-text text-muted">Try something like "Hedera".</small>
     </div>
     <div class="form-check form-check-inline">
         <input type="checkbox" class="form-check-input" name="axiophytes-only-check" id="axiophytes-only-check" <?=(isset($axiophytesOnlyCheck)) ? 'checked="checked"' : '' ?>">
