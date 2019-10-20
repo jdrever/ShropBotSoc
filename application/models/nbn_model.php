@@ -61,6 +61,8 @@ class Nbn_model extends CI_Model
      * 
      * Not sure what to make of the NBN API, I find it confusing but I'll use this URL.
      * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=12
+     * 
+     * The taxon needs to be in double quotes so the complete string is searched for rather than a partial.
      */
     public function getRecords($taxon_name)
     {
@@ -72,7 +74,7 @@ class Nbn_model extends CI_Model
         $cache_name = "get-records-$cache_name";
         if ( ! $get_records = $this->cache->get($cache_name))
         {
-            $records_url = self::NBN_URL."occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:$taxon_name".self::FACET_PARAMETERS;
+            $records_url = self::NBN_URL."occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:\"$taxon_name\"".self::FACET_PARAMETERS;
             $records_json = file_get_contents($records_url);
             $get_records = json_decode($records_json)->occurrences;
             usort($get_records, function ($a, $b) {
