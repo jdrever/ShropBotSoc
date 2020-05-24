@@ -1,0 +1,6 @@
+runtime: php73
+
+handlers:
+# https://cloud.google.com/appengine/docs/standard/php7/config/appref#handlers_element
+- url: /public/.*
+  script: auto

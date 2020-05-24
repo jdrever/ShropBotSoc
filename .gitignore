@@ -1,26 +1,23 @@
-#junk
-*/config/development/*.php
-*/logs/log-*.php
-!*/logs/index.html
-*/cache/*
-!*/cache/index.html
-!*/cache/.htaccess
+# PHP
+/src/vendor/
+.phpunit.result.cache
 
-#codeigniter 3
-application/logs/*
-!application/logs/index.html
-!application/logs/.htaccess
-/vendor/
-/user_guide/
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
 
-#data
-*.db
-*/database/nbn/*
+# Caches
+/.vagrant
 
-#notes
-/application.old/
-/user_guide/
+# Secrets
+storage/*.key
+.env
+shit.*
+captain-magenta*.json
+secret.*
+/secrets
+/shit*
 
-#IDEs
-/.vs
-/nbproject
+# Miscellanseous
+docs/spreadsheet_wishlist.xlsx
