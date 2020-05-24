@@ -68,7 +68,8 @@ switch (ENVIRONMENT)
 	case 'development':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
-	break;
+		define("CACHE_TIME", "60"); // 1 minute in seconds
+		break;
 
 	case 'testing':
 
@@ -82,7 +83,8 @@ switch (ENVIRONMENT)
 		{
 			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
 		}
-	break;
+		define("CACHE_TIME", "1296000"); // 15 days in seconds
+		break;
 
 	default:
 		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);

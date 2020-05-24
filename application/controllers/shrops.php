@@ -2,6 +2,9 @@
 class Shrops extends CI_Controller
 {
 
+    /**
+     * 
+     */
     public function __construct()
     {
         parent::__construct();
@@ -10,8 +13,8 @@ class Shrops extends CI_Controller
         $this->load->library('pagination');
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->helper('adh_map_functions');
-        $this->load->helper('adhfunctions');
+        $this->load->helper('map');
+        $this->load->helper('table');
         $this->load->dbutil();
         $this->load->helper('file');
         $this->load->helper('download');
