@@ -1,6 +1,7 @@
 # PHP
 /src/vendor/
 .phpunit.result.cache
+/src/writable
 
 # Node
 node_modules/

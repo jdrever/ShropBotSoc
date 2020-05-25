@@ -39,8 +39,17 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
-		// E.g.:
-		// $this->session = \Config\Services::session();
+		$this->nbnModel = model('App\Models\NbnModel', false);
 	}
+
+    /**
+     * Determine if this is a post back so you can do that isPostBack thing
+     * like they do in ASP and ASP.NET.  Strange that you don't really see
+     * it elsewhere but there you go.
+     */
+    public function isPostBack()
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }
 
 }
