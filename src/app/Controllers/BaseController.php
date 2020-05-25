@@ -1,5 +1,4 @@
-<?php
-namespace App\Controllers;
+<?php namespace App\Controllers;
 
 /**
  * Class BaseController
@@ -44,8 +43,7 @@ class BaseController extends Controller
 
     /**
      * Determine if this is a post back so you can do that isPostBack thing
-     * like they do in ASP and ASP.NET.  Strange that you don't really see
-     * it elsewhere but there you go.
+     * like they do in ASP and ASP.NET.
      */
     public function isPostBack()
     {
