@@ -1,0 +1,19 @@
+theme: jekyll-theme-slate
+timezone: GMT
+
+# Permalinks
+permalink: pretty
+
+# Conversion
+markdown:         kramdown
+highlighter:      rouge
+
+# Markdown Processor
+kramdown:
+  auto_ids: true
+  input: GFM
+  hard_wrap: false
+
+plugins:
+   - jekyll-paginate
+   - jekyll-sitemap
