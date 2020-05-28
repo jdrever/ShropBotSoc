@@ -12,6 +12,9 @@
             "pathMappings": {
                 "/var/www/html": "${workspaceFolder}/src"
             },
+            "ignore": [
+                "**/vendor/**/*.php"
+            ],
             "xdebugSettings": {
                 "max_data": 65535,
                 "show_hidden": 1,
