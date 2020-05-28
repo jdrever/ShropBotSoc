@@ -29,5 +29,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # For some strange reason the ARG needs to be defined, go figure.
 ARG GIT_PERSONAL_ACCESS_TOKEN 
 RUN composer config -g github-oauth.github.Composer $GIT_PERSONAL_ACCESS_TOKEN
-RUN composer install --prefer-dist # This is lost be because the volume is lost.
-# try CMD bash -c "composer install --prefer-dist"
+# RUN composer install --prefer-dist # This is lost be because the volume is lost.
+# CMD bash -c "composer install --prefer-dist"
+COPY docker-entrypoint.sh /usr/local/bin/dockerInit
+RUN chmod +x /usr/local/bin/dockerInit
+RUN dockerInit
