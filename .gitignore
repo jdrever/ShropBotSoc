@@ -20,5 +20,8 @@ secret.*
 /secrets
 /shit*
 
-# Miscellanseous
-docs/spreadsheet_wishlist.xlsx
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata

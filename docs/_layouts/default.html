@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% if page.title %}{{ page.title }} |{% endif %} {{ site.theme_settings.title }}</title>
+</head>
+
+<body>
+    <div class="content">
+        {{ site.theme_settings.title }}
+        {{ content }}
+    </div>
+</body>
+
+</html>

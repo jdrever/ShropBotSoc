@@ -1,19 +1,29 @@
-theme: jekyll-theme-slate
-timezone: GMT
+# SITE CONFIGURATION
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "0.0.0.0" # the base hostname & protocol for your site
 
-# Permalinks
-permalink: pretty
+# THEME-SPECIFIC CONFIGURATION
+theme_settings:
+  # Meta
+  title: Captain Magenta
 
-# Conversion
-markdown:         kramdown
-highlighter:      rouge
+  # Header and footer text
+  header_text: >
+     <h1>Captain Magenta.</h1>
 
-# Markdown Processor
-kramdown:
-  auto_ids: true
-  input: GFM
-  hard_wrap: false
+# PAGINATION
+paginate: 5
+paginate_path: "blog/page:num"
 
-plugins:
-   - jekyll-paginate
-   - jekyll-sitemap
+# COLLECTIONS
+collections:
+  portfolio:
+    output: true
+
+# BUILD SETTINGS
+markdown: kramdown
+sass:
+  sass_dir: _sass
+  style: :compressed
+
+gems: [jekyll-paginate]

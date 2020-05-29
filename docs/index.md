@@ -1,3 +1,6 @@
+---
+layout: default
+---
 # Test
 
 Historically on PHP
@@ -14,6 +17,7 @@ broad availability of experience,
 volunteer experience.
 
 Version 7.3 is the best GAE has to offer.
+
 
 
 
