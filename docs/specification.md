@@ -3,5 +3,5 @@ layout: default
 ---
 # Specification
 
-![My helpful screenshot](/wireframes/sites.png)
+![Screen One]({{ site.baseurl }}/wireframes/sites.png)
 

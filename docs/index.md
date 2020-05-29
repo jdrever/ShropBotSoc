@@ -6,9 +6,9 @@ layout: default
 Historically on PHP
 
 
-* [Specification]({{ site.baseurl }}/specification/)
-* [Development]({{ site.baseurl }}/development/)
-* [Production]({{ site.baseurl }}/production/)
+* [Specification]({{ site.baseurl }}/specification.html)
+* [Development]({{ site.baseurl }}/development.html)
+* [Production]({{ site.baseurl }}/production.html)
 
 
 PHP for availability of developers,
