@@ -1,5 +1,5 @@
 # SITE CONFIGURATION
-baseurl: "" # the subpath of your site, e.g. /blog/
+baseurl: "/captain-magenta" # the sub path of your site, e.g. /blog/
 url: "0.0.0.0" # the base hostname & protocol for your site
 
 # THEME-SPECIFIC CONFIGURATION
@@ -9,7 +9,7 @@ theme_settings:
 
   # Header and footer text
   header_text: >
-     <h1>Captain Magenta.</h1>
+     <h1>Captain Magenta title</h1>
 
 # PAGINATION
 paginate: 5

@@ -3,11 +3,12 @@
 
 <head>
     <title>{% if page.title %}{{ page.title }} |{% endif %} {{ site.theme_settings.title }}</title>
+    <link rel="shortcut icon" type="image/png" href="{{ "/favicon.png" | prepend: site.baseurl }}">
 </head>
 
 <body>
     <div class="content">
-        {{ site.theme_settings.title }}
+        {{ site.theme_settings.header_text}}
         {{ content }}
     </div>
 </body>
