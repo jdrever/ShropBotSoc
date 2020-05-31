@@ -2,5 +2,12 @@ runtime: php73
 
 handlers:
 # https://cloud.google.com/appengine/docs/standard/php7/config/appref#handlers_element
+
+- url: /css
+  static_dir: /public/css
+
+- url: /images
+  static_dir: /public/images
+
 - url: /public/.*
   script: auto
