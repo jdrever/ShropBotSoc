@@ -13,12 +13,13 @@ yarn-error.log
 
 # Secrets
 storage/*.key
-.env
 shit.*
 captain-magenta*.json
 secret.*
 /secrets
 /shit*
+/.env
+/src/.env
 
 # Jekyll
 _site/
