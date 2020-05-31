@@ -6,8 +6,9 @@ handlers:
 - url: /css
   static_dir: public/css
 
-- url: /images/(.*) 
-  static_dir: public/images/\1
+- url: /images
+  static_dir: public/images
 
 - url: /public/.*
   script: auto
+  redirect_http_response_code: 301
