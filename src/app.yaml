@@ -4,10 +4,10 @@ handlers:
 # https://cloud.google.com/appengine/docs/standard/php7/config/appref#handlers_element
 
 - url: /css
-  static_dir: /public/css
+  static_dir: public/css
 
-- url: /images
-  static_dir: /public/images
+- url: /images/(.*) 
+  static_dir: public/images/\1
 
 - url: /public/.*
   script: auto
