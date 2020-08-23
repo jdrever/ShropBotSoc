@@ -3,11 +3,6 @@
 .phpunit.result.cache
 /src/writable
 
-# Node
-node_modules/
-npm-debug.log
-yarn-error.log
-
 # Caches
 /.vagrant
 
@@ -26,3 +21,16 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
+
+# LaTeX and BibTeX temporary files
+*.aux
+*.log
+*.toc
+*.fdb_latexmk
+*.synctex.gz
+*.snm
+*.vrb
+*.nav
+*.out
+*.bbl
+*.blg
