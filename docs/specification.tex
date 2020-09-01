@@ -52,6 +52,7 @@ Web application Specification}
 
 \clearpage
 \begin{multicols*}{2}
+  \setcounter{tocdepth}{3}
   \tableofcontents
 \end{multicols*}
 \clearpage
@@ -68,8 +69,8 @@ Web application Specification}
   Since 2003 the Society has made these records freely available online via a bespoke web application
   or Online Flora.
   This original Online Flora was written using
-  PHP and \href{https://codeigniter.com/}{CodeIgniter Web Framework}
-  backed by MySql database.
+  PHP and the CodeIgniter Web Framework
+  backed by a MySql database.
   The web application is still available at 
   \href{https://captain-blue.azurewebsites.net/}{captain-blue.azurewebsites.net}
   but unfortunately the data is now many years out of date.
@@ -136,6 +137,13 @@ Web application Specification}
   \href{https://www.shropshirebotany.org.uk/}{www.shropshirebotany.org.uk}.
   The majority of visitors to the site
   use Google Chrome on a Windows platform.
+
+  \section{NBN Data}
+  The Society's records exist within
+  the \href{https://registry.nbnatlas.org/public/show/dp120}{Shropshire Ecological Data Network records}.
+  This dataset includes records from other recording groups in Shropshire.
+
+  
 \end{multicols*}
 
 \begin{multicols*}{2}[%
@@ -145,52 +153,107 @@ Web application Specification}
 \includegraphics[width=0.85\textwidth]{./wireframes/county-mobile.png}%
 \clearpage
 
-  Search within the entire collection for the county.
+\subsubsection{Mobile Species Search}
+The `landing' page for the application is the search of the entire dataset for the county.
 
-  \begin{description}
-      \item[Scientific Name] selected by default.
-      \item[Common Name] where common name is selected only those sightings with a common name will be show.
-      \item[Axiophytes] 
-  \end{description}
+\begin{itemize}
+  \item By default the \textbf{Scientific} name selected first.
+  \item On landing the selected list is empty.
+  \item The characters entered in the search box are used to search for names begining with those letters,
+    not within the names.
+  \item Clicking on \textbf{list} or pressing return on the desktop list will fill the list.
+  \item If \textbf{Common} is selected, only the species with common names will be searched and shown.
+  \item If \textbf{Axiophytes} a limited static list of scientific names will be searched and shown.
+  \item Changing the radio button will reset the search and blank the list.
+\end{itemize}
+
+e.g. \url{https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*} 
+
+\subsubsection{Mobile Species Dot Map}
+Clicking on a species name will show details for the 
+
+\begin{itemize}
+  \item Collapse the map? Retain state in cookie
+  \item Page the records?
+  \item Site link goes to what?
+\end{itemize}
+
+\subsubsection{Mobile Sighting Record}
   
 \end{multicols*}
 
 \subsection{Desktop}
-\includegraphics[width=0.6\textwidth]{./wireframes/county-desktop.png}
+\includegraphics[width=\textwidth]{./wireframes/county-desktop.png}
 
-   \begin{verbatim}
-    https://records-ws.nbnatlas.org/explore/group/Birds?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
-   \end{verbatim} 
+\subsubsection{Desktop Species Search}
 
+\subsubsection{Desktop Species Dot Map}
+
+\begin{itemize}
+  \item Map does not collapse.
+\end{itemize}
 \clearpage
+
+\begin{multicols*}{2}[%
+  \section{Search by Site}%
+  \subsection{Mobile}%
+]
+\includegraphics[width=0.85\textwidth]{./wireframes/site-mobile.png}%
+\clearpage
+
+\subsubsection{Site Search}
+
+\begin{itemize}
+  \item On landing the site list is empty.
+\end{itemize}
+
+e.g. \url{https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Church%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0}
+
+\end{multicols*}
+\clearpage
+
 \section{Search Grid Square by Plant Name}
 \subsection{Mobile}
-
-    \includegraphics[width=0.9\textwidth]{./wireframes/monad-mobile.png}
+  \includegraphics[width=0.85\textwidth]{./wireframes/monad-mobile.png}
 
 
 \section{Technical Constraints}
 
-Simplest possible with lowest barrier to entry.
-Success with PHP and CodeIgniter.
-Simple and convenient caching.
-Possible to source PHP developers from within the ranks of members.
-Possibility of free hosting.
+% Simple and convenient caching.
+% Possible to source PHP developers from within the ranks of members.
+% Possibility of free hosting on the Google App Engine.
+% Simplest possible with the lowest barrier to entry.
+% Almost any programmer should be able to work on it.
+
+The Botanical Society has limited means
+and wishes to ensure that the results of any programming effort
+can be maintained and supported
+into the future.
 
 \begin{description}
     \item[PHP 7.3] for deployment to Google App Engine.
-    \item[CodeIgniter 4.0.4] happ with 
-        No Caching to reveal performance, convenient caching later.
-    \item[Twitter Bootstrap 5] for responsive layout.
-    \item[Leaflet 1.6.0] Mapping https://github.com/DuncanRowland/NBNMapOverlayExamples
-    \item[No NBN API Calls from the Client] because we might want to use caching.
-    \item[Commits to Github] branching but no where else.
-        at \href{https://github.com/joejcollins/captain-magenta.git}{Github}
+    \item[CodeIgniter 4.0.4] has been used successfully in the past and provides convenient caching should it be required.
+    \item[Twitter Bootstrap 4.5.2] for responsive layout.
+    \item[Leaflet 1.6.0] should be used to provide mapping services.
+     https://github.com/DuncanRowland/NBNMapOverlayExamples
+    \item[Commits to Github] since the Society will retain the intellectual property rights
+      over any code produced.
+      So all branching should be on the repository at
+      at \href{https://github.com/joejcollins/captain-magenta.git}{Github}
       The Society will
-    \item[Style Sheet] from the blogspot Website
-    \item[JavaScript] plain, no jquery.
-    \item[No database] but you could have static data files.  
+    \item[Style Sheet] taken from \href{https://www.shropshirebotany.org.uk/}{www.shropshirebotany.org.uk}.
+      The Online Flora is to be consistent with this website,
+      so should reuse the same classes and styles.
+    \item[No API Calls from the Client] because we might want to use caching.
+    \item[No database] should be used other than the NBN Web service API.
+      Any static data 
+      (such as the list of Axiophytes)
+      should be hard coded into the application.
 \end{description}
+
+
+
+
 
 \end{document}
 
