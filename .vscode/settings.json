@@ -43,5 +43,6 @@
     "files.autoSave": "onWindowChange",
     "files.exclude": {
         "**/.jekyll-cache": true
-    }
+    },
+    "editor.tabSize": 2
 }

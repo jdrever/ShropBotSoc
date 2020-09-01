@@ -1,11 +1,23 @@
-\documentclass[a4paper,12pt,landscape,twocolumn]{article}
-\usepackage{wordlike}
-\usepackage[UKenglish]{isodate}
-\usepackage{graphicx}
-\usepackage{multicol}
-
+\documentclass[a4paper,12pt,landscape]{article}
+\usepackage{fullpage} % for 1.5 cm margins
+\renewcommand{\familydefault}{\sfdefault} % so it doesn't look like LaTeX
+\usepackage{helvet}
+\usepackage[british]{isodate}
+\usepackage{abstract}
+\renewcommand{\abstractname}{Overview}
+\newcommand{\tickbox}{\framebox(12,12){} }
+\newcommand{\fillbox}{\begin{tabular}{|l|}
+  \hspace{60pt} \\
+  \hline
+\end{tabular} }
+\usepackage{enumitem, amssymb} % for checklists
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\tickbox$, parsep=1em}
 \raggedright
-\setlength{\parskip}{1ex}
+\raggedbottom
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{parskip}
 
 \newcommand{\documenttitle}{Shropshire Botanical Society Online Flora}
 \newcommand{\documentauthor}{Joe J Collins}
@@ -22,115 +34,162 @@ Web application Specification}
 
 \begin{document}
 \maketitle
-\tableofcontents
-\vfil
-\pagebreak
-\section{Summary}
 
-The Shropshire Botanical Society seeks to provide access to 
-collected records
-\clearpage
 
-\section{Background}
-
-The Shropshire Botanical Society
-(referred to here as `the Society')
-has been dedicated to promoting the enjoyment,
-understanding and conservation of the flora of Shropshire
-since XXX.
-One of the principle activities of the Society is to collect and maintain records 
-of plant sightings within the historical boundaries of the county of Shropshire.
-The Society has a database of records dating as far back as the 18\textsuperscript{th} century.
-Since 2003 the Society has made these records freely available online via a bespoke web application
-or Online Flora.
-The web application is still available at 
-\href{https://captain-blue.azurewebsites.net/}{https://captain-blue.azurewebsites.net/}
-but unfortunately the data is now many years out of date.
-This original Online Flora was written using
-PHP and \href{https://codeigniter.com/}{CodeIgniter Web Framework}
-backed by MySql database.
-
-Currently all the Society's records are also submitted to the 
-\href{https://nbnatlas.org/}{National Biodiversity Network Atlas}
-and 2017 the Society's records have been available via a web service at
-\href{https://api.nbnatlas.org/}{https://api.nbnatlas.org/}.
-
-The Society now seeks to build on the success of their earlier Online Flora,
-by revising the web application
-to make use of National Biodiversity Network Atlas web service to provide the data,
-whilst also providing a more modern mobile interface.
-
-\section{Searching and Scenarios}
-
-Search only, no data entry,
-
-The new web application should largely replicate the functionality of the original web application.
-It should therefore provide a method to search for
-
-\begin{description}
-    \item[Name] records of a sep
-    \item[Site]
-    \item[Monad or Grid Square] or   
-\end{description}
-
-\section{Users}
-
-Knowledgeable
-In the field on mobile (Android)
-Home research on desktop (the majority of Window and Chrome)
-
+\begin{abstract}
+  \begin{center}
+    \begin{minipage}{0.5\textwidth}
+      \strut\\
+      The Shropshire Botanical Society is seeking
+      to renew it's Online Flora web application.
+      This specification out lines the hoped for functionality
+      together with the technical
+      and
+      development constraints of the work.
+    \end{minipage}
+  \end{center}
+\end{abstract}
 
 \clearpage
-\section{Search County by Plant Name}
-\subsection{Mobile}
-\begin{multicols}{1}
-    \includegraphics[width=0.9\textwidth]{./wireframes/county-mobile.png}
-\end{multicols}
-
-Search within the entire collection for the county.
-
-\begin{description}
-    \item[Scientific Name] selected by default.
-    \item[Common Name] where common name is selected only those sightings with a common name will be show.
-    \item[Axiophytes] 
-\end{description}
-
-
+\begin{multicols*}{2}
+  \tableofcontents
+\end{multicols*}
 \clearpage
+
+
+\begin{multicols*}{2}
+  \section{Background}
+  The Shropshire Botanical Society
+  has been dedicated to promoting the enjoyment,
+  understanding and conservation of the flora of Shropshire
+  since the 18\textsuperscript{th} century.
+  One of the principle activities of the Society is to collect and maintain records 
+  of plant sightings within the historical boundaries of the county of Shropshire.
+  Since 2003 the Society has made these records freely available online via a bespoke web application
+  or Online Flora.
+  This original Online Flora was written using
+  PHP and \href{https://codeigniter.com/}{CodeIgniter Web Framework}
+  backed by MySql database.
+  The web application is still available at 
+  \href{https://captain-blue.azurewebsites.net/}{captain-blue.azurewebsites.net}
+  but unfortunately the data is now many years out of date.
+
+  Maintaining and updating the database has proved to be challenging.
+  Additionally the application was conceived prior to the introduction of the iPhone
+  and it not suited to mobile use.
+  Hence the Society seeks to renew the web application,
+  to provide a more modern mobile interface
+  and to use up to date data stored
+  by the \href{https://nbnatlas.org/}{National Biodiversity Network Atlas}.
+  Currently all the Society's records are submitted to the 
+  National Biodiversity Network Atlas
+  and since 2017 the Society's records have been available via a web service at
+  the \href{https://api.nbnatlas.org/}{NBN Web service API}.
+  Using the NBN Web service API provides reliable data source
+  and
+  a supported service for maintaining and updating the Society's records.
+
+  \vfill\strut\columnbreak
+
+  \section{Objective}
+  To replicate the functionality of the original Online Flora
+  in a responsive mobile design
+  using data sourced from the NBN Web service API.
+
+  \section{Usage and Users}
+  The Online Flora is used for searching the Society's records
+  but not for entering new records.
+  Maintaining and updating the data is conducted via a separate manual process.
+  Searches of the database are conducted for three different geographical scenarios.
+
+  \begin{description}
+      \item[Search Shropshire]
+        searching all the records of based on the name of the plant.
+        Allowing the user to drill down to a single sighting record
+        or
+        showing a map of grid squares with records for a named plant.
+      \item[Search by Site]
+        searching for a named site,
+        then listing the names of plants for that named site.
+        Again allowing the user to drill down to a single sighting record.
+      \item[Search by Monad or Grid Square]
+        Selecting a 1 km grid square within the county of Shropshire,
+        then listing the names of plants for that named site.
+        Again allowing the user to drill down to a single sighting record.
+  \end{description}
+
+  Users of the Online Flora are typically
+  members of the Society
+  and
+  as such are often very experienced botanists
+  and will favour identifying
+  plant species via the scientific name.
+  A typical scenario would be a member of the Society
+  intending to visit a location
+  would search for a list of plants that have previously
+  been sighted at that location.
+  A similar search might also be
+  conducted at the location of interest using a mobile phone.
+  Up to this time the Society has not offered an interface that is suitable for mobile phone use.
+  As a result there is no information about the types and sizes of the devices that might be used.
+  However the Society does maintain a blog/website at 
+  \href{https://www.shropshirebotany.org.uk/}{www.shropshirebotany.org.uk}.
+  The majority of visitors to the site
+  use Google Chrome on a Windows platform.
+\end{multicols*}
+
+\begin{multicols*}{2}[%
+  \section{Search County by Plant Name}%
+  \subsection{Mobile}%
+]
+\includegraphics[width=0.85\textwidth]{./wireframes/county-mobile.png}%
+\clearpage
+
+  Search within the entire collection for the county.
+
+  \begin{description}
+      \item[Scientific Name] selected by default.
+      \item[Common Name] where common name is selected only those sightings with a common name will be show.
+      \item[Axiophytes] 
+  \end{description}
+  
+\end{multicols*}
+
 \subsection{Desktop}
-\begin{multicols}{1}
-    \includegraphics[width=0.6\textwidth]{./wireframes/county-desktop.png}
-\end{multicols}
+\includegraphics[width=0.6\textwidth]{./wireframes/county-desktop.png}
 
-
+   \begin{verbatim}
+    https://records-ws.nbnatlas.org/explore/group/Birds?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
+   \end{verbatim} 
 
 \clearpage
 \section{Search Grid Square by Plant Name}
 \subsection{Mobile}
-\begin{multicols}{1}
+
     \includegraphics[width=0.9\textwidth]{./wireframes/monad-mobile.png}
-\end{multicols}
 
 
 \section{Technical Constraints}
 
-Success with PHP and CodeIgniter
-Happy with PHP source developers from within the ranks of members.
+Simplest possible with lowest barrier to entry.
+Success with PHP and CodeIgniter.
+Simple and convenient caching.
+Possible to source PHP developers from within the ranks of members.
+Possibility of free hosting.
 
 \begin{description}
     \item[PHP 7.3] for deployment to Google App Engine.
     \item[CodeIgniter 4.0.4] happ with 
-        No Caching to reveal performance, caching later.
-    \item[Twitter Bootstrap 4.5.2] for responsive.
-        No Client Detection Just responsive.
+        No Caching to reveal performance, convenient caching later.
+    \item[Twitter Bootstrap 5] for responsive layout.
     \item[Leaflet 1.6.0] Mapping https://github.com/DuncanRowland/NBNMapOverlayExamples
-    \item[No NBN API Calls from the Client] 
+    \item[No NBN API Calls from the Client] because we might want to use caching.
     \item[Commits to Github] branching but no where else.
         at \href{https://github.com/joejcollins/captain-magenta.git}{Github}
       The Society will
-    \item[Style Sheet] from the Website
-    \item[JavaScript] plain 
-    \item[Google Analytics] embed.
+    \item[Style Sheet] from the blogspot Website
+    \item[JavaScript] plain, no jquery.
+    \item[No database] but you could have static data files.  
 \end{description}
 
 \end{document}
