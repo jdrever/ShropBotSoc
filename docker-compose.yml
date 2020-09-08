@@ -14,13 +14,13 @@ services:
             - '8080:80'
         volumes:
             - './src:/var/www/html'
-    # docs:
-    #     image: jekyll/jekyll:latest
-    #     environment: 
-    #         JEKYLL_VERSION: 3.8
-    #     container_name: captain-magenta-docs
-    #     volumes:
-    #         - ./docs:/srv/jekyll
-    #     ports:
-    #         - '8089:4000'
-    #     command: jekyll serve --watch --force_polling
+    docs:
+        image: jekyll/jekyll:latest
+        environment: 
+            JEKYLL_VERSION: 3.8
+        container_name: captain-magenta-docs
+        volumes:
+            - ./docs:/srv/jekyll
+        ports:
+            - '8089:4000'
+        command: jekyll serve --watch --force_polling
