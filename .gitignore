@@ -2,6 +2,7 @@
 /src/vendor/
 .phpunit.result.cache
 /src/writable
+composer.lock
 
 # Caches
 /.vagrant
