@@ -5,22 +5,6 @@ class Species extends BaseController
     private $data = array('title' => 'Species');
 
     /**
-     * Loading handy libraries, nothing else.
-     */
-    // public function __construct()
-    // {
-    //     $this->load->model('nbn_model');
-    //     $this->load->library('table'); // for constructing HTML tables
-    //     $this->load->library('pagination');
-    //     $this->load->helper('url');
-    //     $this->load->helper('form');
-    //     $this->load->helper('map');
-    //     $this->load->helper('table');
-    //     $this->load->helper('file');
-    //     $this->load->helper('download');
-    // }
-
-    /**
      * Get the drop load list of species groups and present the species form
      * or
      * search the records for a species name or part there of
@@ -47,7 +31,7 @@ class Species extends BaseController
         {
             $this->data['taxa'] = $this->nbnModel->getTaxa('A', 'ALL_SPECIES');
         };
-        echo view('species/search', $this->data);
+        echo view('species_search', $this->data);
     }
 
     /**

@@ -1,32 +1,23 @@
 <?php namespace App\Controllers;
 
-class Species extends BaseController
+class Sites extends BaseController
 {
-    
-    /**
-     * Loading handy libraries, nothing else.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('nbn_model');
-        $this->load->library('table'); // for constructing HTML tables
-        $this->load->library('pagination');
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('map');
-        $this->load->helper('table');
-        $this->load->dbutil();
-        $this->load->helper('file');
-        $this->load->helper('download');
-    }
+    private $data = array('title' => 'Sites');
 
     /**
      * Landing page showing the sites search form.
      */
     public function index()
     {
-        $data = array('title' => 'Sites');
-        $this->load->view('sites/search', $data);
+        if ($this->isPostBack()) // post back
+        {
+            $this->data['title'] = $this->data['title']." - results";
+            $siteName = $this->input->post('site-name')
+            $this->data['siteName'] = $siteName;
+        }
+        else // not a post back but the first viewing
+        {
+        }
+        echo view('sites_search', $this->data);
     }
 }

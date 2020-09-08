@@ -24,8 +24,14 @@
     </button>
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav mr-auto">
-        <li class="nav-item">
+      <li class="nav-item">
           <a class="nav-link" href="/species">Species</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sites">Sites</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/squares">Squares</a>
         </li>
       </ul>
       <ul class="nav navbar-nav ml-auto">

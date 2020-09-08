@@ -21,6 +21,7 @@
 
 \newcommand{\documenttitle}{Shropshire Botanical Society Online Flora}
 \newcommand{\documentauthor}{Joe J Collins}
+\newcommand{\nbnrecords}[1]{\href{https://records-ws.nbnatlas.org/#1}{\detokenize{https://records-ws.nbnatlas.org/#1}}}
 
 \title{Shropshire Botanical Society Online Flora\\
 Web application Specification}
@@ -167,7 +168,7 @@ The `landing' page for the application is the search of the entire dataset for t
   \item Changing the radio button will reset the search and blank the list.
 \end{itemize}
 
-e.g. \url{https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*} 
+e.g. \footnote{\nbnrecords{explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*}}
 
 \subsubsection{Mobile Species Dot Map}
 Clicking on a species name will show details for the 
@@ -179,7 +180,10 @@ Clicking on a species name will show details for the
 \end{itemize}
 
 \subsubsection{Mobile Sighting Record}
-  
+
+
+
+
 \end{multicols*}
 
 \subsection{Desktop}
