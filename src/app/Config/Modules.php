@@ -1,10 +1,7 @@
-<?php
+<?php namespace Config;
 
-namespace Config;
-
-use CodeIgniter\Modules\Modules as CoreModules;
-
-class Modules extends CoreModules
+// Cannot extend BaseConfig or looping resources occurs.
+class Modules
 {
 	/*
 	 |--------------------------------------------------------------------------
@@ -32,14 +29,39 @@ class Modules extends CoreModules
 	| Auto-discover Rules
 	|--------------------------------------------------------------------------
 	|
-	| Aliases list of all discovery classes that will be active and used during
-	| the current application request.
-	| If it is not listed, only the base application elements will be used.
+	| Lists the aliases of all discovery classes that will be active
+	| and used during the current application request. If it is not
+	| listed here, only the base application elements will be used.
 	*/
-	public $aliases = [
+	public $activeExplorers = [
 		'events',
 		'registrars',
 		'routes',
 		'services',
 	];
+
+	/**
+	 * Should the application auto-discover the requested resources.
+	 *
+	 * Valid values are:
+	 *  - events
+	 *  - registrars
+	 *  - routes
+	 *  - services
+	 *
+	 * @param string $alias
+	 *
+	 * @return boolean
+	 */
+	public function shouldDiscover(string $alias)
+	{
+		if (! $this->enabled)
+		{
+			return false;
+		}
+
+		$alias = strtolower($alias);
+
+		return in_array($alias, $this->activeExplorers);
+	}
 }

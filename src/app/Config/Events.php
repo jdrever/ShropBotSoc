@@ -1,7 +1,6 @@
 <?php namespace Config;
 
 use CodeIgniter\Events\Events;
-use CodeIgniter\Exceptions\FrameworkException;
 
 /*
  * --------------------------------------------------------------------
@@ -23,17 +22,12 @@ use CodeIgniter\Exceptions\FrameworkException;
 Events::on('pre_system', function () {
 	if (ENVIRONMENT !== 'testing')
 	{
-		if (ini_get('zlib.output_compression'))
+		while (\ob_get_level() > 0)
 		{
-			throw FrameworkException::forEnabledZlibOutputCompression();
+			\ob_end_flush();
 		}
 
-		while (ob_get_level() > 0)
-		{
-			ob_end_flush();
-		}
-
-		ob_start(function ($buffer) {
+		\ob_start(function ($buffer) {
 			return $buffer;
 		});
 	}

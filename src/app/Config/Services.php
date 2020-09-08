@@ -2,6 +2,8 @@
 
 use CodeIgniter\Config\Services as CoreServices;
 
+require_once SYSTEMPATH . 'Config/Services.php';
+
 /**
  * Services Configuration file.
  *
