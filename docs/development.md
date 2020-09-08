@@ -22,7 +22,8 @@ php
 
 composer
 
-composer create-project codeigniter4/appstarter project-root
+
+
 
 apt-get install -y \
 apache2 \
@@ -36,6 +37,8 @@ php-curl curl \
 php-gd php-imagick \
 python-pip
 
+
+composer create-project codeigniter4/appstarter src
 composer update
 
 

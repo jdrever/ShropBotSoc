@@ -1,4 +1,5 @@
-<?php namespace App\Controllers;
+<?php
+namespace App\Controllers;
 
 /**
  * Class BaseController
@@ -25,7 +26,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['form'];
+	protected $helpers = [];
 
 	/**
 	 * Constructor.
@@ -38,16 +39,8 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
-		$this->nbnModel = model('App\Models\NbnModel', false);
-	}
-
-	/**
-	 * Determine if this is a post back so you can do that isPostBack thing
-	 * like they do in ASP and ASP.NET.
-	 */
-	public function isPostBack()
-	{
-			return $_SERVER['REQUEST_METHOD'] === 'POST';
+		// E.g.:
+		// $this->session = \Config\Services::session();
 	}
 
 }

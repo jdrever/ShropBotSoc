@@ -4,8 +4,9 @@ class Home extends BaseController
 {
 	public function index()
 	{
-		$this->data['title'] = 'Testing';
-		echo view('welcome', $this->data);
+		return view('welcome_message');
 	}
+
+	//--------------------------------------------------------------------
 
 }
