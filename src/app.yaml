@@ -15,4 +15,3 @@ handlers:
 
 env_variables:
   CI_ENVIRONMENT: "development"
-  app.baseURL: "https://flora.shropshirebotany.org.uk/"

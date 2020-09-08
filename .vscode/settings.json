@@ -1,7 +1,8 @@
 {
     "editor.minimap.enabled": false,
     "files.associations": {
-        "*.w": "tex"
+        "*.w": "tex",
+        "Vagrantfile": "ruby"
     },
     "latex-workshop.latex.recipes": [
         {
