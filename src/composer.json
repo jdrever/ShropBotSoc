@@ -13,11 +13,6 @@
 		"mikey179/vfsstream": "1.6.*",
 		"phpunit/phpunit": "^8.5"
 	},
-	"autoload-dev": {
-		"psr-4": {
-			"Tests\\Support\\": "tests/_support"
-		}
-	},
 	"scripts": {
 		"post-update-cmd": [
 			"@composer dump-autoload"
