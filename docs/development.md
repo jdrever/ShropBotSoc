@@ -38,7 +38,7 @@ php-gd php-imagick \
 python-pip
 
 
-composer create-project codeigniter4/appstarter src --no-dev
+composer create-project codeigniter4/appstarter --no-dev src
 composer update
 
 
