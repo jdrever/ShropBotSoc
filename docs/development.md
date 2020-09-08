@@ -42,7 +42,10 @@ composer create-project codeigniter4/appstarter src --no-dev
 composer update
 
 
-php spark serve --host=0.0.0.0
+php spark serve --host=0.0.0.0 --port=8080
+
+
+
 
 # Debug with Docker
 
