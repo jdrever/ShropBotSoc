@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use CodeIgniter\Controller;
+
 class Sites extends BaseController
 {
     private $data = array('title' => 'Sites');
@@ -12,8 +14,8 @@ class Sites extends BaseController
         if ($this->isPostBack()) // post back
         {
             $this->data['title'] = $this->data['title']." - results";
-            $siteName = $this->input->post('site-name');
-            // $this->data['siteName'] = $siteName;
+            $siteName = $this->request->getVar('site-name');
+            $this->data['siteName'] = $siteName;
         }
         else // not a post back but the first viewing
         {

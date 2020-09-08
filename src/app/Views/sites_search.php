@@ -1,8 +1,7 @@
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
 <h2>Find Sites</h2>
-
-<?php echo form_open('sites'); ?>
+<form action="<?=base_url('/sites/index/'); ?>" id="sites-select-form" name="sites-select-form" method="post" accept-charset="utf-8">
     <div class="form-group">
         <label for="sites-name">Enter all or part of a site name</label>
         <input type="text" class="form-control" name="site-name" id="site-name" 
@@ -12,6 +11,6 @@
     <div class="form-group">
         <button type="submit" class="btn btn-primary">List Sites</button>
     </div>
-<?php echo form_close(); ?>
+</form>
 
 <?= $this->endSection() ?>
