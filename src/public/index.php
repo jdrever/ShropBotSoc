@@ -1,7 +1,5 @@
 <?php
 
-require_once '../vendor/autoload.php';
-
 // Valid PHP Version?
 $minPHPVersion = '7.2';
 if (phpversion() < $minPHPVersion)
