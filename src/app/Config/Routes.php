@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('species', 'Species::index');
+$routes->get('sites', 'Sites::index');
 
 /**
  * --------------------------------------------------------------------
