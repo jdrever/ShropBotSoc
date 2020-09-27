@@ -19,7 +19,7 @@ jobs:
         with:
           version: '290.0.1'
           project_id: captain-magenta
-          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS}}
+          service_account_key: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS}}
 
       # Deploy App to App Engine (and add the Github SHA as a GAE environment variable)
       - name: Deploy
