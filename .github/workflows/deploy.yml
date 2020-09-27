@@ -24,4 +24,4 @@ jobs:
       # Deploy App to App Engine
       - name: Deploy
         run: |
-          gcloud app deploy ./src --quiet --set-env-vars "GAE_KEY1=VALUE1"
+          gcloud app deploy ./src --quiet --set-env-vars "GAE_GITHUB_SHA=$GITHUB_SHA"
