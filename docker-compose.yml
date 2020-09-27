@@ -10,6 +10,7 @@ services:
         container_name: captain-magenta-php
         environment:
             XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1 remote_autostart=1 remote_connect_back=0
+            TEST_ENVIRONMENT_KEY: test_environment_value
         ports:
             - '8080:80'
         volumes:

@@ -4,11 +4,21 @@ class Home extends BaseController
 {
 	public function index()
 	{
-		$this->data['title'] = 'Testing';
+		$data['title'] = 'Testing';
+		$data['gae_environment'] = $this->get_gae_environment();
+		echo view('welcome', $data);
+	}
 
+	/**
+	 * 
+	 */
+	private function get_gae_environment()
+	{
 		$environment_array = getenv();
-		$this->data['environment_array'] = preg_grep('!^GAE_!', $environment_array);
-
-		echo view('welcome', $this->data);
+		$gae_environment_array = [];
+		foreach($environment_array AS $key => $val)
+			if(strpos(" ".$key, "GAE_") == 1)    
+				array_push($gae_environment_array, array($key, $val)); 
+		return $gae_environment_array;
 	}
 }

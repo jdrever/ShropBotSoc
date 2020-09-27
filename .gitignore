@@ -2,6 +2,7 @@
 /src/vendor/
 .phpunit.result.cache
 /src/writable
+/src/build/
 composer.lock
 
 # Caches
