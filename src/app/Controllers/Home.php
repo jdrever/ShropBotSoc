@@ -10,7 +10,8 @@ class Home extends BaseController
 	}
 
 	/**
-	 * 
+	 * GAE provides variables, create an array so they can be displayed in
+	 * a table.
 	 */
 	private function get_gae_environment()
 	{
