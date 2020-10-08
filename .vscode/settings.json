@@ -2,7 +2,7 @@
     "editor.minimap.enabled": false,
     "files.associations": {
         "*.w": "tex",
-        "Vagrantfile": "ruby",
+        "Vagrant": "ruby",
         "*.config": "xml"
     },
     "latex-workshop.latex.recipes": [
