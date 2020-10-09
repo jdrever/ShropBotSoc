@@ -1,51 +1,52 @@
 <?php namespace App\Models;
 
 /**
- * A fascade for the NBN API
+ * A facade for the NBN API
+ * 
+ * Referenced at <>
+ * available search fields at <https://records-ws.nbnatlas.org/index/fields>.
  */
 class NbnModel
 {
-    private const NBN_URL = 'https://records-ws.nbnatlas.org/';
-    private const FACET_PARAMETERS = '&sort=taxon_name&fsort=index&pageSize=12';
+    const NBN_GROUPS = 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=%s'.
+                        '&fq=data_resource_uid:dr782+AND+species_group:Plants+Bryophytes+AND+%s'.
+                        '&sort=taxon_name&fsort=index&pageSize=12';
 
     // public function __construct()
     // {
     //     $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
     // }
 
+    /**
+     * 
+     */
     private function IsNullOrEmptyString($str){
         return (!isset($str) || trim($str) === '');
     }
 
-   /**
-     * Get the list of groups for SEDN from the NBN and cache them.
-     */
-    public function getGroups()
-    {
-        $groups_url = self::NBN_URL."explore/groups?q=data_resource_uid:dr782";
-        $groups_json = file_get_contents($groups_url);
-        $get_groups = json_decode($groups_json);
-        return $get_groups;
-    }
 
     /**
-     * Just getting the records as a demonstration, not sure whether to use
-     * the `occurrence` or the `explore` API.  I will use `explore` for the 
-     * since it has a means of separating the groups.
+     * Get an alphabetical list of taxa.
      * 
-     * https://records-ws.nbnatlas.org/occurrence/facets?facets=taxon_name&q=data_resource_uid:dr782+AND+taxon_name:A*
+     * 
      * 
      * https://records-ws.nbnatlas.org/explore/group/Birds?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
      * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
+     * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+taxon_name:Bar*+AND+species_group:Plants+Bryophytes&pageSize=12
      */
-    public function getTaxa($taxon_search_string, $group_name)
+    public function getTaxa($taxon_search_string)
     {
         // So the cache files look neater
         if ($this->IsNullOrEmptyString($taxon_search_string)) $taxon_search_string = "A"; 
         $taxon_search_string = ucfirst($taxon_search_string); //because the API respects the case
-        $taxa_url = self::NBN_URL."explore/group/$group_name?fq=data_resource_uid:dr782+AND+taxon_name:$taxon_search_string*".self::FACET_PARAMETERS;
-        $taxa_json = file_get_contents($taxa_url);
-        $get_taxa = json_decode($taxa_json);
+        $cache_name = "get-taxa-$taxon_search_string";
+        if ( ! $get_taxa = cache($cache_name))
+        {
+            $taxa_url = sprintf(self::NBN_GROUPS, NULL, "taxon_name:$taxon_search_string*");
+            $taxa_json = file_get_contents($taxa_url);
+            $get_taxa = json_decode($taxa_json);
+            cache()->save($cache_name, $get_taxa, CACHE_LIFE);
+        }
         return $get_taxa;
     }
 
@@ -56,6 +57,8 @@ class NbnModel
      * https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=12
      * 
      * The taxon needs to be in double quotes so the complete string is searched for rather than a partial.
+     * 
+     * TODO: Needs caching
      */
     public function getRecords($taxon_name)
     {
@@ -73,7 +76,7 @@ class NbnModel
             usort($get_records, function ($a, $b) {
                 return $b->year <=> $a->year;
             });
-            $this->cache->save($cache_name, $get_records, CACHE_TIME);
+            $this->cache->save($cache_name, $get_records, CACHE_LIFE);
         }
         return $get_records;
     }

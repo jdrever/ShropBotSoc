@@ -11,7 +11,6 @@ class Species extends BaseController
      */
     public function index()
     {
-        $this->data['groups'] = $this->nbnModel->getGroups();
         if ($this->isPostBack()) // post back
         {
             $this->data['title'] = $this->data['title']." - results";
@@ -29,7 +28,7 @@ class Species extends BaseController
         }
         else // not a post back but the first viewing
         {
-            $this->data['taxa'] = $this->nbnModel->getTaxa('A', 'ALL_SPECIES');
+            $this->data['taxa'] = $this->nbnModel->getTaxa('A', 'Plants');
         };
         echo view('species_search', $this->data);
     }

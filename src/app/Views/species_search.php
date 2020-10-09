@@ -19,29 +19,22 @@
         <label class="form-check-label" for="common-names-check">Search common names</label>
     </div>
     <div class="form-group">
-        <label for="taxon-group">Group</label>
-        <select name="taxon-group" id="taxon-group">
-            <?php isset($groupSelected) ? : $groupSelected = $groups[0]->name ?>
-            <?php foreach ($groups as $group):?>
-                <?php if ($group->count > 0):?>
-                <option <?=($groupSelected == $group->name ? 'selected' : '')?>>
-                    <?=$group->name?> 
-                </option>
-                <?php endif ?>
-            <?php endforeach;?>
-        </select>
-    </div>
-    <div class="form-group">
         <button type="submit" class="btn btn-primary">List Species</button>
     </div>
 </form>
 
 <?php if (isset($taxa)):?>
     <table class="table">
-        <thead><tr><th>Name</th><th>Common Name</th><th>Count</th></tr></thead>
+        <thead><tr>
+            <th class="d-none d-md-table-cell">Family</th>
+            <th>Name</th>
+            <th>Common Name</th>
+            <th>Count</th>
+        </tr></thead>
         <tbody>
         <?php foreach ($taxa as $taxon):?>
         <tr>
+            <td class="d-none d-md-table-cell"><?=$taxon->family?></td>
             <td><a href="<?=base_url("/species/records/$taxon->name");?>"><?=$taxon->name?></a></td>
             <td><?=$taxon->commonName?></td>
             <td><?=$taxon->count?></td>

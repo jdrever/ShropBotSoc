@@ -45,8 +45,3 @@ composer update
 php spark serve --host=0.0.0.0 --port=8080
 
 
-
-
-# Debug with Docker
-
-<https://hub.docker.com/_/php>

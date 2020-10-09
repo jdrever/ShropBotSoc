@@ -20,3 +20,8 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
  */
 
 defined('CI_DEBUG') || define('CI_DEBUG', false);
+
+/**
+ * Long life time for the cache in production.
+ */
+defined('CACHE_LIFE') || define('CACHE_LIFE', MONTH);
