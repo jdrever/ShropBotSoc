@@ -1,5 +1,5 @@
 <?php namespace Config;
-
+helper('gae');
 use CodeIgniter\Config\BaseConfig;
 
 class Cache extends BaseConfig
@@ -13,8 +13,20 @@ class Cache extends BaseConfig
 	| it is not available, the $backupHandler will be used in its place.
 	|
 	*/
-	//public $handler = 'dummy';
-	public $handler = 'file';
+
+	/**
+	 * Set the $handler to file if not on GAE
+	 */
+	public function __construct(){
+		$gae_array = get_gae_environment();
+		if (empty($gae_array)) {
+			$this->handler = 'file';
+		}
+		else {
+			$this->handler = 'dummy';
+		}
+	}
+	public $handler;
 
 	/*
 	|--------------------------------------------------------------------------
