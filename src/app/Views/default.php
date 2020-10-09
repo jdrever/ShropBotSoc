@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-sm navbar-light">
     <a class="navbar-brand" href="/">Botanical Records</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
@@ -49,12 +49,12 @@
     </button>
   </div>
   <?php endif;?>
-  <div class="container content-inner">
+  <div class="container-fluid content-inner">
     <?= $this->renderSection('content') ?>
   </div>
-  <footer class="footer">
+  <footer class="footer-fluid">
     <div class="container">
-      <span class="text-muted">Shropshire Botanical Society Data</span>
+      <span class="text-muted">Shropshire Botanical Society Data from</span>
     </div>
   </footer>
 <!-- JS, Popper.js, and jQuery -->
