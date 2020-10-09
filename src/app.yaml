@@ -1,3 +1,4 @@
+# Configuration for deployment to the Google App Engine
 runtime: php73
 
 handlers:
