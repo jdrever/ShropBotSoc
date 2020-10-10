@@ -1,7 +1,7 @@
 <?php
 
 /**
- * For debugging GAE
+ * For debugging the GAE environment
  */
 function get_gae_environment()
 {

@@ -5,30 +5,26 @@ class Species extends BaseController
     private $data = array('title' => 'Species');
 
     /**
-     * Get the drop load list of species groups and present the species form
-     * or
-     * search the records for a species name or part there of
+     * Search the records for a species name or part there of
      */
     public function index()
     {
-        if ($this->isPostBack()) // post back
+        // Set a default search type
+        $this->data['in'] = 'scientific';
+        if ($this->request->getVar('search') == null) 
+        {
+            // Don't show anything
+        }
+        else // there are query parameters 
         {
             $this->data['title'] = $this->data['title']." - results";
             // Make sure the posted fields are set back
-            $speciesName = $this->input->post('species-name');
-            $this->data['speciesName'] = $speciesName;
-            $axiophytesOnlyCheck = $this->input->post('axiophytes-only-check');
-            $this->data['axiophytesOnlyCheck'] = $axiophytesOnlyCheck;
-            $commonNamesCheck = $this->input->post('common-names-check');
-            $this->data['commonNamesCheck'] = $commonNamesCheck;
-            $groupSelected = $this->input->post('taxon-group'); 
-            $this->data['groupSelected'] = $groupSelected;
+            $name_search_string = $this->request->getVar('search');
+            $this->data['search'] = $name_search_string;
+            $name_type = $this->request->getVar('in');
+            $this->data['in'] = $name_type;
             // Search for the species
-            $this->data['taxa'] = $this->nbn_model->getTaxa($speciesName, $groupSelected);
-        }
-        else // not a post back but the first viewing
-        {
-            $this->data['taxa'] = $this->nbnModel->getTaxa('A', 'Plants');
+            $this->data['taxa'] = $this->nbnModel->getTaxa($name_search_string, $name_type);
         };
         echo view('species_search', $this->data);
     }

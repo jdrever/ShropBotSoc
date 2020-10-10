@@ -8,14 +8,11 @@
  */
 class NbnModel
 {
+    // Select from the groups `Plants` and `Bryophytes`
     const NBN_GROUPS = 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=%s'.
                         '&fq=data_resource_uid:dr782+AND+species_group:Plants+Bryophytes+AND+%s'.
-                        '&sort=taxon_name&fsort=index&pageSize=12';
+                        '&sort=taxon_name&fsort=index&pageSize=9';
 
-    // public function __construct()
-    // {
-    //     $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
-    // }
 
     /**
      * 
@@ -28,18 +25,18 @@ class NbnModel
     /**
      * Get an alphabetical list of taxa.
      * 
-     * 
-     * 
      * https://records-ws.nbnatlas.org/explore/group/Birds?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
      * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
      * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+taxon_name:Bar*+AND+species_group:Plants+Bryophytes&pageSize=12
+     * 
+     * TODO: implement search in common names and axiophytes
      */
-    public function getTaxa($taxon_search_string)
+    public function getTaxa($taxon_search_string, $name_type)
     {
         // So the cache files look neater
         if ($this->IsNullOrEmptyString($taxon_search_string)) $taxon_search_string = "A"; 
         $taxon_search_string = ucfirst($taxon_search_string); //because the API respects the case
-        $cache_name = "get-taxa-$taxon_search_string";
+        $cache_name = "get-taxa-$name_type-$taxon_search_string";
         if ( ! $get_taxa = cache($cache_name))
         {
             $taxa_url = sprintf(self::NBN_GROUPS, NULL, "taxon_name:$taxon_search_string*");

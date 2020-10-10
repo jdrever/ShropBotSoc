@@ -35,4 +35,4 @@ defined('CI_DEBUG') || define('CI_DEBUG', true);
 /**
  * Testable life time for the cache.
  */
-defined('CACHE_LIFE') || define('CACHE_LIFE', HOUR);
+defined('CACHE_LIFE') || define('CACHE_LIFE', DAY);

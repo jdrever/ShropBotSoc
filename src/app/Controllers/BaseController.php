@@ -42,13 +42,4 @@ class BaseController extends Controller
 		$this->nbnModel = model('App\Models\NbnModel', false);
 	}
 
-	/**
-	 * Determine if this is a post back so you can do that isPostBack thing
-	 * like they do in ASP and ASP.NET.
-	 */
-	public function isPostBack()
-	{
-		return $_SERVER['REQUEST_METHOD'] === 'POST';
-	}
-
 }

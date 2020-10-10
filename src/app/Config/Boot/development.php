@@ -33,6 +33,6 @@ defined('CI_DEBUG') || define('CI_DEBUG', true);
 
 
 /**
- *  Very short life time for the cache in testing.
+ *  Short life time for the cache.
  */
-defined('CACHE_LIFE') || define('CACHE_LIFE', MINUTE);
+defined('CACHE_LIFE') || define('CACHE_LIFE', HOUR);

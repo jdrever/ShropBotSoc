@@ -2,24 +2,45 @@
 <?= $this->section('content') ?>
 <h2>Find Species</h2>
 
-<form action="<?=base_url('/species/index/'); ?>" id="species-select-form" name="species-select-form" method="post"
-    accept-charset="utf-8">
-    <div class="form-group">
-        <label for="species-name">Enter all or part of a species name</label>
-        <input type="text" class="form-control" name="species-name" id="species-name" 
-            aria-describedby="species-name-help" placeholder="Enter a species" value="<?=(isset($speciesName)) ? $speciesName : '' ?>">
-        <small id="species-name-help" class="form-text text-muted">Try something like "Hedera".</small>
+<form action="<?=base_url('/species/index/'); ?>" method="get" accept-charset="utf-8">
+    <div class="form-group row">
+        <label for="search" class="col-sm-2 col-form-label d-none d-md-inline">Enter part of a species name</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="search" id="search" 
+                aria-describedby="search-help" placeholder="Enter a species"
+                value="<? echo isset($search) ? $search : '' ?>">
+            <small id="search-help" class="form-text text-muted d-none d-md-inline">Try something like "Hedera".</small>
+        </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary">List Species</button>
+        </div>
+        </label>
     </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input" name="axiophytes-only-check" id="axiophytes-only-check" <?=(isset($axiophytesOnlyCheck)) ? 'checked="checked"' : '' ?>">
-        <label class="form-check-label" for="axiophytes-only-check">Show axiophytes only</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input" name="common-names-check" id="common-names-check" <?=(isset($commonNamesCheck)) ? 'checked="checked"' : '' ?>">
-        <label class="form-check-label" for="common-names-check">Search common names</label>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">List Species</button>
+    <div class="form-group row">
+        <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Search for</label>
+        <div class="col-md-10">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="in"  id="scientific-name"
+                    value="scientific" <?php echo (isset($in) and ($in == 'scientific')) ? 'checked' : '' ?> />
+                <label class="form-check-label" for="scientific-name">
+                    scientific<span class="d-none d-md-inline"> name only</span>
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="in"  id="axiophyte-name"
+                    value="axiophyte" <?php echo (isset($in) and ($in == 'axiophyte')) ? 'checked' : '' ?> />
+                <label class="form-check-label" for="axiophyte-name">
+                    axiophyte<span class="d-none d-md-inline"> scientific name only</span>
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="in" id="common-name"
+                    value="common" <?php echo (isset($in) and ($in == 'common')) ? 'checked' : '' ?> />
+                <label class="form-check-label" for="common-name">
+                    common<span class="d-none d-md-inline"> name only</span>
+                </label>
+            </div>
+        </div>
     </div>
 </form>
 
@@ -27,7 +48,7 @@
     <table class="table">
         <thead><tr>
             <th class="d-none d-md-table-cell">Family</th>
-            <th>Name</th>
+            <th>Scientific Name</th>
             <th>Common Name</th>
             <th>Count</th>
         </tr></thead>

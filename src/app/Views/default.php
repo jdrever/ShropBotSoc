@@ -54,7 +54,8 @@
   </div>
   <footer class="footer-fluid">
     <div class="container">
-      <span class="text-muted">Shropshire Botanical Society Data from</span>
+      <span class="text-muted">Shropshire Botanical Society Data supported by
+      <a href="https://registry.nbnatlas.org/public/show/dp120">National Biodiversity Network<a/> </span>
     </div>
   </footer>
 <!-- JS, Popper.js, and jQuery -->
