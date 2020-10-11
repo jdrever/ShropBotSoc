@@ -43,7 +43,7 @@
         </div>
     </div>
 </form>
-
+<!-- Show the search results if there are any -->
 <?php if (isset($taxa)):?>
     <table class="table">
         <thead><tr>
