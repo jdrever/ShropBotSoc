@@ -14,6 +14,7 @@ class NbnModel
                         '&sort=taxon_name&fsort=index&pageSize=9';
     const NBN_RECORDS = 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=%s'.
                         '&sort=taxon_name&fsort=index&pageSize=9';
+    const NBN_SITES = 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0';
 
 
     /**
@@ -77,7 +78,9 @@ class NbnModel
      */
     public function getSites($site_search_string)
     {
-        return "shit";
+        $sites_json = file_get_contents(self::NBN_SITES);
+        $get_sites = json_decode($sites_json)->facetResults;
+        return $get_sites;
     }
 
 

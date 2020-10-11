@@ -9,14 +9,16 @@ class Sites extends BaseController
      */
     public function index()
     {
-        if ($this->isPostBack()) // post back
+        if ($this->request->getVar('search') == null) 
+        {
+            // Don't show anything
+        }
+        else // 
         {
             $this->data['title'] = $this->data['title']." - results";
-            $siteName = $this->input->post('site-name');
-            // $this->data['siteName'] = $siteName;
-        }
-        else // not a post back but the first viewing
-        {
+            $site_search_string = $this->request->getVar('search');
+            $this->data['search'] = $site_search_string;
+            $this->data['sites'] = $this->nbnModel->getSites($site_search_string);
         }
         echo view('sites_search', $this->data);
     }
