@@ -9,6 +9,6 @@ layout: default
 
 
 
-
+![Alt](docs/diagram.drawio.svg)
 
 
