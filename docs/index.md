@@ -8,7 +8,4 @@ layout: default
 * [Production]({{ site.baseurl }}/production.html)
 
 
-
-![Alt](({{ site.baseurl }}/docs/diagram.drawio.svg)
-
-
+![diagram]({{ site.baseurl }}/diagram.drawio.svg)
