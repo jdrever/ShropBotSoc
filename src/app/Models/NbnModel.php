@@ -24,6 +24,13 @@ class NbnModel
         return (!isset($str) || trim($str) === '');
     }
 
+    /**
+     * 
+     */
+    private function truncateArray($truncateAt, $arr) {
+        array_splice($arr, $truncateAt, (count($arr) - $truncateAt));
+        return $arr;
+    }
 
     /**
      * Get an alphabetical list of taxa.
@@ -79,7 +86,8 @@ class NbnModel
     public function getSites($site_search_string)
     {
         $sites_json = file_get_contents(self::NBN_SITES);
-        $get_sites = json_decode($sites_json)->facetResults;
+        $get_sites = json_decode($sites_json)->facetResults[0]->fieldResult;
+        $get_sites = $this->truncateArray(9, $get_sites);
         return $get_sites;
     }
 

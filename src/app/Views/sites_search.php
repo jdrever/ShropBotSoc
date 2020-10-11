@@ -19,6 +19,26 @@
 </form>
 
 <?php if (isset($sites)):?>
-stuff
+    <table class="table">
+        <thead><tr>
+            <th>Site</th>
+            <th>Record Count</th>
+        </tr></thead>
+        <tbody>
+        <?php foreach ($sites as $site):?>
+        <tr>
+            <td><a href="#"><?=$site->label?></a></td>
+            <td><?=$site->count?></td>
+        </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
 <?php endif ?>
 <?= $this->endSection() ?>
