@@ -49,7 +49,7 @@
         <thead><tr>
             <th class="d-none d-md-table-cell">Family</th>
             <th>Scientific Name</th>
-            <th>Common Name</th>
+            <th class="d-none d-sm-table-cell">Common Name</th>
             <th>Count</th>
         </tr></thead>
         <tbody>
@@ -57,11 +57,20 @@
         <tr>
             <td class="d-none d-md-table-cell"><?=$taxon->family?></td>
             <td><a href="<?=base_url("/species/records/$taxon->name");?>"><?=$taxon->name?></a></td>
-            <td><?=$taxon->commonName?></td>
+            <td class="d-none d-sm-table-cell"><?=$taxon->commonName?></td>
             <td><?=$taxon->count?></td>
         </tr>
         <?php endforeach;?>
         </tbody>
     </table>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
 <?php endif ?>
 <?= $this->endSection() ?>
