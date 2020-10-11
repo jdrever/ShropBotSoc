@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-## Background
+# Background
 
 * [Specification]({{ site.baseurl }}/specification.pdf)
 * [Development]({{ site.baseurl }}/development.html)

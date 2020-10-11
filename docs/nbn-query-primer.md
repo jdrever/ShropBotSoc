@@ -1,11 +1,11 @@
 ---
 layout: default
 ---
-## NBN Atlas Query Primer
+# NBN Atlas Query Primer
 
 The search functionality of the NBN Atlas API is built from Apache’s Lucene information retrieval library ([https://en.wikipedia.org/wiki/Apache_Lucene](https://en.wikipedia.org/wiki/Apache_Lucene)) and sits on top of Apache’s SOLR search platform ([https://en.wikipedia.org/wiki/Apache_Solr](https://en.wikipedia.org/wiki/Apache_Solr)). Many developers wishing to use the NBN Atlas API will already be familiar with this technology. Whilst this primer is directed primarily at those who are not already knowledgeable about SOLR, there are some implementation specifics which may still be helpful to those who are. Although the examples given refer to the species url, the API’s other search queries support the same capabilities. Suggestions and corrections are gratefully received.
 
-### Introduction to Facets and Query Filters
+## Introduction to Facets and Query Filters
 
 It is not recommended to use the main query parameter unless a fuzzy text ranking feature is specifically required (http://www.openjems.com/solr-lucene-score-tutorial/). It will usually be better to use a catch-all query (q=) and filter the results. Not only is this easier to debug (debugQuery is not available), the results are also cached and do not involve the calculation of a rank, and this may result in an increase in performance.
 
@@ -35,7 +35,7 @@ Finally, to see the actual species records for all the species of primates recor
 
 [https://species-ws.nbnatlas.org/search.json?q=&fq=rk_order:Primates&rank=species](https://species-ws.nbnatlas.org/search.json?q=&fq=rk_order:Primates&rank=species)
 
-### Field Types: Stored and Text vs String
+## Field Types: Stored and Text vs String
 
 When the index field is listed as “stored”, then its value can be returned by a query (otherwise it can only be search for and is not included in the returned record). 
 
@@ -57,7 +57,7 @@ And the following returns nothing (because of case-sensitivity).
 
 To match both an upper and lowercase H in a string field requires a combination of search terms.
 
-### Combining Search Terms (1)
+## Combining Search Terms (1)
 
 The combinatorial operators are: OR (the default, and as so is what a space is interpreted as), AND, NOT, and parentheses for precedence. It is especially important that fields are specified in the filter, and spaces are used carefully (the examples here use + instead of a space for clarity, note those these are converted to a space by the browser).
 
@@ -135,13 +135,13 @@ Finally, it is also possible to filter for ranges of values, for example:
 
 which would match guid values that occur alphabetically between the the two strings.
 
-### Combining Search Terms (2)
+## Combining Search Terms (2)
 
 An alternative to constructing a single compound query that ANDs together multiple terms is to use multiple fq (which are effectively ANDed together anyway), and it has been [suggested](http://stackoverflow.com/questions/11627427/solr-query-q-or-filter-query-fq) that this offers performance gains.
 
 e.g. a query generally in the form *fq=A AND B* could be rewritten as *fq=A & fq=B*
 
-### Query vs Filter Query Caveat
+## Query vs Filter Query Caveat
 
 It is usually advised that it is preferable to use fq filters as these do not involve the calculation of a rank and can be cached. However, there is an important distinction for the NBN Atlas. A q query might do additional processing that a fq might not do. A good example is when lsid is used to filter for a genus rather than a species.
 
@@ -153,7 +153,7 @@ q=*:* & fq=Q   will only return   A
 
 In this case, the later solution should be avoided since it will only return occurrences identified at the genus level and not those identified at the species level.
 
-### Paging Results
+## Paging Results
 
 By default only 10 records are returned by a query (note, by default a maximum of 100 facets are returned and it is _generally_ not possible to change this value). The PageSize parameter is used to set the maximum number of record to return, and the start parameter used to page through the entire set.
 

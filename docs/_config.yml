@@ -9,7 +9,7 @@ theme_settings:
 
   # Header and footer text
   header_text: >
-     <h1>Shropshire Botanical Data Portal</h1>
+     <h1>Shropshire Botanical Online Flora</h1>
 
 # PAGINATION
 paginate: 5

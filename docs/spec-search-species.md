@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-## Species
+# Species
 
 Search for a species based on the scientific name.
 
@@ -11,7 +11,7 @@ show map
 
 Map to show with current tetrad highlighted?
 
-### Scenario: Field search for a species.
+## Scenario: Field search for a species.
 
 XXX User in the field.
 
@@ -58,7 +58,7 @@ Location sp
 
 ![Screen One](wireframes/species-mobile.png)
 
-### Scenario: Desktop search for a species.
+## Scenario: Desktop search for a species.
 
 
 XXX User desktop search.

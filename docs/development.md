@@ -1,9 +1,11 @@
 ---
 layout: default
 ---
-# Development Environments
+# Development
 
-## Docker
+* Source code at <https://github.com/joejcollins/captain-magenta>.
+
+## Docker Environment
 
 * Start with `docker-compose up`
 * Xdebug is installed so add this to the `launch.json`.
@@ -33,7 +35,7 @@ layout: default
 * Documents at <http://localhost:8089/captain-magenta/>.
 * To connect `docker exec -it captain-magenta-php /bin/bash`
 
-## WSL
+## WSL Environment
 
 * Start WSL in `/src` with `ubuntu run`
 * Install Apache and PHP
