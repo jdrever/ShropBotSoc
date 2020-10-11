@@ -9,6 +9,6 @@ layout: default
 
 
 
-![Alt](docs/diagram.drawio.svg)
+![Alt](({{ site.baseurl }}/docs/diagram.drawio.svg)
 
 
