@@ -8,7 +8,7 @@
         <div class="col-sm-6">
             <input type="text" class="form-control" name="search" id="search" 
                 aria-describedby="search-help" placeholder="Enter a species"
-                value="<? echo isset($search) ? $search : '' ?>">
+                value="<?php echo isset($search) ? $search : '' ?>">
             <small id="search-help" class="form-text text-muted d-none d-md-inline">Try something like "Hedera".</small>
         </div>
         <div class="col-sm-4">
