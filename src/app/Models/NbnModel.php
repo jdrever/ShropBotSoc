@@ -12,6 +12,8 @@ class NbnModel
     const NBN_GROUPS = 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=%s'.
                         '&fq=data_resource_uid:dr782+AND+species_group:Plants+Bryophytes+AND+%s'.
                         '&sort=taxon_name&fsort=index&pageSize=9';
+    const NBN_RECORDS = 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=%s'.
+                        '&sort=taxon_name&fsort=index&pageSize=9';
 
 
     /**
@@ -29,7 +31,7 @@ class NbnModel
      * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?fq=data_resource_uid:dr782+AND+taxon_name:B*&pageSize=12
      * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+taxon_name:Bar*+AND+species_group:Plants+Bryophytes&pageSize=12
      * 
-     * TODO: implement search in common names and axiophytes
+     * TODO: Implement search in common names and axiophytes
      */
     public function getTaxa($taxon_search_string, $name_type)
     {
@@ -59,22 +61,13 @@ class NbnModel
      */
     public function getRecords($taxon_name)
     {
-        // Encoding needs to be different on Azure otherwise the API returns nothing...not sure why.
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') $taxon_name = rawurlencode($taxon_name);
-        $cache_name = urldecode($taxon_name);
-        $cache_name = str_replace(' ', '-', $cache_name);
-        $cache_name = strtolower($cache_name);
-        $cache_name = "get-records-$cache_name";
-        if ( ! $get_records = $this->cache->get($cache_name))
-        {
-            $records_url = self::NBN_URL."occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:\"$taxon_name\"".self::FACET_PARAMETERS;
-            $records_json = file_get_contents($records_url);
-            $get_records = json_decode($records_json)->occurrences;
-            usort($get_records, function ($a, $b) {
-                return $b->year <=> $a->year;
-            });
-            $this->cache->save($cache_name, $get_records, CACHE_LIFE);
-        }
+        $taxon_name = rawurlencode($taxon_name); // mainly to replace the spaces with %20
+        $records_url = sprintf(self::NBN_RECORDS, "taxon_name:$taxon_name");
+        $records_json = file_get_contents($records_url);
+        $get_records = json_decode($records_json)->occurrences;
+        usort($get_records, function ($a, $b) {
+            return $b->year <=> $a->year;
+        });
         return $get_records;
     }
 

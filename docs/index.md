@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+Hosted at <http://docs.shropshirebotany.org.uk/>.
+
 # Background
 
 * [Specification]({{ site.baseurl }}/specification.pdf)

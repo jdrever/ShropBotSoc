@@ -1,5 +1,5 @@
 <?php namespace Config;
-
+helper('gae');
 use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
@@ -21,7 +21,19 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'https://captain-magenta.nw.r.appspot.com/';
+		/**
+	 * Set the $baseURL to local if not on GAE
+	 */
+	public function __construct(){
+		$gae_array = get_gae_environment();
+		if (empty($gae_array)) {
+			$this->baseURL = 'http://localhost:8080/';
+		}
+		else {
+			$this->baseURL = 'https://captain-magenta.nw.r.appspot.com/';
+		}
+	}
+	public $baseURL;
 
 	/*
 	|--------------------------------------------------------------------------

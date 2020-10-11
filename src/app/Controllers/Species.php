@@ -36,7 +36,7 @@ class Species extends BaseController
     {
         $this->data['title'] = urldecode($speciesName);
         $this->data['speciesName'] = $speciesName;
-        $this->data['records'] = $this->nbn_model->getRecords($speciesName);
+        $this->data['records'] = $this->nbnModel->getRecords($speciesName);
         $this->load->view('species/records', $this->data);
     }
 
