@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-		/**
+	/**
 	 * Set the $baseURL to local if not on GAE
 	 */
 	public function __construct(){

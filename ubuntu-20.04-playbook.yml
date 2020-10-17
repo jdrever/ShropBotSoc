@@ -1,4 +1,61 @@
 ---
 - hosts: localhost
+  become: yes
   tasks:
-    - debug: msg="Ansible is working!"
+
+    - name: Install Apache2 and PHP
+      package:
+        name:
+            - apache2
+            - php-intl
+            - php-mbstring
+            - php-xml
+            - php-zip
+            - php-xdebug
+            - php-curl
+            - curl
+            - php-gd
+            - php-imagick
+        state: present
+
+    - name: Ensure the default Apache port is 8080
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: '^Listen '
+        line: Listen 8080
+
+    - name: Change the Apache security to allow access to the /src
+      lineinfile:
+        path: /etc/apache2/apache2.conf
+        regexp: '^<Directory /var/www/>'
+        line: <Directory {{ playbook_dir }}/src>
+
+    - name: Ensure the VirtualHost port is 8080
+      lineinfile:
+        path: /etc/apache2/sites-available/000-default.conf
+        regexp: '^<VirtualHost '
+        line: <VirtualHost *:8080>
+
+    - name: Change the DocumentRoot
+      lineinfile:
+        path: /etc/apache2/sites-enabled/000-default.conf
+        regexp: '^[ \t]+DocumentRoot '
+        line: "\tDocumentRoot {{ playbook_dir }}/src"
+
+    - name: Enable XDebug so we can debug from VSCode
+      blockinfile: 
+        path: /etc/php/7.4/apache2/php.ini
+        block: |
+          [XDebug]
+          xdebug.remote_enable = 1
+          xdebug.remote_autostart = 1
+
+    - name: Enable the Apache2 rewrite which is required by Codeigniter
+      apache2_module:
+        state: present
+        name:  rewrite
+
+    - name: Restart Apache2 so everything can take effect
+      service:
+        name: apache2
+        state: stopped
