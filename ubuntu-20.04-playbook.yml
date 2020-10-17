@@ -1,66 +1,90 @@
 ---
-- hosts: localhost
-  become: yes
-  tasks:
-
-    - name: Install Apache2 and PHP
-      package:
-        name:
-            - apache2
-            - php-intl
-            - php-mbstring
-            - php-xml
-            - php-zip
-            - php-xdebug
-            - php-curl
-            - curl
-            - php-gd
-            - php-imagick
-        state: present
-
-    - name: Ensure the default Apache port is 8080
-      lineinfile:
-        path: /etc/apache2/ports.conf
-        regexp: '^Listen '
-        line: Listen 8080
-
-    - name: Change the Apache security to allow access to the /src/public
-      blockinfile: 
-        path: /etc/apache2/apache2.conf
-        insertafter: "#</Directory>"
-        block: |
-          <Directory {{ playbook_dir }}/src/public>
-            Options Indexes FollowSymLinks
-            AllowOverride None
-            Require all granted
-          </Directory>
-
-    - name: Ensure the VirtualHost port is 8080
-      lineinfile:
-        path: /etc/apache2/sites-available/000-default.conf
-        regexp: '^<VirtualHost '
-        line: <VirtualHost *:8080>
-
-    - name: Change the DocumentRoot
-      lineinfile:
-        path: /etc/apache2/sites-enabled/000-default.conf
-        regexp: '^[ \t]+DocumentRoot '
-        line: "\tDocumentRoot {{ playbook_dir }}/src"
-
-    - name: Enable XDebug so we can debug from VSCode
-      blockinfile: 
-        path: /etc/php/7.4/apache2/php.ini
-        block: |
-          [XDebug]
-          xdebug.remote_enable = 1
-          xdebug.remote_autostart = 1
-
-    - name: Enable the Apache2 rewrite which is required by Codeigniter
-      apache2_module:
-        state: present
-        name:  rewrite
-
-    - name: Restart Apache2 so everything can take effect
-      service:
-        name: apache2
-        state: stopped
+  - hosts: localhost
+    become: yes
+    tasks:
+  
+      - name: Install Apache2 and PHP
+        package:
+          name:
+              - apache2
+              - libapache2-mod-php
+              - php-intl
+              - php-mbstring
+              - php-xml
+              - php-zip
+              - php-xdebug
+              - php-curl
+              - curl
+              - php-gd
+              - php-imagick
+              - composer
+          state: present
+  
+      - name: Ensure the default Apache port is 8080
+        lineinfile:
+          path: /etc/apache2/ports.conf
+          regexp: '^Listen '
+          line: Listen 8080
+  
+      - name: Change the Apache security to allow access to the /src
+        blockinfile: 
+          path: /etc/apache2/apache2.conf
+          insertafter: "#</Directory>"
+          block: |
+            <Directory {{ playbook_dir }}/src>
+              Options Indexes FollowSymLinks
+              AllowOverride None
+              Require all granted
+            </Directory>
+  
+      - name: Ensure the VirtualHost port is 8080
+        lineinfile:
+          path: /etc/apache2/sites-available/000-default.conf
+          regexp: '^<VirtualHost '
+          line: <VirtualHost *:8080>
+  
+      - name: Change the DocumentRoot to /src/public
+        lineinfile:
+          path: /etc/apache2/sites-enabled/000-default.conf
+          regexp: '^[ \t]+DocumentRoot '
+          line: "\tDocumentRoot {{ playbook_dir }}/src/public"
+  
+      - name: Enable XDebug so we can debug from VSCode
+        blockinfile: 
+          path: /etc/php/7.4/apache2/php.ini
+          block: |
+            [XDebug]
+            xdebug.remote_enable = 1
+            xdebug.remote_autostart = 1
+  
+      - name: Enable the Apache2 rewrite module which is required by Codeigniter
+        apache2_module:
+          state: present
+          name:  rewrite
+  
+      - name: Run Composer to install the Codeigniter requirements
+        composer:
+          command: install
+          working_dir: ./src/
+  
+      - name: Make a copy of the .env file
+        command: cp ./src/env ./src/.env
+  
+      - name: Set the environment to development by editing the .env file
+        lineinfile:
+          path: ./src/.env
+          regexp: '^[# ]+CI_ENVIRONMENT'
+          line: CI_ENVIRONMENT = development
+  
+      - name: Make the Codeigniter writeable directory writeable by the web server
+        file:
+          path: ./src/writable
+          owner: nobody
+          group: www-data
+          recurse: yes
+          mode: '0777'
+  
+      - name: Restart Apache2 so everything can take effect
+        service:
+          name: apache2
+          state: restarted
