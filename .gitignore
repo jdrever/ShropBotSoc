@@ -4,6 +4,7 @@
 /src/writable
 /src/build/
 composer.lock
+.DS_Store
 
 # Caches
 /.vagrant
