@@ -32,28 +32,39 @@ layout: default
 ```
 
 * Website at <http://localhost:8080/>.
-* Documents at <http://localhost:8089/captain-magenta/>.
 * To connect `docker exec -it captain-magenta-php /bin/bash`
 
-## WSL Environment
+## WSL Ubuntu 20.04 Environment
 
-* Start WSL in `/src` with `ubuntu run`
-* Install Apache and PHP
+* Start WSL with `run ubuntu`
+* Clone the repo with `https://github.com/joejcollins/captain-magenta`
+* Install the requirements with `sh ./ubuntu-20.04-config.sh`
+* Xdebug is installed so add this to the `launch.json`.
 
-```bash
-apt-get install -y \
-apache2 \
-php-intl php-mbstring php-xml php-zip php-xdebug \
-php-mysql mysql-server mysql-client \
-php-pgsql postgresql-$PGSQL_VERSION \
-php-sqlite3 sqlite3 \
-php-memcached memcached \
-php-redis redis-server \
-php-curl curl \
-php-gd php-imagick \
-python-pip
+```json
+{
+    "name": "Listen for WSL XDebug",
+    "type": "php",
+    "request": "launch",
+    "port": 9009,
+    "pathMappings": {
+        "${workspaceFolder}/src": "${workspaceFolder}/src"
+    },
+    "ignore": [
+        "**/vendor/**/*.php"
+    ],
+    "xdebugSettings": {
+        "max_data": 65535,
+        "show_hidden": 1,
+        "max_children": 100,
+        "max_depth": 5
+    }
+},
 ```
 
-* Install composer `apt install composer`
-* Using composer install the `vendor` files using `composer install`
-* Run the build in PHP development server with `sudo php spark serve --host=0.0.0.0 --port=8080`
+* Website at <http://localhost:8089/>.
+
+
+## PHP Built in Development Server
+
+Codeigniter can use the built in PHP server started like this `sudo php spark serve --host=0.0.0.0 --port=8080`.

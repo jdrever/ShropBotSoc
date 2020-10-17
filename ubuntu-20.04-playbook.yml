@@ -20,11 +20,11 @@
               - composer
           state: present
   
-      - name: Ensure the default Apache port is 8080
+      - name: Ensure the default Apache port is 8089
         lineinfile:
           path: /etc/apache2/ports.conf
           regexp: '^Listen '
-          line: Listen 8080
+          line: Listen 8089
   
       - name: Change the Apache security to allow access to the /src
         blockinfile: 
@@ -37,11 +37,11 @@
               Require all granted
             </Directory>
   
-      - name: Ensure the VirtualHost port is 8080
+      - name: Ensure the VirtualHost port is 8089
         lineinfile:
           path: /etc/apache2/sites-available/000-default.conf
           regexp: '^<VirtualHost '
-          line: <VirtualHost *:8080>
+          line: <VirtualHost *:8089>
   
       - name: Change the DocumentRoot to /src/public
         lineinfile:
@@ -56,6 +56,8 @@
             [XDebug]
             xdebug.remote_enable = 1
             xdebug.remote_autostart = 1
+            xdebug.remote_host=localhost
+            xdebug.remote_port=9009
   
       - name: Enable the Apache2 rewrite module which is required by Codeigniter
         apache2_module:
