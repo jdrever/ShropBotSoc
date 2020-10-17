@@ -24,11 +24,16 @@
         regexp: '^Listen '
         line: Listen 8080
 
-    - name: Change the Apache security to allow access to the /src
-      lineinfile:
+    - name: Change the Apache security to allow access to the /src/public
+      blockinfile: 
         path: /etc/apache2/apache2.conf
-        regexp: '^<Directory /var/www/>'
-        line: <Directory {{ playbook_dir }}/src>
+        insertafter: "#</Directory>"
+        block: |
+          <Directory {{ playbook_dir }}/src/public>
+            Options Indexes FollowSymLinks
+            AllowOverride None
+            Require all granted
+          </Directory>
 
     - name: Ensure the VirtualHost port is 8080
       lineinfile:
