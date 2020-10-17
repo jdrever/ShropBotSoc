@@ -10,8 +10,12 @@ sudo apt update && sudo apt install \
   php-memcached memcached \
   php-redis redis-server \
   php-curl curl \
-  php-gd php-imagick \
-  python-pip
+  php-gd php-imagick
 
 # Make logging into shells quieter
 touch ~/.hushlogin
+
+echo '[XDebug]' >> /etc/php/7.4/apache2$/php.ini
+
+    xdebug.remote_enable = 1
+    xdebug.remote_autostart = 1
