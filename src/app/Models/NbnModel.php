@@ -14,7 +14,7 @@ class NbnModel
                         '&sort=taxon_name&fsort=index&pageSize=9';
     const NBN_RECORDS = 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=%s'.
                         '&sort=taxon_name&fsort=index&pageSize=9';
-    const NBN_SITES = 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0';
+
 
 
     /**
@@ -79,7 +79,7 @@ class NbnModel
         return $get_records;
     }
 
-
+    const NBN_SITES = 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0';
     /**
      * 
      */
