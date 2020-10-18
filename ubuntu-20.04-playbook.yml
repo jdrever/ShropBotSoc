@@ -1,5 +1,5 @@
 ---
-  - hosts:
+  - hosts: localhost
     become: yes
     gather_facts: no
     tasks:
@@ -40,13 +40,13 @@
   
       - name: Ensure the VirtualHost port is 8089
         lineinfile:
-          path: /etc/apache2/sites-enabled/000-default.conf
+          path: /etc/apache2/sites-available/000-default.conf
           regexp: '^<VirtualHost '
           line: <VirtualHost *:8089>
   
       - name: Change the DocumentRoot to /src/public
         lineinfile:
-          path: /etc/apache2/sites-enabled/000-default.conf
+          path: /etc/apache2/sites-available/000-default.conf
           regexp: '^[ \t]+DocumentRoot '
           line: "\tDocumentRoot {{ playbook_dir }}/src/public"
   

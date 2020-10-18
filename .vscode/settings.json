@@ -52,5 +52,6 @@
         "axiophytes",
         "fsort"
     ],
-    "php.validate.enable": false
+    "php.validate.enable": false,
+    "workbench.colorTheme": "Solarized Light"
 }
