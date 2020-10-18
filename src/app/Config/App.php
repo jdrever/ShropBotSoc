@@ -21,19 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	/**
-	 * Set the $baseURL to local if not on GAE
-	 */
-	public function __construct(){
-		$gae_array = get_gae_environment();
-		if (empty($gae_array)) {
-			$this->baseURL = 'http://localhost:8080/';
-		}
-		else {
-			$this->baseURL = 'https://captain-magenta.nw.r.appspot.com/';
-		}
-	}
-	public $baseURL;
+	public $baseURL = "https://flora.shropshirebotany.org.uk/";
 
 	/*
 	|--------------------------------------------------------------------------
@@ -111,7 +99,7 @@ class App extends BaseConfig
 	| dates with the date helper, and can be retrieved through app_timezone()
 	|
 	*/
-	public $appTimezone = 'America/Chicago';
+	public $appTimezone = 'Europe/London';
 
 	/*
 	|--------------------------------------------------------------------------

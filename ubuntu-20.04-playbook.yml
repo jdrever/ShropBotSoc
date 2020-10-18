@@ -78,12 +78,16 @@
           path: ./src/.env
           regexp: '^[# ]+CI_ENVIRONMENT'
           line: CI_ENVIRONMENT = development
+
+      - name: Set the baseURL by editing the .env file
+        lineinfile:
+          path: ./src/.env
+          regexp: '^# app.baseURL'
+          line: app.baseURL = 'http://localhost:8089/'
   
       - name: Make the Codeigniter writeable directory writeable by the web server
         file:
           path: ./src/writable
-          owner: nobody
-          group: www-data
           recurse: yes
           mode: '0777'
   
