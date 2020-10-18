@@ -3,7 +3,4 @@ layout: default
 ---
 # Production Notes
 
-* Domain on <https://www.123-reg.co.uk/>
-
-P
-
+* Domain (shropshirebotany.org.uk) management at <https://www.123-reg.co.uk/>
