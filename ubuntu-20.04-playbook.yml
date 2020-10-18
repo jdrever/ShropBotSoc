@@ -1,5 +1,5 @@
 ---
-  - hosts: all
+  - hosts:
     become: yes
     gather_facts: no
     tasks:
@@ -40,7 +40,7 @@
   
       - name: Ensure the VirtualHost port is 8089
         lineinfile:
-          path: /etc/apache2/sites-available/000-default.conf
+          path: /etc/apache2/sites-enabled/000-default.conf
           regexp: '^<VirtualHost '
           line: <VirtualHost *:8089>
   

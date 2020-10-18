@@ -51,5 +51,6 @@
         "axiophyte",
         "axiophytes",
         "fsort"
-    ]
+    ],
+    "php.validate.enable": false
 }

@@ -3,7 +3,7 @@ layout: default
 ---
 Hosted at <http://docs.shropshirebotany.org.uk/>.
 
-# Background
+# Index
 
 * [Specification]({{ site.baseurl }}/specification.pdf)
 * [Development]({{ site.baseurl }}/development.html)
