@@ -10,21 +10,21 @@ class Species extends BaseController
     public function index()
     {
         // Set a default search type
-        $this->data['in'] = 'scientific';
-        if ($this->request->getVar('search') == null) 
+        if ($this->isPostBack()) 
+        {
+            $this->data['nameType'] = $this->request->getVar('name-type');
+        }
+        else
         {
             // Don't show anything
-        }
-        else // there are query parameters 
-        {
-            $this->data['title'] = $this->data['title']." - results";
-            // Make sure the posted fields are set back
-            $name_search_string = $this->request->getVar('search');
-            $this->data['search'] = $name_search_string;
-            $name_type = $this->request->getVar('in');
-            $this->data['in'] = $name_type;
-            // Search for the species
-            $this->data['taxa'] = $this->nbnModel->getTaxa($name_search_string, $name_type);
+            // $this->data['title'] = $this->data['title']." - results";
+            // // Make sure the posted fields are set back
+            // $name_search_string = $this->request->getVar('search');
+            // $this->data['search'] = $name_search_string;
+            // $name_type = $this->request->getVar('in');
+            // $this->data['in'] = $name_type;
+            // // Search for the species
+            // $this->data['taxa'] = $this->nbnModel->getTaxa($name_search_string, $name_type);
         };
         echo view('species_search', $this->data);
     }

@@ -18,7 +18,6 @@ use CodeIgniter\Controller;
 
 class BaseController extends Controller
 {
-
 	/**
 	 * An array of helpers to be loaded automatically upon
 	 * class instantiation. These helpers will be available
@@ -42,4 +41,13 @@ class BaseController extends Controller
 		$this->nbnModel = model('App\Models\NbnModel', false);
 	}
 
+  /**
+	 * Determine if this is a post back so you can do that isPostBack thing
+	 * like they do in ASP and ASP.NET.  Strange that you don't really see
+	 * it elsewhere but there you go.
+	 */
+	function isPostBack()
+	{
+		return $_SERVER['REQUEST_METHOD'] === 'POST';
+	}
 }
