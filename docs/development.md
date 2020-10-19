@@ -38,7 +38,7 @@ Using a Docker container which maps to files on the host.
 
 ## WSL Ubuntu 20.04 Environment
 
-Using the WSL Linux file system and not synchronising or sharing files with the host.
+Using the WSL Linux file system and not synchronizing or sharing files with the host.
 
 * Start WSL with `run ubuntu`
 * Clone the repo with `https://github.com/joejcollins/captain-magenta`
