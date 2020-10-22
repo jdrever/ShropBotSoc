@@ -21,7 +21,7 @@
         <div class="col-md-10">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="name-type"  id="scientific-name"
-                    value="scientific" <?php echo set_radio('name-type', 'scientific'); ?> />
+                    value="scientific" <?php echo set_radio('name-type', 'scientific', TRUE); ?> />
                 <label class="form-check-label" for="scientific-name">
                     scientific<span class="d-none d-md-inline"> name only</span>
                 </label>
@@ -34,11 +34,8 @@
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <!--<input class="form-check-input" type="radio" name="name-type" id="common-name"
-                    value="common" <?php echo (isset($nameType) and ($nameType == 'common')) ? 'checked' : '' ?> /> -->
                 <input class="form-check-input" type="radio" name="name-type" id="common-name"
                     value="common" <?php echo set_radio('name-type', 'common'); ?> />
-                   
                 <label class="form-check-label" for="common-name">
                     common<span class="d-none d-md-inline"> name only</span>
                 </label>
