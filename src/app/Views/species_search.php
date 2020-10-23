@@ -55,9 +55,9 @@
         <tbody>
         <?php foreach ($taxa as $taxon):?>
         <tr>
-            <td class="d-none d-md-table-cell"><?=$taxon->family?></td>
-            <td><a href="<?=base_url("/species/records/$taxon->name");?>"><?=$taxon->name?></a></td>
-            <td class="d-none d-sm-table-cell"><?=$taxon->commonName?></td>
+            <td class="d-none d-md-table-cell"><?php echo $taxon->family?></td>
+            <td><a href="<?php echo base_url("/species/records/{$taxon->name}");?>"><?=$taxon->name?></a></td>
+            <td class="d-none d-sm-table-cell"><?php echo $taxon->commonName?></td>
             <td><?=$taxon->count?></td>
         </tr>
         <?php endforeach;?>
@@ -73,4 +73,4 @@
         </ul>
     </nav>
 <?php endif ?>
-<?= $this->endSection() ?>
+<?php echo $this->endSection() ?>

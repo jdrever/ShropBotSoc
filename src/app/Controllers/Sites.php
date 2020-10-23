@@ -5,21 +5,26 @@ class Sites extends BaseController
     private $data = array('title' => 'Sites');
 
     /**
-     * Landing page showing the sites search form.
+     * Search for the site name or part there of
      */
     public function index()
     {
-        if ($this->request->getVar('search') == null) 
-        {
-            // Don't show anything
-        }
-        else // 
+        if ($this->isPostBack()) 
         {
             $this->data['title'] = $this->data['title']." - results";
             $site_search_string = $this->request->getVar('search');
             $this->data['search'] = $site_search_string;
             $this->data['sites'] = $this->nbnModel->getSites($site_search_string);
-        }
+        };
         echo view('sites_search', $this->data);
     }
+
+    /**
+     * 
+     */
+    public function speciesInSite($siteName)
+    {
+        echo view('site_species', $this->data);
+    }
+
 }

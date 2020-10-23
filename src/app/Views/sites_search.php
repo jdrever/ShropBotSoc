@@ -1,14 +1,14 @@
-<?= $this->extend('default') ?>
-<?= $this->section('content') ?>
+<?php echo $this->extend('default') ?>
+<?php echo $this->section('content') ?>
 <h2>Find Sites</h2>
 
-<form action="<?=base_url('/sites/index/'); ?>" method="get" accept-charset="utf-8">
+<?php echo form_open('sites') ?>
     <div class="form-group row">
         <label for="search" class="col-sm-2 col-form-label d-none d-md-inline">Enter all or part of a site name</label>
         <div class="col-sm-6">
             <input type="text" class="form-control" name="search" id="search" 
                 aria-describedby="search-help" placeholder="Enter a site"
-                value="<?php echo isset($search) ? $search : '' ?>">
+                value="<?php echo set_value('search'); ?>" />
             <small id="search-help" class="form-text text-muted d-none d-md-inline">Try something like "Aston".</small>
         </div>
         <div class="col-sm-4">
@@ -27,8 +27,8 @@
         <tbody>
         <?php foreach ($sites as $site):?>
         <tr>
-            <td><a href="#"><?=$site->label?></a></td>
-            <td><?=$site->count?></td>
+            <td><a href="<?php echo base_url("/sites/{$site->label}");?>"><?php echo$site->label?></a></td>
+            <td><?php echo$site->count?></td>
         </tr>
         <?php endforeach;?>
         </tbody>
@@ -41,4 +41,4 @@
         </ul>
     </nav>
 <?php endif ?>
-<?= $this->endSection() ?>
+<?php echo $this->endSection() ?>

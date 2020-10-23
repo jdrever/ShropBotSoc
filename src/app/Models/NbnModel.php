@@ -8,15 +8,6 @@
  */
 class NbnModel
 {
-    // Select from the groups `Plants` and `Bryophytes`
-    const NBN_GROUPS = 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=%s'.
-                        '&fq=data_resource_uid:dr782+AND+species_group:Plants+Bryophytes+AND+%s'.
-                        '&sort=taxon_name&fsort=index&pageSize=9';
-    const NBN_RECORDS = 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=%s'.
-                        '&sort=taxon_name&fsort=index&pageSize=9';
-
-
-
     /**
      * 
      */
@@ -32,6 +23,11 @@ class NbnModel
         return $arr;
     }
 
+
+    // Select from the groups `Plants` and `Bryophytes`
+    const NBN_GROUPS = 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=%s'.
+    '&fq=data_resource_uid:dr782+AND+species_group:Plants+Bryophytes+AND+%s'.
+    '&sort=taxon_name&fsort=index&pageSize=9';
     /**
      * Get an alphabetical list of taxa.
      * 
@@ -40,8 +36,9 @@ class NbnModel
      * https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+taxon_name:Bar*+AND+species_group:Plants+Bryophytes&pageSize=12
      * 
      * TODO: Implement search in common names and axiophytes
+     * TODO: Only plants, only bryophytes or both
      */
-    public function getTaxa($taxon_search_string, $name_type)
+    public function getSpeciesInDataset($taxon_search_string, $name_type)
     {
         // So the cache files look neater
         if ($this->IsNullOrEmptyString($taxon_search_string)) $taxon_search_string = "A"; 
@@ -57,6 +54,8 @@ class NbnModel
         return $get_taxa;
     }
 
+    const NBN_RECORDS = 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=%s'.
+                        '&sort=taxon_name&fsort=index&pageSize=9';
     /**
      * Get the records for a single taxon
      * 
@@ -67,7 +66,7 @@ class NbnModel
      * 
      * TODO: Needs caching
      */
-    public function getRecords($taxon_name)
+    public function getRecordsForASpecies($taxon_name)
     {
         $taxon_name = rawurlencode($taxon_name); // mainly to replace the spaces with %20
         $records_url = sprintf(self::NBN_RECORDS, "taxon_name:$taxon_name");
@@ -81,7 +80,7 @@ class NbnModel
 
     const NBN_SITES = 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0';
     /**
-     * 
+     * Search for sites matching the string
      */
     public function getSites($site_search_string)
     {
@@ -91,5 +90,19 @@ class NbnModel
         return $get_sites;
     }
 
+    const NBN_SPECIES_FOR_A_SITE = "shit";
+    public function getSiteSpeciesList($site_name)
+    {
+        $species_json = file_get_contents(self::NBN_SPECIES_FOR_A_SITE);
+        $get_species_for_site = json_decode($species_json)->occurrences;
+        return $get_species_for_site;
+    }
+
+
+    const NBN_SINGLE_SITE = 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:Bury%20Ditches&fq=data_resource_uid:dr782&fq=taxon_name:Saccogyna%20viticulosa&pageSize=9';
+    public function getRecordsForSiteAndSpecies($site_name, $taxon_name)
+    {
+
+    }
 
 }
