@@ -65,7 +65,7 @@ Using the WSL Linux file system and not synchronizing or sharing files with the 
     }
 },
 ```
-
+* Ensure that Apache is running with `sudo service apache2 restart`
 * Website at <http://localhost:8089/>.
 
 ## Vagrant Ubuntu 20.04 Environment

@@ -1,14 +1,14 @@
-<?= $this->extend('default') ?>
-<?= $this->section('content') ?>
+<?php echo $this->extend('default') ?>
+<?php echo $this->section('content') ?>
 <h2>Find Species</h2>
 
-<?= form_open('species') ?>
+<?php echo form_open('species') ?>
     <div class="form-group row">
         <label for="search" class="col-sm-2 col-form-label d-none d-md-inline">Enter part of a species name</label>
         <div class="col-sm-6">
             <input type="text" class="form-control" name="search" id="search" 
                 aria-describedby="search-help" placeholder="Enter a species"
-                value="<?php echo isset($search) ? $search : '' ?>">
+                value="<?php echo set_value('search'); ?>" />
             <small id="search-help" class="form-text text-muted d-none d-md-inline">Try something like "Hedera".</small>
         </div>
         <div class="col-sm-4">
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-<?= form_close() ?>
+<?php echo form_close() ?>
 <!-- Show the search results if there are any -->
 <?php if (isset($taxa)):?>
     <table class="table">
