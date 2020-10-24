@@ -1,5 +1,4 @@
 <?php namespace Config;
-helper('gae');
 use CodeIgniter\Config\BaseConfig;
 
 class Cache extends BaseConfig
@@ -18,11 +17,12 @@ class Cache extends BaseConfig
 	 * Set the $handler to file if not on GAE
 	 */
 	public function __construct(){
-		$gae_array = get_gae_environment();
-		if (empty($gae_array)) {
+		if (getenv('IS_GAE'))
+		{
 			$this->handler = 'file';
 		}
-		else {
+		else
+		{
 			$this->handler = 'dummy';
 		}
 	}
