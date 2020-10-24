@@ -1,5 +1,10 @@
 <?php namespace App\Controllers;
 
+/**
+ * Manage the species or taxa views.
+ * 
+ * TODO: Caching
+ */
 class Species extends BaseController
 {
     private $data = array('title' => 'Species');

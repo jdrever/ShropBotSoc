@@ -50,7 +50,9 @@
     "cSpell.words": [
         "axiophyte",
         "axiophytes",
-        "fsort"
+        "fsort",
+        "mapid",
+        "mymap"
     ],
     "php.validate.enable": false,
     "workbench.colorTheme": "Solarized Light"

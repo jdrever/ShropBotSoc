@@ -85,9 +85,9 @@ class NbnModel
     public function getSites($site_search_string)
     {
         $sites_json = file_get_contents(self::NBN_SITES);
-        $get_sites = json_decode($sites_json)->facetResults[0]->fieldResult;
-        $get_sites = $this->truncateArray(9, $get_sites);
-        return $get_sites;
+        $sites = json_decode($sites_json)->facetResults[0]->fieldResult;
+        $sites = $this->truncateArray(9, $sites);
+        return $sites;
     }
 
     const NBN_SPECIES_FOR_A_SITE = "shit";
@@ -103,6 +103,14 @@ class NbnModel
     public function getRecordsForSiteAndSpecies($site_name, $taxon_name)
     {
 
+    }
+
+    const NBN_SINGLE_RECORD = 'https://records-ws.nbnatlas.org/occurrence/4276e1be-b7d2-46b0-a33d-6fa82e97636a';
+    public function getRecord($uuid)
+    {
+        $record_json = file_get_contents(self::NBN_SINGLE_RECORD);
+        $record = json_decode($record_json);
+        return $record;
     }
 
 }

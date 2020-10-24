@@ -1,8 +1,13 @@
 <?php namespace App\Controllers;
 
+/**
+ * Manage the records views.
+ * 
+ * TODO: Caching
+ */
 class Records extends BaseController
 {
-    private $data = array('title' => 'Squares');
+    private $data = array('title' => 'Records');
 
     /**
      * Landing page 
@@ -17,10 +22,17 @@ class Records extends BaseController
     /**
      * Display a single record
      */
-    public function singleRecord($record_id)
+    public function singleRecord($uuid)
     {
+        $record = $this->nbnModel->getRecord($uuid);
+        $occurrence = $record->processed->occurrence;
+        $this->data['occurrence'] = $occurrence;
+        $classification = $record->processed->classification;
+        $this->data['classification'] = $classification;
+        $title = $classification->scientificName."-".$occurrence->recordedBy;
+        $this->data['location'] = $record->raw->location; # `raw` contains the locationID
+        $this->data['event'] = $record->processed->event;
+        $this->data['title'] = $title;
         echo view('record', $this->data);
     }
-
- 
 }

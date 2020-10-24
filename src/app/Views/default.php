@@ -11,6 +11,16 @@
   <!-- Custom styles for this template -->
   <link href="/css/from-blogger.css" rel="stylesheet">
   <link href="/css/enhancements.css" rel="stylesheet">
+  <!-- Mapping -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.5.0/proj4.js"></script>
+   <script type="text/javascript" src="/js/Leaflet.MetricGrid.js"></script>
+   <script type="text/javascript" src="/js/L.OSGraticule.js"></script>
   <title>
     <?=$title?>
   </title>

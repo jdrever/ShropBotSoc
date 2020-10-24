@@ -1,5 +1,10 @@
 <?php namespace App\Controllers;
 
+/**
+ * Manage the sites views.
+ * 
+ * TODO: Caching
+ */
 class Sites extends BaseController
 {
     private $data = array('title' => 'Sites');
