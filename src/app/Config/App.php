@@ -1,5 +1,4 @@
 <?php namespace Config;
-helper('gae');
 use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
