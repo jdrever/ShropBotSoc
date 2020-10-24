@@ -87,7 +87,7 @@
   
       - name: Make the Codeigniter writeable directory writeable by the web server
         file:
-          path: ./src/writable
+          path: ./src/tmp
           recurse: yes
           mode: '0777'
   
