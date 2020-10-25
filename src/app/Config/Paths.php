@@ -51,7 +51,7 @@ class Paths
 	public $writableDirectory;
 	public function __construct()
 	{
-		if (getenv('IS_GAE'))
+		if (getenv('IS_GAE') == "TRUE")
 		{
 			$this->writableDirectory = '/tmp';
 		}

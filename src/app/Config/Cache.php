@@ -12,21 +12,18 @@ class Cache extends BaseConfig
 	| it is not available, the $backupHandler will be used in its place.
 	|
 	*/
-
-	/**
-	 * Set the $handler to file if not on GAE
-	 */
-	public function __construct(){
-		if (getenv('IS_GAE'))
-		{
-			$this->handler = 'file';
-		}
-		else
+	public $handler;
+	public function __construct()
+	{
+		if (getenv('IS_GAE') == "TRUE")
 		{
 			$this->handler = 'dummy';
 		}
+		else
+		{
+			$this->handler = 'file';
+		}
 	}
-	public $handler;
 
 	/*
 	|--------------------------------------------------------------------------
