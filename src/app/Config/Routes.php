@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->add('species/records/(:segment)', 'Species::recordsInDataset/$1');
+$routes->add('species/site/(:segment)', 'Species::speciesForSite/$1');
 $routes->add('sites/(:segment)', 'Sites::speciesInSite/$1');
 $routes->add('records/(:segment)', 'Records::singleRecord/$1');
 

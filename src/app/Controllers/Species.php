@@ -25,6 +25,16 @@ class Species extends BaseController
     }
 
     /**
+     * Get the species count for a site
+     */
+    public function speciesForSite($siteName)
+    {
+        $this->data['title'] = urldecode($siteName);
+        $this->data['speciesList'] = $this->nbnModel->getSiteSpeciesList($siteName);
+        echo view('site_species_list', $this->data);
+    }
+
+    /**
      * List the records for a species in the dataset
      */
     public function recordsInDataset($speciesName)

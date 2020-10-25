@@ -90,12 +90,15 @@ class NbnModel
         return $sites;
     }
 
-    const NBN_SPECIES_FOR_A_SITE = "shit";
+    const NBN_SPECIES_FOR_A_SITE = "https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+location_id:Shrewsbury+AND+species_group:Plants+Bryophytes&pageSize=9";
+    /**
+     * Get the site 
+     */
     public function getSiteSpeciesList($site_name)
     {
         $species_json = file_get_contents(self::NBN_SPECIES_FOR_A_SITE);
-        $get_species_for_site = json_decode($species_json)->occurrences;
-        return $get_species_for_site;
+        $site_species_list = json_decode($species_json);
+        return $site_species_list;
     }
 
 

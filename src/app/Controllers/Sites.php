@@ -24,12 +24,4 @@ class Sites extends BaseController
         echo view('sites_search', $this->data);
     }
 
-    /**
-     * 
-     */
-    public function speciesInSite($siteName)
-    {
-        echo view('site_species', $this->data);
-    }
-
 }

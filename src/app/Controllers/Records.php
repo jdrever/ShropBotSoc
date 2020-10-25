@@ -33,6 +33,6 @@ class Records extends BaseController
         $this->data['location'] = $record->raw->location; # `raw` contains the locationID
         $this->data['event'] = $record->processed->event;
         $this->data['title'] = $title;
-        echo view('record', $this->data);
+        echo view('single_record', $this->data);
     }
 }
