@@ -2,6 +2,7 @@
 /src/vendor/
 .phpunit.result.cache
 /src/writable
+/src/tmp
 /src/build/
 composer.lock
 .DS_Store

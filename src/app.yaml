@@ -19,4 +19,4 @@ handlers:
 
 env_variables:
   CI_ENVIRONMENT: "development"
-  
+  IS_GAE: True

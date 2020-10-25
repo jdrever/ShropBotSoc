@@ -48,7 +48,18 @@ class Paths
 	 * for maximum security, keeping it out of the app and/or
 	 * system directories.
 	 */
-	public $writableDirectory = __DIR__ . '/../../writable';
+	public $writableDirectory;
+	public function __construct()
+	{
+		if (getenv('IS_GAE'))
+		{
+			$this->writableDirectory = '/tmp';
+		}
+		else
+		{
+			$this->writableDirectory = __DIR__ . '/../../writable';
+		}
+	}
 
 	/*
 	 * ---------------------------------------------------------------

@@ -63,7 +63,7 @@
       - name: Enable the Apache2 rewrite module which is required by Codeigniter
         apache2_module:
           state: present
-          name:  rewrite
+          name: rewrite
   
       - name: Run Composer to install the Codeigniter requirements
         composer:
@@ -85,7 +85,7 @@
           regexp: '^# app.baseURL'
           line: app.baseURL = 'http://localhost:8089/'
   
-      - name: Make the Codeigniter writeable directory writeable by the web server
+      - name: Make the Codeigniter writable directory writable by the web server
         file:
           path: ./src/writable
           recurse: yes
