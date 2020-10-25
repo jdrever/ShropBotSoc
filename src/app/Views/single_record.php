@@ -50,6 +50,7 @@ $data = [
         ['Date', $event->eventDate],
         ['Grid Reference', $location->gridReference],
         ['Recorder', $occurrence->recordedBy],
+        ['Phylum', $classification->phylum],        
         ['Scientific Name', $classification->scientificName],
         ['Common Name', $classification->vernacularName]
 ];

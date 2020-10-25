@@ -31,7 +31,8 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->add('species/records/(:segment)', 'Species::recordsInDataset/$1');
+$routes->add('records/species/(:segment)', 'Records::forASpeciesInDataset/$1');
+$routes->add('records/site/(:segment)/species/(:segment)', 'Records::forASpeciesInASite/$1/$2');
 $routes->add('species/site/(:segment)', 'Species::speciesForSite/$1');
 $routes->add('sites/(:segment)', 'Sites::speciesInSite/$1');
 $routes->add('records/(:segment)', 'Records::singleRecord/$1');

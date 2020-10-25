@@ -10,13 +10,24 @@ class Records extends BaseController
     private $data = array('title' => 'Records');
 
     /**
-     * Landing page 
-     * 
-     * TODO Search records by collector?
+     * List the records for a species in the entire dataset
      */
-    public function index()
+    public function forASpeciesInDataset($speciesName)
     {
-        echo view('records_search', $this->data);
+        $this->data['title'] = urldecode($speciesName);
+        $this->data['speciesName'] = $speciesName;
+        $this->data['records'] = $this->nbnModel->getRecordsForASpecies($speciesName);
+        echo view('species_records', $this->data);
+    }
+
+    /**
+     * 
+     */
+    public function forASpeciesInASite($siteId, $speciesName)
+    {
+        // Mapp of site
+        $this->data['records'] = $this->nbnModel->getSiteSpeciesList($siteId, $speciesName);
+        echo view('species_records', $this->data);
     }
 
     /**

@@ -8,8 +8,10 @@
         <tbody>
         <?php foreach ($records as $record):?>
         <tr>
-            <td><?php echo $record->locationId?></td>
-            <td><a href="http://www.google.com/maps/place/<?php echo $record->decimalLatitude?>,<?php echo $record->decimalLongitude?>">Google Map</a></td>
+            <td>
+              <a href="/species/site/<?php echo $record->locationId?>"><?php echo $record->locationId?></a>
+            </td>
+            <td><a href="/square/<?php echo $record->gridReference?>"><?php echo $record->gridReference?></a></td>
             <td><?php echo $record->collector?></td>
             <td><?php echo $record->year?></td>
             <td><a href="<?php echo base_url("/records/{$record->uuid}");?>">details...</td>

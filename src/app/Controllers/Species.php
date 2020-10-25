@@ -34,15 +34,6 @@ class Species extends BaseController
         echo view('site_species_list', $this->data);
     }
 
-    /**
-     * List the records for a species in the dataset
-     */
-    public function recordsInDataset($speciesName)
-    {
-        $this->data['title'] = urldecode($speciesName);
-        $this->data['speciesName'] = $speciesName;
-        $this->data['records'] = $this->nbnModel->getRecordsForASpecies($speciesName);
-        echo view('species_records', $this->data);
-    }
+
 
 }
