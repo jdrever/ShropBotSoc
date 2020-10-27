@@ -65,6 +65,8 @@ class NbnModel
      * The taxon needs to be in double quotes so the complete string is searched for rather than a partial.
      * 
      * TODO: Needs caching
+     * 
+     * (data_resource_uid:dr78 AND pageSize:9 AND taxon_name:Acaulon%20muticum AND sort:taxon_name)
      */
     public function getRecordsForASpecies($taxon_name)
     {
