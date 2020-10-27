@@ -1,5 +1,8 @@
 <?php namespace App\Controllers;
 
+/**
+ * Manage the grid square views.
+ */
 class Squares extends BaseController
 {
     private $data = array('title' => 'Squares');
@@ -11,6 +14,5 @@ class Squares extends BaseController
     {
         echo view('squares_search', $this->data);
     }
-
  
 }

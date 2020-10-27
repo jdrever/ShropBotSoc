@@ -38,7 +38,7 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
-		$this->nbnModel = model('App\Models\NbnModel', false);
+		$this->nbnQuery = model('App\Libraries\NbnQueryCached', false);
 	}
 
   /**

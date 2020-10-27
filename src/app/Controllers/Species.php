@@ -2,15 +2,13 @@
 
 /**
  * Manage the species or taxa views.
- * 
- * TODO: Caching
  */
 class Species extends BaseController
 {
     private $data = array('title' => 'Species');
 
     /**
-     * List the species in the dataset
+     * If it is a post back return a search of the species listed in the dataset
      */
     public function index()
     {
@@ -19,21 +17,18 @@ class Species extends BaseController
             $this->data['title'] = $this->data['title']." - results";
             $name_search_string = $this->request->getVar('search');
             $name_type= $this->request->getVar('name-type');
-            $this->data['taxa'] = $this->nbnModel->getSpeciesInDataset($name_search_string, $name_type);
+            $this->data['taxa'] = $this->nbnQuery->getSpeciesInDataset($name_search_string, $name_type);
         };
         echo view('species_search', $this->data);
     }
 
     /**
-     * Get the species count for a site
+     * Return the species list for a named site.
      */
     public function speciesForSite($siteName)
     {
         $this->data['title'] = urldecode($siteName);
-        $this->data['speciesList'] = $this->nbnModel->getSiteSpeciesList($siteName);
+        $this->data['speciesList'] = $this->nbnQuery->getSiteSpeciesList($siteName);
         echo view('site_species_list', $this->data);
     }
-
-
-
 }

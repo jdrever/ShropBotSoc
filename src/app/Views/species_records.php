@@ -14,7 +14,7 @@
             <td><a href="/square/<?php echo $record->gridReference?>"><?php echo $record->gridReference?></a></td>
             <td><?php echo $record->collector?></td>
             <td><?php echo $record->year?></td>
-            <td><a href="<?php echo base_url("/records/{$record->uuid}");?>">details...</td>
+            <td><a href="<?php echo base_url("/records/{$record->uuid}");?>">more</td>
         </tr>
         <?php endforeach;?>
         </tbody>

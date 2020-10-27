@@ -2,8 +2,6 @@
 
 /**
  * Manage the records views.
- * 
- * TODO: Caching
  */
 class Records extends BaseController
 {
@@ -16,7 +14,7 @@ class Records extends BaseController
     {
         $this->data['title'] = urldecode($speciesName);
         $this->data['speciesName'] = $speciesName;
-        $this->data['records'] = $this->nbnModel->getRecordsForASpecies($speciesName);
+        $this->data['records'] = $this->nbnQuery->getRecordsForASpecies($speciesName);
         echo view('species_records', $this->data);
     }
 
@@ -26,7 +24,7 @@ class Records extends BaseController
     public function forASpeciesInASite($siteId, $speciesName)
     {
         // Mapp of site
-        $this->data['records'] = $this->nbnModel->getSiteSpeciesList($siteId, $speciesName);
+        $this->data['records'] = $this->nbnQuery->getSiteSpeciesList($siteId, $speciesName);
         echo view('species_records', $this->data);
     }
 
@@ -35,7 +33,7 @@ class Records extends BaseController
      */
     public function singleRecord($uuid)
     {
-        $record = $this->nbnModel->getRecord($uuid);
+        $record = $this->nbnQuery->getRecord($uuid);
         $occurrence = $record->processed->occurrence;
         $this->data['occurrence'] = $occurrence;
         $classification = $record->processed->classification;
