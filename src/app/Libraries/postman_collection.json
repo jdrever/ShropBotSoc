@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "6859fb28-5503-4011-8808-028d93515eac",
+		"name": "Captain-Magenta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getTaxa (Species)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://records-ws.nbnatlas.org/occurrence/facets?facets=taxon_name&q=data_resource_uid:dr782+AND+taxon_name:G*",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"occurrence",
+						"facets"
+					],
+					"query": [
+						{
+							"key": "facets",
+							"value": "taxon_name"
+						},
+						{
+							"key": "q",
+							"value": "data_resource_uid:dr782+AND+taxon_name:G*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRecords",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://records-ws.nbnatlas.org/index/fields",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"index",
+						"fields"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSites",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:Ab*&pageSize=12",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"explore",
+						"group",
+						"Plants"
+					],
+					"query": [
+						{
+							"key": "fq",
+							"value": "data_resource_uid:dr782+AND+taxon_name:Ab*"
+						},
+						{
+							"key": "pageSize",
+							"value": "12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSiteSpeciesList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRecordsForSiteAndSpecies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"occurrences",
+						"search"
+					],
+					"query": [
+						{
+							"key": "fq",
+							"value": "location_id:[Shrews%20TO%20*]"
+						},
+						{
+							"key": "fq",
+							"value": "data_resource_uid:dr782"
+						},
+						{
+							"key": "facets",
+							"value": "location_id"
+						},
+						{
+							"key": "facet",
+							"value": "on"
+						},
+						{
+							"key": "pageSize",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRecord",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
