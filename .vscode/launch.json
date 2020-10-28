@@ -4,15 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
-    
         {
-            "name": "Listen for Docker XDebug",
+            "name": "Listen for WSL XDebug",
             "type": "php",
             "request": "launch",
-            "port": 9000,
+            "port": 9009,
             "pathMappings": {
-                "/var/www/html": "${workspaceFolder}/src"
+                "${workspaceFolder}/src": "${workspaceFolder}/src"
             },
             "ignore": [
                 "**/vendor/**/*.php"
@@ -25,12 +23,12 @@
             }
         },
         {
-            "name": "Listen for WSL XDebug",
+            "name": "Listen for Docker XDebug",
             "type": "php",
             "request": "launch",
-            "port": 9009,
+            "port": 9000,
             "pathMappings": {
-                "${workspaceFolder}/src": "${workspaceFolder}/src"
+                "/var/www/html": "${workspaceFolder}/src"
             },
             "ignore": [
                 "**/vendor/**/*.php"

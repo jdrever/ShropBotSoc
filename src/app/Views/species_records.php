@@ -1,6 +1,6 @@
 <?php echo $this->extend('default') ?>
 <?php echo $this->section('content') ?>
-<h2><?php echo urldecode($speciesName)?></h2>
+<h2>Shropshire - <?php echo urldecode($speciesName)?> - Records</h2>
 <p><a href="https://records-ws.nbnatlas.org/occurrences/index/download?q=data_resource_uid:dr782&fq=taxon_name:<?php echo $speciesName?>&reasonTypeId=11&fileType=csv">Download this data</a></p>
 <?php if (isset($records)):?>
     <table class="table">

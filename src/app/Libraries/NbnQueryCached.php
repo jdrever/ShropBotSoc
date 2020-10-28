@@ -10,6 +10,8 @@ class NbnQueryCached implements NbnQueryInterface
 {
   /**
    * Cache the query
+   * 
+   * @return 
    */
   public static function getSpeciesInDataset($taxon_search_string, $name_type)
   {
