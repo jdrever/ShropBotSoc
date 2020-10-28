@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+helper('nbn');
+
 /**
  * Manage the species or taxa views.
  */
@@ -13,9 +15,11 @@ class Species extends BaseController
     public function index()
     {
         if ($this->isPostBack()) 
-        {
+        { 
             $this->data['title'] = $this->data['title']." - results";
             $name_search_string = $this->request->getVar('search');
+            // If the search field is empty, go to the begining of the alphabet
+            if (IsNullOrEmptyString($name_search_string)) $name_search_string = "A";
             $name_type= $this->request->getVar('name-type');
             $this->data['taxa'] = $this->nbnQuery->getSpeciesInDataset($name_search_string, $name_type);
         };

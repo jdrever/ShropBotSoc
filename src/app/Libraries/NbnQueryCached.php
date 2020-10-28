@@ -13,8 +13,6 @@ class NbnQueryCached implements NbnQueryInterface
    */
   public static function getSpeciesInDataset($taxon_search_string, $name_type)
   {
-    // If the search field is empty, go to the begining of the alphabet
-    if (IsNullOrEmptyString($taxon_search_string)) $taxon_search_string = "A"; 
     $taxon_search_string = ucfirst($taxon_search_string); //because the API respects the case
     $cache_name = "get-species-in_dataset-$name_type-$taxon_search_string";
     if ( ! $get_taxa = cache($cache_name))

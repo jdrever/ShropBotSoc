@@ -67,7 +67,7 @@ class NbnQuery implements NbnQueryInterface
   {
     $sites_json = file_get_contents(self::NBN_SITES);
     $sites = json_decode($sites_json)->facetResults[0]->fieldResult;
-    $sites = $this->truncateArray(9, $sites);
+    $sites = truncateArray(9, $sites);
     return $sites;
   }
 
