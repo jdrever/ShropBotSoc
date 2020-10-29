@@ -16,8 +16,9 @@ class Species extends BaseController
         { 
             $this->data['title'] = $this->data['title']." - results";
             $name_search_string = $this->request->getVar('search');
+            $name_search_string = trim($name_search_string);
             // If the search field is empty, go to the begining of the alphabet
-            if (IsNullOrEmptyString($name_search_string)) $name_search_string = "A";
+            if (trim($name_search_string) == NULL) $name_search_string = "A";
             $name_type= $this->request->getVar('name-type');
             $this->data['taxa'] = $this->nbn->getSpeciesInDataset($name_search_string, $name_type);
         };
