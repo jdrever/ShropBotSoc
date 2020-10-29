@@ -14,7 +14,7 @@ class Records extends BaseController
     {
         $this->data['title'] = urldecode($speciesName);
         $this->data['speciesName'] = $speciesName;
-        $this->data['records'] = $this->nbnQuery->getRecordsForASpecies($speciesName);
+        $this->data['records'] = $this->nbn->getRecordsForASpecies($speciesName);
         echo view('species_records', $this->data);
     }
 
@@ -24,7 +24,7 @@ class Records extends BaseController
     public function forASpeciesInASite($siteId, $speciesName)
     {
         // Mapp of site
-        $this->data['records'] = $this->nbnQuery->getSiteSpeciesList($siteId, $speciesName);
+        $this->data['records'] = $this->nbn->getSiteSpeciesList($siteId, $speciesName);
         echo view('species_records', $this->data);
     }
 
@@ -33,7 +33,7 @@ class Records extends BaseController
      */
     public function singleRecord($uuid)
     {
-        $record = $this->nbnQuery->getRecord($uuid);
+        $record = $this->nbn->getRecord($uuid);
         $occurrence = $record->processed->occurrence;
         $this->data['occurrence'] = $occurrence;
         $classification = $record->processed->classification;

@@ -1,6 +1,8 @@
 <?php namespace App\Libraries;
 
-
+/**
+ * Facade for the NBN records end point
+ */
 class NbnRecords
 {
   const BASE_URL = 'https://records-ws.nbnatlas.org/';

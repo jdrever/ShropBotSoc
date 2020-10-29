@@ -25,7 +25,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['form'];
+	protected $helpers = ['form', 'app_utility'];
 
 	/**
 	 * Constructor.
@@ -38,7 +38,7 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
-		$this->nbnQuery = model('App\Libraries\NbnQueryCached', false);
+		$this->nbn = model('App\Libraries\NbnQueryCached', false);
 	}
 
   /**

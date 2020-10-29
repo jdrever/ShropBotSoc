@@ -26,7 +26,7 @@ class NbnQuery implements NbnQueryInterface
   public static function getSpeciesInDataset($taxon_search_string, $name_type)
   {
     $taxon_search_string = ucfirst($taxon_search_string); //because the API respects the case
-    $nbn_records = new NbnRecords('https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES');
+    $nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
     $nbn_records
       ->add('fq=taxon_name:'.$taxon_search_string.'*')
       ->add('fq=species_group:Plants+Bryophytes')

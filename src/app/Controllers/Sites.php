@@ -17,7 +17,7 @@ class Sites extends BaseController
             $this->data['title'] = $this->data['title']." - results";
             $site_search_string = $this->request->getVar('search');
             $this->data['search'] = $site_search_string;
-            $this->data['sites'] = $this->nbnQuery->getSites($site_search_string);
+            $this->data['sites'] = $this->nbn->getSites($site_search_string);
         };
         echo view('sites_search', $this->data);
     }
