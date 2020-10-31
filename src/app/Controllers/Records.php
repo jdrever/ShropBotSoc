@@ -10,21 +10,24 @@ class Records extends BaseController
     /**
      * List the records for a species in the entire dataset
      */
-    public function forASpeciesInDataset($speciesName)
+    public function forSingleSpeciesForCounty($species_name)
     {
-        $this->data['title'] = urldecode($speciesName);
-        $this->data['speciesName'] = $speciesName;
-        $this->data['records'] = $this->nbnQuery->getRecordsForASpecies($speciesName);
+        $this->data['site_name'] = "Shropshire";
+        $this->data['title'] = urldecode($species_name);
+        $this->data['species_name'] = $species_name;
+        $this->data['records'] = $this->nbn->getSingleSpeciesRecordsForCounty($species_name);
         echo view('species_records', $this->data);
     }
 
     /**
-     * 
+     * Display records for a single species for a site
      */
-    public function forASpeciesInASite($siteId, $speciesName)
+    public function forSingleSpeciesForSite($site_name, $species_name)
     {
-        // Mapp of site
-        $this->data['records'] = $this->nbnQuery->getSiteSpeciesList($siteId, $speciesName);
+        // Map of site
+        $this->data['site_name'] = $site_name;
+        $this->data['species_name'] = $species_name;
+        $this->data['records'] = $this->nbn->getSingleSpeciesRecordsForSite($site_name, $species_name);
         echo view('species_records', $this->data);
     }
 
@@ -33,7 +36,7 @@ class Records extends BaseController
      */
     public function singleRecord($uuid)
     {
-        $record = $this->nbnQuery->getRecord($uuid);
+        $record = $this->nbn->getSingleOccurenceRecord($uuid);
         $occurrence = $record->processed->occurrence;
         $this->data['occurrence'] = $occurrence;
         $classification = $record->processed->classification;

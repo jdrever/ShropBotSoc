@@ -13,11 +13,15 @@ class Species extends BaseController
     public function index()
     {
         if ($this->isPostBack()) 
-        {
+        { 
             $this->data['title'] = $this->data['title']." - results";
             $name_search_string = $this->request->getVar('search');
-            $name_type= $this->request->getVar('name-type');
-            $this->data['taxa'] = $this->nbnQuery->getSpeciesInDataset($name_search_string, $name_type);
+            $name_search_string = trim($name_search_string);
+            // If the search field is empty, go to the begining of the alphabet
+            if (trim($name_search_string) == NULL) $name_search_string = "A";
+            $name_type = $this->request->getVar('name-type');
+            $species_group = $this->request->getVar('species-group');
+            $this->data['taxa'] = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
         };
         echo view('species_search', $this->data);
     }
@@ -25,10 +29,11 @@ class Species extends BaseController
     /**
      * Return the species list for a named site.
      */
-    public function speciesForSite($siteName)
+    public function speciesForSite($site_name)
     {
-        $this->data['title'] = urldecode($siteName);
-        $this->data['speciesList'] = $this->nbnQuery->getSiteSpeciesList($siteName);
+        $this->data['title'] = urldecode($site_name);
+        $species_group = $this->request->getVar('species-group');
+        $this->data['speciesList'] = $this->nbn->getSpeciesListForSite($site_name, $species_group);
         echo view('site_species_list', $this->data);
     }
 }
