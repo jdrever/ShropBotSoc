@@ -16,11 +16,6 @@ class NbnRecords
   }
 
   /**
-   * @var string[]
-   */
-  protected $query_parameters = array();
-
-  /**
    * Return the base url and path
    */
   function url()
@@ -33,23 +28,30 @@ class NbnRecords
    * 
    * @return string
    */
-  function formatted_query_string()
+  function query_string()
   {
-    return "";
+    $query_string .= '{$this->BASE_URL}';
+    $query_string .= 'f=data_resource_uid:{$data_resource_uid}&';
+    $query_string .= 'fq=&';
+    $query_string .= 'facets=&';
+    $query_string .= 'facets={$pageSize}';
+    return $query_string;
   }
 
   /**
-   * Adds an element to the internal list
-   * 
-   * Modelled on <https://github.com/makinacorpus/php-lucene-query>
+   * @var string[]
+   */
+  protected $filter_query_parameters = array();
+
+  /**
+   * Adds to the internal list of filter query parameters
    *
    * @return $this
    */
-  public function add($query_parameter)
+  public function add($filter_query_parameter)
   {
-      $this->query_parameters[] = $query_parameter;
+      $this->filter_query_parameters[] = $filter_query_parameter;
       return $this;
   }
-
 }
 
