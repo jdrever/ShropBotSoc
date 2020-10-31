@@ -6,9 +6,12 @@
 class NbnRecords
 {
   const BASE_URL = 'https://records-ws.nbnatlas.org/';
+  public $data_resource_uid = 'dr782'; // The SEDN data set
+  public $facets;
+  public $fsort;
   public $path = '';
   public $pageSize = 9;
-  public $data_resource_uid = 'dr782'; // The SEDN data set
+  public $sort;
 
   function __construct($path = 'occurrences/search') 
   {
@@ -20,7 +23,7 @@ class NbnRecords
    */
   function url()
   {
-    return $this::BASE_URL.$this->path.'?';
+    return $this::BASE_URL.$this->path;
   }
 
   /**
@@ -28,13 +31,15 @@ class NbnRecords
    * 
    * @return string
    */
-  function query_string()
+  function getQueryString()
   {
-    $query_string .= '{$this->BASE_URL}';
-    $query_string .= 'f=data_resource_uid:{$data_resource_uid}&';
-    $query_string .= 'fq=&';
-    $query_string .= 'facets=&';
-    $query_string .= 'facets={$pageSize}';
+    $query_string = $this->url().'?';
+    $query_string .= 'q=data_resource_uid:'.$this->data_resource_uid.'&';
+    $query_string .= 'fq='.implode("%20AND%20", $this->filter_query_parameters).'&';
+    $query_string .= 'facets='.$this->facets.'&';
+    $query_string .= 'sort='.$this->sort.'&';
+    $query_string .= 'fsort='.$this->fsort.'&';
+    $query_string .= 'pageSize='.$this->pageSize;
     return $query_string;
   }
 
@@ -53,5 +58,6 @@ class NbnRecords
       $this->filter_query_parameters[] = $filter_query_parameter;
       return $this;
   }
+
 }
 

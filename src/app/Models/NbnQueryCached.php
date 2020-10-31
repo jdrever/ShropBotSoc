@@ -15,13 +15,13 @@ class NbnQueryCached implements NbnQueryInterface
    * 
    * @return 
    */
-  public function getSpeciesListForCounty($name_search_string, $name_type, $plant_group)
+  public function getSpeciesListForCounty($name_search_string, $name_type, $species_group)
   {
     $name_search_string = ucfirst($name_search_string); //because the API respects the case
-    $cache_name = "get-species-in_dataset-$name_type-$plant_group-$name_search_string";
+    $cache_name = "get-species-in_dataset-$name_type-$species_group-$name_search_string";
     if ( ! $get_taxa = cache($cache_name))
     {
-        $get_taxa = $this->nbnQuery->getSpeciesListForCounty($name_search_string, $name_type, $plant_group);
+        $get_taxa = $this->nbnQuery->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
         cache()->save($cache_name, $get_taxa, CACHE_LIFE);
     }
     return $get_taxa;
@@ -54,17 +54,23 @@ class NbnQueryCached implements NbnQueryInterface
   /**
    * TODO: caching
    */
-  public function getSpeciesListForSite($site_name)
+  public function getSpeciesListForSite($site_name, $species_group)
   {
-    return $this->nbnQuery->getSpeciesListForSite($site_name);
+    return $this->nbnQuery->getSpeciesListForSite($site_name, $species_group);
   }
 
+  /**
+   * TODO: caching
+   */
   public function getSingleSpeciesRecordsForSite($site_name, $species_name)
   {
     return $this->nbnQuery->getSingleSpeciesRecordsForSite($site_name, $species_name);
   }
 
-  public function getSpeciesListForSquare($grid_square)
+  /**
+   * TODO: caching
+   */
+  public function getSpeciesListForSquare($grid_square, $species_group)
   {
     return $this->nbnQuery->getSpeciesListForSquare($grid_square);
   }

@@ -20,8 +20,8 @@ class Species extends BaseController
             // If the search field is empty, go to the begining of the alphabet
             if (trim($name_search_string) == NULL) $name_search_string = "A";
             $name_type = $this->request->getVar('name-type');
-            $plant_group = $this->request->getVar('plant-group');
-            $this->data['taxa'] = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $plant_group);
+            $species_group = $this->request->getVar('species-group');
+            $this->data['taxa'] = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
         };
         echo view('species_search', $this->data);
     }
@@ -32,7 +32,8 @@ class Species extends BaseController
     public function speciesForSite($site_name)
     {
         $this->data['title'] = urldecode($site_name);
-        $this->data['speciesList'] = $this->nbn->getSpeciesListForSite($site_name);
+        $species_group = $this->request->getVar('species-group');
+        $this->data['speciesList'] = $this->nbn->getSpeciesListForSite($site_name, $species_group);
         echo view('site_species_list', $this->data);
     }
 }
