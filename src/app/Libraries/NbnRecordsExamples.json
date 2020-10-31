@@ -6,64 +6,12 @@
 	},
 	"item": [
 		{
-			"name": "getTaxa (Species)",
+			"name": "getSpeciesListForCounty",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://records-ws.nbnatlas.org/occurrence/facets?facets=taxon_name&q=data_resource_uid:dr782+AND+taxon_name:G*",
-					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
-					"path": [
-						"occurrence",
-						"facets"
-					],
-					"query": [
-						{
-							"key": "facets",
-							"value": "taxon_name"
-						},
-						{
-							"key": "q",
-							"value": "data_resource_uid:dr782+AND+taxon_name:G*"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getRecords",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://records-ws.nbnatlas.org/index/fields",
-					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
-					"path": [
-						"index",
-						"fields"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getSites",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:Ab*&pageSize=12",
+					"raw": "https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=data_resource_uid:dr782&fq=taxon_name:Be* AND species_group:Plants Bryophytes&pageSize=9",
 					"protocol": "https",
 					"host": [
 						"records-ws",
@@ -73,16 +21,107 @@
 					"path": [
 						"explore",
 						"group",
-						"Plants"
+						"ALL_SPECIES"
 					],
 					"query": [
 						{
+							"key": "q",
+							"value": "data_resource_uid:dr782"
+						},
+						{
 							"key": "fq",
-							"value": "data_resource_uid:dr782+AND+taxon_name:Ab*"
+							"value": "taxon_name:Be* AND species_group:Plants Bryophytes"
 						},
 						{
 							"key": "pageSize",
-							"value": "12"
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSingleSpeciesRecordsForCounty",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=9",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"occurrences",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "data_resource_uid:dr782"
+						},
+						{
+							"key": "fq",
+							"value": "taxon_name:Abies%20alba"
+						},
+						{
+							"key": "sort",
+							"value": "taxon_name"
+						},
+						{
+							"key": "fsort",
+							"value": "index"
+						},
+						{
+							"key": "pageSize",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSiteListForCounty",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=location_id:[Shrews%20TO%20*]&facets=location_id&pageSize=0",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"occurrences",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "data_resource_uid:dr782"
+						},
+						{
+							"key": "fq",
+							"value": "location_id:[Shrews%20TO%20*]"
+						},
+						{
+							"key": "facets",
+							"value": "location_id"
+						},
+						{
+							"key": "facet",
+							"value": "on",
+							"disabled": true
+						},
+						{
+							"key": "pageSize",
+							"value": "0"
 						}
 					]
 				}
@@ -95,7 +134,32 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+location_id:Shrewsbury+AND+species_group:Plants+Bryophytes&pageSize=9",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"explore",
+						"group",
+						"ALL_SPECIES"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": ""
+						},
+						{
+							"key": "fq",
+							"value": "data_resource_uid:dr782+AND+location_id:Shrewsbury+AND+species_group:Plants+Bryophytes"
+						},
+						{
+							"key": "pageSize",
+							"value": "9"
+						}
+					]
 				}
 			},
 			"response": []
@@ -106,7 +170,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0",
+					"raw": "https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:Bury%20Ditches&fq=data_resource_uid:dr782&fq=taxon_name:Saccogyna%20viticulosa&pageSize=9",
 					"protocol": "https",
 					"host": [
 						"records-ws",
@@ -120,23 +184,19 @@
 					"query": [
 						{
 							"key": "fq",
-							"value": "location_id:[Shrews%20TO%20*]"
+							"value": "location_id:Bury%20Ditches"
 						},
 						{
 							"key": "fq",
 							"value": "data_resource_uid:dr782"
 						},
 						{
-							"key": "facets",
-							"value": "location_id"
-						},
-						{
-							"key": "facet",
-							"value": "on"
+							"key": "fq",
+							"value": "taxon_name:Saccogyna%20viticulosa"
 						},
 						{
 							"key": "pageSize",
-							"value": "0"
+							"value": "9"
 						}
 					]
 				}
@@ -144,12 +204,32 @@
 			"response": []
 		},
 		{
-			"name": "getRecord",
+			"name": "getSingleOccurenceRecord",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://records-ws.nbnatlas.org/occurrence/4276e1be-b7d2-46b0-a33d-6fa82e97636a?q=data_resource_uid:dr782&pageSize=9",
+					"protocol": "https",
+					"host": [
+						"records-ws",
+						"nbnatlas",
+						"org"
+					],
+					"path": [
+						"occurrence",
+						"4276e1be-b7d2-46b0-a33d-6fa82e97636a"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "data_resource_uid:dr782"
+						},
+						{
+							"key": "pageSize",
+							"value": "9"
+						}
+					]
 				}
 			},
 			"response": []
