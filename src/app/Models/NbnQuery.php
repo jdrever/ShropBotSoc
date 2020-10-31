@@ -1,6 +1,6 @@
-<?php namespace App\Libraries;
+<?php namespace App\Models;
 
-helper('nbn');
+use App\Libraries\NbnRecords;
 
 /**
  * A facade for the NBN API
@@ -23,7 +23,7 @@ class NbnQuery implements NbnQueryInterface
    * TODO: Implement search in common names and axiophytes
    * TODO: Only plants, only bryophytes or both
    */
-  public static function getSpeciesInDataset($taxon_search_string, $name_type)
+  public function getSpeciesInDataset($taxon_search_string, $name_type)
   {
     $taxon_search_string = ucfirst($taxon_search_string); //because the API respects the case
     $nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
@@ -52,7 +52,7 @@ class NbnQuery implements NbnQueryInterface
   * 
   * (data_resource_uid:dr78 AND pageSize:9 AND taxon_name:Acaulon%20muticum AND sort:taxon_name)
   */
-  public static function getRecordsForASpecies($taxon_name)
+  public function getRecordsForASpecies($taxon_name)
   {
     $taxon_name = rawurlencode($taxon_name); // mainly to replace the spaces with %20
     $records_url = sprintf(self::NBN_RECORDS, "taxon_name:$taxon_name");
@@ -68,7 +68,7 @@ class NbnQuery implements NbnQueryInterface
   /**
    * Search for sites matching the string
    */
-  public static function getSites($site_search_string)
+  public function getSites($site_search_string)
   {
     $sites_json = file_get_contents(self::NBN_SITES);
     $sites = json_decode($sites_json)->facetResults[0]->fieldResult;
@@ -80,7 +80,7 @@ class NbnQuery implements NbnQueryInterface
   /**
    * Get the site 
    */
-  public static function getSiteSpeciesList($site_name)
+  public function getSiteSpeciesList($site_name)
   {
     $species_json = file_get_contents(self::NBN_SPECIES_FOR_A_SITE);
     $site_species_list = json_decode($species_json);
@@ -88,7 +88,7 @@ class NbnQuery implements NbnQueryInterface
   }
 
   const NBN_SINGLE_RECORD = 'https://records-ws.nbnatlas.org/occurrence/4276e1be-b7d2-46b0-a33d-6fa82e97636a';
-  public static function getRecord($uuid)
+  public function getRecord($uuid)
   {
     $record_json = file_get_contents(self::NBN_SINGLE_RECORD);
     $record = json_decode($record_json);
