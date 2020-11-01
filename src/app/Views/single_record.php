@@ -3,7 +3,6 @@
 
 <h2>Single Record</h2>
 
-JavaScript Map
 <div id="mapid"></div>
 <?php echo $location->gridReferenceWKT ?>
 <script>

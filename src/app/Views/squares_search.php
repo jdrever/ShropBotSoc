@@ -27,4 +27,41 @@
         </div>
     </div>
 </div>
+
+<div id="mapid" style="height: 500px;"></div>
+<script>
+
+
+var mymap = L.map('mapid').setView([52.6, -3.0], 9);
+
+var osmLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw'
+});
+
+
+var baseMaps = {
+  "OSM": osmLayer
+};
+
+osmLayer.addTo(mymap);
+
+var options = {};
+L.osGraticule(options).addTo(mymap);
+
+const url = '/data/Shropshire.json';
+
+fetch(url)
+.then(function(response) {
+return response.json();
+})
+.then(function(data) {
+L.geoJSON(data).addTo(mymap);
+});
+</script>
+
 <?= $this->endSection() ?>
