@@ -86,7 +86,7 @@ class NbnQuery implements NbnQueryInterface
     $nbn_records
       ->add('location_id:['.$site_search_string.'%20TO%20*]');
     ;
-    $query_url = $nbn_records->getQueryString();
+    $query_url = $nbn_records->getPagingQueryString();
     $sites_json = file_get_contents($query_url);
     $sites_list = json_decode($sites_json)->facetResults[0]->fieldResult;
     $sites_list = truncateArray(9, $sites_list);
@@ -105,7 +105,7 @@ class NbnQuery implements NbnQueryInterface
       ->add('location_id:'.urlencode($site_name))
       ->add('species_group:Plants+Bryophytes')
     ;
-    $query_url = $nbn_records->getQueryString();
+    $query_url = $nbn_records->getPagingQueryString();
     $species_json = file_get_contents($query_url);
     $site_species_list = json_decode($species_json);
     return $site_species_list;
