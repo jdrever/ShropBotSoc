@@ -1,12 +1,12 @@
 <?php echo $this->extend('default') ?>
 <?php echo $this->section('content') ?>
 <h2>Records - <?php echo urldecode($site_name)?> - <?php echo urldecode($species_name)?></h2>
-<p><a href="https://records-ws.nbnatlas.org/occurrences/index/download?q=data_resource_uid:dr782&fq=taxon_name:<?php echo $species_name?>&reasonTypeId=11&fileType=csv">Download this data</a></p>
-<?php if (isset($records)):?>
+<p><a href="<?php echo $download_link?>">Download this data</a></p>
+<?php if (isset($records_list)):?>
     <table class="table">
         <thead><tr><th>Site</th><th>Square</th><th>Collector</th><th>Year</th><th>Details</th></tr></thead>
         <tbody>
-        <?php foreach ($records as $record):?>
+        <?php foreach ($records_list as $record):?>
         <tr>
             <td>
               <a href="/species/site/<?php echo $record->locationId?>"><?php echo $record->locationId?></a>

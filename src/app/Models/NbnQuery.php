@@ -10,10 +10,6 @@ use App\Libraries\NbnRecords;
  */
 class NbnQuery implements NbnQueryInterface
 {
-
-  const NBN_GROUPS = 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=%s'.
-    '&fq=data_resource_uid:dr782+AND+species_group:Plants+Bryophytes+AND+%s'.
-    '&sort=taxon_name&fsort=index&pageSize=9';
   /**
    * Get an alphabetical list of species.
    * 
@@ -53,13 +49,15 @@ class NbnQuery implements NbnQueryInterface
     $nbn_records
       ->add('taxon_name:'.$species_name);
     ;
-    $query_url = $nbn_records->getQueryString();
+    $query_url = $nbn_records->getPagingQueryString();
     $records_json = file_get_contents($query_url);
     $record_list = json_decode($records_json)->occurrences;
     usort($record_list, function ($a, $b) {
       return $b->year <=> $a->year;
     });
-    return $record_list;
+    $records['download_link'] = $nbn_records->getDownloadQueryString();
+    $records['records_list'] = $record_list;
+    return $records;
   }
 
   /**

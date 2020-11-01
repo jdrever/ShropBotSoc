@@ -18,8 +18,25 @@ class NbnRecords
     $this->path = $path;
   }
 
+
   /**
-   * Return the base url and path
+   * Return the base search query string
+   * 
+   * @return string
+   */
+  function getQueryString($url)
+  {
+    $query_string = $url.'?';
+    $query_string .= 'q=data_resource_uid:'.$this->data_resource_uid.'&';
+    $query_string .= 'fq='.implode("%20AND%20", $this->filter_query_parameters).'&';
+    $query_string .= 'facets='.$this->facets.'&';
+    $query_string .= 'sort='.$this->sort.'&';
+    $query_string .= 'fsort='.$this->fsort.'&';
+    return $query_string;
+  }
+
+  /**
+   * Return the base url and path (really only used for getting a single occurence record)
    */
   function url()
   {
@@ -27,19 +44,26 @@ class NbnRecords
   }
 
   /**
-   * Return the formated query parameters
+   * Return the query string for paging
    * 
    * @return string
    */
-  function getQueryString()
+  function getPagingQueryString()
   {
-    $query_string = $this->url().'?';
-    $query_string .= 'q=data_resource_uid:'.$this->data_resource_uid.'&';
-    $query_string .= 'fq='.implode("%20AND%20", $this->filter_query_parameters).'&';
-    $query_string .= 'facets='.$this->facets.'&';
-    $query_string .= 'sort='.$this->sort.'&';
-    $query_string .= 'fsort='.$this->fsort.'&';
+    $query_string = $this->getQueryString($this::BASE_URL.$this->path);
     $query_string .= 'pageSize='.$this->pageSize;
+    return $query_string;
+  }
+
+  /**
+   * Return the query string for downloading the data
+   * 
+   * @return string
+   */
+  function getDownloadQueryString()
+  {
+    $query_string = $this->getQueryString($this::BASE_URL.'occurrences/index/download');
+    $query_string .= '&reasonTypeId=11&fileType=csv';
     return $query_string;
   }
 
