@@ -27,7 +27,7 @@ class NbnQuery implements NbnQueryInterface
       ->add('taxon_name:'.$name_search_string.'*')
       ->add('species_group:Plants+Bryophytes')
     ;
-    $query_url = $nbn_records->getQueryString();
+    $query_url = $nbn_records->getPagingQueryString();
     $species_list_json = file_get_contents($query_url);
     $species_list = json_decode($species_list_json);
     return $species_list;

@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div id="mapid" style="height: 500px;"></div>
+<div id="mapid" style="height: 300px;"></div>
 <script>
 
 
@@ -53,7 +53,7 @@ osmLayer.addTo(mymap);
 var options = {};
 L.osGraticule(options).addTo(mymap);
 
-const url = 'data/shropshire.json';
+const url = '/data/shropshire.json';
 
 fetch(url)
 .then(function(response) {
