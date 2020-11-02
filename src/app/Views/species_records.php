@@ -6,13 +6,10 @@
 <p><a href="<?php echo $download_link?>">Download this data</a></p>
 <?php endif ?>
 
-<div id="mapid" style="height: 500px;"></div>
+<div id="map" style="height: 500px;"></div>
 <script>
-
-
-var mymap = L.map('mapid').setView([52.6, -3.0], 9);
-
-var osmLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+//make a base layer 
+var minimal = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox/streets-v11',
@@ -21,38 +18,23 @@ var osmLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/
     accessToken: 'pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw'
 });
 
-
-var baseMaps = {
-  "OSM": osmLayer
-};
-
-osmLayer.addTo(mymap);
-
-var options = {};
-L.osGraticule(options).addTo(mymap);
-
-const url = '/data/shropshire.json';
-
-fetch(url)
-.then(function(response) {
-return response.json();
-})
-.then(function(data) {
-L.geoJSON(data).addTo(mymap);
-});
-
-var species_dots = L.tileLayer.wms(
-    "https://records-ws.nbnatlas.org/ogc/wms/reflect", {  
-        q : "Vulpes vulpes",
-        layers: 'ALA:occurrences',
-        format: 'image/png',
-        transparent: true,
-        attribution: "Atlas of Living Australia",
-        bgcolor:"0x000000",
-        ENV: "colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;gridlabels:true;gridres:singlegrid"
-});
-
-species_dots.addTo(mymap);
+//make an occurrence layer for macropus
+   var macropus = L.tileLayer.wms(
+       "https://records-ws.nbnatlas.org/ogc/wms/reflect", {  
+         q : "Vulpes vulpes",
+         layers: 'ALA:occurrences',
+         format: 'image/png',
+         transparent: true,
+         attribution: "NBN",
+         bgcolor:"0x000000",
+         ENV: "colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;gridlabels:true;gridres:singlegrid"
+   });
+//make a map and add the layers
+   var map = L.map('map', {
+      center: [52.6, -3.0],
+      zoom: 9,
+      layers: [minimal, macropus]
+   });
 
 </script>
 
