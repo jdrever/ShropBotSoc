@@ -22,6 +22,7 @@
 \newcommand{\documenttitle}{Shropshire Botanical Society Online Flora}
 \newcommand{\documentauthor}{Joe J Collins}
 \newcommand{\nbnrecords}[1]{\href{https://records-ws.nbnatlas.org/#1}{\detokenize{https://records-ws.nbnatlas.org/#1}}}
+\newcommand{\wireframe}[1]{\includegraphics[width=0.85\textwidth,height=\textheight,keepaspectratio]{#1}\clearpage}
 
 \title{Shropshire Botanical Society Online Flora\\
 Web application Specification}
@@ -157,19 +158,15 @@ Web application Specification}
 \begin{multicols*}{2}[%
   \section{Overview}%
 ]
-  \includegraphics[width=0.85\textwidth,height=\textheight,keepaspectratio]{./wireframes/overview.png}%
-  \clearpage
+  \wireframe{./wireframes/Overview.png}%
 \end{multicols*}
 
 \begin{multicols*}{2}[%
   \section{Search County by Plant Name}%
-  \subsection{Mobile}%
+  \subsection{Species List for County}%
 ]
-\includegraphics[width=0.85\textwidth,height=\textheight,keepaspectratio]{./wireframes/county-mobile.png}%
+\wireframe{./wireframes/SpeciesListForCounty.png}%
 
-\clearpage
-
-\subsubsection{Mobile Species Search}
 The `landing' page for the application is the search of the entire dataset for the county.
 
 \begin{itemize}
@@ -185,7 +182,10 @@ The `landing' page for the application is the search of the entire dataset for t
 
 e.g. \footnote{\nbnrecords{explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*}}
 
-\subsubsection{Mobile Species Dot Map}
+\subsection{Single Species Records for County}
+
+\wireframe{./wireframes/SingleSpeciesRecordsForCounty.png}%
+
 Clicking on a species name will show details for the 
 
 \begin{itemize}
@@ -194,47 +194,41 @@ Clicking on a species name will show details for the
   \item Site link goes to what?
 \end{itemize}
 
-\subsubsection{Mobile Sighting Record}
+\clearpage
+\subsection{Single Occurrence Record}
 
-
-
-
+\wireframe{./wireframes/SingleOccurenceRecord.png}%
 \end{multicols*}
 
-\subsection{Desktop}
-\includegraphics[width=\textwidth]{./wireframes/county-desktop.png}
-
-\subsubsection{Desktop Species Search}
-
-\subsubsection{Desktop Species Dot Map}
-
-\begin{itemize}
-  \item Map does not collapse.
-\end{itemize}
-\clearpage
-
 \begin{multicols*}{2}[%
-  \section{Search by Site}%
-  \subsection{Mobile}%
+  \section{Search in a Site}%
+  \subsection{Site for County}%
 ]
-\includegraphics[width=0.85\textwidth]{./wireframes/site-mobile.png}%
-\clearpage
-
-\subsubsection{Site Search}
+\wireframe{./wireframes/SiteListForCounty.png}%
 
 \begin{itemize}
   \item On landing the site list is empty.
 \end{itemize}
 
 e.g. \url{https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Church%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0}
-
-\end{multicols*}
 \clearpage
 
-\section{Search Grid Square by Plant Name}
-\subsection{Mobile}
-  \includegraphics[width=0.85\textwidth]{./wireframes/monad-mobile.png}
+\wireframe{./wireframes/SpeciesListForSite.png}%
 
+\wireframe{./wireframes/SingleSpeciesRecordsForSite.png}%
+\end{multicols*}
+
+\begin{multicols*}{2}[%
+  \section{Search in a Square}%
+  \subsection{Site for County}%
+]
+\wireframe{./wireframes/GridSquaresInCounty.png}%
+
+\wireframe{./wireframes/SpeciesListForSquare.png}%
+
+\wireframe{./wireframes/SingleSpeciesRecordsForSquare.png}%
+
+\end{multicols*}
 
 \section{Technical Constraints}
 
