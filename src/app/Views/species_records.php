@@ -6,9 +6,9 @@
 <p><a href="<?php echo $download_link?>">Download this data</a></p>
 <?php endif ?>
 
-<div id="map" style="height: 500px;"></div>
+<div id="map" style="height:400px;width:500px"></div>
 <script>
-//make a base layer 
+//make a minimal base layer 
 var minimal = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -18,22 +18,37 @@ var minimal = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     accessToken: 'pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw'
 });
 
-//make an occurrence layer for macropus
-   var macropus = L.tileLayer.wms(
-       "https://records-ws.nbnatlas.org/ogc/wms/reflect", {  
-         q : "Vulpes vulpes",
-         layers: 'ALA:occurrences',
-         format: 'image/png',
-         transparent: true,
-         attribution: "NBN",
-         bgcolor:"0x000000",
-         ENV: "colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;gridlabels:true;gridres:singlegrid"
-   });
+//County boundary
+const url = '/data/shropshire.json';
+var boundary = L.geoJSON()
+fetch(url).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        boundary.addData(data);
+    });
+
+//OS Grid graticule
+var options = {};
+var graticule = L.osGraticule(options);
+
+//make a dot map layer
+var wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?";
+  wmsUrl += "Q=lsid:<?php echo $records_list[0]->speciesGuid?>";
+  wmsUrl += "&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;gridlabels:true;gridres:singlegrid";
+  wmsUrl += "&fq=data_resource_uid:dr782";
+
+var species = L.tileLayer.wms(
+    wmsUrl, {
+    "layers": "ALA:occurrences",
+    "uppercase": true,
+    "format": "image/png",
+    "transparent": true
+});
 //make a map and add the layers
    var map = L.map('map', {
       center: [52.6, -3.0],
       zoom: 9,
-      layers: [minimal, macropus]
+      layers: [minimal, graticule, boundary, species]
    });
 
 </script>
