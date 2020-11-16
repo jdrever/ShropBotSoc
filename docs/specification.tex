@@ -11,7 +11,7 @@
   \hline
 \end{tabular} }
 \usepackage{enumitem, amssymb} % for checklists
-\newlist{todolist}{itemize}{2}
+\newlist{todolist}{itemize}{1}
 \setlist[todolist]{label=$\tickbox$, parsep=1em}
 \raggedright
 \raggedbottom
@@ -36,8 +36,6 @@ Web application Specification}
 
 \begin{document}
 \maketitle
-
-
 \begin{abstract}
   \begin{center}
     \begin{minipage}{0.5\textwidth}
@@ -52,13 +50,14 @@ Web application Specification}
   \end{center}
 \end{abstract}
 
+\newpage
+\mbox{}
 \clearpage
 \begin{multicols*}{2}
   \setcounter{tocdepth}{3}
   \tableofcontents
 \end{multicols*}
 \clearpage
-
 
 \begin{multicols*}{2}
   \section{Background}
@@ -154,7 +153,6 @@ Web application Specification}
 \end{multicols*}
 
 
-
 \begin{multicols*}{2}[%
   \section{Overview}%
 ]
@@ -165,11 +163,11 @@ Web application Specification}
   \section{Search County by Plant Name}%
   \subsection{Species List for County}%
 ]
-\wireframe{./wireframes/SpeciesListForCounty.png}%
+\wireframe{./wireframes/Species__ListForCounty.png}%
 
 The `landing' page for the application is the search of the entire dataset for the county.
 
-\begin{itemize}
+\begin{todolist}
   \item By default the \textbf{Scientific} name selected first.
   \item On landing the selected list is empty.
   \item The characters entered in the search box are used to search for names begining with those letters,
@@ -178,33 +176,34 @@ The `landing' page for the application is the search of the entire dataset for t
   \item If \textbf{Common} is selected, only the species with common names will be searched and shown.
   \item If \textbf{Axiophytes} a limited static list of scientific names will be searched and shown.
   \item Changing the radio button will reset the search and blank the list.
-\end{itemize}
+\end{todolist}
 
 e.g. \footnote{\nbnrecords{explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*}}
 
+
 \subsection{Single Species Records for County}
 
-\wireframe{./wireframes/SingleSpeciesRecordsForCounty.png}%
+\wireframe{./wireframes/Records__SingleSpeciesForCounty.png}%
 
 Clicking on a species name will show details for the 
 
-\begin{itemize}
+\begin{todolist}
   \item Collapse the map? Retain state in cookie
   \item Page the records?
   \item Site link goes to what?
-\end{itemize}
+\end{todolist}
 
 \clearpage
 \subsection{Single Occurrence Record}
 
-\wireframe{./wireframes/SingleOccurenceRecord.png}%
+\wireframe{./wireframes/Records__SingleRecord.png}%
 \end{multicols*}
 
 \begin{multicols*}{2}[%
   \section{Search in a Site}%
   \subsection{Site for County}%
 ]
-\wireframe{./wireframes/SiteListForCounty.png}%
+\wireframe{./wireframes/Sites__ListForCounty.png}%
 
 \begin{itemize}
   \item On landing the site list is empty.
@@ -213,20 +212,20 @@ Clicking on a species name will show details for the
 e.g. \url{https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Church%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0}
 \clearpage
 
-\wireframe{./wireframes/SpeciesListForSite.png}%
+\wireframe{./wireframes/Species__ListForSite.png}%
 
-\wireframe{./wireframes/SingleSpeciesRecordsForSite.png}%
+\wireframe{./wireframes/Records__SingleSpeciesForSite.png}%
 \end{multicols*}
 
 \begin{multicols*}{2}[%
   \section{Search in a Square}%
   \subsection{Site for County}%
 ]
-\wireframe{./wireframes/GridSquaresInCounty.png}%
+\wireframe{./wireframes/Squares__Index.png}%
 
-\wireframe{./wireframes/SpeciesListForSquare.png}%
+\wireframe{./wireframes/Species__ListForSquare.png}%
 
-\wireframe{./wireframes/SingleSpeciesRecordsForSquare.png}%
+\wireframe{./wireframes/Records__SingleSpeciesForSquare.png}%
 
 \end{multicols*}
 
