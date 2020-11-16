@@ -27,15 +27,24 @@ $routes->setAutoRoute(true);
  * Route Definitions
  * --------------------------------------------------------------------
  */
+$routes->get('/', 'Species::index');
 
-// We get a performance increase by specifying the default
-// route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->add('records/species/(:segment)', 'Records::forSingleSpeciesForCounty/$1');
-$routes->add('records/site/(:segment)/species/(:segment)', 'Records::forSingleSpeciesForSite/$1/$2');
-$routes->add('species/site/(:segment)', 'Species::speciesForSite/$1');
-$routes->add('sites/(:segment)', 'Sites::speciesInSite/$1');
-$routes->add('records/(:segment)', 'Records::singleRecord/$1');
+// Lists of species for the county, a site and a square
+$routes->add('species/(:segment)/group/(:segment)/type/(:segment)', 'Species::listForCounty/$1/$2/$3');
+$routes->add('site/(:segment)/group/(:segment)/type/(:segment)', 'Species::listForSite/$1/$2/$3');
+$routes->add('square/(:segment)/group/(:segment)/type/(:segment)', 'Species::listForSquare/$1/$2/$3');
+
+// List of sites in the county
+$routes->add('sites/(:segment)', 'Sites::listForCounty/$1');
+
+// Lists of records for the county, a site and a square
+$routes->add('species/(:segment)', 'Records::singleSpeciesForCounty/$1');
+$routes->add('site/(:segment)/species/(:segment)', 'Records::singleSpeciesForSite/$1/$2');
+$routes->add('square/(:segment)/species/(:segment)', 'Records::singleSpeciesForSquare/$1/$2');
+
+// A single record (= occurrence in NBN terms)
+$routes->add('record/(:segment)', 'Records::singleRecord/$1');
+
 
 /**
  * --------------------------------------------------------------------

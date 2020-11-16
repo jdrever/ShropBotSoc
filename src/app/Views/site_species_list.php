@@ -21,7 +21,7 @@
             <td><?=$species->name?></td>
             <td class="d-none d-sm-table-cell"><?php echo $species->commonName?></td>
             <td><?=$species->count?></td>
-            <td><a href="/records/site/<?php echo $title ?>/species/<?=$species->name?>">see records</a></td>
+            <td><a href="/site/<?php echo $title ?>/species/<?=$species->name?>">see records</a></td>
         </tr>
         <?php endforeach;?>
         </tbody>

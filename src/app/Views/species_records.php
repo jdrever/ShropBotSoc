@@ -60,12 +60,12 @@ var species = L.tileLayer.wms(
         <?php foreach ($records_list as $record):?>
         <tr>
             <td>
-              <a href="/species/site/<?php echo $record->locationId?>"><?php echo $record->locationId?></a>
+              <a href="/site/<?php echo $record->locationId?>/group/plants/type/scientific"><?php echo $record->locationId?></a>
             </td>
-            <td><a href="/square/<?php echo $record->gridReference?>"><?php echo $record->gridReference?></a></td>
+            <td><a href="/square/<?php echo $record->gridReference?>/group/plants/type/scientific"><?php echo $record->gridReference?></a></td>
             <td><?php echo $record->collector?></td>
             <td><?php echo $record->year?></td>
-            <td><a href="<?php echo base_url("/records/{$record->uuid}");?>">more</td>
+            <td><a href="<?php echo base_url("/record/{$record->uuid}");?>">more</td>
         </tr>
         <?php endforeach;?>
         </tbody>

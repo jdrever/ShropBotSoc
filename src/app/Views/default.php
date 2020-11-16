@@ -46,7 +46,7 @@
       </ul>
       <ul class="nav navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">About</a></li>
+          <a class="nav-link" href="/about">About</a></li>
         </li>
       </ul>
     </div>

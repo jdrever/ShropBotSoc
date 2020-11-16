@@ -10,7 +10,7 @@ class Records extends BaseController
     /**
      * List the records for a species in the entire dataset
      */
-    public function forSingleSpeciesForCounty($species_name)
+    public function singleSpeciesForCounty($species_name)
     {
         $this->data['site_name'] = "Shropshire";
         $this->data['title'] = urldecode($species_name);
@@ -24,12 +24,12 @@ class Records extends BaseController
     /**
      * Display records for a single species for a site
      */
-    public function forSingleSpeciesForSite($site_name, $species_name)
+    public function singleSpeciesForSite($site_name, $species_name)
     {
         // Map of site
         $this->data['site_name'] = $site_name;
         $this->data['species_name'] = $species_name;
-        $this->data['records'] = $this->nbn->getSingleSpeciesRecordsForSite($site_name, $species_name);
+        $this->data['records_list'] = $this->nbn->getSingleSpeciesRecordsForSite($site_name, $species_name);
         echo view('species_records', $this->data);
     }
 

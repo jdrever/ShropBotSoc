@@ -47,21 +47,21 @@
         <div class="col-md-10">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="species-group"  id="plants"
-                    value="scientific" <?php echo set_radio('groups', 'plants', TRUE); ?> />
+                    value="plants" <?php echo set_radio('groups', 'plants', TRUE); ?> />
                 <label class="form-check-label" for="scientific-name">
                     only plants
                 </label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="species-group"  id="bryophytes"
-                    value="axiophyte" <?php echo set_radio('groups', 'bryophytes'); ?> />
+                    value="bryophytes" <?php echo set_radio('groups', 'bryophytes'); ?> />
                 <label class="form-check-label" for="axiophyte-name">
                     only bryophytes
                 </label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="species-group" id="both"
-                    value="common" <?php echo set_radio('groups', 'both'); ?> />
+                    value="both" <?php echo set_radio('groups', 'both'); ?> />
                 <label class="form-check-label" for="common-name">
                     both plants and bryophytes
                 </label>
@@ -70,7 +70,7 @@
     </div>
 <?php echo form_close() ?>
 <!-- Show the search results if there are any -->
-<?php if (isset($taxa)):?>
+<?php if (isset($speciesList)):?>
     <table class="table">
         <thead><tr>
             <th class="d-none d-md-table-cell">Family</th>
@@ -80,13 +80,13 @@
             <th>Records</th>
         </tr></thead>
         <tbody>
-        <?php foreach ($taxa as $taxon):?>
+        <?php foreach ($speciesList as $species):?>
         <tr>
-            <td class="d-none d-md-table-cell"><?php echo $taxon->family?></td>
-            <td><?=$taxon->name?></td>
-            <td class="d-none d-sm-table-cell"><?php echo $taxon->commonName?></td>
-            <td><?=$taxon->count?></td>
-            <td><a href="<?php echo base_url("/records/species/{$taxon->name}");?>">see records</a></td>
+            <td class="d-none d-md-table-cell"><?php echo $species->family?></td>
+            <td><?=$species->name?></td>
+            <td class="d-none d-sm-table-cell"><?php echo $species->commonName?></td>
+            <td><?=$species->count?></td>
+            <td><a href="<?php echo base_url("/species/{$species->name}");?>">see records</a></td>
         </tr>
         <?php endforeach;?>
         </tbody>

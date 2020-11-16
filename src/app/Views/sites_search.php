@@ -53,7 +53,7 @@
         <tbody>
         <?php foreach ($sites as $site):?>
         <tr>
-            <td><a href="<?php echo base_url("/species/site/{$site->label}");?>"><?php echo$site->label?></a></td>
+            <td><a href="<?php echo base_url("/site/{$site->label}/group/plants/type/scientific");?>"><?php echo$site->label?></a></td>
             <td><?php echo$site->count?></td>
         </tr>
         <?php endforeach;?>
