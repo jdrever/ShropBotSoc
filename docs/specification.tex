@@ -50,16 +50,16 @@ Web application Specification}
   \end{center}
 \end{abstract}
 
-\newpage
+\newpage% Blank page behind title page
 \mbox{}
-\clearpage
-\begin{multicols*}{2}
-  \setcounter{tocdepth}{3}
-  \tableofcontents
-\end{multicols*}
 \clearpage
 
 \begin{multicols*}{2}
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+  \columnbreak
+
+  
   \section{Background}
   The Shropshire Botanical Society
   has been dedicated to promoting the enjoyment,
@@ -91,55 +91,96 @@ Web application Specification}
   and
   a supported service for maintaining and updating the Society's records.
 
-  \vfill\strut\columnbreak
+  \clearpage
 
   \section{Objective}
   To replicate the functionality of the original Online Flora
   in a responsive mobile design
   using data sourced from the NBN Web service API.
 
-  \section{Usage and Users}
-  The Online Flora is used for searching the Society's records
+  The Online Flora is to be used for searching the Society's records
   but not for entering new records.
   Maintaining and updating the data is conducted via a separate manual process.
   Searches of the database are conducted for three different geographical scenarios.
 
+  \section{Context}
+
+  \subsection{Users and Usage}
+  Users of the Online Flora are typically
+  members of the Society
+  and
+  as such are often very experienced botanists.
+  In a typical scenario a member of the Society
+  (intending to visit a location)
+  would search for a list of species that have previously
+  been sighted at a location.
+  It is the community or suite of species at a location that is of most interest.
+  For an experienced botanist a species list for a location
+  can provide information about
+  the ecology, geology and history of a location,
+  but will also indicate what other species might be present but have not yet been observed.
+  Ideally the member of the Society
+  would also wish to drill down to see individual records of species sightings,
+  with dates, attributions and further details.
+  This background will give a botanist
+  some insight about how much weight or credence can be given to individual sightings.
+
+  The Online Flora will serve three scenarios for
+  searching for species lists.
+
   \begin{description}
-      \item[Search Shropshire]
+      \item[Search Shropshire:]
         searching all the records of based on the name of the plant.
         Allowing the user to drill down to a single sighting record
         or
         showing a map of grid squares with records for a named plant.
-      \item[Search by Site]
+      \item[Search by Site:]
         searching for a named site,
         then listing the names of plants for that named site.
         Again allowing the user to drill down to a single sighting record.
-      \item[Search by Monad or Grid Square]
+      \item[Search by Monad or Grid Square:]
         Selecting a 1 km grid square within the county of Shropshire,
         then listing the names of plants for that named site.
         Again allowing the user to drill down to a single sighting record.
   \end{description}
 
-  Users of the Online Flora are typically
-  members of the Society
-  and
-  as such are often very experienced botanists
-  and will favour identifying
-  plant species via the scientific name.
-  A typical scenario would be a member of the Society
-  intending to visit a location
-  would search for a list of plants that have previously
-  been sighted at that location.
-  A similar search might also be
-  conducted at the location of interest using a mobile phone.
-  Up to this time the Society has not offered an interface that is suitable for mobile phone use.
-  As a result there is no information about the types and sizes of the devices that might be used.
-  However the Society does maintain a blog/website at 
-  \href{https://www.shropshirebotany.org.uk/}{www.shropshirebotany.org.uk}.
-  The majority of visitors to the site
-  use Google Chrome on a Windows platform.
+  These three scenarios are shown in the diagram below.
+  \clearpage
 
-  \section{NBN Data}
+  \wireframe{./wireframes/Overview.png}%
+
+  \subsection{Categories of Plants}
+
+  Gaining experience identifying plants is a lifetimes work
+  and members of the Society will often
+  focus their attention on one category of plants.
+  So the Society's observation records
+  are separated into \textbf{vascular plants} and \textbf{bryophytes},
+  (two categories within the kingdom of all plants).
+  A member of the Society will often wish to limit their searches to the
+  category of plants they are most interested in.
+
+  \includegraphics[width=0.4\textwidth,height=\textheight,keepaspectratio]{./wireframes/Categories.png}
+
+  For the vascular plants
+  the concept of indicator species is highlighted
+  by a sub group of vascular plants
+  (referred to as \textbf{axiophytes})
+  These are plants that are archetypical or axiomatic for a particular ecological environment.
+  So a member of the Society interested in vascular plants
+  will often wish to see only the axiophytes
+  to gain a better understanding of the ecological environment
+  at a particular site.
+
+  \subsection{Data Storage}
+  Free service 
+
+  updating and maintaining
+
+  records for the entire country
+
+  Based on Solr but with a specialised API
+
   The Society's records exist within
   the \href{https://registry.nbnatlas.org/public/show/dp120}{Shropshire Ecological Data Network records}.
   This dataset includes records from other recording groups in Shropshire.
@@ -152,15 +193,8 @@ Web application Specification}
 
 \end{multicols*}
 
-
 \begin{multicols*}{2}[%
-  \section{Overview}%
-]
-  \wireframe{./wireframes/Overview.png}%
-\end{multicols*}
-
-\begin{multicols*}{2}[%
-  \section{Search County by Plant Name}%
+  \section{Search the County}%
   \subsection{Species List for County}%
 ]
 \wireframe{./wireframes/Species__ListForCounty.png}%
@@ -168,7 +202,9 @@ Web application Specification}
 The `landing' page for the application is the search of the entire dataset for the county.
 
 \begin{todolist}
-  \item By default the \textbf{Scientific} name selected first.
+  \item By default the \textbf{Scientific} name selected first.  
+  favour identifying
+  plant species via the scientific name
   \item On landing the selected list is empty.
   \item The characters entered in the search box are used to search for names begining with those letters,
     not within the names.
@@ -181,7 +217,7 @@ The `landing' page for the application is the search of the entire dataset for t
 e.g. \footnote{\nbnrecords{explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*}}
 
 
-\subsection{Single Species Records for County}
+\subsection{Records for a Single Species in the County}
 
 \wireframe{./wireframes/Records__SingleSpeciesForCounty.png}%
 
@@ -194,42 +230,84 @@ Clicking on a species name will show details for the
 \end{todolist}
 
 \clearpage
-\subsection{Single Occurrence Record}
+\subsection{A Single Record}
 
 \wireframe{./wireframes/Records__SingleRecord.png}%
+
+\begin{itemize}
+  \item .
+\end{itemize}
+
 \end{multicols*}
 
 \begin{multicols*}{2}[%
   \section{Search in a Site}%
-  \subsection{Site for County}%
+  \subsection{Site List for the County}%
 ]
 \wireframe{./wireframes/Sites__ListForCounty.png}%
 
 \begin{itemize}
-  \item On landing the site list is empty.
+  \item List is empty, actually is this necessary?
 \end{itemize}
 
 e.g. \url{https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Church%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0}
 \clearpage
 
+\subsection{Species List for a Site}
+
 \wireframe{./wireframes/Species__ListForSite.png}%
 
+\begin{itemize}
+  \item .
+\end{itemize}
+\clearpage
+
+\subsection{Records for a Single Species at a Site}
+
 \wireframe{./wireframes/Records__SingleSpeciesForSite.png}%
+
+\begin{itemize}
+  \item .
+\end{itemize}
+\clearpage
+
 \end{multicols*}
 
 \begin{multicols*}{2}[%
   \section{Search in a Square}%
-  \subsection{Site for County}%
+  \subsection{Select a Square}%
 ]
 \wireframe{./wireframes/Squares__Index.png}%
 
+\begin{itemize}
+  \item Zoom in and select.
+  \item Graticule
+\end{itemize}
+\clearpage
+
+\subsection{Species List for a Square}
+
 \wireframe{./wireframes/Species__ListForSquare.png}%
+
+\begin{itemize}
+  \item .
+\end{itemize}
+\clearpage
+
+\subsection{Records for a Single Species at a Site}
 
 \wireframe{./wireframes/Records__SingleSpeciesForSquare.png}%
 
+\begin{itemize}
+  \item .
+\end{itemize}
+\clearpage
+
 \end{multicols*}
 
-\section{Technical Constraints}
+\begin{multicols*}{2}[%
+  \section{Technical Constraints}%
+]
 
 % Simple and convenient caching.
 % Possible to source PHP developers from within the ranks of members.
@@ -240,10 +318,14 @@ e.g. \url{https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Chu
 The Botanical Society has limited means
 and wishes to ensure that the results of any programming effort
 can be maintained and supported
-into the future.
+into the future,
+either via an open source project or via the efforts of members of the Society.
+To facilitate these possibilities
+the technical environment for the projects is intended 
+to provide a low barrier to contributions.
 
 \begin{description}
-    \item[PHP 7.3] for deployment to Google App Engine.
+    \item[PHP 7.3] for deployment to Google App Engine for free hosting.
     \item[CodeIgniter 4.0.4] has been used successfully in the past and provides convenient caching should it be required.
     \item[Twitter Bootstrap 4.5.2] for responsive layout.
     \item[Leaflet 1.6.0] should be used to provide mapping services.
@@ -256,36 +338,16 @@ into the future.
     \item[Style Sheet] taken from \href{https://www.shropshirebotany.org.uk/}{www.shropshirebotany.org.uk}.
       The Online Flora is to be consistent with this website,
       so should reuse the same classes and styles.
-    \item[No API Calls from the Client] because we might want to use caching.
+    \item[No NBN API Calls from the Client] because we might want to use caching.
     \item[No database] should be used other than the NBN Web service API.
       Any static data 
-      (such as the list of Axiophytes)
+      (such as the list of axiophytes)
       should be hard coded into the application.
 \end{description}
 
-
-\section{References}
-
-\href{https://docs.google.com/document/d/1FiVasGGZ3kRPnu5347GPAef7Tr5LvvghCS6x82xnfu4/edit}{NBN Atlas Query Primer}.
+\end{multicols*}
 
 
-\href{https://easymap.nbnatlas.org/}{Easy Map}
-
-e.g. \href{https://easymap.nbnatlas.org/Image?tvk=NHMSYS0000458716&w=800}{example}
-
-\href{https://github.com/DuncanRowland/NBNMapOverlayExamples}{Map NBNMapOverlayExamples}
-
-e.g. \href{https://duncanrowland.github.io/NBNMapOverlayExamples/leaflet1.html}{Scotland}
-
-\href{http://www.cornishbiodiversitynetwork.org/xyz/Get1km.php}{Cornish Biodiversity Network}
-
-
-https://docs.nbnatlas.org/
-
-
-https://www.naturespot.org.uk/species/lesser-bulrush
-
-http://www.cornishbiodiversitynetwork.org/xyz/Getspecies.php
 
 \end{document}
 
