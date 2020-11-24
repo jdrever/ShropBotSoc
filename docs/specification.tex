@@ -59,7 +59,6 @@ Web application Specification}
   \tableofcontents
   \columnbreak
 
-  
   \section{Background}
   The Shropshire Botanical Society
   has been dedicated to promoting the enjoyment,
@@ -150,7 +149,6 @@ Web application Specification}
   \wireframe{./wireframes/Overview.png}%
 
   \subsection{Categories of Plants}
-
   Gaining experience identifying plants is a lifetimes work
   and members of the Society will often
   focus their attention on one category of plants.
@@ -173,10 +171,22 @@ Web application Specification}
   at a particular site.
 
   \subsection{Data Storage}
-  Free service 
+  The \href{https://nbnatlas.org/}{National Biodiversity Network Atlas}
+  provides a service to maintain and distribute biological records
+  for the United kingdom.
 
+
+  \url{https://records.nbnatlas.org/occurrences/search?q=data_resource_uid%3Adr782}
+  All the records may be searched on the NBN website. 
+
+  a regular(ish) process in place for passing updates to the NBN.  
+  
+   every 6 months or so. 
+   
   updating and maintaining
-
+  The online flora/data portal will use the NBN (National Biodiversity Network) 
+  as a data source and will present a filtered representation of just the SEDN 
+  (Shropshire Ecological Data Network) dataset on the NBN (limited to vascular plants and bryophytes). 
   records for the entire country
 
   Based on Solr but with a specialised API
@@ -193,20 +203,29 @@ Web application Specification}
 
 \end{multicols*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{multicols*}{2}[%
   \section{Search the County}%
   \subsection{Species List for County}%
 ]
+\thispagestyle{empty}
 \wireframe{./wireframes/Species__ListForCounty.png}%
 
 The `landing' page for the application is the search of the entire dataset for the county.
+Initially the search output should be empty.
 
 \begin{todolist}
+  \item On landing the selected list is empty.
   \item By default the \textbf{Scientific} name selected first.  
   favour identifying
-  plant species via the scientific name
-  \item On landing the selected list is empty.
-  \item The characters entered in the search box are used to search for names begining with those letters,
+  plant species via the scientific name.
+  \item If \textbf{Common} set a cookie to retain the user's choice of naming type.
+  \item Also set a cookie for the user's choice of plant group
+\end{todolist}
+
+\begin{todolist}
+
+  \item The characters entered in the search box are used to search for names beginning with those letters,
     not within the names.
   \item Clicking on \textbf{list} or pressing return on the desktop list will fill the list.
   \item If \textbf{Common} is selected, only the species with common names will be searched and shown.
@@ -215,7 +234,6 @@ The `landing' page for the application is the search of the entire dataset for t
 \end{todolist}
 
 e.g. \footnote{\nbnrecords{explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*}}
-
 
 \subsection{Records for a Single Species in the County}
 
@@ -240,10 +258,12 @@ Clicking on a species name will show details for the
 
 \end{multicols*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{multicols*}{2}[%
   \section{Search in a Site}%
   \subsection{Site List for the County}%
 ]
+\thispagestyle{empty}
 \wireframe{./wireframes/Sites__ListForCounty.png}%
 
 \begin{itemize}
@@ -273,10 +293,12 @@ e.g. \url{https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Chu
 
 \end{multicols*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{multicols*}{2}[%
   \section{Search in a Square}%
   \subsection{Select a Square}%
 ]
+\thispagestyle{empty}
 \wireframe{./wireframes/Squares__Index.png}%
 
 \begin{itemize}
