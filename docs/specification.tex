@@ -198,6 +198,7 @@ Web application Specification}
 \begin{multicols*}{2}[%
   \section{Search the County}%
   \subsection{Species List for County}%
+  \label{sec:species-list-for-county}%
 ]
 \thispagestyle{empty}
 \wireframe{./wireframes/Species__ListForCounty.png}%
@@ -213,7 +214,7 @@ Web application Specification}
   \item Also set a cookie for the user's choice of plant group (bryophytes or vascular plants).
 \end{todolist}
 
-\subsubsection*{Search}
+\subsubsection*{Species Search}
 
 \begin{todolist}
   \item The search is of the entire dataset for the county.
@@ -243,24 +244,24 @@ Web application Specification}
 
 \wireframe{./wireframes/Records__SingleSpeciesForCounty.png}%
 
-\subsubsection*{Records list} 
+\subsubsection*{Records List} 
 
 \begin{todolist}
   \item Title is the scientific name or common name depending on which was clicked on in the previous page.
-  \item The `<<' goes back to the previous search.
+  \item The `$<<$' goes back to the search for a species name using the same search parameters.
   \item The records are sorted by date, with most recent first.
   \item If the records list is long pages links should be provided.
   \item The download link, downloads a zipped CSV of the search results directly from the NBN.
-  \item Site link goes to what? % // TODO: Ask John, all for site or just that species
-  \item Square link goes where? % // TODO: Ask John, all for square or just that species
+  \item Site link goes to a list of records for the same species at the selected site.
+  \item Square link goes to a list of records for the same species at the selected square.
 \end{todolist}
 
 \subsubsection*{Map} 
 
 \begin{todolist}
   \item Zoomable slippy map.
-  \item The map overlay comes from the NBN Web Mapping Service.
-  \item For mobiles the map is hidden on a tab behind the records.
+  \item The map overlay comes from the NBN Web Mapping Service showing a distribution map of the species.
+  \item For mobile devices, the map is initially hidden on a tab behind the records.
 \end{todolist}
 
 \clearpage
@@ -272,9 +273,9 @@ Web application Specification}
 
 \begin{todolist}
   \item Title is the scientific name or common name depending on the previous page.
-  \item The `<<' goes back to the previous search.
-  \item Site link goes to what? % // TODO: Ask John, all for site or just that species
-  \item Square link goes where? % // TODO: Ask John, all for square or just that species
+  \item The `$<<$' goes back to the records list for that species in the county.
+  \item Site link goes to a list of records for the same species at the selected site.
+  \item Square link goes to a list of records for the same species at the selected square.
   \item The download link, downloads a zipped CSV of the search results directly from the NBN.
 \end{todolist}
 
@@ -282,8 +283,8 @@ Web application Specification}
 
 \begin{todolist}
   \item Zoomable slippy map.
-  \item The location of the record is marked with a blob?  % // TODO: Ask John, could be a square?
-  \item For mobiles the map is more compact.
+  \item The location of the record is marked with plant or leaf icon.
+  \item For mobile devices the map is more compact.
 \end{todolist}
 
 \end{multicols*}
@@ -296,11 +297,24 @@ Web application Specification}
 \thispagestyle{empty}
 \wireframe{./wireframes/Sites__ListForCounty.png}%
 
-\begin{itemize}
-  \item List is empty, actually is this necessary?
-  \item Search results from the `location\_id'.
-  \footnote{\nbnrecords{occurrences/search?fq=location_id:[Church\%20TO\%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0}}
-\end{itemize}
+\subsubsection*{Sites Search}
+
+\begin{todolist}
+  \item Initially the search output should be empty.
+\end{todolist}
+
+\subsubsection*{Sites List}
+
+\begin{todolist}
+  \item The characters entered in the search box are used to search for names beginning with those letters,
+    not within the names.
+    \footnote{\nbnrecords{occurrences/search?fq=location_id:[Church\%20TO\%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0}}
+  \item Clicking on \textbf{List Sites} or pressing return on the desktop list executes the search.
+    If the search box is empty species beginning with `A' are searched for.
+  \item The sites should be ordered alphabetically by the site name (i.e. the `location\_id' field from the NBN records).
+  \item Any characters entered in the search box are retained after the button is clicked.
+  \item Clicking on the site name take you to a species list for that site.
+\end{todolist}
 
 \clearpage
 
@@ -308,20 +322,34 @@ Web application Specification}
 
 \wireframe{./wireframes/Species__ListForSite.png}%
 
-\begin{itemize}
-  \item .
-\end{itemize}
+\begin{todolist}
+  \item Title is the name of the site clicked on in the previous page.
+  \item The `$<<$' goes back to the previous search of site names.
+  \item Changing any radio button will renew the search using the changed set of parameters.
+  \item Radio button settings should be retained in a cookie.
+    These values are the same as the ones used in the \hyperref[sec:species-list-for-county]{Species List for County}.
+
+\end{todolist}
 \clearpage
 
 \subsection{Records for a Single Species at a Site}
 
 \wireframe{./wireframes/Records__SingleSpeciesForSite.png}%
 
-\begin{itemize}
-  \item .
-\end{itemize}
-\clearpage
+\subsubsection*{Records List} 
 
+\begin{todolist}
+  \item Show records for that species at the selected site.
+  \item Square link goes to a list of records for the same species at the selected square.
+\end{todolist}
+
+\subsubsection*{Map}
+
+\begin{todolist}
+  \item Showing location of the site with a pin, since we don't have shape files for the sites.
+\end{todolist}
+
+\clearpage
 \end{multicols*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -332,28 +360,47 @@ Web application Specification}
 \thispagestyle{empty}
 \wireframe{./wireframes/Squares__Index.png}%
 
-\begin{itemize}
-  \item Zoom in and select.
-  \item Graticule
-\end{itemize}
+\subsection{Records for a Single Species at a Site}
+
+\begin{todolist}
+  \item Zoom in and select a 1 km grid square.
+  \item A 1 km graticule to appear when the squares are big enough (for selection with a finger).
+  \item Retain map zoom and centre position between visits.
+\end{todolist}
+
 \clearpage
 
 \subsection{Species List for a Square}
 
 \wireframe{./wireframes/Species__ListForSquare.png}%
 
-\begin{itemize}
-  \item .
-\end{itemize}
+\begin{todolist}
+  \item Title is the name of the square selected on in the previous page.
+  \item The `$<<$' goes back to the map for selecting grid squares.
+  \item Changing any radio button will renew the search using the changed set of parameters.
+  \item Radio button settings should be retained in a cookie.
+    These values are the same as the ones used in the \hyperref[sec:species-list-for-county]{Species List for County}.
+\end{todolist}
+
 \clearpage
 
 \subsection{Records for a Single Species at a Site}
 
 \wireframe{./wireframes/Records__SingleSpeciesForSquare.png}%
 
-\begin{itemize}
-  \item .
-\end{itemize}
+\subsubsection*{Records List}
+
+\begin{todolist}
+  \item Title is the name of the square and the species selected on in the previous page.
+  \item The `$<<$' goes back to the species list for a grid square.
+\end{todolist}
+
+\subsubsection*{Map}
+
+\begin{todolist}
+  \item Compact and zoomed in with the grid square marked.
+\end{todolist}
+
 \clearpage
 
 \end{multicols*}
