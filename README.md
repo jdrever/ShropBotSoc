@@ -1,33 +1,4 @@
-# Shropshire Botanical Society Online Flora
+# Online Flora
 
-## Overview
-
-NBN data extract
-
-## Technologies
-
-## Structure
-
-## Getting running
-
-
-Download
-and settings.
-
-Pulumin config for GAE ?
-
-## Project status
-
-In development
-
-## Design
-
-
-
-## Testing
-
-Smoke tests.
-
-
-
-
+The Shropshire Botanical Society
+online flora based on records from the \href{https://nbnatlas.org/}{National Biodiversity Network Atlas}.

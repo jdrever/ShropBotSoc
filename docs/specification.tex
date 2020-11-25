@@ -57,6 +57,7 @@ Web application Specification}
 \begin{multicols*}{2}
   \setcounter{tocdepth}{3}
   \tableofcontents
+  \vfill\strut
   \columnbreak
 
   \section{Background}
@@ -171,29 +172,21 @@ Web application Specification}
   at a particular site.
 
   \subsection{Data Storage}
-  The \href{https://nbnatlas.org/}{National Biodiversity Network Atlas}
+  The National Biodiversity Network Atlas (NBN)
   provides a service to maintain and distribute biological records
   for the United kingdom.
+  The Shropshire Botanical Society contributes records to the NBN
+  via the \href{https://sites.google.com/view/sedn/home}{Shropshire Ecological Data Network} (SEDN).
+  So all the botanical records for Shropshire
+  are contained within the SEDN dataset on the NBN service
+  (\href{https://records.nbnatlas.org/occurrences/search?q=data_resource_uid%3Adr782}{dataset 782}).
+  There is a regular(ish) process in place for passing updates to the NBN
+  so new records are added every 6 months or so. 
 
-
-  \url{https://records.nbnatlas.org/occurrences/search?q=data_resource_uid%3Adr782}
-  All the records may be searched on the NBN website. 
-
-  a regular(ish) process in place for passing updates to the NBN.  
-  
-   every 6 months or so. 
-   
-  updating and maintaining
-  The online flora/data portal will use the NBN (National Biodiversity Network) 
-  as a data source and will present a filtered representation of just the SEDN 
-  (Shropshire Ecological Data Network) dataset on the NBN (limited to vascular plants and bryophytes). 
-  records for the entire country
-
-  Based on Solr but with a specialised API
-
-  The Society's records exist within
-  the \href{https://registry.nbnatlas.org/public/show/dp120}{Shropshire Ecological Data Network records}.
-  This dataset includes records from other recording groups in Shropshire.
+  The NBN provides a \href{https://api.nbnatlas.org/}{specialized API}
+  to query these data which is based on Apache Solr.
+  A primer for how to use the API is provided in the appendix
+  (see \hyperref[sec:primer]{NBN Atlas Query Primer}).
 
   \begin{description}
     \item Cache NBN data for a month, if valid json.
@@ -327,9 +320,7 @@ e.g. \url{https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Chu
 
 \end{multicols*}
 
-\begin{multicols*}{2}[%
-  \section{Technical Constraints}%
-]
+\section{Technical Constraints}%
 
 % Simple and convenient caching.
 % Possible to source PHP developers from within the ranks of members.
@@ -350,26 +341,24 @@ to provide a low barrier to contributions.
     \item[PHP 7.3] for deployment to Google App Engine for free hosting.
     \item[CodeIgniter 4.0.4] has been used successfully in the past and provides convenient caching should it be required.
     \item[Twitter Bootstrap 4.5.2] for responsive layout.
-    \item[Leaflet 1.6.0] should be used to provide mapping services.
-     https://github.com/DuncanRowland/NBNMapOverlayExamples
-    \item[Commits to Github] since the Society will retain the intellectual property rights
-      over any code produced.
-      So all branching should be on the repository at
-      at \href{https://github.com/joejcollins/captain-magenta.git}{Github}
-      The Society will
-    \item[Style Sheet] taken from \href{https://www.shropshirebotany.org.uk/}{www.shropshirebotany.org.uk}.
+    \item[Leaflet 1.6.0] should be used to provide mapping services,
+    \item[Style Sheet] is taken from \url{https://www.shropshirebotany.org.uk/}.
       The Online Flora is to be consistent with this website,
-      so should reuse the same classes and styles.
-    \item[No NBN API Calls from the Client] because we might want to use caching.
-    \item[No database] should be used other than the NBN Web service API.
+      so should where possible reuse the same CSS classes and styles.
+    \item[No database] should be used other than the NBN Web service API,
+      to keep down maintenance costs.
       Any static data 
       (such as the list of axiophytes)
       should be hard coded into the application.
+      there are examples at \url{https://github.com/DuncanRowland/NBNMapOverlayExamples}.
+    \item[Commits to Github] since the Society will retain the intellectual property rights
+      over any code produced.
+      So all branching should be on the repository at
+      at \url{https://github.com/joejcollins/captain-magenta.git}.
+    \item[CI/CD] the develop branch deploys to \url{https://captain-magenta.azurewebsites.net/} on Azure
+      and the master branch deploys to \url{http://flora.shropshirebotany.org.uk/} on GCP.
+      These URLs will be used to review progress.
 \end{description}
-
-\end{multicols*}
-
-
 
 \end{document}
 
