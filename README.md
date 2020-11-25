@@ -1,4 +1,5 @@
 # Online Flora
 
 The Shropshire Botanical Society
-online flora based on records from the \href{https://nbnatlas.org/}{National Biodiversity Network Atlas}.
+online flora based on records from the
+[National Biodiversity Network Atlas](https://nbnatlas.org/).
