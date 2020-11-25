@@ -55,5 +55,6 @@
         "mymap"
     ],
     "php.validate.enable": false,
-    "workbench.colorTheme": "Solarized Light"
+    "workbench.colorTheme": "Solarized Light",
+    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])"
 }
