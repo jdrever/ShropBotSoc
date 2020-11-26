@@ -250,6 +250,7 @@ Web application Specification}
   \item Title is the scientific name or common name depending on which was clicked on in the previous page.
   \item The `$<<$' goes back to the search for a species name using the same search parameters.
   \item The records are sorted by date, with most recent first.
+  \footnote{\nbnrecords{occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies\%20alba&sort=taxon_name&fsort=index&pageSize=9}}
   \item If the records list is long pages links should be provided.
   \item The download link, downloads a zipped CSV of the search results directly from the NBN.
   \item Site link goes to a list of records for the same species at the selected site.
@@ -264,6 +265,7 @@ Web application Specification}
   \item Showing location of the site with a pin, since we don't have shape files for the sites,
    use the location of the first record.
   \item The map overlay comes from the NBN Web Mapping Service showing a distribution map of the species.
+  \item Include an outline of the county.
 \end{todolist}
 
 \clearpage
@@ -276,6 +278,8 @@ Web application Specification}
 \begin{todolist}
   \item Title is the scientific name or common name depending on the previous page.
   \item The `$<<$' goes back to the records list for that species in the county.
+  \item Show as much detail for the records as possible.
+  \footnote{\nbnrecords{occurrence/4276e1be-b7d2-46b0-a33d-6fa82e97636a}}
   \item Site link goes to a list of records for the same species at the selected site.
   \item Square link goes to a list of records for the same species at the selected square.
   \item The download link, downloads a zipped CSV of the search results directly from the NBN.
