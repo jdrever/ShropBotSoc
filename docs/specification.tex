@@ -259,9 +259,11 @@ Web application Specification}
 \subsubsection*{Map} 
 
 \begin{todolist}
-  \item Zoomable slippy map.
+  \item Zoomable but not clickable.
+  \item In a hidden tab on mobile devices.
+  \item Showing location of the site with a pin, since we don't have shape files for the sites,
+   use the location of the first record.
   \item The map overlay comes from the NBN Web Mapping Service showing a distribution map of the species.
-  \item For mobile devices, the map is initially hidden on a tab behind the records.
 \end{todolist}
 
 \clearpage
@@ -282,9 +284,9 @@ Web application Specification}
 \subsubsection*{Map} 
 
 \begin{todolist}
-  \item Zoomable slippy map.
+  \item Zoomable but not clickable.
+  \item In a hidden tab on mobile devices.
   \item The location of the record is marked with plant or leaf icon.
-  \item For mobile devices the map is more compact.
 \end{todolist}
 
 \end{multicols*}
@@ -322,6 +324,8 @@ Web application Specification}
 
 \wireframe{./wireframes/Species__ListForSite.png}%
 
+\subsubsection*{Species List} 
+
 \begin{todolist}
   \item Title is the name of the site clicked on in the previous page.
   \item The `$<<$' goes back to the previous search of site names.
@@ -330,6 +334,16 @@ Web application Specification}
     These values are the same as the ones used in the \hyperref[sec:species-list-for-county]{Species List for County}.
 
 \end{todolist}
+
+\subsubsection*{Map}
+
+\begin{todolist}
+  \item Zoomable but not clickable.
+  \item In a hidden tab on mobile devices.
+  \item Showing location of the site with a pin, since we don't have shape files for the sites,
+   use the location of the first record of the first species.
+\end{todolist}
+
 \clearpage
 
 \subsection{Records for a Single Species at a Site}
@@ -346,7 +360,10 @@ Web application Specification}
 \subsubsection*{Map}
 
 \begin{todolist}
-  \item Showing location of the site with a pin, since we don't have shape files for the sites.
+  \item Zoomable but not clickable.
+  \item In a hidden tab on mobile devices.
+  \item Showing location of the site with a pin, since we don't have shape files for the sites,
+   use the location of the first record.
 \end{todolist}
 
 \clearpage
@@ -362,10 +379,13 @@ Web application Specification}
 
 \subsection{Records for a Single Species at a Site}
 
+\subsubsection*{Map Control}
+
 \begin{todolist}
   \item Zoom in and select a 1 km grid square.
   \item A 1 km graticule to appear when the squares are big enough (for selection with a finger).
   \item Retain map zoom and centre position between visits.
+  \item If possible include a zoom to current location feature.
 \end{todolist}
 
 \clearpage
@@ -387,8 +407,8 @@ Web application Specification}
 \subsubsection*{Map}
 
 \begin{todolist}
-  \item Compact map with the grid square marked.
-  \item Not available on mobile devices.
+  \item Zoomable but not clickable.
+  \item In a hidden tab on mobile devices.
 \end{todolist}
 
 \clearpage
@@ -407,7 +427,8 @@ Web application Specification}
 \subsubsection*{Map}
 
 \begin{todolist}
-  \item Compact and zoomed in with the grid square marked.
+  \item Zoomable but not clickable.
+  \item In a hidden tab on mobile devices.
 \end{todolist}
 
 \clearpage
