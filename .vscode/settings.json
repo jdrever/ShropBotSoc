@@ -56,5 +56,6 @@
     ],
     "php.validate.enable": false,
     "workbench.colorTheme": "Solarized Light",
-    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])"
+    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])",
+    "latex-workshop.synctex.synctexjs.enabled": false
 }

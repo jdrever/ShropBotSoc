@@ -24,13 +24,13 @@
 \SetWatermarkLightness{0.9}
 
 
-\newcommand{\documenttitle}{Shropshire Botanical Society Online Flora\\Draft Specification}
+\newcommand{\documenttitle}{Shropshire Botanical Society Online Flora}
 \newcommand{\documentauthor}{Joe J Collins}
 \newcommand{\nbnrecords}[1]{\href{https://records-ws.nbnatlas.org/#1}{\detokenize{https://records-ws.nbnatlas.org/#1}}}
 \newcommand{\wireframe}[1]{\includegraphics[width=0.85\textwidth,height=\textheight,keepaspectratio]{#1}\clearpage}
 
 \title{Shropshire Botanical Society Online Flora\\
-Web application Specification}
+Draft Specification}
 \author{\documentauthor}
 \date{\today}
 
@@ -268,7 +268,7 @@ Web application Specification}
 
 \begin{todolist}
   \item Zoomable but not clickable.
-  \item In a hidden tab on mobile devices.
+  \item The records are in a hidden tab on mobile devices.
   \item Showing location of the site with a pin, since we don't have shape files for the sites,
    use the location of the first record.
   \item The map overlay comes from the NBN Web Mapping Service showing a distribution map of the species.
@@ -297,7 +297,7 @@ Web application Specification}
 \begin{todolist}
   \item Zoomable but not clickable.
   \item In a hidden tab on mobile devices.
-  \item The location of the record is marked with plant or leaf icon.
+  \item The location of the record is marked with a square indicating the resolution of the grid reference.
 \end{todolist}
 
 \end{multicols*}
@@ -396,7 +396,7 @@ Web application Specification}
   \item Zoom in and select a 1 km grid square.
   \item A 1 km graticule to appear when the squares are big enough (for selection with a finger).
   \item Retain map zoom and centre position between visits.
-  \item If possible include a zoom to current location feature.
+  \item The `cross hair' icon to zoom to the current location using the browser Geolocation API.
 \end{todolist}
 
 \clearpage
@@ -459,14 +459,14 @@ can be maintained and supported
 into the future,
 either via an open source project or via the efforts of members of the Society.
 To facilitate these possibilities
-the technical environment for the projects is intended 
-to provide a low barrier to contributions.
+the technical environment for the project is intended 
+to provide a low(ish) barrier to contributions.
 
 \begin{description}
     \item[PHP 7.3] for deployment to Google App Engine for free hosting.
-    \item[CodeIgniter 4.0.4] has been used successfully in the past and provides convenient caching should it be required.
+    \item[CodeIgniter 4.0.4] has been used successfully in the past and provides long term file caching.
     \item[Twitter Bootstrap 4.5.2] for responsive layout.
-    \item[Leaflet 1.6.0] should be used to provide mapping services,
+    \item[Leaflet 1.6.0] for interactive maps.
     \item[Style Sheet] is taken from \url{https://www.shropshirebotany.org.uk/}.
       The Online Flora is to be consistent with this website,
       so should where possible reuse the same CSS classes and styles.
@@ -475,14 +475,13 @@ to provide a low barrier to contributions.
       Any static data 
       (such as the list of axiophytes)
       should be hard coded into the application.
-      there are examples at \url{https://github.com/DuncanRowland/NBNMapOverlayExamples}.
+
     \item[Commits to Github] since the Society will retain the intellectual property rights
       over any code produced.
       So all branching should be on the repository at
       at \url{https://github.com/joejcollins/captain-magenta.git}.
     \item[CI/CD] the develop branch deploys to \url{https://captain-magenta.azurewebsites.net/} on Azure
-      and the master branch deploys to \url{http://flora.shropshirebotany.org.uk/} on GCP.
-      These URLs will be used to review progress.
+      and will be used to review progress.
 \end{description}
 
 \end{document}
