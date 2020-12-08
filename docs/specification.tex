@@ -108,7 +108,7 @@ Draft Specification}
   Maintaining and updating the data is conducted via a separate manual process.
   Searches of the database are conducted for three different geographical scenarios.
 
-  \section{Context}
+  \section{Overview}
 
   \subsection{Users and Usage}
   Users of the Online Flora are typically
@@ -129,6 +129,8 @@ Draft Specification}
   with dates, attributions and further details.
   This background will give a botanist
   some insight about how much weight or credence can be given to individual sightings.
+
+  \subsection{Scenarios}
 
   The Online Flora will serve three scenarios for
   searching for species lists.
@@ -164,17 +166,20 @@ Draft Specification}
   A member of the Society will often wish to limit their searches to the
   category of plants they are most interested in.
 
-  \includegraphics[width=0.4\textwidth,height=\textheight,keepaspectratio]{./wireframes/Categories.png}
-
-  For the vascular plants
-  the concept of indicator species is highlighted
-  by a sub group of vascular plants
-  (referred to as \textbf{axiophytes})
+  The concept of indicator species is highlighted
+  by a list of plants
+  referred to as \textbf{axiophytes}.
   These are plants that are archetypical or axiomatic for a particular ecological environment.
-  So a member of the Society interested in vascular plants
+  So a member of the Society
   will often wish to see only the axiophytes
   to gain a better understanding of the ecological environment
   at a particular site.
+  
+  The list of axiophytes
+  is provided as a list of scientific species names. 
+  For vascular plants this list
+  was last updated in 2014.
+  The list of axiophytes for the bryophytes is currently being developed.
 
   \subsection{Data Storage}
   The National Biodiversity Network Atlas (NBN)
@@ -199,12 +204,32 @@ Draft Specification}
     \item Offer `Add to Home screen' on first and fifth visit.
   \end{todolist}
 
+  \subsection{Deliverables}
+  The work program is divided into four deliverables.
+
+  \begin{enumerate}[noitemsep] 
+    \item Search in the County.
+    \item Search at a Site.
+    \item Search in a Square.
+    \item Axiophyte Filtering.
+  \end{enumerate}
+
+  The completion of the first deliverable,
+  should provide a minimal working and viable application.
+  The subsequent deliverables should extend and enhance the core application.
+  The three scenarios are also the first three deliverables
+  with filtering on axiophytes as the last deliverable.
+  It is intended that the separate deliverables will provide convenient
+  breakpoints for acceptance testing, 
+  payments for work completed
+  and 
+  opportunities to pause for reflection.
 \end{multicols*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{multicols*}{2}[%
-  \section{Search the County}%
-  \subsection{Species List for County}%
+  \section{Deliverable 1: Search in the County}%
+  \subsection{Species List for the County}%
   \label{sec:species-list-for-county}%
 ]
 \thispagestyle{empty}
@@ -235,9 +260,6 @@ Draft Specification}
     whichever is selected.
   \item If \textbf{Common} is selected, only the species with common names will be searched and shown.
     Any species without common names should not be included in the search results.
-  \item If \textbf{Axiophytes} is selected a limited static list of scientific names will be searched and shown.
-    The list of axiophytes is provided as a list of scientific species names.
-    This list was last updated in 2014.
   \item Changing any radio button will renew the search using the changed set of parameters,
     without pressing return or clicking on the button.
   \item If the search result list is long pages links should be provided.
@@ -304,7 +326,7 @@ Draft Specification}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{multicols*}{2}[%
-  \section{Search in a Site}%
+  \section{Deliverable 2: Search at a Site}%
   \subsection{Site List for the County}%
 ]
 \thispagestyle{empty}
@@ -331,7 +353,7 @@ Draft Specification}
 
 \clearpage
 
-\subsection{Species List for a Site}
+\subsection{Species List at a Site}
 
 \wireframe{./wireframes/Species__ListForSite.png}%
 
@@ -343,12 +365,13 @@ Draft Specification}
   \item Changing any radio button will renew the search using the changed set of parameters.
   \item Radio button settings should be retained in a cookie.
     These values are the same as the ones used in the \hyperref[sec:species-list-for-county]{Species List for County}.
-
+  \item Paging if the list exceeds 9 items.
 \end{todolist}
 
 \subsubsection*{Map}
 
 \begin{todolist}
+  \item Initially showing the whole county.
   \item Zoomable but not clickable.
   \item In a hidden tab on mobile devices.
   \item Showing location of the site with a pin, since we don't have shape files for the sites,
@@ -372,6 +395,7 @@ Draft Specification}
 
 \begin{todolist}
   \item Zoomable but not clickable.
+  \item Showing the whole county.
   \item In a hidden tab on mobile devices.
   \item Showing location of the site with a pin, since we don't have shape files for the sites,
    use the location of the first record.
@@ -382,17 +406,18 @@ Draft Specification}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{multicols*}{2}[%
-  \section{Search in a Square}%
+  \section{Deliverable 3: Search in a Square}%
   \subsection{Select a Square}%
 ]
 \thispagestyle{empty}
 \wireframe{./wireframes/Squares__Index.png}%
 
-\subsection{Records for a Single Species at a Site}
+\subsection{Records for a Single Species in a Sguare}
 
 \subsubsection*{Map Control}
 
 \begin{todolist}
+  \item Initially showing the whole county.
   \item Zoom in and select a 1 km grid square.
   \item A 1 km graticule to appear when the squares are big enough (for selection with a finger).
   \item Retain map zoom and centre position between visits.
@@ -413,18 +438,20 @@ Draft Specification}
   \item Changing any radio button will renew the search using the changed set of parameters.
   \item Radio button settings should be retained in a cookie.
     These values are the same as the ones used in the \hyperref[sec:species-list-for-county]{Species List for County}.
-\end{todolist}
+  \item Paging if the list exceeds 9 items.
+  \end{todolist}
 
 \subsubsection*{Map}
 
 \begin{todolist}
   \item Zoomable but not clickable.
+  \item Showing the whole county.
   \item In a hidden tab on mobile devices.
 \end{todolist}
 
 \clearpage
 
-\subsection{Records for a Single Species at a Site}
+\subsection{Records for a Single Species in a Square}
 
 \wireframe{./wireframes/Records__SingleSpeciesForSquare.png}%
 
@@ -433,20 +460,58 @@ Draft Specification}
 \begin{todolist}
   \item Title is the name of the square and the species selected on in the previous page.
   \item The `$<<$' goes back to the species list for a grid square.
+  \item Paging if the list exceeds 9 items.
 \end{todolist}
 
 \subsubsection*{Map}
 
 \begin{todolist}
   \item Zoomable but not clickable.
+  \item Showing the whole county.
   \item In a hidden tab on mobile devices.
 \end{todolist}
+
 
 \clearpage
 \end{multicols*}
 
-\section{Technical Constraints}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{multicols*}{2}[%
+  \section{Deliverable 4: Axiophytes}%
+  \subsection{Enable Filtering and Display}%
+]
+\thispagestyle{empty}
+\wireframe{./wireframes/Species__ListForCountyAxiophytes.png}%
 
+The diagram shows the species list for the county but
+axiophyte filtering should be enabled for all three scenarios.
+
+\begin{todolist}
+  \item Species list for the county.
+  \item Species list for a site.
+  \item Species list in a square.
+\end{todolist}
+
+\subsubsection*{Axiophyte Indicator}
+
+\begin{todolist}
+  \item Axiophyte indicator next to the species for desktop and mobile devices.
+\end{todolist}
+
+\subsubsection*{Filtering Checkbox}
+
+\begin{todolist}
+  \item If \textbf{Axiophytes} is selected a limited static list of scientific names will be searched and shown.
+  \item Check box settings should be retained in a cookie.
+  \item If the check box (or the radio buttons) change the search should refresh.
+\end{todolist}
+
+
+\clearpage
+\end{multicols*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Technical Constraints}%
 % Simple and convenient caching.
 % Possible to source PHP developers from within the ranks of members.
 % Possibility of free hosting on the Google App Engine.
@@ -485,5 +550,3 @@ to provide a low(ish) barrier to contributions.
 \end{description}
 
 \end{document}
-
-
