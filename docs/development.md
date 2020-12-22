@@ -4,6 +4,12 @@ layout: default
 # Development
 
 * Source code at <https://github.com/joejcollins/captain-magenta>.
+* Edit a couple of properties in `src/.env` like this... 
+
+```env
+CI_ENVIRONMENT = development
+app.baseURL = 'https://localhost:8080/'
+```
 
 ## Docker Environment
 
