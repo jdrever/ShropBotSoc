@@ -15,4 +15,4 @@ RUN wget http://xdebug.org/files/xdebug-2.9.1.tgz \
 
 ENV APACHE_DOCROOT_IN_REPO="src/public"
 
-EXPOSE 9001:9001
+EXPOSE 9001
