@@ -1,5 +1,5 @@
 image:
-  file: Dockerfile
+  file: .gitpod.Dockerfile
 # This is to get rid of the annoying popup feel free to leave this out
 vscode:
   extensions:
