@@ -14,7 +14,7 @@
         "name": "Listen for XDebug",
         "type": "php",
         "request": "launch",
-        "port": 9000,
+        "port": 9001,
         "ignore": [
             "**/vendor/**/*.php"
         ],
