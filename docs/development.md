@@ -11,6 +11,10 @@ CI_ENVIRONMENT = development
 app.baseURL = 'https://localhost:8080/'
 ```
 
+## Gitpod Environment
+
+Got to <https://gitpod.io/#https://github.com/joejcollins/captain-magenta>.
+
 ## Docker Environment
 
 Using a Docker container which maps to files on the host.
