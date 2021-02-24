@@ -56,5 +56,10 @@
     ],
     "php.validate.enable": false,
     "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])",
-    "latex-workshop.synctex.synctexjs.enabled": false
+    "latex-workshop.synctex.synctexjs.enabled": false,
+    
+    // Git settings based on https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+    "git.inputValidation": "always",
+    "git.inputValidationLength": 72,
+    "git.inputValidationSubjectLength": 50
 }
