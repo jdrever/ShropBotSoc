@@ -55,7 +55,6 @@
         "mymap"
     ],
     "php.validate.enable": false,
-    "workbench.colorTheme": "Visual Studio Dark",
     "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])",
     "latex-workshop.synctex.synctexjs.enabled": false
 }
