@@ -1,0 +1,13 @@
+{
+	"recommendations": [
+		"aaron-bond.better-comments",
+		"editorconfig.editorconfig",
+		"eamodio.gitlens",
+		"neilbrayfield.php-docblocker",
+		"bmewburn.vscode-intelephense-client",
+		"wongjn.php-sniffer",
+		"esbenp.prettier-vscode",
+		"stkb.rewrap",
+		"felixfbecker.php-debug"
+	]
+}
