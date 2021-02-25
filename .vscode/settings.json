@@ -1,65 +1,51 @@
 {
-    "editor.minimap.enabled": false,
-    "files.associations": {
-        "*.w": "tex",
-        "Vagrantfile": "ruby",
-        "*.config": "xml"
-    },
-    "latex-workshop.latex.recipes": [
-        {
-            "name": "texify",
-            "tools": [
-                "pdflatex"
-            ]
-        }
-    ],
-    "latex-workshop.latex.tools": [
-        {
-            "name": "pdflatex",
-            "command": "pdflatex",
-            "args": [
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "%DOC%"
-            ]
-        },
-        {
-            "name": "bibtex",
-            "command": "bibtex",
-            "args": [
-                "%DOCFILE%"
-            ]
-        },
-        {
-            "name": "texify",
-            "command": "texify",
-            "args": [
-                "--synctex=1",
-                "--pdf",
-                "--tex-option=\"-interaction=nonstopmode\"",
-                "--tex-option=\"-file-line-error\"",
-                "%DOC%.tex"
-            ]
-        }
-    ],
-    "files.autoSave": "onWindowChange",
-    "files.exclude": {
-        "**/.jekyll-cache": true
-    },
-    "editor.tabSize": 2,
-    "cSpell.words": [
-        "axiophyte",
-        "axiophytes",
-        "fsort",
-        "mapid",
-        "mymap"
-    ],
-    "php.validate.enable": false,
-    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])",
-    "latex-workshop.synctex.synctexjs.enabled": false,
-    
-    // Git settings based on https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
-    "git.inputValidation": "always",
-    "git.inputValidationLength": 72,
-    "git.inputValidationSubjectLength": 50
+	"editor.minimap.enabled": false,
+	"files.associations": {
+		"*.w": "tex",
+		"Vagrantfile": "ruby",
+		"*.config": "xml"
+	},
+	"latex-workshop.latex.recipes": [
+		{
+			"name": "texify",
+			"tools": ["pdflatex"]
+		}
+	],
+	"latex-workshop.latex.tools": [
+		{
+			"name": "pdflatex",
+			"command": "pdflatex",
+			"args": ["-synctex=1", "-interaction=nonstopmode", "%DOC%"]
+		},
+		{
+			"name": "bibtex",
+			"command": "bibtex",
+			"args": ["%DOCFILE%"]
+		},
+		{
+			"name": "texify",
+			"command": "texify",
+			"args": [
+				"--synctex=1",
+				"--pdf",
+				"--tex-option=\"-interaction=nonstopmode\"",
+				"--tex-option=\"-file-line-error\"",
+				"%DOC%.tex"
+			]
+		}
+	],
+	"files.autoSave": "onWindowChange",
+	"files.exclude": {
+		"**/.jekyll-cache": true
+	},
+	"editor.tabSize": 2,
+	"cSpell.words": ["axiophyte", "axiophytes", "fsort", "mapid", "mymap"],
+	"php.validate.enable": false,
+	"todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])",
+	"latex-workshop.synctex.synctexjs.enabled": false,
+
+	// Git settings based on https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+	"git.inputValidation": "always",
+	"git.inputValidationLength": 72,
+	"git.inputValidationSubjectLength": 50
 }
