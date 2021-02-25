@@ -40,6 +40,11 @@
 	},
 	"editor.tabSize": 4,
 	"editor.insertSpaces": false,
+	"editor.wordWrapColumn": 80,
+	"editor.rulers": [
+		80
+	],
+	"rewrap.autoWrap.enabled": true
 	"cSpell.words": ["axiophyte", "axiophytes", "fsort", "mapid", "mymap"],
 	"php.validate.enable": false,
 	"todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])",
