@@ -1,0 +1,28 @@
+# EditorConfig Settings
+# https://EditorConfig.org
+
+root = true
+
+# Settings, where possible, conform to CodeIgniter4 Coding Style Guide
+# https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing/styleguide.rst
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# PHP indendation settings commensurate with CodeIgniter4 standard
+[*.php]
+indent_size = 4
+indent_style = tab
+
+# Indendation settings for other file types also commensurate with CodeIgniter4
+# standards(for now). Other formatting settings for these files controlled by
+# Prettier extension
+[*.{css,sass,js,json}]
+indent_size = 4
+indent_style = tab
+
+# Trailing whitespace is significant in Markdown
+[*.md]
+trim_trailing_whitespace = false
