@@ -66,22 +66,19 @@ Scenarios
 
 The Online Flora will serve three scenarios for searching for species lists.
 
-Search Shropshire:
+**Search Shropshire**  
+searching all the records of based on the name of the plant. Allowing the user
+to drill down to a single sighting record or showing a map of grid squares with
+records for a named plant.
 
-:   searching all the records of based on the name of the plant. Allowing the
-    user to drill down to a single sighting record or showing a map of grid
-    squares with records for a named plant.
+**Search by Site**  
+searching for a named site, then listing the names of plants for that named
+site. Again allowing the user to drill down to a single sighting record.
 
-Search by Site:
-
-:   searching for a named site, then listing the names of plants for that named
-    site. Again allowing the user to drill down to a single sighting record.
-
-Search by Monad or Grid Square:
-
-:   Selecting a 1 km grid square within the county of Shropshire, then listing
-    the names of plants for that named site. Again allowing the user to drill
-    down to a single sighting record.
+**Search by Monad or Grid Square**  
+Selecting a 1 km grid square within the county of Shropshire, then listing the
+names of plants for that named site. Again allowing the user to drill down to a
+single sighting record.
 
 These three scenarios are shown in the diagram below.
 
@@ -471,44 +468,36 @@ via an open source project or via the efforts of members of the Society. To
 facilitate these possibilities the technical environment for the project is
 intended to provide a low(ish) barrier to contributions.
 
-PHP 7.3
+**PHP 7.3**  
+for deployment to Google App Engine for free hosting.
 
-:   for deployment to Google App Engine for free hosting.
+**CodeIgniter 4.0.4**  
+has been used successfully in the past and provides long term file caching.
 
-CodeIgniter 4.0.4
+**Twitter Bootstrap 4.5.2**  
+for responsive layout.
 
-:   has been used successfully in the past and provides long term file caching.
+**Leaflet 1.6.0**  
+for interactive maps.
 
-Twitter Bootstrap 4.5.2
+**Style Sheet**  
+is taken from <https://www.shropshirebotany.org.uk/>. The Online Flora is to be
+consistent with this website, so should where possible reuse the same CSS
+classes and styles.
 
-:   for responsive layout.
+**No database**  
+should be used other than the NBN Web service API, to keep down maintenance
+costs. Any static data (such as the list of axiophytes) should be hard coded
+into the application.
 
-Leaflet 1.6.0
+**Commits to Github**  
+since the Society will retain the intellectual property rights over any code
+produced. So all branching should be on the repository at at
+<https://github.com/joejcollins/captain-magenta.git>.
 
-:   for interactive maps.
-
-Style Sheet
-
-:   is taken from <https://www.shropshirebotany.org.uk/>. The Online Flora is to
-    be consistent with this website, so should where possible reuse the same CSS
-    classes and styles.
-
-No database
-
-:   should be used other than the NBN Web service API, to keep down maintenance
-    costs. Any static data (such as the list of axiophytes) should be hard coded
-    into the application.
-
-Commits to Github
-
-:   since the Society will retain the intellectual property rights over any code
-    produced. So all branching should be on the repository at at
-    <https://github.com/joejcollins/captain-magenta.git>.
-
-CI/CD
-
-:   the develop branch deploys to <https://captain-magenta.azurewebsites.net/>
-    on Azure and will be used to review progress.
+**CI/CD**  
+the develop branch deploys to <https://captain-magenta.azurewebsites.net/> on
+Azure and will be used to review progress.
 
 [^1]:[https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*](https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*)
 
