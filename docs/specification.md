@@ -6,8 +6,7 @@ with the technical and development constraints of the work.
 
 *Joe J Collins*
 
-1. Background
-==========
+[TOC]
 
 The Shropshire Botanical Society has been dedicated to promoting the enjoyment,
 understanding and conservation of the flora of Shropshire since the 18^th^
