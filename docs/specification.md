@@ -1,4 +1,4 @@
-**Shropshire Botanical Society Online Flora Draft Specification  **
+**Shropshire Botanical Society Online Flora Draft Specification**
 
 The Shropshire Botanical Society is seeking to renew it's Online Flora web
 application. This specification out lines the hoped for functionality together
@@ -6,7 +6,48 @@ with the technical and development constraints of the work.
 
 *Joe J Collins*
 
-[TOC]
+- [1. Background](#1-background)
+- [2. Objective](#2-objective)
+- [3. Overview](#3-overview)
+  - [3.1. Users and Usage](#31-users-and-usage)
+  - [3.2. Scenarios](#32-scenarios)
+  - [3.3. Categories of Plants](#33-categories-of-plants)
+  - [3.4. Data Storage](#34-data-storage)
+  - [3.5. Deliverables](#35-deliverables)
+- [4. Deliverable 1: Search in the County](#4-deliverable-1-search-in-the-county)
+  - [4.1. Species List for the County](#41-species-list-for-the-county)
+    - [4.1.1. 'Landing'](#411-landing)
+    - [4.1.2. Species Search](#412-species-search)
+  - [4.2. Records for a Single Species in the County](#42-records-for-a-single-species-in-the-county)
+    - [4.2.1. Records List](#421-records-list)
+    - [4.2.2. Map](#422-map)
+  - [4.3. A Single Record](#43-a-single-record)
+    - [4.3.1. Record Detail](#431-record-detail)
+    - [4.3.2. Map](#432-map)
+- [5. Deliverable 2: Search at a Site](#5-deliverable-2-search-at-a-site)
+  - [5.1. Site List for the County](#51-site-list-for-the-county)
+    - [5.1.1. Sites Search](#511-sites-search)
+    - [5.1.2. Sites List {#sites-list .unnumbered}](#512-sites-list-sites-list-unnumbered)
+  - [5.2. Species List at a Site](#52-species-list-at-a-site)
+    - [5.2.1. Species List](#521-species-list)
+    - [5.2.2. Map {#map-2 .unnumbered}](#522-map-map-2-unnumbered)
+  - [5.3. Records for a Single Species at a Site](#53-records-for-a-single-species-at-a-site)
+    - [5.3.1. Records List](#531-records-list)
+    - [5.3.2. Map](#532-map)
+- [6. Deliverable 3: Search in a Square](#6-deliverable-3-search-in-a-square)
+  - [6.1. Select a Square](#61-select-a-square)
+  - [6.2. Records for a Single Species in a Sguare](#62-records-for-a-single-species-in-a-sguare)
+    - [6.2.1. Map Control](#621-map-control)
+    - [6.3.1. Species List](#631-species-list)
+    - [6.3.2. Map](#632-map)
+  - [6.4. Records for a Single Species in a Square](#64-records-for-a-single-species-in-a-square)
+    - [6.4.1. Records List {#records-list-2 .unnumbered}](#641-records-list-records-list-2-unnumbered)
+    - [6.4.2. Map](#642-map)
+- [7. Deliverable 4: Axiophytes](#7-deliverable-4-axiophytes)
+  - [7.1. Enable Filtering and Display](#71-enable-filtering-and-display)
+    - [7.1.1. Axiophyte Indicator](#711-axiophyte-indicator)
+    - [7.1.2. Filtering Checkbox](#712-filtering-checkbox)
+- [8. Technical Constraints](#8-technical-constraints)
 
 # 1. Background
 
