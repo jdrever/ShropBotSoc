@@ -82,7 +82,7 @@ single sighting record.
 
 These three scenarios are shown in the diagram below.
 
-![image](./wireframes/overview.png)
+![scenarios](./wireframes/overview.png)
 
 
 Categories of Plants
@@ -155,7 +155,7 @@ Deliverable 1: Search in the County
 Species List for the County
 ---------------------------
 
-![image](./wireframes/Species__ListForCounty.png)
+![species list for the county](./wireframes/Species__ListForCounty.png)
 
 ### 'Landing'
 
@@ -204,7 +204,7 @@ records for that species in the county.
 Records for a Single Species in the County
 ------------------------------------------
 
-![image](./wireframes/Records__SingleSpeciesForCounty.png)
+![single species](./wireframes/Records__SingleSpeciesForCounty.png)
 
 ### Records List
 
@@ -243,7 +243,7 @@ Include an outline of the county.
 A Single Record
 ---------------
 
-![image](./wireframes/Records__SingleRecord.png)
+![single record](./wireframes/Records__SingleRecord.png)
 
 ### Record Detail
 
@@ -332,7 +332,7 @@ sites, use the location of the first record of the first species.
 Records for a Single Species at a Site
 --------------------------------------
 
-![image](./wireframes/Records__SingleSpeciesForSite.png)
+![single species at site](./wireframes/Records__SingleSpeciesForSite.png)
 
 ### Records List
 
@@ -359,7 +359,7 @@ Deliverable 3: Search in a Square
 Select a Square
 ---------------
 
-![image](./wireframes/Squares__Index.png)
+![select a square](./wireframes/Squares__Index.png)
 
 
 Records for a Single Species in a Sguare
@@ -382,7 +382,7 @@ Geolocation API.
 Species List for a Square
 -------------------------
 
-![image](./wireframes/Species__ListForSquare.png)
+![species list for a square](./wireframes/Species__ListForSquare.png)
 
 ### Species List
 
@@ -409,7 +409,7 @@ In a hidden tab on mobile devices.
 Records for a Single Species in a Square
 ----------------------------------------
 
-![image](./wireframes/Records__SingleSpeciesForSquare.png)
+![single species in a square](./wireframes/Records__SingleSpeciesForSquare.png)
 
 ### Records List {#records-list-2 .unnumbered}
 
@@ -435,7 +435,7 @@ Deliverable 4: Axiophytes
 Enable Filtering and Display
 ----------------------------
 
-![image](./wireframes/Species__ListForCountyAxiophytes.png)
+![filtering and display](./wireframes/Species__ListForCountyAxiophytes.png)
 
 The diagram shows the species list for the county but axiophyte filtering should
 be enabled for all three scenarios.
