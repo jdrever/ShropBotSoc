@@ -119,11 +119,11 @@ data which is based on Apache Solr. A [primer for how to use the
 API](http://docs.shropshirebotany.org.uk/NBN%20Atlas%20Query%20Primer.pdf) is
 provided by the NBN.
 
-To improve performance queries should be cached on the server for about 30 days.
+- [ ] To improve performance queries should be cached on the server for about 30 days.
 
-No data should be cached on the client device.
+- [ ] No data should be cached on the client device.
 
-Offer 'Add to Home screen' on first and fifth visit.
+- [ ] Offer 'Add to Home screen' on first and fifth visit.
 
 3.5. Deliverables
 ------------
