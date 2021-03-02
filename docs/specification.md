@@ -1,8 +1,8 @@
 # Shropshire Botanical Society Online Flora Draft Specification  
 
-The Shropshire Botanical Society is seeking to renew it's Online Flora
-web application. This specification out lines the hoped for functionality
-together with the technical and development constraints of the work.  
+The Shropshire Botanical Society is seeking to renew it's Online Flora web
+application. This specification out lines the hoped for functionality together
+with the technical and development constraints of the work.  
 
 *Joe J Collins*
 
@@ -66,19 +66,17 @@ Scenarios
 
 The Online Flora will serve three scenarios for searching for species lists.
 
-**Search Shropshire**  
-searching all the records of based on the name of the plant. Allowing the user
-to drill down to a single sighting record or showing a map of grid squares with
-records for a named plant.
+**Search Shropshire** searching all the records of based on the name of the
+plant. Allowing the user to drill down to a single sighting record or showing a
+map of grid squares with records for a named plant.
 
-**Search by Site**  
-searching for a named site, then listing the names of plants for that named
-site. Again allowing the user to drill down to a single sighting record.
+**Search by Site** searching for a named site, then listing the names of plants
+for that named site. Again allowing the user to drill down to a single sighting
+record.
 
-**Search by Monad or Grid Square**  
-Selecting a 1 km grid square within the county of Shropshire, then listing the
-names of plants for that named site. Again allowing the user to drill down to a
-single sighting record.
+**Search by Monad or Grid Square** Selecting a 1 km grid square within the
+county of Shropshire, then listing the names of plants for that named site.
+Again allowing the user to drill down to a single sighting record.
 
 These three scenarios are shown in the diagram below.
 
@@ -212,7 +210,7 @@ Records for a Single Species in the County
 - [ ] Title is the scientific name or common name depending on which was clicked
   on in the previous page.
 
-- [ ] The '<<' goes back to the search for a species name using the same search
+- [ ] The `<<` goes back to the search for a species name using the same search
   parameters.
 
 - [ ] The records are sorted by date, with most recent first. [^3]
@@ -252,7 +250,7 @@ A Single Record
 - [ ] Title is the scientific name or common name depending on the previous
   page.
 
-- [ ] The '$<<$' goes back to the records list for that species in the county.
+- [ ] The `<<` goes back to the records list for that species in the county.
 
 - [ ] Show as much detail for the records as possible. [^4]
 
@@ -313,7 +311,7 @@ Species List at a Site
 
 - [ ] Title is the name of the site clicked on in the previous page.
 
-- [ ] The '<<' goes back to the previous search of site names.
+- [ ] The `<<` goes back to the previous search of site names.
 
 - [ ] Changing any radio button will renew the search using the changed set of
   parameters.
@@ -393,7 +391,7 @@ Species List for a Square
 
 - [ ] Title is the name of the square selected on in the previous page.
 
-- [ ] The '<<' goes back to the map for selecting grid squares.
+- [ ] The `<<` goes back to the map for selecting grid squares.
 
 - [ ] Changing any radio button will renew the search using the changed set of
   parameters.
@@ -421,7 +419,7 @@ Records for a Single Species in a Square
 - [ ] Title is the name of the square and the species selected on in the
   previous page.
 
-- [ ] The '<<' goes back to the species list for a grid square.
+- [ ] The `<<` goes back to the species list for a grid square.
 
 - [ ] Paging if the list exceeds 9 items.
 
