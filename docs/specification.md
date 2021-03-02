@@ -1,4 +1,4 @@
-# Shropshire Botanical Society Online Flora Draft Specification  
+**Shropshire Botanical Society Online Flora Draft Specification  **
 
 The Shropshire Botanical Society is seeking to renew it's Online Flora web
 application. This specification out lines the hoped for functionality together
@@ -7,6 +7,8 @@ with the technical and development constraints of the work.
 *Joe J Collins*
 
 [TOC]
+
+# 1. Background
 
 The Shropshire Botanical Society has been dedicated to promoting the enjoyment,
 understanding and conservation of the flora of Shropshire since the 18^th^
@@ -30,8 +32,7 @@ since 2017 the Society's records have been available via a web service at the
 provides reliable data source and a supported service for maintaining and
 updating the Society's records.
 
-2. Objective
-=========
+# 2. Objective
 
 To replicate the functionality of the original Online Flora in a responsive
 mobile design using data sourced from the NBN Web service API.
@@ -41,11 +42,9 @@ entering new records. Maintaining and updating the data is conducted via a
 separate manual process. Searches of the database are conducted for three
 different geographical scenarios.
 
-3. Overview
-========
+# 3. Overview
 
-3.1. Users and Usage
----------------
+## 3.1. Users and Usage
 
 Users of the Online Flora are typically members of the Society and as such are
 often very experienced botanists. In a typical scenario a member of the Society
@@ -60,8 +59,7 @@ dates, attributions and further details. This background will give a botanist
 some insight about how much weight or credence can be given to individual
 sightings.
 
-3.2. Scenarios
----------
+## 3.2. Scenarios
 
 The Online Flora will serve three scenarios for searching for species lists.
 
@@ -81,9 +79,7 @@ These three scenarios are shown in the diagram below.
 
 ![scenarios](./wireframes/overview.png)
 
-
-3.3. Categories of Plants
---------------------
+## 3.3. Categories of Plants
 
 Gaining experience identifying plants is a lifetimes work and members of the
 Society will often focus their attention on one category of plants. So the
@@ -102,8 +98,7 @@ The list of axiophytes is provided as a list of scientific species names. For
 vascular plants this list was last updated in 2014. The list of axiophytes for
 the bryophytes is currently being developed.
 
-3.4. Data Storage
-------------
+## 3.4. Data Storage
 
 The National Biodiversity Network Atlas (NBN) provides a service to maintain and
 distribute biological records for the United kingdom. The Shropshire Botanical
@@ -125,8 +120,7 @@ provided by the NBN.
 
 - [ ] Offer 'Add to Home screen' on first and fifth visit.
 
-3.5. Deliverables
-------------
+## 3.5. Deliverables
 
 The work program is divided into four deliverables.
 
@@ -146,11 +140,9 @@ separate deliverables will provide convenient breakpoints for acceptance
 testing, payments for work completed and opportunities to pause for reflection.
 
 
-4. Deliverable 1: Search in the County
-===================================
+# 4. Deliverable 1: Search in the County
 
-4.1. Species List for the County
----------------------------
+## 4.1. Species List for the County
 
 ![species list for the county](./wireframes/Species__ListForCounty.png)
 
@@ -199,8 +191,7 @@ testing, payments for work completed and opportunities to pause for reflection.
 - [ ] Clicking on the scientific or common species name, takes you to a list of
   records for that species in the county.
 
-4.2. Records for a Single Species in the County
-------------------------------------------
+## 4.2. Records for a Single Species in the County
 
 ![single species](./wireframes/Records__SingleSpeciesForCounty.png)
 
@@ -239,8 +230,7 @@ testing, payments for work completed and opportunities to pause for reflection.
 
 - [ ] Include an outline of the county.
 
-4.3. A Single Record
----------------
+## 4.3. A Single Record
 
 ![single record](./wireframes/Records__SingleRecord.png)
 
@@ -272,11 +262,9 @@ testing, payments for work completed and opportunities to pause for reflection.
   resolution of the grid reference.
 
 
-5. Deliverable 2: Search at a Site
-===============================
+# 5. Deliverable 2: Search at a Site
 
-5.1. Site List for the County
-------------------------
+## 5.1. Site List for the County
 
 ![image](./wireframes/Sites__ListForCounty.png)
 
@@ -301,8 +289,7 @@ testing, payments for work completed and opportunities to pause for reflection.
 
 - [ ] Clicking on the site name take you to a species list for that site.
 
-5.2. Species List at a Site
-----------------------
+## 5.2. Species List at a Site
 
 ![image](./wireframes/Species__ListForSite.png)
 
@@ -331,8 +318,7 @@ testing, payments for work completed and opportunities to pause for reflection.
 - [ ] Showing location of the site with a pin, since we don't have shape files
   for the sites, use the location of the first record of the first species.
 
-5.3. Records for a Single Species at a Site
---------------------------------------
+## 5.3. Records for a Single Species at a Site
 
 ![single species at site](./wireframes/Records__SingleSpeciesForSite.png)
 
@@ -355,17 +341,14 @@ square.
   for the sites, use the location of the first record.
 
 
-6. Deliverable 3: Search in a Square
-=================================
+# 6. Deliverable 3: Search in a Square
 
-6.1. Select a Square
----------------
+## 6.1. Select a Square
 
 ![select a square](./wireframes/Squares__Index.png)
 
 
-6.2. Records for a Single Species in a Sguare
-----------------------------------------
+## 6.2. Records for a Single Species in a Sguare
 
 ### 6.2.1. Map Control
 
@@ -380,9 +363,6 @@ square.
 
 - [ ] The 'cross hair' icon to zoom to the current location using the browser
   Geolocation API.
-
-6.3. Species List for a Square
--------------------------
 
 ![species list for a square](./wireframes/Species__ListForSquare.png)
 
@@ -408,8 +388,7 @@ square.
 
 - [ ] In a hidden tab on mobile devices.
 
-6.4. Records for a Single Species in a Square
-----------------------------------------
+## 6.4. Records for a Single Species in a Square
 
 ![single species in a square](./wireframes/Records__SingleSpeciesForSquare.png)
 
@@ -430,12 +409,9 @@ square.
 
 - [ ] In a hidden tab on mobile devices.
 
+# 7. Deliverable 4: Axiophytes
 
-7. Deliverable 4: Axiophytes
-=========================
-
-7.1. Enable Filtering and Display
-----------------------------
+## 7.1. Enable Filtering and Display
 
 ![filtering and display](./wireframes/Species__ListForCountyAxiophytes.png)
 
@@ -461,8 +437,7 @@ square.
 
 - [ ] If the check box (or the radio buttons) change the search should refresh.
 
-8. Technical Constraints
-=====================
+# 8. Technical Constraints
 
 The Botanical Society has limited means and wishes to ensure that the results of
 any programming effort can be maintained and supported into the future, either
