@@ -6,7 +6,7 @@ with the technical and development constraints of the work.
 
 *Joe J Collins*
 
-Background
+1. Background
 ==========
 
 The Shropshire Botanical Society has been dedicated to promoting the enjoyment,
@@ -31,7 +31,7 @@ since 2017 the Society's records have been available via a web service at the
 provides reliable data source and a supported service for maintaining and
 updating the Society's records.
 
-Objective
+2. Objective
 =========
 
 To replicate the functionality of the original Online Flora in a responsive
@@ -42,10 +42,10 @@ entering new records. Maintaining and updating the data is conducted via a
 separate manual process. Searches of the database are conducted for three
 different geographical scenarios.
 
-Overview
+3. Overview
 ========
 
-Users and Usage
+3.1. Users and Usage
 ---------------
 
 Users of the Online Flora are typically members of the Society and as such are
@@ -61,7 +61,7 @@ dates, attributions and further details. This background will give a botanist
 some insight about how much weight or credence can be given to individual
 sightings.
 
-Scenarios
+3.2. Scenarios
 ---------
 
 The Online Flora will serve three scenarios for searching for species lists.
@@ -83,7 +83,7 @@ These three scenarios are shown in the diagram below.
 ![scenarios](./wireframes/overview.png)
 
 
-Categories of Plants
+3.3. Categories of Plants
 --------------------
 
 Gaining experience identifying plants is a lifetimes work and members of the
@@ -103,7 +103,7 @@ The list of axiophytes is provided as a list of scientific species names. For
 vascular plants this list was last updated in 2014. The list of axiophytes for
 the bryophytes is currently being developed.
 
-Data Storage
+3.4. Data Storage
 ------------
 
 The National Biodiversity Network Atlas (NBN) provides a service to maintain and
@@ -126,7 +126,7 @@ No data should be cached on the client device.
 
 Offer 'Add to Home screen' on first and fifth visit.
 
-Deliverables
+3.5. Deliverables
 ------------
 
 The work program is divided into four deliverables.
@@ -147,15 +147,15 @@ separate deliverables will provide convenient breakpoints for acceptance
 testing, payments for work completed and opportunities to pause for reflection.
 
 
-Deliverable 1: Search in the County
+4. Deliverable 1: Search in the County
 ===================================
 
-Species List for the County
+4.1. Species List for the County
 ---------------------------
 
 ![species list for the county](./wireframes/Species__ListForCounty.png)
 
-### 'Landing'
+### 4.1.1. 'Landing'
 
 - [ ] Initially the search output should be empty.
 
@@ -168,7 +168,7 @@ Species List for the County
 - [ ] Also set a cookie for the user's choice of plant group (bryophytes or
   vascular plants).
 
-### Species Search
+### 4.1.2. Species Search
 
 - [ ] The search is of the entire dataset for the county.
 
@@ -200,12 +200,12 @@ Species List for the County
 - [ ] Clicking on the scientific or common species name, takes you to a list of
   records for that species in the county.
 
-Records for a Single Species in the County
+4.2. Records for a Single Species in the County
 ------------------------------------------
 
 ![single species](./wireframes/Records__SingleSpeciesForCounty.png)
 
-### Records List
+### 4.2.1. Records List
 
 - [ ] Title is the scientific name or common name depending on which was clicked
   on in the previous page.
@@ -226,7 +226,7 @@ Records for a Single Species in the County
 - [ ] Square link goes to a list of records for the same species at the selected
   square.
 
-### Map
+### 4.2.2. Map
 
 - [ ] Zoomable but not clickable.
 
@@ -240,12 +240,12 @@ Records for a Single Species in the County
 
 - [ ] Include an outline of the county.
 
-A Single Record
+4.3. A Single Record
 ---------------
 
 ![single record](./wireframes/Records__SingleRecord.png)
 
-### Record Detail
+### 4.3.1. Record Detail
 
 - [ ] Title is the scientific name or common name depending on the previous
   page.
@@ -263,7 +263,7 @@ A Single Record
 - [ ] The download link, downloads a zipped CSV of the search results directly
   from the NBN.
 
-### Map
+### 4.3.2. Map
 
 - [ ] Zoomable but not clickable.
 
@@ -273,19 +273,19 @@ A Single Record
   resolution of the grid reference.
 
 
-Deliverable 2: Search at a Site
+5. Deliverable 2: Search at a Site
 ===============================
 
-Site List for the County
+5.1. Site List for the County
 ------------------------
 
 ![image](./wireframes/Sites__ListForCounty.png)
 
-### Sites Search
+### 5.1.1. Sites Search
 
 - [ ] Initially the search output should be empty.
 
-### Sites List {#sites-list .unnumbered}
+### 5.1.2. Sites List {#sites-list .unnumbered}
 
 - [ ] The characters entered in the search box are used to search for names
   beginning with those letters, not within the names. [^5]
@@ -302,12 +302,12 @@ Site List for the County
 
 - [ ] Clicking on the site name take you to a species list for that site.
 
-Species List at a Site
+5.2. Species List at a Site
 ----------------------
 
 ![image](./wireframes/Species__ListForSite.png)
 
-### Species List
+### 5.2.1. Species List
 
 - [ ] Title is the name of the site clicked on in the previous page.
 
@@ -321,7 +321,7 @@ Species List at a Site
 
 - [ ] Paging if the list exceeds 9 items.
 
-### Map {#map-2 .unnumbered}
+### 5.2.2. Map {#map-2 .unnumbered}
 
 - [ ] Initially showing the whole county.
 
@@ -332,19 +332,19 @@ Species List at a Site
 - [ ] Showing location of the site with a pin, since we don't have shape files
   for the sites, use the location of the first record of the first species.
 
-Records for a Single Species at a Site
+5.3. Records for a Single Species at a Site
 --------------------------------------
 
 ![single species at site](./wireframes/Records__SingleSpeciesForSite.png)
 
-### Records List
+### 5.3.1. Records List
 
 - [ ] Show records for that species at the selected site.
 
 - [ ] Square link goes to a list of records for the same species at the selected
 square.
 
-### Map
+### 5.3.2. Map
 
 - [ ] Zoomable but not clickable.
 
@@ -356,19 +356,19 @@ square.
   for the sites, use the location of the first record.
 
 
-Deliverable 3: Search in a Square
+6. Deliverable 3: Search in a Square
 =================================
 
-Select a Square
+6.1. Select a Square
 ---------------
 
 ![select a square](./wireframes/Squares__Index.png)
 
 
-Records for a Single Species in a Sguare
+6.2. Records for a Single Species in a Sguare
 ----------------------------------------
 
-### Map Control
+### 6.2.1. Map Control
 
 - [ ] Initially showing the whole county.
 
@@ -382,12 +382,12 @@ Records for a Single Species in a Sguare
 - [ ] The 'cross hair' icon to zoom to the current location using the browser
   Geolocation API.
 
-Species List for a Square
+6.3. Species List for a Square
 -------------------------
 
 ![species list for a square](./wireframes/Species__ListForSquare.png)
 
-### Species List
+### 6.3.1. Species List
 
 - [ ] Title is the name of the square selected on in the previous page.
 
@@ -401,7 +401,7 @@ Species List for a Square
 
 - [ ] Paging if the list exceeds 9 items.
 
-### Map
+### 6.3.2. Map
 
 - [ ] Zoomable but not clickable.
 
@@ -409,12 +409,12 @@ Species List for a Square
 
 - [ ] In a hidden tab on mobile devices.
 
-Records for a Single Species in a Square
+6.4. Records for a Single Species in a Square
 ----------------------------------------
 
 ![single species in a square](./wireframes/Records__SingleSpeciesForSquare.png)
 
-### Records List {#records-list-2 .unnumbered}
+### 6.4.1. Records List {#records-list-2 .unnumbered}
 
 - [ ] Title is the name of the square and the species selected on in the
   previous page.
@@ -423,7 +423,7 @@ Records for a Single Species in a Square
 
 - [ ] Paging if the list exceeds 9 items.
 
-### Map
+### 6.4.2. Map
 
 - [ ] Zoomable but not clickable.
 
@@ -432,10 +432,10 @@ Records for a Single Species in a Square
 - [ ] In a hidden tab on mobile devices.
 
 
-Deliverable 4: Axiophytes
+7. Deliverable 4: Axiophytes
 =========================
 
-Enable Filtering and Display
+7.1. Enable Filtering and Display
 ----------------------------
 
 ![filtering and display](./wireframes/Species__ListForCountyAxiophytes.png)
@@ -449,11 +449,11 @@ Enable Filtering and Display
 
 - [ ] Species list in a square.
 
-### Axiophyte Indicator
+### 7.1.1. Axiophyte Indicator
 
 - [ ] Axiophyte indicator next to the species for desktop and mobile devices.
 
-### Filtering Checkbox
+### 7.1.2. Filtering Checkbox
 
 - [ ] If **Axiophytes** is selected a limited static list of scientific names
   will be searched and shown.
@@ -462,7 +462,7 @@ Enable Filtering and Display
 
 - [ ] If the check box (or the radio buttons) change the search should refresh.
 
-Technical Constraints
+8. Technical Constraints
 =====================
 
 The Botanical Society has limited means and wishes to ensure that the results of
