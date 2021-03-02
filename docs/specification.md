@@ -159,47 +159,48 @@ Species List for the County
 
 ### 'Landing'
 
-Initially the search output should be empty.
+- [ ] Initially the search output should be empty.
 
-By default the **Scientific** name selected first, since botanists tend to
-favour identifying plant species via the scientific name.
+- [ ] By default the **Scientific** name selected first, since botanists tend to
+  favour identifying plant species via the scientific name.
 
-If **Common** is selected set a cookie to retain the user's choice of naming
-type.
+- [ ] If **Common** is selected set a cookie to retain the user's choice of
+  naming type.
 
-Also set a cookie for the user's choice of plant group (bryophytes or vascular
-plants).
+- [ ] Also set a cookie for the user's choice of plant group (bryophytes or
+  vascular plants).
 
 ### Species Search
 
-The search is of the entire dataset for the county.
+- [ ] The search is of the entire dataset for the county.
 
-The characters entered in the search box are used to search for names beginning
-with those letters, not within the names. [^1]
+- [ ] The characters entered in the search box are used to search for names
+  beginning with those letters, not within the names. [^1]
 
-Clicking on **List Species** or pressing return on the desktop list executes the
-search. If the search box is empty species beginning with 'A' are searched for.
+- [ ] Clicking on **List Species** or pressing return on the desktop list
+  executes the search. If the search box is empty species beginning with 'A' are
+  searched for.
 
-Any characters entered in the search box are retained after the button is
-clicked.
+- [ ] Any characters entered in the search box are retained after the button is
+  clicked.
 
-The search results should be listed alphabetically by scientific name or common
-name, whichever is selected.
+- [ ] The search results should be listed alphabetically by scientific name or
+  common name, whichever is selected.
 
-If **Common** is selected, only the species with common names will be searched
-and shown. Any species without common names should not be included in the search
-results.
+- [ ] If **Common** is selected, only the species with common names will be
+  searched and shown. Any species without common names should not be included in
+  the search results.
 
-Changing any radio button will renew the search using the changed set of
-parameters, without pressing return or clicking on the button.
+- [ ] Changing any radio button will renew the search using the changed set of
+  parameters, without pressing return or clicking on the button.
 
-If the search result list is long pages links should be provided.
+- [ ] If the search result list is long pages links should be provided.
 
-The download link, downloads a zipped CSV of the search results directly from
-the NBN. [^2]
+- [ ] The download link, downloads a zipped CSV of the search results directly
+  from the NBN. [^2]
 
-Clicking on the scientific or common species name, takes you to a list of
-records for that species in the county.
+- [ ] Clicking on the scientific or common species name, takes you to a list of
+  records for that species in the county.
 
 Records for a Single Species in the County
 ------------------------------------------
@@ -208,37 +209,38 @@ Records for a Single Species in the County
 
 ### Records List
 
-Title is the scientific name or common name depending on which was clicked on in
-the previous page.
+- [ ] Title is the scientific name or common name depending on which was clicked
+  on in the previous page.
 
-The '$<<$' goes back to the search for a species name using the same search
-parameters.
+- [ ] The '<<' goes back to the search for a species name using the same search
+  parameters.
 
-The records are sorted by date, with most recent first. [^3]
+- [ ] The records are sorted by date, with most recent first. [^3]
 
-If the records list is long pages links should be provided.
+- [ ] If the records list is long pages links should be provided.
 
-The download link, downloads a zipped CSV of the search results directly from
-the NBN.
+- [ ] The download link, downloads a zipped CSV of the search results directly
+  from the NBN.
 
-Site link goes to a list of records for the same species at the selected site.
+- [ ] Site link goes to a list of records for the same species at the selected
+  site.
 
-Square link goes to a list of records for the same species at the selected
-square.
+- [ ] Square link goes to a list of records for the same species at the selected
+  square.
 
 ### Map
 
-Zoomable but not clickable.
+- [ ] Zoomable but not clickable.
 
-The records are in a hidden tab on mobile devices.
+- [ ] The records are in a hidden tab on mobile devices.
 
-Showing location of the site with a pin, since we don't have shape files for the
-sites, use the location of the first record.
+- [ ] Showing location of the site with a pin, since we don't have shape files
+  for the sites, use the location of the first record.
 
-The map overlay comes from the NBN Web Mapping Service showing a distribution
-map of the species.
+- [ ] The map overlay comes from the NBN Web Mapping Service showing a
+  distribution map of the species.
 
-Include an outline of the county.
+- [ ] Include an outline of the county.
 
 A Single Record
 ---------------
@@ -247,28 +249,30 @@ A Single Record
 
 ### Record Detail
 
-Title is the scientific name or common name depending on the previous page.
+- [ ] Title is the scientific name or common name depending on the previous
+  page.
 
-The '$<<$' goes back to the records list for that species in the county.
+- [ ] The '$<<$' goes back to the records list for that species in the county.
 
-Show as much detail for the records as possible. [^4]
+- [ ] Show as much detail for the records as possible. [^4]
 
-Site link goes to a list of records for the same species at the selected site.
+- [ ] Site link goes to a list of records for the same species at the selected
+  site.
 
-Square link goes to a list of records for the same species at the selected
-square.
+- [ ] Square link goes to a list of records for the same species at the selected
+  square.
 
-The download link, downloads a zipped CSV of the search results directly from
-the NBN.
+- [ ] The download link, downloads a zipped CSV of the search results directly
+  from the NBN.
 
 ### Map
 
-Zoomable but not clickable.
+- [ ] Zoomable but not clickable.
 
-In a hidden tab on mobile devices.
+- [ ] In a hidden tab on mobile devices.
 
-The location of the record is marked with a square indicating the resolution of
-the grid reference.
+- [ ] The location of the record is marked with a square indicating the
+  resolution of the grid reference.
 
 
 Deliverable 2: Search at a Site
@@ -281,23 +285,24 @@ Site List for the County
 
 ### Sites Search
 
-Initially the search output should be empty.
+- [ ] Initially the search output should be empty.
 
 ### Sites List {#sites-list .unnumbered}
 
-The characters entered in the search box are used to search for names beginning
-with those letters, not within the names. [^5]
+- [ ] The characters entered in the search box are used to search for names
+  beginning with those letters, not within the names. [^5]
 
-Clicking on **List Sites** or pressing return on the desktop list executes the
-search. If the search box is empty species beginning with 'A' are searched for.
+- [ ] Clicking on **List Sites** or pressing return on the desktop list executes
+  the search. If the search box is empty species beginning with 'A' are searched
+  for.
 
-The sites should be ordered alphabetically by the site name (i.e. the
-'location\_id' field from the NBN records).
+- [ ] The sites should be ordered alphabetically by the site name (i.e. the
+  'location\_id' field from the NBN records).
 
-Any characters entered in the search box are retained after the button is
-clicked.
+- [ ] Any characters entered in the search box are retained after the button is
+  clicked.
 
-Clicking on the site name take you to a species list for that site.
+- [ ] Clicking on the site name take you to a species list for that site.
 
 Species List at a Site
 ----------------------
@@ -306,28 +311,28 @@ Species List at a Site
 
 ### Species List
 
-Title is the name of the site clicked on in the previous page.
+- [ ] Title is the name of the site clicked on in the previous page.
 
-The '$<<$' goes back to the previous search of site names.
+- [ ] The '<<' goes back to the previous search of site names.
 
-Changing any radio button will renew the search using the changed set of
-parameters.
+- [ ] Changing any radio button will renew the search using the changed set of
+  parameters.
 
-Radio button settings should be retained in a cookie. These values are the same
-as the ones used in the .
+- [ ] Radio button settings should be retained in a cookie. These values are the
+  same as the ones used in the .
 
-Paging if the list exceeds 9 items.
+- [ ] Paging if the list exceeds 9 items.
 
 ### Map {#map-2 .unnumbered}
 
-Initially showing the whole county.
+- [ ] Initially showing the whole county.
 
-Zoomable but not clickable.
+- [ ] Zoomable but not clickable.
 
-In a hidden tab on mobile devices.
+- [ ] In a hidden tab on mobile devices.
 
-Showing location of the site with a pin, since we don't have shape files for the
-sites, use the location of the first record of the first species.
+- [ ] Showing location of the site with a pin, since we don't have shape files
+  for the sites, use the location of the first record of the first species.
 
 Records for a Single Species at a Site
 --------------------------------------
@@ -336,21 +341,21 @@ Records for a Single Species at a Site
 
 ### Records List
 
-Show records for that species at the selected site.
+- [ ] Show records for that species at the selected site.
 
-Square link goes to a list of records for the same species at the selected
+- [ ] Square link goes to a list of records for the same species at the selected
 square.
 
 ### Map
 
-Zoomable but not clickable.
+- [ ] Zoomable but not clickable.
 
-Showing the whole county.
+- [ ] Showing the whole county.
 
-In a hidden tab on mobile devices.
+- [ ] In a hidden tab on mobile devices.
 
-Showing location of the site with a pin, since we don't have shape files for the
-sites, use the location of the first record.
+- [ ] Showing location of the site with a pin, since we don't have shape files
+  for the sites, use the location of the first record.
 
 
 Deliverable 3: Search in a Square
@@ -367,17 +372,17 @@ Records for a Single Species in a Sguare
 
 ### Map Control
 
-Initially showing the whole county.
+- [ ] Initially showing the whole county.
 
-Zoom in and select a 1 km grid square.
+- [ ] Zoom in and select a 1 km grid square.
 
-A 1 km graticule to appear when the squares are big enough (for
-selection with a finger).
+- [ ] A 1 km graticule to appear when the squares are big enough (for selection
+  with a finger).
 
-Retain map zoom and centre position between visits.
+- [ ] Retain map zoom and centre position between visits.
 
-The 'cross hair' icon to zoom to the current location using the browser
-Geolocation API.
+- [ ] The 'cross hair' icon to zoom to the current location using the browser
+  Geolocation API.
 
 Species List for a Square
 -------------------------
@@ -386,25 +391,25 @@ Species List for a Square
 
 ### Species List
 
-Title is the name of the square selected on in the previous page.
+- [ ] Title is the name of the square selected on in the previous page.
 
-The '$<<$' goes back to the map for selecting grid squares.
+- [ ] The '<<' goes back to the map for selecting grid squares.
 
-Changing any radio button will renew the search using the changed set of
-parameters.
+- [ ] Changing any radio button will renew the search using the changed set of
+  parameters.
 
-Radio button settings should be retained in a cookie. These values are
-the same as the ones used in the .
+- [ ] Radio button settings should be retained in a cookie. These values are the
+  same as the ones used in the .
 
-Paging if the list exceeds 9 items.
+- [ ] Paging if the list exceeds 9 items.
 
 ### Map
 
-Zoomable but not clickable.
+- [ ] Zoomable but not clickable.
 
-Showing the whole county.
+- [ ] Showing the whole county.
 
-In a hidden tab on mobile devices.
+- [ ] In a hidden tab on mobile devices.
 
 Records for a Single Species in a Square
 ----------------------------------------
@@ -413,20 +418,20 @@ Records for a Single Species in a Square
 
 ### Records List {#records-list-2 .unnumbered}
 
-Title is the name of the square and the species selected on in the previous
-page.
+- [ ] Title is the name of the square and the species selected on in the
+  previous page.
 
-The '$<<$' goes back to the species list for a grid square.
+- [ ] The '<<' goes back to the species list for a grid square.
 
-Paging if the list exceeds 9 items.
+- [ ] Paging if the list exceeds 9 items.
 
 ### Map
 
-Zoomable but not clickable.
+- [ ] Zoomable but not clickable.
 
-Showing the whole county.
+- [ ] Showing the whole county.
 
-In a hidden tab on mobile devices.
+- [ ] In a hidden tab on mobile devices.
 
 
 Deliverable 4: Axiophytes
@@ -437,27 +442,27 @@ Enable Filtering and Display
 
 ![filtering and display](./wireframes/Species__ListForCountyAxiophytes.png)
 
-The diagram shows the species list for the county but axiophyte filtering should
-be enabled for all three scenarios.
+- [ ] The diagram shows the species list for the county but axiophyte filtering
+  should be enabled for all three scenarios.
 
-Species list for the county.
+- [ ] Species list for the county.
 
-Species list for a site.
+- [ ] Species list for a site.
 
-Species list in a square.
+- [ ] Species list in a square.
 
 ### Axiophyte Indicator
 
-Axiophyte indicator next to the species for desktop and mobile devices.
+- [ ] Axiophyte indicator next to the species for desktop and mobile devices.
 
 ### Filtering Checkbox
 
-If **Axiophytes** is selected a limited static list of scientific names will be
-searched and shown.
+- [ ] If **Axiophytes** is selected a limited static list of scientific names
+  will be searched and shown.
 
-Check box settings should be retained in a cookie.
+- [ ] Check box settings should be retained in a cookie.
 
-If the check box (or the radio buttons) change the search should refresh.
+- [ ] If the check box (or the radio buttons) change the search should refresh.
 
 Technical Constraints
 =====================
@@ -468,35 +473,28 @@ via an open source project or via the efforts of members of the Society. To
 facilitate these possibilities the technical environment for the project is
 intended to provide a low(ish) barrier to contributions.
 
-**PHP 7.3**  
-for deployment to Google App Engine for free hosting.
+**PHP 7.3** for deployment to Google App Engine for free hosting.
 
-**CodeIgniter 4.0.4**  
-has been used successfully in the past and provides long term file caching.
+**CodeIgniter 4.0.4** has been used successfully in the past and provides long
+term file caching.
 
-**Twitter Bootstrap 4.5.2**  
-for responsive layout.
+**Twitter Bootstrap 4.5.2** for responsive layout.
 
-**Leaflet 1.6.0**  
-for interactive maps.
+**Leaflet 1.6.0** for interactive maps.
 
-**Style Sheet**  
-is taken from <https://www.shropshirebotany.org.uk/>. The Online Flora is to be
-consistent with this website, so should where possible reuse the same CSS
-classes and styles.
+**Style Sheet** is taken from <https://www.shropshirebotany.org.uk/>. The Online
+Flora is to be consistent with this website, so should where possible reuse the
+same CSS classes and styles.
 
-**No database**  
-should be used other than the NBN Web service API, to keep down maintenance
-costs. Any static data (such as the list of axiophytes) should be hard coded
-into the application.
+**No database** should be used other than the NBN Web service API, to keep down
+maintenance costs. Any static data (such as the list of axiophytes) should be
+hard coded into the application.
 
-**Commits to Github**  
-since the Society will retain the intellectual property rights over any code
-produced. So all branching should be on the repository at at
-<https://github.com/joejcollins/captain-magenta.git>.
+**Commits to Github** since the Society will retain the intellectual property
+rights over any code produced. So all branching should be on the repository at
+at <https://github.com/joejcollins/captain-magenta.git>.
 
-**CI/CD**  
-the develop branch deploys to <https://captain-magenta.azurewebsites.net/> on
+**CI/CD** the develop branch deploys to <https://captain-magenta.azurewebsites.net/> on
 Azure and will be used to review progress.
 
 [^1]:[https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*](https://records-ws.nbnatlas.org/explore/group/Plants?fq=data_resource_uid:dr782+AND+taxon_name:B*)
