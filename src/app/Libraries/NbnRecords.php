@@ -6,7 +6,7 @@
 class NbnRecords
 {
   const BASE_URL = 'https://records-ws.nbnatlas.org/';
-  public $data_resource_uid = 'dr'; //  782=The SEDN data set.  Use 1323 for Worcestershire data if Shrop data not available
+  public $data_resource_uid = 'dr782'; //  782=The SEDN data set.  Use 1323 for Worcestershire data if Shrop data not available
   public $facets;
   public $fsort;
   public $path = '';
