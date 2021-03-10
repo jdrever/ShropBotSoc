@@ -3,17 +3,18 @@
 /**
  * Facade for the NBN records end point
  */
+
 class NbnRecords
 {
-	const BASE_URL          = 'https://records-ws.nbnatlas.org/';
-	public $dataResourceUid = 'dr1323'; //  782=The SEDN data set.  Use 1323 for Worcestershire data if Shrop data not available
+	const BASE_URL           = 'https://records-ws.nbnatlas.org/';
+	private $dataResourceUid = 'dr1323'; //  782=The SEDN data set.  Use 1323 for Worcestershire data if Shrop data not available
+	private $path     = '';
 	public $facets;
 	public $fsort;
-	public $path     = '';
 	public $pageSize = 9;
 	public $sort;
 
-	function __construct($path = 'occurrences/search')
+	public function __construct($path = 'occurrences/search')
 	{
 		$this->path = $path;
 	}
@@ -23,7 +24,7 @@ class NbnRecords
 	 *
 	 * @return string
 	 */
-	function getQueryString($url)
+	private function getQueryString($url)
 	{
 		$queryString  = $url . '?';
 		$queryString .= 'q=data_resource_uid:' . $this->dataResourceUid . '&';
@@ -37,7 +38,7 @@ class NbnRecords
 	/**
 	 * Return the base url and path (really only used for getting a single occurence record)
 	 */
-	function url()
+	protected function url()
 	{
 		return $this::BASE_URL . $this->path;
 	}
@@ -47,7 +48,7 @@ class NbnRecords
 	 *
 	 * @return string
 	 */
-	function getPagingQueryString()
+	public function getPagingQueryString()
 	{
 		$queryString  = $this->getQueryString($this::BASE_URL . $this->path);
 		$queryString .= 'pageSize=' . $this->pageSize;
@@ -59,7 +60,7 @@ class NbnRecords
 	 *
 	 * @return string
 	 */
-	function getDownloadQueryString()
+	public function getDownloadQueryString()
 	{
 		$queryString  = $this->getQueryString($this::BASE_URL . 'occurrences/index/download');
 		$queryString .= '&reasonTypeId=11&fileType=csv';
