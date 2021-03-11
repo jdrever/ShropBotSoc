@@ -12,8 +12,8 @@ class Species extends BaseController
      */
     public function index()
     {
-        if ($this->isPostBack()) 
-        { 
+        if ($this->isPostBack())
+        {
             $this->data['title'] = $this->data['title']." - results";
             $name_search_string = $this->request->getVar('search');
             $name_search_string = trim($name_search_string);
@@ -23,6 +23,7 @@ class Species extends BaseController
             $species_group = $this->request->getVar('species-group');
             return redirect()->to("/species/{$name_search_string}/group/{$species_group}/type/{$name_type}");
         };
+        $this->data['searchString'] = "";
         echo view('species_search', $this->data);
     }
 
@@ -32,6 +33,7 @@ class Species extends BaseController
     public function listForCounty($name_search_string, $species_group, $name_type)
     {
         $this->data['title'] = $this->data['title']." - ".$name_search_string;
+        $this->data['searchString'] = $name_search_string;
         $this->data['speciesList'] = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
         echo view('species_search', $this->data);
     }
