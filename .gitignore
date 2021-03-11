@@ -1,7 +1,10 @@
 # PHP
 /src/vendor/
 .phpunit.result.cache
-/src/writable
+/src/writable/
+!*/src/writable/.gitkeep
+!*/src/writable/.htaccess
+!*/src/writable/index.html
 /src/tmp
 /src/build/
 composer.lock
