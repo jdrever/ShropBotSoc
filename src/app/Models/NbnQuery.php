@@ -54,9 +54,7 @@ class NbnQuery implements NbnQueryInterface
 		$query_url    = $nbn_records->getPagingQueryString();
 		$records_json = file_get_contents($query_url);
 		$record_list  = json_decode($records_json)->occurrences;
-		usort($record_list, function ($a, $b) {
-			return $b->year <=> $a->year;
-		});
+		usort($record_list, fn($a, $b) => $b->year <=> $a->year);
 		$records['download_link'] = $nbn_records->getDownloadQueryString();
 		$records['records_list']  = $record_list;
 
