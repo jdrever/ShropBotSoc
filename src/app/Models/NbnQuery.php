@@ -56,7 +56,14 @@ class NbnQuery implements NbnQueryInterface
 		$record_list  = json_decode($records_json)->occurrences;
 		usort($record_list, fn($a, $b) => $b->year <=> $a->year);
 		$records['download_link'] = $nbn_records->getDownloadQueryString();
-		$records['records_list']  = $record_list;
+
+		foreach ($record_list as $record)
+		{
+			$record->locationId = $record->locationId ?? '';
+			$record->collector  = $record->collector ?? 'Unknown';
+		}
+
+		$records['records_list'] = $record_list;
 
 		return $records;
 	}
