@@ -13,10 +13,10 @@ URL:      www.blogger.com
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	font-size: 12px;
+	font-size: 16px;
 	color: #000000;
 	background: #a1cc6e none no-repeat scroll center center;
-	padding: 0 40px 40px 40px;
+	padding: 20px 40px 40px 40px;
 }
 html body .region-inner {
 	min-width: 0;
@@ -28,11 +28,11 @@ h2 {
 }
 a:link {
 	text-decoration: none;
-	color: #77cc11;
+	color: #198754;
 }
 a:visited {
 	text-decoration: none;
-	color: #888888;
+	color: #CC9A06;
 }
 a:hover {
 	text-decoration: underline;

@@ -22,51 +22,53 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-sm navbar-light">
-		<a class="navbar-brand" href="/">Botanical Records</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="navbar-collapse collapse" id="navbar-main">
-			<ul class="nav navbar-nav mr-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="/species">Species</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/sites">Sites</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/squares">Squares</a>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav ml-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="/about">About</a>
-				</li>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<?php if (isset($error)) : ?>
-		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-			<?= $error ?>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
+	<div class="container p-2">
+		<nav class="navbar navbar-expand-sm navbar-light p-3">
+			<a class="navbar-brand fs-2" href="/">Botanical Records</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
 			</button>
+			<div class="navbar-collapse collapse flex-grow-1 text-right text-white" id="navbar-main">
+				<ul class="nav navbar-nav ms-auto flex-nowrap">
+					<li class="nav-item">
+						<a class="nav-link" href="/species">Species</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/sites">Sites</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/squares">Squares</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav me-0">
+					<li class="nav-item">
+						<a class="nav-link" href="/about">About</a>
+					</li>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<?php if (isset($error)) : ?>
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<?= $error ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif ?>
+		<div class="container-fluid content-inner p-3">
+			<?= $this->renderSection('content') ?>
 		</div>
-	<?php endif ?>
-	<div class="container-fluid content-inner">
-		<?= $this->renderSection('content') ?>
+		<footer class="footer-fluid">
+			<div class="container">
+				<span class="text-muted">Shropshire Botanical Society Data supported by
+					<a href="https://registry.nbnatlas.org/public/show/dp120" target="_blank">National Biodiversity Network</a>
+				</span>
+			</div>
+		</footer>
+		<!-- Bootstrap 5-beta2 bundle -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 	</div>
-	<footer class="footer-fluid">
-		<div class="container">
-			<span class="text-muted">Shropshire Botanical Society Data supported by
-				<a href="https://registry.nbnatlas.org/public/show/dp120" target="_blank">National Biodiversity Network</a>
-			</span>
-		</div>
-	</footer>
-	<!-- Bootstrap 5-beta2 bundle -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 
 </html>
