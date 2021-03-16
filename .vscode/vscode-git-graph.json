@@ -1,0 +1,22 @@
+{
+    "commitOrdering": "topo",
+    "fileViewType": "tree",
+    "issueLinkingConfig": {
+        "issue": "#(\\d+)",
+        "url": "https://github.com/jdrever/ShropBotSoc/issues/$1"
+    },
+    "pullRequestConfig": {
+        "provider": "github",
+        "hostRootUrl": "https://github.com",
+        "sourceRemote": "origin",
+        "sourceOwner": "jdrever",
+        "sourceRepo": "ShropBotSoc",
+        "destRemote": "origin",
+        "destOwner": "jdrever",
+        "destRepo": "ShropBotSoc",
+        "destProjectId": "",
+        "destBranch": "develop",
+        "custom": null
+    },
+    "exportedAt": 1615853949219
+}
