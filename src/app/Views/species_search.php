@@ -1,21 +1,21 @@
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
-<h2>Shropshire</h2>
+<h2>Search for a Species in Shropshire</h2>
 
 <?= form_open('species') ?>
-<div class="form-group row">
-	<label for="search" class="col-sm-2 col-form-label d-none d-md-inline">Enter part of a species name</label>
+<div class="form-group row my-3">
+	<label for="search" class="form-label">Species name</label>
 	<div class="col-sm-6">
-		<input type="text" class="form-control" name="search" id="search" aria-describedby="search-help" placeholder="Enter a species" value="<?= set_value('search'); ?>" />
-		<small id="search-help" class="form-text text-muted d-none d-md-inline">Try something like "Hedera".</small>
+		<input type="text" class="form-control" name="search" id="search" aria-describedby="search-help" placeholder="" value="<?= set_value('search'); ?>" />
+		<small id="search-help" class="form-text text-muted mt-3">Enter all or part of a species name. Try something like "Hedera".</small>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-6 mt-sm-0 mt-2">
 		<button type="submit" class="btn btn-primary">List Species</button>
 	</div>
 	</label>
 </div>
 <div class="form-group row">
-	<label for="in" class="col-md-2 col-form-label d-none d-md-inline">Search for</label>
+	<!-- <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Search for</label> -->
 	<div class="col-md-10">
 		<div class="form-check form-check-inline">
 			<input class="form-check-input" type="radio" name="name-type" id="scientific-name" value="scientific" <?= set_radio('name-type', 'scientific', true); ?> />
@@ -38,7 +38,7 @@
 	</div>
 </div>
 <div class="form-group row">
-	<label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label>
+	<!-- <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label> -->
 	<div class="col-md-10">
 		<div class="form-check form-check-inline">
 			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants" <?= set_radio('groups', 'plants', true); ?> />
@@ -63,7 +63,7 @@
 <?= form_close() ?>
 <!-- Show the search results if there are any -->
 <?php if (isset($speciesList)) : ?>
-	<table class="table">
+	<table class="table mt-3">
 		<thead>
 			<tr>
 				<th class="d-none d-md-table-cell">Family</th>
