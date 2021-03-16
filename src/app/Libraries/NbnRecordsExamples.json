@@ -13,16 +13,8 @@
 				"url": {
 					"raw": "https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=data_resource_uid:dr782&fq=taxon_name:Be* AND species_group:Plants Bryophytes&pageSize=9",
 					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
-					"path": [
-						"explore",
-						"group",
-						"ALL_SPECIES"
-					],
+					"host": ["records-ws", "nbnatlas", "org"],
+					"path": ["explore", "group", "ALL_SPECIES"],
 					"query": [
 						{
 							"key": "q",
@@ -49,15 +41,8 @@
 				"url": {
 					"raw": "https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=taxon_name:Abies%20alba&sort=taxon_name&fsort=index&pageSize=9",
 					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
-					"path": [
-						"occurrences",
-						"search"
-					],
+					"host": ["records-ws", "nbnatlas", "org"],
+					"path": ["occurrences", "search"],
 					"query": [
 						{
 							"key": "q",
@@ -92,15 +77,8 @@
 				"url": {
 					"raw": "https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=location_id:[Shrews%20TO%20*]&facets=location_id&pageSize=0",
 					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
-					"path": [
-						"occurrences",
-						"search"
-					],
+					"host": ["records-ws", "nbnatlas", "org"],
+					"path": ["occurrences", "search"],
 					"query": [
 						{
 							"key": "q",
@@ -136,16 +114,8 @@
 				"url": {
 					"raw": "https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+location_id:Shrewsbury+AND+species_group:Plants+Bryophytes&pageSize=9",
 					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
-					"path": [
-						"explore",
-						"group",
-						"ALL_SPECIES"
-					],
+					"host": ["records-ws", "nbnatlas", "org"],
+					"path": ["explore", "group", "ALL_SPECIES"],
 					"query": [
 						{
 							"key": "q",
@@ -172,15 +142,8 @@
 				"url": {
 					"raw": "https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:Bury%20Ditches&fq=data_resource_uid:dr782&fq=taxon_name:Saccogyna%20viticulosa&pageSize=9",
 					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
-					"path": [
-						"occurrences",
-						"search"
-					],
+					"host": ["records-ws", "nbnatlas", "org"],
+					"path": ["occurrences", "search"],
 					"query": [
 						{
 							"key": "fq",
@@ -211,11 +174,7 @@
 				"url": {
 					"raw": "https://records-ws.nbnatlas.org/occurrence/4276e1be-b7d2-46b0-a33d-6fa82e97636a?q=data_resource_uid:dr782&pageSize=9",
 					"protocol": "https",
-					"host": [
-						"records-ws",
-						"nbnatlas",
-						"org"
-					],
+					"host": ["records-ws", "nbnatlas", "org"],
 					"path": [
 						"occurrence",
 						"4276e1be-b7d2-46b0-a33d-6fa82e97636a"
