@@ -22,7 +22,7 @@
 </head>
 
 <body>
-	<div class="container p-2">
+	<div class="container p-2 mt-2">
 		<nav class="navbar navbar-expand-sm navbar-light p-3">
 			<a class="navbar-brand fs-2" href="/">Botanical Records</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
