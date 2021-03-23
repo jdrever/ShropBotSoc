@@ -22,7 +22,7 @@
 </head>
 
 <body>
-	<div class="container p-2 mt-2">
+	<div class="container-fluid p-2 mt-2">
 		<nav class="navbar navbar-expand-sm navbar-light p-3">
 			<a class="navbar-brand fs-2" href="/">Botanical Records</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
 			<?= $this->renderSection('content') ?>
 		</div>
 		<footer class="footer-fluid">
-			<div class="container">
+			<div class="">
 				<span class="text-muted">Shropshire Botanical Society Data supported by
 					<a href="https://registry.nbnatlas.org/public/show/dp120" target="_blank">National Biodiversity Network</a>
 				</span>

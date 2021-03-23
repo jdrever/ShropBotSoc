@@ -1,3 +1,7 @@
+:root {
+	--bs-primary: #5B7F01;
+}
+
 #mapid {
 	height: 300px;
 }
