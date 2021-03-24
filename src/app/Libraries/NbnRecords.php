@@ -13,7 +13,7 @@ class NbnRecords
   public $pageSize = 9;
   public $sort;
 
-  function __construct($path = 'occurrences/search') 
+  function __construct($path = 'occurrences/search')
   {
     $this->path = $path;
   }
@@ -21,7 +21,7 @@ class NbnRecords
 
   /**
    * Return the base search query string
-   * 
+   *
    * @return string
    */
   function getQueryString($url)
@@ -45,7 +45,7 @@ class NbnRecords
 
   /**
    * Return the query string for paging
-   * 
+   *
    * @return string
    */
   function getPagingQueryString()
@@ -57,7 +57,7 @@ class NbnRecords
 
   /**
    * Return the query string for downloading the data
-   * 
+   *
    * @return string
    */
   function getDownloadQueryString()
