@@ -22,16 +22,16 @@
 </head>
 
 <body>
-	<div class="container-fluid p-2 mt-2">
-		<nav class="navbar navbar-expand-sm navbar-light p-3">
-			<a class="navbar-brand fs-2" href="/">Botanical Records</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<div class="container-fluid p-2 pt-0 mt-2">
+		<nav class="navbar navbar-expand-sm navbar-light px-3 py-2">
+			<a class="navbar-brand fs-4" href="/">Botanical Records</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="navbar-collapse collapse flex-grow-1 text-right text-white" id="navbar-main">
-				<ul class="nav navbar-nav ms-auto flex-nowrap">
+				<ul class="nav navbar-nav me-auto flex-nowrap">
 					<li class="nav-item">
-						<a class="nav-link" href="/species">Species</a>
+						<a class="nav-link align-baseline" href="/species">Species</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/sites">Sites</a>
