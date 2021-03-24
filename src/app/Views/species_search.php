@@ -5,7 +5,7 @@
 <?= form_open('species') ?>
 
 <div class="row mb-2">
-	<div class="col-md-8 mx-auto">
+	<div class="col-lg-8 mx-auto">
 		<label for="search" class="form-label visually-hidden">Species name</label>
 		<div class="input-group">
 			<input type="text" id="search" class="form-control" name="search" aria-describedby="search-help" placeholder="Species name" value="<?= set_value('search'); ?>" />
@@ -15,8 +15,7 @@
 	</div>
 </div>
 <div class="row justify-content-center gy-3">
-	<div class="form-group col-md-3">
-		<!-- <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Search for</label> -->
+	<div class="form-group col-sm-4 col-lg-3">
 		<div class="form-check">
 			<input class="form-check-input" type="radio" name="name-type" id="scientific-name" value="scientific" <?= set_radio('name-type', 'scientific', true); ?> />
 			<label class="form-check-label" for="scientific-name">
@@ -33,13 +32,13 @@
 			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte" <?= set_radio('name-type', 'axiophyte'); ?> />
 			<label class="form-check-label" for="axiophyte-name">
 				<span class="d-xl-none">axiophyte names</span>
-				<span class="d-none d-xl-inline">axiophyte scientific name only</span>
+				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
 			</label>
 		</div>
 	</div>
 <!-- </div>
 <div class="row"> -->
-	<div class="form-group col-md-3">
+	<div class="form-group col-sm-4 col-lg-3">
 		<!-- <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label> -->
 
 		<div class="form-check">
@@ -57,7 +56,7 @@
 		<div class="form-check">
 			<input class="form-check-input" type="radio" name="species-group" id="both" value="both" <?= set_radio('groups', 'both'); ?> />
 			<label class="form-check-label" for="both">
-			both <span class="d-none d-lg-inline">plants and bryophytes</span>
+			both <span class="d-none d-xl-inline">plants and bryophytes</span>
 			</label>
 		</div>
 
