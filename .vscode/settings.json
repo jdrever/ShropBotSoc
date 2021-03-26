@@ -42,7 +42,8 @@
 	"editor.insertSpaces": false,
 	"editor.wordWrapColumn": 80,
 	"editor.rulers": [
-		80
+		80,
+		120
 	],
 	"rewrap.autoWrap.enabled": true,
 	"cSpell.words": ["axiophyte", "axiophytes", "fsort", "mapid", "mymap"],

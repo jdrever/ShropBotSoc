@@ -2,86 +2,163 @@
 
 /**
  * Facade for the NBN records end point
+ *
+ * See the NBN Atlas Query Primer for details about using the API
+ * https://docs.google.com/document/d/1FiVasGGZ3kRPnu5347GPAef7Tr5LvvghCS6x82xnfu4/edit
+ *
+ * @package Libraries
+ * @author  Careful Digital <hello@careful.digital>
+ * @license https://www.shropshirebotany.org.uk/ Shropshire Botanical Society
  */
+
 class NbnRecords
 {
-  const BASE_URL = 'https://records-ws.nbnatlas.org/';
-  public $data_resource_uid = 'dr782'; //  782=The SEDN data set.  Use 1323 for Worcestershire data if Shrop data not available
-  public $facets;
-  public $fsort;
-  public $path = '';
-  public $pageSize = 9;
-  public $sort;
+	const BASE_URL = 'https://records-ws.nbnatlas.org/';
 
-  function __construct($path = 'occurrences/search')
-  {
-    $this->path = $path;
-  }
+	/**
+	 * The unique data resource id code
+	 *
+	 * The id can by found by searching the NBN Atlas data sets at
+	 * https://registry.nbnatlas.org/datasets. The id is located in the URL of a
+	 * data resource page and consists of the letters "dr" followed by a number;
+	 * e.g., https://registry.nbnatlas.org/public/showDataResource/dr782
+	 *
+	 * dr782 is the SEDN data set.
+	 *
+	 * Use dr1323 for Worcestershire data if SEDN data not available:
+	 * https://registry.nbnatlas.org/public/showDataResource/dr1323
+	 *
+	 * @var string $dataResourceUid
+	 */
+	private $dataResourceUid = 'dr1323';
 
+	/**
+	 * TODO: Describe what the $path member variable is for
+	 *
+	 * @var string $path
+	 */
+	private $path = '';
 
-  /**
-   * Return the base search query string
-   *
-   * @return string
-   */
-  function getQueryString($url)
-  {
-    $query_string = $url.'?';
-    $query_string .= 'q=data_resource_uid:'.$this->data_resource_uid.'&';
-    $query_string .= 'fq='.implode("%20AND%20", $this->filter_query_parameters).'&';
-    $query_string .= 'facets='.$this->facets.'&';
-    $query_string .= 'sort='.$this->sort.'&';
-    $query_string .= 'fsort='.$this->fsort.'&';
-    return $query_string;
-  }
+	/**
+	 * TODO: Describe what the $facets member variable is for
+	 *
+	 * @var string $facets
+	 */
+	public $facets;
 
-  /**
-   * Return the base url and path (really only used for getting a single occurence record)
-   */
-  function url()
-  {
-    return $this::BASE_URL.$this->path;
-  }
+	/**
+	 * TODO: Describe what the $fsort member variable is for
+	 *
+	 * @var string $fsort
+	 */
+	public $fsort;
 
-  /**
-   * Return the query string for paging
-   *
-   * @return string
-   */
-  function getPagingQueryString()
-  {
-    $query_string = $this->getQueryString($this::BASE_URL.$this->path);
-    $query_string .= 'pageSize='.$this->pageSize;
-    return $query_string;
-  }
+	/**
+	 * TODO: Describe what the $pageSize member variable is for
+	 *
+	 * @var integer $pageSize
+	 */
+	public $pageSize = 9;
 
-  /**
-   * Return the query string for downloading the data
-   *
-   * @return string
-   */
-  function getDownloadQueryString()
-  {
-    $query_string = $this->getQueryString($this::BASE_URL.'occurrences/index/download');
-    $query_string .= '&reasonTypeId=11&fileType=csv';
-    return $query_string;
-  }
+	/**
+	 * TODO: Describe what the $sort member variable is for
+	 *
+	 * @var string $sort
+	 */
+	public $sort;
 
-  /**
-   * @var string[]
-   */
-  protected $filter_query_parameters = array();
+	/**
+	 * Constructor
+	 *
+	 * Accepts a path fragment which indicates the NBN Atlas API search type to
+	 * perform. Defaults to Occurrence search: https://api.nbnatlas.org/#ws3
+	 *
+	 * See https://api.nbnatlas.org/ for others.
+	 *
+	 * @param string $path NBN Atlas API search type
+	 */
+	public function __construct(string $path = 'occurrences/search')
+	{
+		$this->path = $path;
+	}
 
-  /**
-   * Adds to the internal list of filter query parameters
-   *
-   * @return $this
-   */
-  public function add($filter_query_parameter)
-  {
-      $this->filter_query_parameters[] = $filter_query_parameter;
-      return $this;
-  }
+	/**
+	 * Return the base search query string
+	 *
+	 * @param string $url The full url to query
+	 *
+	 * @return string
+	 */
+	private function getQueryString(string $url)
+	{
+		$queryString  = $url . '?';
+		$queryString .= 'q=data_resource_uid:' . $this->dataResourceUid . '&';
+		$queryString .= 'fq=' . implode('%20AND%20', $this->filterQueryParameters) . '&';
+		$queryString .= 'facets=' . $this->facets . '&';
+		$queryString .= 'sort=' . $this->sort . '&';
+		$queryString .= 'fsort=' . $this->fsort . '&';
+		return $queryString;
+	}
 
+	/**
+	 * Return the base url and path (really only used for getting a single
+	 * occurence record)
+	 *
+	 * @return string
+	 */
+
+	protected function url()
+	{
+		return $this::BASE_URL . $this->path;
+	}
+
+	/**
+	 * Return the query string for paging
+	 *
+	 * @return string
+	 */
+	public function getPagingQueryString()
+	{
+		$queryString  = $this->getQueryString($this::BASE_URL . $this->path);
+		$queryString .= 'pageSize=' . $this->pageSize;
+		return $queryString;
+	}
+
+	/**
+	 * Return the query string for downloading the data
+	 *
+	 * @return string
+	 */
+	public function getDownloadQueryString()
+	{
+		$queryString  = $this->getQueryString($this::BASE_URL . 'occurrences/index/download');
+		$queryString .= '&reasonTypeId=11&fileType=csv';
+		return $queryString;
+	}
+
+	/**
+	 * Keeps an internal array of query filter parameters.
+	 *
+	 * A list of available index fields can be found at
+	 * https://species-ws.nbnatlas.org/admin/indexFields
+	 *
+	 * @var string[] Array of strings
+	 */
+	protected $filterQueryParameters = [];
+
+	/**
+	 * Adds to the internal list of filter query parameters
+	 *
+	 * A list of available index fields can be found at
+	 * https://species-ws.nbnatlas.org/admin/indexFields
+	 *
+	 * @param string $filterQueryParameter A single filter query parameter
+	 *
+	 * @return $this
+	 */
+	public function add(string $filterQueryParameter)
+	{
+		$this->filterQueryParameters[] = $filterQueryParameter;
+		return $this;
+	}
 }
-

@@ -1,1 +1,21 @@
-#mapid { height: 300px; }
+:root {
+	--bs-primary: #5B7F01;
+}
+
+#mapid {
+	height: 300px;
+}
+
+div.container {
+	background-color: #fff;
+}
+
+.navbar {
+	background-color: #5b7f01;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+	color: #fff;
+	text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
