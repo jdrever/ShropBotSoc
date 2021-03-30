@@ -13,7 +13,38 @@
 	<p><a href="<?= $download_link ?>">Download this data</a></p>
 <?php endif ?>
 
-<div id="map" style="height:400px;width:500px"></div>
+<div class="row">
+	<div id="map" class="col-lg"></div>
+
+	<div class="col-lg">
+		<?php if (isset($records_list)) : ?>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Site</th>
+						<th>Square</th>
+						<th>Collector</th>
+						<th>Year</th>
+						<th>Details</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($records_list as $record) : ?>
+						<tr>
+							<td>
+								<a href="/site/<?= $record->locationId ?>/group/plants/type/scientific"><?= $record->locationId ?></a>
+							</td>
+							<td><a href="/square/<?= $record->gridReference ?>/group/plants/type/scientific"><?= $record->gridReference ?></a></td>
+							<td><?= $record->collector ?></td>
+							<td><?= $record->year ?></td>
+							<td><a href="<?= base_url("/record/{$record->uuid}"); ?>">more</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif ?>
+	</div>
+</div>
 <script>
 	//make a minimal base layer
 	var minimal = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -58,33 +89,6 @@
 		layers: [minimal, graticule, boundary, species]
 	});
 </script>
-
-<?php if (isset($records_list)) : ?>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Site</th>
-				<th>Square</th>
-				<th>Collector</th>
-				<th>Year</th>
-				<th>Details</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach ($records_list as $record) : ?>
-				<tr>
-					<td>
-						<a href="/site/<?= $record->locationId ?>/group/plants/type/scientific"><?= $record->locationId ?></a>
-					</td>
-					<td><a href="/square/<?= $record->gridReference ?>/group/plants/type/scientific"><?= $record->gridReference ?></a></td>
-					<td><?= $record->collector ?></td>
-					<td><?= $record->year ?></td>
-					<td><a href="<?= base_url("/record/{$record->uuid}"); ?>">more</td>
-				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-<?php endif ?>
 <nav>
 	<ul class="pagination justify-content-center">
 		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
