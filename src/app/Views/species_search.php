@@ -4,12 +4,11 @@
 
 <?= form_open('species') ?>
 
-
 <div class="row mb-2">
 	<div class="col-lg-8 mx-auto">
 		<label for="search" class="form-label visually-hidden">Species name</label>
 		<div class="input-group">
-			<input type="text" id="search" class="form-control" name="search" aria-describedby="search-help" placeholder="Species name" value="<?= set_value('title'); ?>" />
+			<input type="text" id="search" class="form-control" name="search" aria-describedby="search-help" placeholder="Species name" value="<?php echo set_value('search',$nameSearchString); ?>" />
 			<button type="submit" class="btn btn-primary">List Species</button>
 		</div>
 		<small id="search-help" class="form-text text-start text-md-center d-block">Enter all or part of a species name. Try something like "Hedera".</small>
