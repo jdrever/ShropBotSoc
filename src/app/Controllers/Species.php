@@ -24,8 +24,25 @@ class Species extends BaseController
             $species_group = $this->request->getVar('species-group');
             return redirect()->to("/species/{$name_search_string}/group/{$species_group}/type/{$nameType}");
         };
-		$this->data['nameType'] = get_cookie("nameType");
-		$this->data['speciesGroup'] = get_cookie("speciesGroup");
+
+		$nameTypeCookie= get_cookie("nameType");
+		if (isset($nameTypeCookie))
+		{
+			$this->data['nameType']=$nameTypeCookie;
+		}
+		else
+		{
+			$this->data['nameType']="scientific";
+		}
+		$speciesGroupCookie=get_cookie("speciesGroup");
+		if (isset($speciesGroupCookie))
+		{
+			$this->data['speciesGroup'] = $speciesGroupCookie;
+		}
+		else
+		{
+			$this->data['speciesGroup'] = "both";
+		}
 		$this->data['nameSearchString'] = "";
         echo view('species_search', $this->data);
     }
@@ -38,8 +55,8 @@ class Species extends BaseController
         $this->data['title'] = $this->data['title']." - ".$name_search_string;
         $this->data['speciesList'] = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
 		$this->data['nameSearchString']= $name_search_string;
-		set_cookie("nameType",$name_type,"3600","localhost","/","",false,false,null);
-		set_cookie("speciesGroup",$species_group,"3600","localhost","/","",false,false,null);
+		set_cookie("nameType",$name_type,"3600","","/","",false,false,null);
+		set_cookie("speciesGroup",$species_group,"3600","","/","",false,false,null);
 		$this->data['nameType']=$name_type;
 		$this->data['speciesGroup']=$species_group;
         echo view('species_search', $this->data);
