@@ -4,8 +4,6 @@
 
 <?= form_open('species') ?>
 
-<p><?= $speciesGroup ?></p>
-
 <div class="row mb-2">
 	<div class="col-lg-8 mx-auto">
 		<label for="search" class="form-label visually-hidden">Species name</label>
