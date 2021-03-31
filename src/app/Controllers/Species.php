@@ -25,6 +25,7 @@ class Species extends BaseController
             return redirect()->to("/species/{$name_search_string}/group/{$species_group}/type/{$nameType}");
         };
 		$this->data['nameType'] = get_cookie("nameType");
+		$this->data['speciesGroup'] = get_cookie("speciesGroup");
 		$this->data['nameSearchString'] = "";
         echo view('species_search', $this->data);
     }
@@ -38,7 +39,9 @@ class Species extends BaseController
         $this->data['speciesList'] = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
 		$this->data['nameSearchString']= $name_search_string;
 		set_cookie("nameType",$name_type,"3600","localhost","/","",false,false,null);
+		set_cookie("speciesGroup",$species_group,"3600","localhost","/","",false,false,null);
 		$this->data['nameType']=$name_type;
+		$this->data['speciesGroup']=$species_group;
         echo view('species_search', $this->data);
     }
 

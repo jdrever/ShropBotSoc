@@ -4,6 +4,8 @@
 
 <?= form_open('species') ?>
 
+<p><?= $speciesGroup ?></p>
+
 <div class="row mb-2">
 	<div class="col-lg-8 mx-auto">
 		<label for="search" class="form-label visually-hidden">Species name</label>
@@ -42,19 +44,19 @@
 		<!-- <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label> -->
 
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants" <?= set_radio('groups', 'plants', true); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants" <?= set_radio('groups', 'plants', $speciesGroup=='plants'); ?> />
 			<label class="form-check-label" for="plants">
 				only plants
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="bryophytes" <?= set_radio('groups', 'bryophytes'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="bryophytes" <?= set_radio('groups', 'bryophytes',$speciesGroup=='bryophytes'); ?> />
 			<label class="form-check-label" for="bryophytes">
 				only bryophytes
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="both" value="both" <?= set_radio('groups', 'both'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="both" value="both" <?= set_radio('groups', 'both',$speciesGroup=='both'); ?> />
 			<label class="form-check-label" for="both">
 			both <span class="d-none d-xl-inline">plants and bryophytes</span>
 			</label>
