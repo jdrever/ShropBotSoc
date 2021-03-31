@@ -12,17 +12,19 @@ class Species extends BaseController
      */
     public function index()
     {
-        if ($this->isPostBack()) 
-        { 
+        if ($this->isPostBack())
+        {
             $this->data['title'] = $this->data['title']." - results";
             $name_search_string = $this->request->getVar('search');
             $name_search_string = trim($name_search_string);
+			//$nameType = $this->request->getVar('name-type');
             // If the search field is empty, go to the begining of the alphabet
             if (trim($name_search_string) == NULL) $name_search_string = "A";
-            $name_type = $this->request->getVar('name-type');
+            $nameType = $this->request->getVar('name-type');
             $species_group = $this->request->getVar('species-group');
-            return redirect()->to("/species/{$name_search_string}/group/{$species_group}/type/{$name_type}");
+            return redirect()->to("/species/{$name_search_string}/group/{$species_group}/type/{$nameType}");
         };
+		$this->data['nameType'] = get_cookie("nameType");
         echo view('species_search', $this->data);
     }
 
@@ -33,6 +35,8 @@ class Species extends BaseController
     {
         $this->data['title'] = $this->data['title']." - ".$name_search_string;
         $this->data['speciesList'] = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
+		set_cookie("nameType",$name_type,"3600","localhost","/","",false,false,null);
+		$this->data['nameType']=$name_type;
         echo view('species_search', $this->data);
     }
 

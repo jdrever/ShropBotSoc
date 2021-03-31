@@ -205,8 +205,8 @@ class App extends BaseConfig
 	*/
 	public $cookiePrefix   = '';
 	public $cookieDomain   = '';
-	public $cookiePath     = '/; SameSite=None';
-	public $cookieSecure   = TRUE;
+	public $cookiePath     = '/'; //removing reference to samesite as causes error
+	public $cookieSecure   = FALSE; //changing to false to allow testing on localhost
 	public $cookieHTTPOnly = FALSE;
 
 	/*
