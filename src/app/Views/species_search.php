@@ -98,5 +98,9 @@
 			<li class="page-item"><a class="page-link" href="#">Next</a></li>
 		</ul>
 	</nav>
+	<?php if (isset($downloadLink)) : ?>
+	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+	<?php endif ?>
 <?php endif ?>
+
 <?= $this->endSection() ?>

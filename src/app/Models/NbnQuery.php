@@ -31,6 +31,8 @@ class NbnQuery implements NbnQueryInterface
 		$query_url         = $nbn_records->getPagingQueryString();
 		$species_list_json = file_get_contents($query_url);
 		$species_list      = json_decode($species_list_json);
+		$species_list["downloadLink"] = $nbn_records->getDownloadQueryString();
+
 		return $species_list;
 	}
 

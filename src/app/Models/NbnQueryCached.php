@@ -12,8 +12,8 @@ class NbnQueryCached implements NbnQueryInterface
 
   /**
    * Cache the search for species within the county
-   * 
-   * @return 
+   *
+   * @return
    */
   public function getSpeciesListForCounty($name_search_string, $name_type, $species_group)
   {
