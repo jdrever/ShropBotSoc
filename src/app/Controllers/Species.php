@@ -37,15 +37,14 @@ class Species extends BaseController
     {
         $this->data['title'] = $this->data['title']." - ".$name_search_string;
 
-		$speciesList = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
-        $this->data['speciesList'] =$speciesList;
+		$speciesQueryResult = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
+        $this->data['speciesList'] =$speciesQueryResult->records;
+		$this->data['downloadLink']=$speciesQueryResult->downloadLink;
 		$this->data['nameSearchString']= $name_search_string;
 		set_cookie("nameType",$name_type,"3600","localhost","/","",false,false,null);
 		set_cookie("speciesGroup",$species_group,"3600","localhost","/","",false,false,null);
 		$this->data['nameType']=$name_type;
 		$this->data['speciesGroup']=$species_group;
-		$this->data['downloadLink']=$speciesList["downloadLink"];
-
         echo view('species_search', $this->data);
     }
 
