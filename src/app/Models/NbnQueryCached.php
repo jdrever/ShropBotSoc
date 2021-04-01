@@ -22,8 +22,8 @@ class NbnQueryCached implements NbnQueryInterface
     if ( ! $species_list = cache($cache_name)&&false) //turn off caching for testing
     {
         $species_list = $this->nbnQuery->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
-    //    cache()->save($cache_name, $species_list, CACHE_LIFE);
-    //}
+        cache()->save($cache_name, $species_list, CACHE_LIFE);
+    }
     return $species_list;
   }
 
