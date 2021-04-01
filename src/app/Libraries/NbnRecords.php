@@ -30,7 +30,7 @@ class NbnRecords
 	 *
 	 * @var string $dataResourceUid
 	 */
-	private $dataResourceUid = 'dr1323';
+	private $dataResourceUid = 'dr782';
 
 	/**
 	 * TODO: Describe what the $path member variable is for

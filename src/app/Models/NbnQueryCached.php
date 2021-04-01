@@ -19,8 +19,8 @@ class NbnQueryCached implements NbnQueryInterface
   {
     $name_search_string = ucfirst($name_search_string); //because the API respects the case
     $cache_name = "get-species-list-for-county-$name_type-$species_group-$name_search_string";
-    //if ( ! $species_list = cache($cache_name))
-    //{
+    if ( ! $species_list = cache($cache_name)&&false) //turn off caching for testing
+    {
         $species_list = $this->nbnQuery->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
     //    cache()->save($cache_name, $species_list, CACHE_LIFE);
     //}
