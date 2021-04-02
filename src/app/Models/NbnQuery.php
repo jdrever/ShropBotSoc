@@ -37,13 +37,15 @@ class NbnQuery implements NbnQueryInterface
 		if ($nameType=="scientific")
 		{
 			$nbn_records
-				->add('taxon_name:' . str_replace(" ", "+%2B",$name_search_string) . '*');
+				->add('taxon_name:' . str_replace(" ", "+%2B",$name_search_string) . '*')
+				->sort = "taxon_name";
 		}
 
 		if ($nameType=="common")
 		{
 			$nbn_records
-				->add('common_name:' . str_replace(" ", "+%2B",$name_search_string) . '*');
+				->add('common_name:' . str_replace(" ", "+%2B",$name_search_string) . '*')
+				->sort = "common_name";
 		}
 		$nbn_records->add('species_group:' . $speciesGroup);
 		$query_url         = $nbn_records->getPagingQueryString();
