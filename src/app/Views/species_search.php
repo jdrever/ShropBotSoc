@@ -10,7 +10,7 @@
 	<div class="col-lg-8 mx-auto">
 		<label for="search" class="form-label visually-hidden">Species name</label>
 		<div class="input-group">
-			<input type="text" id="search" class="form-control" name="search" aria-describedby="search-help" placeholder="Species name" value="<?php echo set_value('search',$nameSearchString); ?>" />
+			<input type="text" id="search" class="form-control" name="search" aria-describedby="search-help" placeholder="Species name" value="<?= set_value('search', $nameSearchString); ?>" />
 			<button type="submit" class="btn btn-primary">List Species</button>
 		</div>
 		<small id="search-help" class="form-text text-start text-md-center d-block">Enter all or part of a species name. Try something like "Hedera".</small>
@@ -19,13 +19,13 @@
 <div class="row justify-content-center gy-3">
 	<div class="form-group col-sm-4 col-lg-3">
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="scientific-name" value="scientific" <?= set_radio('name-type','scientific',($nameType=='scientific')); ?> />
+			<input class="form-check-input" type="radio" name="name-type" id="scientific-name" value="scientific" <?= set_radio('name-type', 'scientific', ($nameType === 'scientific')); ?> />
 			<label class="form-check-label" for="scientific-name">
 				scientific<span class="d-none d-lg-inline"> name only</span>
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="common-name" value="common" <?= set_radio('name-type', 'common',($nameType=='common')); ?> />
+			<input class="form-check-input" type="radio" name="name-type" id="common-name" value="common" <?= set_radio('name-type', 'common', ($nameType === 'common')); ?> />
 			<label class="form-check-label" for="common-name">
 				common<span class="d-none d-lg-inline"> name only</span>
 			</label>
@@ -44,19 +44,19 @@
 		<!-- <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label> -->
 
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants" <?= set_radio('groups', 'plants', $speciesGroup=='plants'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants" <?= set_radio('groups', 'plants', $speciesGroup === 'plants'); ?> />
 			<label class="form-check-label" for="plants">
 				only plants
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="bryophytes" <?= set_radio('groups', 'bryophytes',$speciesGroup=='bryophytes'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="bryophytes" <?= set_radio('groups', 'bryophytes', $speciesGroup === 'bryophytes'); ?> />
 			<label class="form-check-label" for="bryophytes">
 				only bryophytes
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="both" value="both" <?= set_radio('groups', 'both',$speciesGroup=='both'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="both" value="both" <?= set_radio('groups', 'both', $speciesGroup === 'both'); ?> />
 			<label class="form-check-label" for="both">
 			both <span class="d-none d-xl-inline">plants and bryophytes</span>
 			</label>
