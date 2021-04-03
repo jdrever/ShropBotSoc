@@ -5,4 +5,3 @@ class NbnQueryResult
 	public $records;
 	public $downloadLink;
 }
-
