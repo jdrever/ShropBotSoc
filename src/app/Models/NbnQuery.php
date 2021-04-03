@@ -25,7 +25,7 @@ class NbnQuery implements NbnQueryInterface
 		$name_search_string = ucfirst($name_search_string);
 		$nbn_records        = new NbnRecords('explore/group/ALL_SPECIES');
 		$nbn_records
-			->add('taxon_name:' . $name_search_string . '*')
+			->add('taxon_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
 			->add('species_group:Plants+Bryophytes')
 		;
 		$query_url         = $nbn_records->getPagingQueryString();
