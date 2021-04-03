@@ -48,6 +48,7 @@ class NbnQuery implements NbnQueryInterface
 				->sort = "common_name";
 		}
 		$nbn_records->add('species_group:' . $speciesGroup);
+
 		$query_url         = $nbn_records->getPagingQueryString();
 		$species_list_json = file_get_contents($query_url);
 		$species_list      = json_decode($species_list_json);
