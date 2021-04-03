@@ -31,7 +31,11 @@ class NbnQuery implements NbnQueryInterface
 		$query_url         = $nbn_records->getPagingQueryString();
 		$species_list_json = file_get_contents($query_url);
 		$species_list      = json_decode($species_list_json);
-		return $species_list;
+
+		$speciesQueryResult               = new NbnQueryResult();
+		$speciesQueryResult->records      = $species_list;
+		$speciesQueryResult->downloadLink = $nbn_records->getDownloadQueryString();
+		return $speciesQueryResult;
 	}
 
 	/**
@@ -56,7 +60,7 @@ class NbnQuery implements NbnQueryInterface
 		$record_list  = json_decode($records_json)->occurrences;
 		usort($record_list, function ($a, $b) {
 			return $b->year <=> $a->year;
-		  });
+		});
 		$records['download_link'] = $nbn_records->getDownloadQueryString();
 
 		foreach ($record_list as $record)
