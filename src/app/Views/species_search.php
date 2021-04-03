@@ -4,8 +4,6 @@
 
 <?= form_open('species') ?>
 
-<p><?= $speciesGroup ?></p>
-
 <div class="row mb-2">
 	<div class="col-lg-8 mx-auto">
 		<label for="search" class="form-label visually-hidden">Species name</label>
@@ -33,7 +31,7 @@
 		<div class="form-check">
 			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte" <?= set_radio('name-type', 'axiophyte'); ?> />
 			<label class="form-check-label" for="axiophyte-name">
-				<span class="d-xl-none">axiophyte names</span>
+				<span class="d-lg-none">axiophyte names</span>
 				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
 			</label>
 		</div>

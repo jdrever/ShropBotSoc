@@ -27,8 +27,25 @@ class Species extends BaseController
 			$species_group = $this->request->getVar('species-group');
 			return redirect()->to("/species/{$name_search_string}/group/{$species_group}/type/{$nameType}");
 		};
-		$this->data['nameType']         = get_cookie("nameType");
-		$this->data['speciesGroup']     = get_cookie("speciesGroup");
+
+		$nameTypeCookie = get_cookie("nameType");
+		if (isset($nameTypeCookie))
+		{
+			$this->data['nameType'] = $nameTypeCookie;
+		}
+		else
+		{
+			$this->data['nameType'] = "scientific";
+		}
+		$speciesGroupCookie = get_cookie("speciesGroup");
+		if (isset($speciesGroupCookie))
+		{
+			$this->data['speciesGroup'] = $speciesGroupCookie;
+		}
+		else
+		{
+			$this->data['speciesGroup'] = "both";
+		}
 		$this->data['nameSearchString'] = "";
 		echo view('species_search', $this->data);
 	}
