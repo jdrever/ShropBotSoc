@@ -19,14 +19,23 @@ class NbnQuery implements NbnQueryInterface
 	 * TODO: Search on axiophytes
 	 * TODO: Only plants, only bryophytes or both
 	 */
-	public function getSpeciesListForCounty($name_search_string, $name_type, $species_group)
+	public function getSpeciesListForCounty($name_search_string, $name_type, $speciesGroup)
 	{
 		//because the API respects the case
 		$name_search_string = ucfirst($name_search_string);
-		$nbn_records        = new NbnRecords('explore/group/ALL_SPECIES');
+
+		if ($speciesGroup === "both")
+		{
+			$speciesGroup = 'Plants+Bryophytes';
+		}
+		else
+		{
+			$speciesGroup = ucfirst($speciesGroup);
+		}
+		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
 		$nbn_records
 			->add('taxon_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
-			->add('species_group:Plants+Bryophytes')
+			->add('species_group:' . $speciesGroup)
 		;
 		$query_url         = $nbn_records->getPagingQueryString();
 		$species_list_json = file_get_contents($query_url);
