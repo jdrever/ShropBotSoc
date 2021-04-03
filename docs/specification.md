@@ -189,9 +189,9 @@ testing, payments for work completed and opportunities to pause for reflection.
 
 ### 4.1.1. 'Landing'
 
-- [ ] Initially the search output should be empty.
+- [x] Initially the search output should be empty.
 
-- [ ] By default the **Scientific** name selected first, since botanists tend to
+- [x] By default the **Scientific** name selected first, since botanists tend to
   favour identifying plant species via the scientific name.
 
 - [ ] If **Common** is selected set a cookie to retain the user's choice of
@@ -207,7 +207,7 @@ testing, payments for work completed and opportunities to pause for reflection.
 - [ ] The characters entered in the search box are used to search for names
   beginning with those letters, not within the names. [^1]
 
-- [ ] Clicking on **List Species** or pressing return on the desktop list
+- [x] Clicking on **List Species** or pressing return on the desktop list
   executes the search. If the search box is empty species beginning with 'A' are
   searched for.
 

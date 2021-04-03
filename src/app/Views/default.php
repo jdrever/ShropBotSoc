@@ -59,9 +59,9 @@
 		<div class="container-fluid content-inner p-3">
 			<?= $this->renderSection('content') ?>
 		</div>
-		<footer class="footer-fluid">
-			<div class="">
-				<span class="text-muted">Shropshire Botanical Society Data supported by
+		<footer class="page-footer footer-fluid">
+			<div class="mx-auto mt-2 text-center">
+				<span class="small">Shropshire Botanical Society Data supported by
 					<a href="https://registry.nbnatlas.org/public/show/dp120" target="_blank">National Biodiversity Network</a>
 				</span>
 			</div>

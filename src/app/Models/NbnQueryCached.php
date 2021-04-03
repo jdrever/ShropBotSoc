@@ -90,5 +90,4 @@ class NbnQueryCached implements NbnQueryInterface
 	{
 		return $this->nbnQuery->getSingleSpeciesRecordsForSquare($grid_square, $species_name);
 	}
-
 }
