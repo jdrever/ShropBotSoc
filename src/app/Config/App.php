@@ -1,4 +1,5 @@
 <?php namespace Config;
+
 use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
@@ -206,8 +207,8 @@ class App extends BaseConfig
 	public $cookiePrefix   = '';
 	public $cookieDomain   = '';
 	public $cookiePath     = '/'; //removing reference to samesite as causes error
-	public $cookieSecure   = FALSE; //changing to false to allow testing on localhost
-	public $cookieHTTPOnly = FALSE;
+	public $cookieSecure   = false; //changing to false to allow testing on localhost
+	public $cookieHTTPOnly = false;
 
 	/*
 	|--------------------------------------------------------------------------
