@@ -25,7 +25,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['form', 'app_utility','cookie','pagination'];
+	protected $helpers = ['form', 'app_utility','cookie'];
 
 	/**
 	 * Constructor.
@@ -50,4 +50,5 @@ class BaseController extends Controller
 	{
 		return $_SERVER['REQUEST_METHOD'] === 'POST';
 	}
+
 }
