@@ -59,35 +59,34 @@
 </div>
 <script>
 	//make a minimal base layer
-	var minimal = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
 		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 		maxZoom: 18,
-		id: 'mapbox/streets-v11',
+		id: "mapbox/streets-v11",
 		tileSize: 512,
 		zoomOffset: -1,
-		accessToken: 'pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw'
+		accessToken: "pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw"
 	});
 
 	//County boundary
-	const url = '/data/shropshire.json';
-	var boundary = L.geoJSON()
-	fetch(url).then(function(response) {
-		return response.json();
-	}).then(function(data) {
-		boundary.addData(data);
-	});
+	const url = "/data/shropshire.json";
+	const boundary = L.geoJSON();
+	fetch(url)
+		.then((response) => response.json())
+		.then((data) => boundary.addData(data));
 
 	//OS Grid graticule
-	var options = {};
-	var graticule = L.osGraticule(options);
+	const options = {};
+	const graticule = L.osGraticule(options);
 
 	//make a dot map layer
-	var wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?";
-	wmsUrl += "Q=lsid:<?= $records_list[0]->speciesGuid ?>";
-	wmsUrl += "&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;gridlabels:true;gridres:singlegrid";
-	wmsUrl += "&fq=data_resource_uid:dr782";
+	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?"
+		+ "Q=lsid:<?= $records_list[0]->speciesGuid ?>"
+		+ "&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;"
+		+ "gridlabels:true;gridres:singlegrid"
+		+ "&fq=data_resource_uid:dr782";
 
-	var species = L.tileLayer.wms(
+	const species = L.tileLayer.wms(
 		wmsUrl, {
 			"layers": "ALA:occurrences",
 			"uppercase": true,
@@ -95,7 +94,7 @@
 			"transparent": true
 		});
 	//make a map and add the layers
-	var map = L.map('map', {
+	const map = L.map("map", {
 		center: [52.6, -3.0],
 		zoom: 9,
 		layers: [minimal, graticule, boundary, species]
