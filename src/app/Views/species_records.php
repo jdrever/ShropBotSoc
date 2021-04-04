@@ -13,10 +13,22 @@
 	<p><a href="<?= $download_link ?>">Download this data</a></p>
 <?php endif ?>
 
-<div class="row">
-	<div id="map" class="col-lg"></div>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+	<li class="nav-item" role="presentation">
+		<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="true">Map</button>
+	</li>
+	<li class="nav-item" role="presentation">
+		<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false">Data</button>
+	</li>
+</ul>
 
-	<div class="col-lg">
+<div class="row tab-content">
+
+	<div id="map-container" class="tab-pane fade show active col-lg">
+		<div id="map" class=""></div>
+	</div>
+
+	<div id="data" class="tab-pane fade col-lg">
 		<?php if (isset($records_list)) : ?>
 			<table class="table">
 				<thead>

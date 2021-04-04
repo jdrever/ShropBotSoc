@@ -43,3 +43,11 @@ footer.page-footer a:visited {
 .header-backArrow svg:hover {
 	color: #000;
 }
+
+div#map-container {
+	margin-bottom: 1em;
+}
+
+div#map {
+	height: 400px;
+}
