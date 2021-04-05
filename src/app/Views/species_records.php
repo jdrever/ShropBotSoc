@@ -116,14 +116,14 @@
 		layers: [minimal, graticule, boundary, species]
 	});
 
-	["resize", "load"].forEach((event) => {
+	["load", "resize"].forEach((event) => {
 		window.addEventListener(event, () => {
 			const activeTab = document.querySelector("[aria-selected='true']");
 
 			if (window.matchMedia("(min-width: 992px)").matches) {
 				document.querySelector("#tab-content").classList.remove("tab-content");
-				document.querySelector("#map-container").classList.add("show fade");
-				document.querySelector("#data").classList.add("show fade");
+				document.querySelector("#map-container").classList.add("show");
+				document.querySelector("#data").classList.add("show");
 			} else {
 				document.querySelector("#tab-content").classList.add("tab-content");
 				bootstrap.Tab.getInstance(activeTab).show();
