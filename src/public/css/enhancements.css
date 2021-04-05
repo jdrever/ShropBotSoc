@@ -25,3 +25,29 @@ footer.page-footer a:visited {
 	text-decoration: underline;
 	color: #0147AF;
 }
+
+.header-backArrow {
+	display: flex;
+	font-size: 22px;
+	line-height: 1.2;
+	margin-bottom: .5rem;
+}
+
+.header-backArrow svg {
+	width: 1em;
+	height: 1em;
+	margin-right: .25rem;
+	color: #ADB5BD;
+}
+
+.header-backArrow svg:hover {
+	color: #000;
+}
+
+div#map-container {
+	margin-bottom: 1em;
+}
+
+div#map {
+	height: 400px;
+}
