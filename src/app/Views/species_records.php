@@ -16,7 +16,7 @@
 	<p><a href="<?= $download_link ?>">Download this data</a></p>
 <?php endif ?>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+<ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
 		<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="true">Map</button>
 	</li>
@@ -25,13 +25,13 @@
 	</li>
 </ul>
 
-<div class="row tab-content">
+<div id="tab-content" class="row">
 
 	<div id="map-container" class="tab-pane fade show active col-lg">
 		<div id="map" class=""></div>
 	</div>
 
-	<div id="data" class="tab-pane fade col-lg">
+	<div id="data" class="tab-pane fade show col-lg">
 		<?php if (isset($records_list)) : ?>
 			<table class="table">
 				<thead>
@@ -114,6 +114,21 @@
 		center: [52.6, -3.0],
 		zoom: 9,
 		layers: [minimal, graticule, boundary, species]
+	});
+
+	["resize", "load"].forEach((event) => {
+		window.addEventListener(event, () => {
+			const activeTab = document.querySelector("[aria-selected='true']");
+
+			if (window.matchMedia("(min-width: 992px)").matches) {
+				document.querySelector("#tab-content").classList.remove("tab-content");
+				document.querySelector("#map-container").classList.add("show fade");
+				document.querySelector("#data").classList.add("show fade");
+			} else {
+				document.querySelector("#tab-content").classList.add("tab-content");
+				bootstrap.Tab.getInstance(activeTab).show();
+			}
+		});
 	});
 </script>
 <nav>
