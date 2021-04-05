@@ -119,6 +119,7 @@
 	["load", "resize"].forEach((event) => {
 		window.addEventListener(event, () => {
 			const activeTab = document.querySelector("[aria-selected='true']");
+			new bootstrap.Tab(activeTab).show();
 
 			if (window.matchMedia("(min-width: 992px)").matches) {
 				document.querySelector("#tab-content").classList.remove("tab-content");
