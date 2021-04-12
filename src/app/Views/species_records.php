@@ -86,7 +86,7 @@
 	});
 
 	//County boundary
-	const url = "/data/shropshire2.min.geojson";
+	const url = "/data/shropshire_simple.geojson";
 	const boundary = L.geoJSON();
 
 	// Use fetch to add the boundary geojson to the map, and store the async
