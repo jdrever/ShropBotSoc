@@ -45,12 +45,12 @@ class NbnQueryCached implements NbnQueryInterface
 	public function getSingleSpeciesRecordsForCounty($species_name)
 	{
 		$cache_name= "get-single-species-for-county $species_name";
-		if (! $speciesRecords = cache($cache_name)|| !$cacheActive)
+		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cache_name))
 		{
 			$speciesRecords=$this->nbnQuery->getSingleSpeciesRecordsForCounty($species_name);
-			if ($cacheActive)
+			if (self::CACHE_ACTIVE)
 			{
-				cache()->save($cache_name, $species_list, CACHE_LIFE);
+				cache()->save($cache_name, $speciesRecords, CACHE_LIFE);
 			}
 		}
 		return $speciesRecords;
