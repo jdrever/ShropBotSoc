@@ -86,9 +86,12 @@
 	});
 
 	//County boundary
-	const url = "/data/shropshire.json";
+	const url = "/data/shropshire.geojson";
 	const boundary = L.geoJSON();
-	fetch(url)
+
+	// Use fetch to add the boundary geojson to the map, and store the async
+	// Promise callback for later
+	const boundaryData = fetch(url)
 		.then((response) => response.json())
 		.then((data) => boundary.addData(data));
 
@@ -109,11 +112,22 @@
 		"format": "image/png",
 		"transparent": true
 	});
-	//make a map and add the layers
+
+	// Make a map and add the layers
+	// TODO: Move map init to be before Shropshire boundary fetch.
 	const map = L.map("map", {
-		center: [52.6, -3.0],
-		zoom: 9,
+		zoomSnap: 0,
+		zoom: 1,
 		layers: [minimal, graticule, boundary, species]
+	});
+
+	// When the boundary fetch promise resolves (i.e., when the data has loaded
+	// and been added to the Leaflet map) we use the fitBounds() Leaflet method
+	// to zoom and position the map around the boundary data with a touch of
+	// padding.
+	// TODO: this is a bit of a hack. Needs refactoring.
+	boundaryData.then((data) => {
+		map.fitBounds(boundary.getBounds(data).pad(0.1));
 	});
 
 	["load", "resize"].forEach((event) => {
