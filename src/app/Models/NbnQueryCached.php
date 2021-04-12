@@ -5,10 +5,18 @@
  */
 class NbnQueryCached implements NbnQueryInterface
 {
+	/**
+	 * Determines whether caching is active
+	 * Set to false on development environments
+	 * @var bool
+	 * @access private
+	 */
+	private const CACHE_ACTIVE=true;
 
 	function __construct()
 	{
 		$this->nbnQuery = model('App\Models\NbnQuery', false);
+
 	}
 
 	/**
@@ -20,10 +28,13 @@ class NbnQueryCached implements NbnQueryInterface
 	{
 		$name_search_string = ucfirst($name_search_string); //because the API respects the case
 		$cache_name         = "get-species-list-for-county-$name_type-$species_group-$name_search_string";
-		if (! $species_list = cache($cache_name)&&false) //turn off caching for testing
+		if (! self::CACHE_ACTIVE || ! $species_list = cache($cache_name))
 		{
 			$species_list = $this->nbnQuery->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
-			cache()->save($cache_name, $species_list, CACHE_LIFE);
+			if (self::CACHE_ACTIVE)
+			{
+				cache()->save($cache_name, $species_list, CACHE_LIFE);
+			}
 		}
 		return $species_list;
 	}
@@ -33,7 +44,16 @@ class NbnQueryCached implements NbnQueryInterface
 	 */
 	public function getSingleSpeciesRecordsForCounty($species_name)
 	{
-		return $this->nbnQuery->getSingleSpeciesRecordsForCounty($species_name);
+		$cache_name= "get-single-species-for-county $species_name";
+		if (! $speciesRecords = cache($cache_name)|| !$cacheActive)
+		{
+			$speciesRecords=$this->nbnQuery->getSingleSpeciesRecordsForCounty($species_name);
+			if ($cacheActive)
+			{
+				cache()->save($cache_name, $species_list, CACHE_LIFE);
+			}
+		}
+		return $speciesRecords;
 	}
 
 	/**
