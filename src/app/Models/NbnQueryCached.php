@@ -40,7 +40,7 @@ class NbnQueryCached implements NbnQueryInterface
 	}
 
 	/**
-	 * TODO: caching
+	 * Cache the single species search within the county
 	 */
 	public function getSingleSpeciesRecordsForCounty($species_name)
 	{
@@ -57,11 +57,19 @@ class NbnQueryCached implements NbnQueryInterface
 	}
 
 	/**
-	 * TODO: caching
+	 * Cache the single occurence record
 	 */
 	public function getSingleOccurenceRecord($uuid)
 	{
-		return $this->nbnQuery->getSingleOccurenceRecord($uuid);
+		$cache_name         = "get-single-occurence-record-$uuid";
+		if (! self::CACHE_ACTIVE || ! $occurenceRecord = cache($cache_name))
+		{
+			$occurenceRecord=$this->nbnQuery->getSingleOccurenceRecord($uuid);
+			if (self::CACHE_ACTIVE)
+			{
+				cache()->save($cache_name, $occurenceRecord, CACHE_LIFE);
+			}
+		return $occurenceRecord;
 	}
 
 	/**
@@ -71,10 +79,13 @@ class NbnQueryCached implements NbnQueryInterface
 	{
 		$name_search_string = ucfirst($site_search_string);
 		$cache_name         = "get-site-list-for-county-$name_search_string";
-		if (! $site_list = cache($cache_name))
+		if (! self::CACHE_ACTIVE || ! $site_list = cache($cache_name))
 		{
 			$site_list = $this->nbnQuery->getSiteListForCounty($site_search_string);
-			cache()->save($cache_name, $site_list, CACHE_LIFE);
+			if (self::CACHE_ACTIVE)
+			{
+				cache()->save($cache_name, $site_list, CACHE_LIFE);
+			}
 		}
 		return $site_list;
 	}
