@@ -102,7 +102,7 @@ class NbnQueryCached implements NbnQueryInterface
 	public function getSiteListForCounty($siteSearchString)
 	{
 		$nameSearchString = ucfirst($siteSearchString);
-		$cacheName         = "get-site-list-for-county-$nameSearchString";
+		$cacheName        = "get-site-list-for-county-$nameSearchString";
 		if (! self::CACHE_ACTIVE || ! $siteList = cache($cacheName))
 		{
 			$siteList = $this->nbnQuery->getSiteListForCounty($nameSearchString);
@@ -147,21 +147,21 @@ class NbnQueryCached implements NbnQueryInterface
 	public function getSingleSpeciesRecordsForSite($siteName, $speciesName)
 	{
 		$cacheName = "get-species-records-for-site-$siteName-$speciesName";
-		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
+		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
 			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSite($siteName, $speciesName);
 			if (self::CACHE_ACTIVE)
 			{
-				 cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
+				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
 			}
 		}
-		return $speciesRecords
+		return $speciesRecords;
 	}
 
 	/**
 	 * Cache species list for square
 	 *
-	 * @param [string] $gridSquare  the grid square
+	 * @param [string] $gridSquare   the grid square
 	 * @param [string] $speciesGroup plants, bryophytes or both
 	 *
 	 * @return [nbnQueryResult]
@@ -170,14 +170,37 @@ class NbnQueryCached implements NbnQueryInterface
 	 */
 	public function getSpeciesListForSquare($gridSquare, $speciesGroup)
 	{
-		return $this->nbnQuery->getSpeciesListForSquare($gridSquare);
+		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup";
+		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
+		{
+			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare);
+			if (self::CACHE_ACTIVE)
+			{
+				 cache()->save($cacheName, $speciesList, CACHE_LIFE);
+			}
+		}
+		return $speciesList;
 	}
 
 	/**
-	 * TODO: caching
+	 * Cache for single species record in square
+	 *
+	 * @param [string] $gridSquare  the grid square
+	 * @param [string] $speciesName the species name
+	 *
+	 * @return nbnQueryResult
 	 */
-	public function getSingleSpeciesRecordsForSquare($grid_square, $speciesName)
+	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName)
 	{
-		return $this->nbnQuery->getSingleSpeciesRecordsForSquare($grid_square, $speciesName);
+		$cacheName = "get-species-records-for-square-$gridSquare-$speciesName";
+		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
+		{
+			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName);
+			if (self::CACHE_ACTIVE)
+			{
+				 cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
+			}
+		}
+		return $speciesRecords;
 	}
 }
