@@ -2,6 +2,8 @@
 
 /**
  * Provides caching layer on top of the NbnQuery methods
+ *
+ * TODO: #28 refactoring to implement DRY with repeated caching code
  */
 class NbnQueryCached implements NbnQueryInterface
 {
@@ -11,10 +13,8 @@ class NbnQueryCached implements NbnQueryInterface
 	 *
 	 * @var    bool
 	 * @access private
-	 *
-	 * @TODO: refactoring to implement DRY with repeated caching code
 	 */
-	private const CACHE_ACTIVE = true;
+	private const CACHE_ACTIVE = false;
 
 	/**
 	 * Constructor, initiliases NbnQuery
