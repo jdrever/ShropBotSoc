@@ -167,4 +167,9 @@
 		<li class="page-item"><a class="page-link" href="#">Next</a></li>
 	</ul>
 </nav>
+
+<?php if (isset($download_link)) : ?>
+	<p><a href="<?= $download_link ?>">Download this data</a></p>
+<?php endif ?>
+
 <?= $this->endSection() ?>

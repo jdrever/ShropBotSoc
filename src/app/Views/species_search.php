@@ -63,6 +63,10 @@
 	</div>
 </div>
 <?= form_close() ?>
+<?php if (isset($downloadLink)) : ?>
+	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+<?php endif ?>
+
 <!-- Show the search results if there are any -->
 <?php if (isset($speciesList)) : ?>
 	<table class="table mt-3">
