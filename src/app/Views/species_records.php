@@ -118,10 +118,14 @@
 	});
 
 	// Initialise geoJson boundary layer
-	const boundary = L.geoJSON();
+	const boundary = L.geoJSON(null, {
+		"color": "#0996DB",
+		"weight": 5,
+		"opacity": 0.33
+	});
 
 	// Create a Layer Group and add to map
-	const layers = L.layerGroup([minimal, graticule10km, graticule1km, species, boundary]);
+	const layers = L.layerGroup([minimal, graticule10km, graticule1km, boundary, species]);
 	layers.addTo(map);
 
 	// We load the geojson data from disk using the JavaScript Fetch API. When
