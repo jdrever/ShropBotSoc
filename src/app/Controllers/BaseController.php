@@ -30,6 +30,8 @@ class BaseController extends Controller
 		'cookie',
 	];
 
+
+
 	/**
 	 * Constructor.
 	 */
@@ -42,6 +44,8 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		$this->nbn = model('App\Models\NbnQueryCached', false);
+		$this->page = ! empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
+		$this->currentUrl = strtok($_SERVER["REQUEST_URI"], '?');
 	}
 
 	/**
@@ -51,5 +55,10 @@ class BaseController extends Controller
 	protected function isPostBack()
 	{
 		return $_SERVER['REQUEST_METHOD'] === 'POST';
+	}
+
+	protected function getPageInfo()
+	{
+
 	}
 }
