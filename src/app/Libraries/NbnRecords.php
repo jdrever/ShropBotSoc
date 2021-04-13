@@ -54,11 +54,11 @@ class NbnRecords
 	public $fsort;
 
 	/**
-	 * TODO: Describe what the $pageSize member variable is for
+	 * Sets the number of paged records returned by each NBN query
 	 *
 	 * @var integer $pageSize
 	 */
-	public $pageSize = 9;
+	public $pageSize = 10;
 
 	/**
 	 * TODO: Describe what the $sort member variable is for
@@ -122,6 +122,12 @@ class NbnRecords
 		$queryString  = $this->getQueryString($this::BASE_URL . $this->path);
 		$queryString .= 'pageSize=' . $this->pageSize;
 		return $queryString;
+	}
+
+	public function getPagingQueryStringWithStart($start)
+	{
+		$pagingQuery = $this->getPagingQueryString();
+		return $pagingQuery .= "&start=" . $start;
 	}
 
 	/**

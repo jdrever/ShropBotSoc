@@ -93,11 +93,12 @@
 	</table>
 	<nav>
 		<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
+		<?php if ($page>1) : ?>
+			<li class="page-item"><a class="page-link" href="<?= $currentUrl . "?page=" .($page-1) ?>">Previous</a></li>
+		<?php endif ?>
+		<?php if (count($speciesList)==10) : ?>
+			<li class="page-item"><a class="page-link" href="<?= $currentUrl . "?page=" .($page+1) ?>">Next</a></li>
+		<?php endif ?>
 		</ul>
 	</nav>
 	<?php if (isset($downloadLink)) : ?>

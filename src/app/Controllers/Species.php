@@ -19,7 +19,7 @@ class Species extends BaseController
 			$name_search_string  = trim($name_search_string);
 
 			// If the search field is empty, go to the begining of the alphabet
-			if (trim($name_search_string) === null)
+			if (empty(trim($name_search_string)))
 			{
 				$name_search_string = "A";
 			}
@@ -59,7 +59,8 @@ class Species extends BaseController
 		$this->data['title'] = $this->data['title'] . " - " . $name_search_string;
 
 
-		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group);
+		$page = ! empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
+		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group, $page);
 		$this->data['speciesList']      = $speciesQueryResult->records;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
 		$this->data['nameSearchString'] = $name_search_string;
@@ -67,9 +68,10 @@ class Species extends BaseController
 		set_cookie("speciesGroup", $species_group, "3600", "localhost", "/", "", false, false, null);
 		$this->data['nameType']     = $name_type;
 		$this->data['speciesGroup'] = $species_group;
+		$this->data['currentUrl']  = strtok($_SERVER["REQUEST_URI"], '?');
+		$this->data['page'] = $page;
 		echo view('species_search', $this->data);
-	}
-
+    }
 
 	/**
 	 * Return the species list for a named site.

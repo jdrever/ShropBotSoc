@@ -1,11 +1,12 @@
 <?php namespace App\Models;
+use CodeIgniter\Model;
 
 /**
  * Provides caching layer on top of the NbnQuery methods
  *
  * TODO: #28 refactoring to implement DRY with repeated caching code
  */
-class NbnQueryCached implements NbnQueryInterface
+class NbnQueryCached extends Model implements NbnQueryInterface
 {
 	/**
 	 * Determines whether caching is active
@@ -14,7 +15,7 @@ class NbnQueryCached implements NbnQueryInterface
 	 * @var    bool
 	 * @access private
 	 */
-	private const CACHE_ACTIVE = false;
+	private const CACHE_ACTIVE = true;
 
 	/**
 	 * Constructor, initiliases NbnQuery
@@ -32,16 +33,17 @@ class NbnQueryCached implements NbnQueryInterface
 	 * @param [string] $nameSearchString the species name
 	 * @param [string] $nameType         scientific or common
 	 * @param [string] $speciesGroup     plants, bryophytes or both
+	 * @param int      $page             the page of results to return
 	 *
 	 * @return nbnQueryResult
 	 */
-	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup)
+	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
 	{
 		$nameSearchString = ucfirst($nameSearchString); //because the API respects the case
-		$cacheName         = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString";
+		$cacheName         = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
-			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup);
+			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page);
 			if (self::CACHE_ACTIVE)
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);

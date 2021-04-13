@@ -2,7 +2,7 @@
 
 interface NbnQueryInterface
 {
-  public function getSpeciesListForCounty($name_search_string, $name_type, $species_group);
+  public function getSpeciesListForCounty($name_search_string, $name_type, $species_group,$page);
   public function getSingleSpeciesRecordsForCounty($species_name);
   public function getSingleOccurenceRecord($uuid);
 
