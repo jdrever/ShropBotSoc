@@ -124,6 +124,12 @@ class NbnRecords
 		return $queryString;
 	}
 
+	public function getPagingQueryStringWithStart($start)
+	{
+		$pagingQuery = $this->getPagingQueryString();
+		return $pagingQuery .= "&start=" . $start;
+	}
+
 	/**
 	 * Return the query string for downloading the data
 	 *

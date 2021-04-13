@@ -1,9 +1,10 @@
 <?php namespace App\Models;
+use CodeIgniter\Model;
 
 /**
  * Provides caching layer on top of the NbnQuery methods
  */
-class NbnQueryCached implements NbnQueryInterface
+class NbnQueryCached extends Model implements NbnQueryInterface
 {
 
   function __construct() {

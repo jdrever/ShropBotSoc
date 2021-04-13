@@ -50,5 +50,4 @@ class BaseController extends Controller
 	{
 		return $_SERVER['REQUEST_METHOD'] === 'POST';
 	}
-
 }
