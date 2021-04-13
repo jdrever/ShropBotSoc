@@ -57,9 +57,6 @@ class Species extends BaseController
 	public function listForCounty($name_search_string, $species_group, $name_type)
 	{
 		$this->data['title'] = $this->data['title'] . " - " . $name_search_string;
-
-
-		$page = ! empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
 		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group, $page);
 		$this->data['speciesList']      = $speciesQueryResult->records;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
@@ -68,8 +65,7 @@ class Species extends BaseController
 		set_cookie("speciesGroup", $species_group, "3600", "localhost", "/", "", false, false, null);
 		$this->data['nameType']     = $name_type;
 		$this->data['speciesGroup'] = $species_group;
-		$this->data['currentUrl']  = strtok($_SERVER["REQUEST_URI"], '?');
-		$this->data['page'] = $page;
+		$this->data['page'] = $this->page;
 		echo view('species_search', $this->data);
     }
 
