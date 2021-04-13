@@ -29,7 +29,7 @@
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte" <?= set_radio('name-type', 'axiophyte'); ?> />
+			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte" <?= set_radio('name-type', 'axiophyte'); ?> disabled/>
 			<label class="form-check-label" for="axiophyte-name">
 				<span class="d-lg-none">axiophyte names</span>
 				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
