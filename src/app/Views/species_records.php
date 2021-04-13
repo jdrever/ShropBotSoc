@@ -84,7 +84,7 @@
 	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
 		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 		maxZoom: 18,
-		id: "mapbox/streets-v11",
+		id: "mapbox/outdoors-v11",
 		tileSize: 512,
 		zoomOffset: -1,
 		accessToken: "pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw"
@@ -94,12 +94,12 @@
 	const graticule10km = L.osGraticule({
 		interval: 10000,
 		minZoom: 8,
-		maxZoom: 10,
+		maxZoom: 11,
 	});
 
 	const graticule1km = L.osGraticule({
 		interval: 1000,
-		minZoom: 10,
+		minZoom: 11,
 		maxZoom: 15,
 	});
 
