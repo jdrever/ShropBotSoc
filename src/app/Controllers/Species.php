@@ -67,7 +67,8 @@ class Species extends BaseController
 		set_cookie("speciesGroup", $species_group, "3600", "localhost", "/", "", false, false, null);
 		$this->data['nameType']     = $name_type;
 		$this->data['speciesGroup'] = $species_group;
-		$this->data['currentPage']  = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$this->data['currentUrl']  = strtok($_SERVER["REQUEST_URI"], '?');
+		$this->data['page'] = ! empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
 		echo view('species_search', $this->data);
     }
 
