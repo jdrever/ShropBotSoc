@@ -21,4 +21,3 @@ class NbnQueryResult
 		return array_slice( $this->records, $offset, $limit );
 	}
 }
-

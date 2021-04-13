@@ -24,27 +24,27 @@ class NbnQuery implements NbnQueryInterface
 		//because the API respects the case
 		$name_search_string = ucfirst($name_search_string);
 
-		if ($speciesGroup=="both")
+		if ($speciesGroup === "both")
 		{
-			$speciesGroup='Plants+Bryophytes';
+			$speciesGroup = 'Plants+Bryophytes';
 		}
 		else
 		{
-			$speciesGroup=ucfirst($speciesGroup);
+			$speciesGroup = ucfirst($speciesGroup);
 		}
-		$nbn_records        = new NbnRecords('explore/group/ALL_SPECIES');
+		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
 
-		if ($nameType=="scientific")
+		if ($nameType === "scientific")
 		{
 			$nbn_records
-				->add('taxon_name:' . str_replace(" ", "+%2B",$name_search_string) . '*')
+				->add('taxon_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
 				->sort = "taxon_name";
 		}
 
-		if ($nameType=="common")
+		if ($nameType === "common")
 		{
 			$nbn_records
-				->add('common_name:' . str_replace(" ", "+%2B",$name_search_string) . '*')
+				->add('common_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
 				->sort = "common_name";
 		}
 		$nbn_records->add('species_group:' . $speciesGroup);
@@ -53,9 +53,9 @@ class NbnQuery implements NbnQueryInterface
 		$species_list_json = file_get_contents($query_url);
 		$species_list      = json_decode($species_list_json);
 
-		$speciesQueryResult=new NbnQueryResult();
-		$speciesQueryResult->records=$species_list;
-		$speciesQueryResult->downloadLink=$nbn_records->getDownloadQueryString();
+		$speciesQueryResult               = new NbnQueryResult();
+		$speciesQueryResult->records      = $species_list;
+		$speciesQueryResult->downloadLink = $nbn_records->getDownloadQueryString();
 		return $speciesQueryResult;
 	}
 
@@ -81,7 +81,7 @@ class NbnQuery implements NbnQueryInterface
 		$record_list  = json_decode($records_json)->occurrences;
 		usort($record_list, function ($a, $b) {
 			return $b->year <=> $a->year;
-		  });
+		});
 		$records['download_link'] = $nbn_records->getDownloadQueryString();
 
 		foreach ($record_list as $record)
