@@ -65,33 +65,33 @@ class NbnQuery implements NbnQueryInterface
 	 *
 	 * The taxon needs to be in double quotes so the complete string is searched for rather than a partial.
 	 */
-	public function getSingleSpeciesRecordsForCounty($species_name)
+	public function getSingleSpeciesRecordsForCounty($speciesName, $page)
 	{
 		// mainly to replace the spaces with %20
-		$species_name       = rawurlencode($species_name);
-		$nbn_records        = new NbnRecords('occurrences/search');
-		$nbn_records->sort  = "taxon_name";
-		$nbn_records->fsort = "index";
-		$nbn_records
-			->add('taxon_name:' . $species_name)
+		$speciesName       = rawurlencode($speciesName);
+		$nbnRecords        = new NbnRecords('occurrences/search');
+		$nbnRecords->sort  = "taxon_name";
+		$nbnRecords->fsort = "index";
+		$nbnRecords
+			->add('taxon_name:' . $speciesName)
 		;
-		$query_url    = $nbn_records->getPagingQueryString();
-		$records_json = file_get_contents($query_url);
-		$record_list  = json_decode($records_json)->occurrences;
-		usort($record_list, function ($a, $b) {
+		$queryUrl    = $nbnRecords->getPagingQueryStringWithStart($page);
+		$recordsJson = file_get_contents($queryUrl);
+		$recordList  = json_decode($recordsJson)->occurrences;
+		usort($recordList, function ($a, $b) {
 			return $b->year <=> $a->year;
 		});
-		$records['download_link'] = $nbn_records->getDownloadQueryString();
 
-		foreach ($record_list as $record)
+		foreach ($recordList as $record)
 		{
 			$record->locationId = $record->locationId ?? '';
 			$record->collector  = $record->collector ?? 'Unknown';
 		}
 
-		$records['records_list'] = $record_list;
-
-		return $records;
+		$speciesQueryResult               = new NbnQueryResult();
+		$speciesQueryResult->records      = $recordList;
+		$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
+		return $speciesQueryResult;
 	}
 
 	/**

@@ -59,12 +59,12 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return nbnQueryResult
 	 */
-	public function getSingleSpeciesRecordsForCounty($speciesName)
+	public function getSingleSpeciesRecordsForCounty($speciesName, $page)
 	{
-		$cacheName = "get-single-species-for-county-$speciesName";
+		$cacheName = "get-single-species-for-county-$speciesName-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
-			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForCounty($speciesName);
+			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForCounty($speciesName,$page);
 			if (self::CACHE_ACTIVE)
 			{
 				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
