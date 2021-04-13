@@ -80,7 +80,7 @@
 					<td class="d-none d-md-table-cell"><?= $species->family ?></td>
 					<td><a href="<?= base_url('/species/' . $species->name) ?>"><?= $species->name ?></a></td>
 					<td class="d-none d-sm-table-cell">
-						<a href="<?= base_url('/species/' . $species->name) ?>"><?= $species->commonName ?></a>
+						<a href="<?= base_url('/species/' . $species->name .'?name=common') ?>"><?= $species->commonName ?></a>
 					</td>
 					<td><?= $species->count ?></td>
 				</tr>
