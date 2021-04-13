@@ -19,7 +19,7 @@ class NbnQuery implements NbnQueryInterface
 	 * TODO: Search on axiophytes
 	 * TODO: Only plants, only bryophytes or both
 	 */
-	public function getSpeciesListForCounty($name_search_string, $nameType, $speciesGroup)
+	public function getSpeciesListForCounty($name_search_string, $nameType, $speciesGroup, $page)
 	{
 		//because the API respects the case
 		$name_search_string = ucfirst($name_search_string);
@@ -48,7 +48,6 @@ class NbnQuery implements NbnQueryInterface
 				->sort = "common_name";
 		}
 		$nbn_records->add('species_group:' . $speciesGroup);
-		$page = ! empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
 		$query_url         = $nbn_records->getPagingQueryStringWithStart($page);
 		$species_list_json = file_get_contents($query_url);
 		$species_list      = json_decode($species_list_json);
