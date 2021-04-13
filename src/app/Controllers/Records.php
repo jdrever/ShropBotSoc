@@ -13,9 +13,16 @@ class Records extends BaseController
     public function singleSpeciesForCounty($species_name)
     {
         $this->data['site_name'] = "Shropshire";
-        $this->data['title'] = urldecode($species_name);
-        $this->data['species_name'] = $species_name;
-        $records = $this->nbn->getSingleSpeciesRecordsForCounty($species_name);
+		$this->data['title'] = urldecode($species_name);
+		if (isset($_GET['name']))
+		{
+			$this->data['species_name']=$_GET['name'];
+		}
+		else
+		{
+        	$this->data['species_name'] = $species_name;
+		}
+		$records = $this->nbn->getSingleSpeciesRecordsForCounty($species_name);
         $this->data['download_link'] = $records['download_link'];
         $this->data['records_list'] = $records['records_list'];
         echo view('species_records', $this->data);
