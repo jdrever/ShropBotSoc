@@ -107,7 +107,7 @@ class NbnRecords
 	 * @return string
 	 */
 
-	protected function url()
+	public function url()
 	{
 		return $this::BASE_URL . $this->path;
 	}
