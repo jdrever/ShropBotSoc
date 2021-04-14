@@ -24,7 +24,7 @@
 		<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false">Data</button>
 	</li>
 </ul>
-
+<p><?= $totalRecords?> records</p>
 <div id="tab-content" class="row">
 
 	<div id="map-container" class="tab-pane fade show active col-lg">

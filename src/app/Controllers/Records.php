@@ -24,8 +24,10 @@ class Records extends BaseController
 		}
 		$records = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName,$this->page);
         $this->data['download_link'] = $records->downloadLink;
-        $this->data['recordsList'] = $records->records;
-		$this->data['page'] = $this->page;
+        $this->data['recordsList']   = $records->records;
+		$this->data['page']          = $this->page;
+		$this->data['totalRecords']   = $records->totalRecords;
+		$this->data['totalPages']    = $records->getTotalPages();
         echo view('species_records', $this->data);
     }
 
