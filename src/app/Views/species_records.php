@@ -25,7 +25,7 @@
 	</li>
 </ul>
 <p><?= $totalRecords?> records</p>
-<p><?= $queryUrl?></p>
+
 <div id="tab-content" class="row">
 
 	<div id="map-container" class="tab-pane fade show active col-lg">
