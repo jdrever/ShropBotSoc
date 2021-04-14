@@ -26,7 +26,8 @@ class Records extends BaseController
         $this->data['download_link'] = $records->downloadLink;
         $this->data['recordsList']   = $records->records;
 		$this->data['page']          = $this->page;
-		$this->data['totalRecords']   = $records->totalRecords;
+		$this->data['queryUrl']      = $records->queryUrl;
+		$this->data['totalRecords']  = $records->totalRecords;
 		$this->data['totalPages']    = $records->getTotalPages();
         echo view('species_records', $this->data);
     }

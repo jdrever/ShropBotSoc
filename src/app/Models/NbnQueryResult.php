@@ -6,6 +6,7 @@ class NbnQueryResult
 	public $records;
 	public $downloadLink;
 	public $totalRecords;
+	public $queryUrl;
 
 
 	public function getTotalPages()

@@ -73,7 +73,7 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords->sort  = "taxon_name";
 		$nbnRecords->fsort = "index";
 		$nbnRecords
-			->add('taxon_name:' . $speciesName)
+			->add('taxon_name:' . '"' . $speciesName . '"')
 		;
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$recordsJson        = file_get_contents($queryUrl);
@@ -94,6 +94,7 @@ class NbnQuery implements NbnQueryInterface
 		$speciesQueryResult->records      = $recordList;
 		$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
 		$speciesQueryResult->totalRecords = $totalRecords;
+		$speciesQueryResult->queryUrl     = $queryUrl;
 		return $speciesQueryResult;
 	}
 
