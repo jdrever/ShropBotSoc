@@ -70,8 +70,9 @@ class NbnQuery implements NbnQueryInterface
 		// mainly to replace the spaces with %20
 		$speciesName       = rawurlencode($speciesName);
 		$nbnRecords        = new NbnRecords('occurrences/search');
-		$nbnRecords->sort  = "taxon_name";
+		$nbnRecords->sort  = "year";
 		$nbnRecords->fsort = "index";
+		$nbnRecords->dir   = "desc";
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"')
 		;

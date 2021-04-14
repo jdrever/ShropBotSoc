@@ -68,6 +68,13 @@ class NbnRecords
 	public $sort;
 
 	/**
+	 * The direction of the sort
+	 *
+	 * @var string $dir
+	 */
+	public $dir = 'asc';
+
+	/**
 	 * Constructor
 	 *
 	 * Accepts a path fragment which indicates the NBN Atlas API search type to
@@ -97,6 +104,7 @@ class NbnRecords
 		$queryString .= 'facets=' . $this->facets . '&';
 		$queryString .= 'sort=' . $this->sort . '&';
 		$queryString .= 'fsort=' . $this->fsort . '&';
+		$queryString .= 'dir=' . $this->dir . '&';
 		return $queryString;
 	}
 
