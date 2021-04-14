@@ -8,7 +8,7 @@
 		</svg>
 	</a>
 	<h2>
-		<?= urldecode($species_name) ?> records in
+		<?= urldecode($speciesName) ?> records in
 		<?= urldecode($site_name) ?>
 	</h2>
 </div>
@@ -24,6 +24,7 @@
 		<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false">Data</button>
 	</li>
 </ul>
+<p><?= $totalRecords?> records</p>
 
 <div id="tab-content" class="row">
 
@@ -32,7 +33,7 @@
 	</div>
 
 	<div id="data" class="tab-pane fade show col-lg">
-		<?php if (isset($records_list)) : ?>
+		<?php if (isset($recordsList)) : ?>
 			<table class="table">
 				<thead>
 					<tr>
@@ -44,7 +45,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($records_list as $record) : ?>
+					<?php foreach ($recordsList as $record) : ?>
 						<tr>
 							<td>
 								<a href="/site/<?= $record->locationId ?>/group/plants/type/scientific">
@@ -105,7 +106,7 @@
 
 	//make a dot map layer
 	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?"
-		+ "Q=lsid:<?= $records_list[0]->speciesGuid ?>"
+		+ "Q=lsid:<?= $recordsList[0]->speciesGuid ?>"
 		+ "&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;"
 		+ "gridlabels:true;gridres:singlegrid"
 		+ "&fq=data_resource_uid:dr782";
@@ -161,10 +162,12 @@
 </script>
 <nav>
 	<ul class="pagination justify-content-center">
-		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">Next</a></li>
+<?php if ($page>1) : ?>
+		<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page-1) ?>">Previous</a></li>
+<?php endif ?>
+<?php if (count($recordsList)==10) : ?>
+		<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page+1) ?>">Next</a></li>
+<?php endif ?>
 	</ul>
 </nav>
 

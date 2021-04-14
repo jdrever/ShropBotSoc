@@ -10,33 +10,37 @@ class Records extends BaseController
     /**
      * List the records for a species in the entire dataset
      */
-    public function singleSpeciesForCounty($species_name)
+    public function singleSpeciesForCounty($speciesName)
     {
         $this->data['site_name'] = "Shropshire";
-		$this->data['title'] = urldecode($species_name);
+		$this->data['title'] = urldecode($speciesName);
 		if (isset($_GET['name']))
 		{
-			$this->data['species_name']=$_GET['name'];
+			$this->data['speciesName'] = $_GET['name'];
 		}
 		else
 		{
-        	$this->data['species_name'] = $species_name;
+        	$this->data['speciesName'] = $speciesName;
 		}
-		$records = $this->nbn->getSingleSpeciesRecordsForCounty($species_name);
-        $this->data['download_link'] = $records['download_link'];
-        $this->data['records_list'] = $records['records_list'];
+		$records = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName,$this->page);
+        $this->data['download_link'] = $records->downloadLink;
+        $this->data['recordsList']   = $records->records;
+		$this->data['page']          = $this->page;
+		$this->data['queryUrl']      = $records->queryUrl;
+		$this->data['totalRecords']  = $records->totalRecords;
+		$this->data['totalPages']    = $records->getTotalPages();
         echo view('species_records', $this->data);
     }
 
     /**
      * Display records for a single species for a site
      */
-    public function singleSpeciesForSite($site_name, $species_name)
+    public function singleSpeciesForSite($site_name, $Nme)
     {
         // Map of site
         $this->data['site_name'] = $site_name;
-        $this->data['species_name'] = $species_name;
-        $this->data['records_list'] = $this->nbn->getSingleSpeciesRecordsForSite($site_name, $species_name);
+        $this->data['Nme'] = $Nme;
+        $this->data['records_list'] = $this->nbn->getSingleSpeciesRecordsForSite($site_name, $Nme);
         echo view('species_records', $this->data);
     }
 

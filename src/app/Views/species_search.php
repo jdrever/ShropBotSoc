@@ -94,10 +94,10 @@
 	<nav>
 		<ul class="pagination justify-content-center">
 		<?php if ($page>1) : ?>
-			<li class="page-item"><a class="page-link" href="<?= $currentUrl . "?page=" .($page-1) ?>">Previous</a></li>
+			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page-1) ?>">Previous</a></li>
 		<?php endif ?>
 		<?php if (count($speciesList)==10) : ?>
-			<li class="page-item"><a class="page-link" href="<?= $currentUrl . "?page=" .($page+1) ?>">Next</a></li>
+			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page+1) ?>">Next</a></li>
 		<?php endif ?>
 		</ul>
 	</nav>
