@@ -104,6 +104,7 @@
 	<?php if (isset($downloadLink)) : ?>
 	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 	<?php endif ?>
+
 <?php endif ?>
 
 <?= $this->endSection() ?>

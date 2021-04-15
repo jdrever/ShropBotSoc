@@ -60,6 +60,7 @@ class Species extends BaseController
 		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group, $this->page);
 		$this->data['speciesList']      = $speciesQueryResult->records;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
+		$this->data['queryUrl']         = $speciesQueryResult->queryUrl;
 		$this->data['nameSearchString'] = $name_search_string;
 		set_cookie("nameType", $name_type, "3600", "localhost", "/", "", false, false, null);
 		set_cookie("speciesGroup", $species_group, "3600", "localhost", "/", "", false, false, null);
