@@ -55,6 +55,7 @@ class NbnQuery implements NbnQueryInterface
 		$speciesQueryResult               = new NbnQueryResult();
 		$speciesQueryResult->records      = $species_list;
 		$speciesQueryResult->downloadLink = $nbn_records->getDownloadQueryString();
+		$speciesQueryResult->queryUrl     = $query_url;
 		return $speciesQueryResult;
 	}
 
@@ -71,7 +72,7 @@ class NbnQuery implements NbnQueryInterface
 		$speciesName       = rawurlencode($speciesName);
 		$nbnRecords        = new NbnRecords('occurrences/search');
 		$nbnRecords->sort  = "year";
-		$nbnRecords->fsort = "index";
+		// $nbnRecords->fsort = "index";
 		$nbnRecords->dir   = "desc";
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"')
