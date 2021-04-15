@@ -135,7 +135,7 @@ class NbnRecords
 	public function getPagingQueryStringWithStart($start)
 	{
 		$pagingQuery = $this->getPagingQueryString();
-		return $pagingQuery .= "&start=" . $start;
+		return $pagingQuery .= "&start=" . (($start - 1) * $this->pageSize);
 	}
 
 	/**
