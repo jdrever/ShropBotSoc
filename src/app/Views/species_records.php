@@ -37,8 +37,8 @@
 				<thead>
 					<tr>
 						<th>Site</th>
-						<th>Square</th>
-						<th>Collector</th>
+						<th class="d-none d-sm-table-cell">Square</th>
+						<th class="d-none d-md-table-cell">Collector</th>
 						<th>Year</th>
 						<th>Details</th>
 					</tr>
@@ -51,12 +51,12 @@
 									<?= $record->locationId ?>
 								</a>
 							</td>
-							<td>
+							<td class="d-none d-sm-table-cell">
 								<a href="/square/<?= $record->gridReference ?>/group/plants/type/scientific">
 									<?= $record->gridReference ?>
 								</a>
 							</td>
-							<td>
+							<td class="d-none d-md-table-cell">
 								<?= $record->collector ?>
 							</td>
 							<td>
