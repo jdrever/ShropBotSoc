@@ -105,7 +105,10 @@ class NbnRecords
 		$queryString .= 'sort=' . $this->sort . '&';
 		$queryString .= 'fsort=' . $this->fsort . '&';
 		$queryString .= 'dir=' . $this->dir . '&';
-		return $queryString;
+
+		// Use strip_quotes() helper to remove quotes because they cause errors
+		helper('text');
+		return strip_quotes($queryString);
 	}
 
 	/**
