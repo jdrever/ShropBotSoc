@@ -24,7 +24,7 @@
 		<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false">Data</button>
 	</li>
 </ul>
-<p><?= $totalRecords?> records</p>
+<p><?= $totalRecords ?> records</p>
 <div id="tab-content" class="row">
 
 	<div id="map-container" class="tab-pane fade show active col-lg">
@@ -104,11 +104,11 @@
 	});
 
 	//make a dot map layer
-	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?"
-		+ "Q=lsid:<?= $recordsList[0]->speciesGuid ?>"
-		+ "&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;"
-		+ "gridlabels:true;gridres:singlegrid"
-		+ "&fq=data_resource_uid:dr782";
+	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?" +
+		"Q=lsid:<?= $recordsList[0]->speciesGuid ?>" +
+		"&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;" +
+		"gridlabels:true;gridres:singlegrid" +
+		"&fq=data_resource_uid:dr782";
 
 	const species = L.tileLayer.wms(wmsUrl, {
 		"layers": "ALA:occurrences",
@@ -161,12 +161,12 @@
 </script>
 <nav>
 	<ul class="pagination justify-content-center">
-<?php if ($page>1) : ?>
-		<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page-1) ?>">Previous</a></li>
-<?php endif ?>
-<?php if (count($recordsList)==10) : ?>
-		<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page+1) ?>">Next</a></li>
-<?php endif ?>
+		<?php if ($page > 1) : ?>
+			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page - 1) ?>">Previous</a></li>
+		<?php endif ?>
+		<?php if (count($recordsList) === 10) : ?>
+			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page + 1) ?>">Next</a></li>
+		<?php endif ?>
 	</ul>
 </nav>
 

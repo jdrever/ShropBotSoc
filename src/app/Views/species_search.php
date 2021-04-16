@@ -29,18 +29,14 @@
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte" <?= set_radio('name-type', 'axiophyte'); ?> disabled/>
+			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte" <?= set_radio('name-type', 'axiophyte'); ?> disabled />
 			<label class="form-check-label" for="axiophyte-name">
 				<span class="d-lg-none">axiophyte names</span>
 				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
 			</label>
 		</div>
 	</div>
-<!-- </div>
-<div class="row"> -->
 	<div class="form-group col-sm-4 col-lg-3">
-		<!-- <label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label> -->
-
 		<div class="form-check">
 			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants" <?= set_radio('groups', 'plants', $speciesGroup === 'plants'); ?> />
 			<label class="form-check-label" for="plants">
@@ -56,7 +52,7 @@
 		<div class="form-check">
 			<input class="form-check-input" type="radio" name="species-group" id="both" value="both" <?= set_radio('groups', 'both', $speciesGroup === 'both'); ?> />
 			<label class="form-check-label" for="both">
-			both <span class="d-none d-xl-inline">plants and bryophytes</span>
+				both <span class="d-none d-xl-inline">plants and bryophytes</span>
 			</label>
 		</div>
 
@@ -84,7 +80,7 @@
 					<td class="d-none d-md-table-cell"><?= $species->family ?></td>
 					<td><a href="<?= base_url('/species/' . $species->name) ?>"><?= $species->name ?></a></td>
 					<td class="d-none d-sm-table-cell">
-						<a href="<?= base_url('/species/' . $species->name . '?name=' . $species->commonName ) ?>"><?= $species->commonName ?></a>
+						<a href="<?= base_url('/species/' . $species->name . '?name=' . $species->commonName) ?>"><?= $species->commonName ?></a>
 					</td>
 					<td><?= $species->count ?></td>
 				</tr>
@@ -93,16 +89,16 @@
 	</table>
 	<nav>
 		<ul class="pagination justify-content-center">
-		<?php if ($page>1) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page-1) ?>">Previous</a></li>
-		<?php endif ?>
-		<?php if (count($speciesList)==10) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page+1) ?>">Next</a></li>
-		<?php endif ?>
+			<?php if ($page > 1) : ?>
+				<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page - 1) ?>">Previous</a></li>
+			<?php endif ?>
+			<?php if (count($speciesList) === 10) : ?>
+				<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page + 1) ?>">Next</a></li>
+			<?php endif ?>
 		</ul>
 	</nav>
 	<?php if (isset($downloadLink)) : ?>
-	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+		<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 	<?php endif ?>
 
 <?php endif ?>
