@@ -1,5 +1,6 @@
-<?php namespace App\Models;
+<?php
 
+namespace App\Models;
 
 class NbnQueryResult
 {
@@ -8,10 +9,9 @@ class NbnQueryResult
 	public $totalRecords;
 	public $queryUrl;
 
-
 	public function getTotalPages()
 	{
 		$limit = 10; //per page
-		return ceil( $this->totalRecords / $limit ); //calculate total pages
+		return ceil($this->totalRecords / $limit); //calculate total pages
 	}
 }

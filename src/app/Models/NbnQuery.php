@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use App\Libraries\NbnRecords;
 
@@ -69,14 +71,13 @@ class NbnQuery implements NbnQueryInterface
 	public function getSingleSpeciesRecordsForCounty($speciesName, $page)
 	{
 		// mainly to replace the spaces with %20
-		$speciesName       = rawurlencode($speciesName);
-		$nbnRecords        = new NbnRecords('occurrences/search');
-		$nbnRecords->sort  = "year";
+		$speciesName      = rawurlencode($speciesName);
+		$nbnRecords       = new NbnRecords('occurrences/search');
+		$nbnRecords->sort = "year";
+		$nbnRecords->dir  = "desc";
 		// $nbnRecords->fsort = "index";
-		$nbnRecords->dir   = "desc";
 		$nbnRecords
-			->add('taxon_name:' . '"' . $speciesName . '"')
-		;
+			->add('taxon_name:' . '"' . $speciesName . '"');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$recordsJson        = file_get_contents($queryUrl);
 		$recordsJsonDecoded = json_decode($recordsJson);
@@ -124,8 +125,7 @@ class NbnQuery implements NbnQueryInterface
 		$nbn_records->facets   = "location_id";
 		$nbn_records->pageSize = 0;
 		$nbn_records
-			->add('location_id:[' . $site_search_string . '%20TO%20*]')
-		;
+			->add('location_id:[' . $site_search_string . '%20TO%20*]');
 		$query_url  = $nbn_records->getPagingQueryString();
 		$sites_json = file_get_contents($query_url);
 		$sites_list = json_decode($sites_json)->facetResults[0]->fieldResult;
@@ -143,8 +143,7 @@ class NbnQuery implements NbnQueryInterface
 		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
 		$nbn_records
 			->add('location_id:' . urlencode($site_name))
-			->add('species_group:Plants+Bryophytes')
-		;
+			->add('species_group:Plants+Bryophytes');
 		$query_url         = $nbn_records->getPagingQueryString();
 		$species_json      = file_get_contents($query_url);
 		$site_species_list = json_decode($species_json);
@@ -165,5 +164,4 @@ class NbnQuery implements NbnQueryInterface
 	{
 		return null;
 	}
-
 }
