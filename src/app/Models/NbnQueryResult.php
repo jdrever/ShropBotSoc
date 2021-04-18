@@ -5,6 +5,7 @@ namespace App\Models;
 class NbnQueryResult
 {
 	public $records;
+	public $sites;
 	public $downloadLink;
 	public $totalRecords;
 	public $queryUrl;
