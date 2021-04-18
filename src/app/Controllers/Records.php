@@ -16,18 +16,11 @@ class Records extends BaseController
 	{
 		$this->data['site_name'] = "Shropshire";
 		$this->data['title']     = urldecode($speciesName);
-		if (isset($_GET['name']))
-		{
-			$this->data['speciesName'] = $_GET['name'];
-		}
-		else
-		{
-			$this->data['speciesName'] = $speciesName;
-		}
+		$this->data['speciesName']   = $this->request->getVar('name', FILTER_SANITIZE_ENCODED) ?? $speciesName;
 		$records                     = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
 		$this->data['download_link'] = $records->downloadLink;
 		$this->data['recordsList']   = $records->records;
-		$this->data['sites']         = $records->sites;
+    $this->data['sites']         = $records->sites;
 		$this->data['page']          = $this->page;
 		$this->data['queryUrl']      = $records->queryUrl;
 		$this->data['totalRecords']  = $records->totalRecords;
