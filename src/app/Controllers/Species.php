@@ -59,6 +59,7 @@ class Species extends BaseController
 		$this->data['title']            = $this->data['title'] . " - " . $name_search_string;
 		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group, $this->page);
 		$this->data['speciesList']      = $speciesQueryResult->records;
+		$this->data['sites']            = $speciesQueryResult->sites;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
 		$this->data['queryUrl']         = $speciesQueryResult->queryUrl;
 		$this->data['nameSearchString'] = $name_search_string;
