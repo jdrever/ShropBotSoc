@@ -140,6 +140,13 @@
 			map.fitBounds(boundary.getBounds(geojson).pad(0.1));
 		});
 
+	// Plot the sites to the map as markers
+	const sites = <?= json_encode($sites) ?>;
+	const siteMarkers = Object.entries(sites).map(site => {
+		return L.marker([...site[1]]).bindPopup(site[0]);
+	});
+	L.layerGroup([...siteMarkers]).addTo(map);
+
 	// When the page loads or on resize, we check whether we are on small screen
 	// or large. If on large - >= 992px - we remove the tabs; if on small, we
 	// them again.
