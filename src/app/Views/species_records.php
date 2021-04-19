@@ -140,6 +140,24 @@
 			map.fitBounds(boundary.getBounds(geojson).pad(0.1));
 		});
 
+	// Plot page of records on the map with tooltips
+	const records = <?= json_encode($recordsList) ?>;
+
+	const recordMarkers = records.map(record => {
+		const lat = record.decimalLatitude;
+		const lng = record.decimalLongitude;
+		return L.circleMarker([lat, lng], {
+			fillColor: "red",
+			color: "darkRed",
+			fillOpacity: .75
+		}).bindTooltip(`
+			${record.locationId} (${record.gridReference})<br>
+			${record.collector}<br>
+		`);
+	});
+
+	L.layerGroup(recordMarkers).addTo(map);
+
 	// Plot the sites to the map as markers
 	const sites = <?= json_encode($sites) ?>;
 	const siteMarkers = Object.entries(sites).map(site => {
