@@ -143,9 +143,10 @@
 	// Plot the sites to the map as markers
 	const sites = <?= json_encode($sites) ?>;
 	const siteMarkers = Object.entries(sites).map(site => {
-		return L.marker(site[1]).bindPopup(site[0]);
+		return L.circleMarker(site[1]).bindTooltip(site[0]);
 	});
-	L.layerGroup([...siteMarkers]).addTo(map);
+	// Turn off rendering of sites for now
+	// L.layerGroup([...siteMarkers]).addTo(map);
 
 	// When the page loads or on resize, we check whether we are on small screen
 	// or large. If on large - >= 992px - we remove the tabs; if on small, we
