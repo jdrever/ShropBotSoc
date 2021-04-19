@@ -143,7 +143,7 @@
 	// Plot the sites to the map as markers
 	const sites = <?= json_encode($sites) ?>;
 	const siteMarkers = Object.entries(sites).map(site => {
-		return L.marker([...site[1]]).bindPopup(site[0]);
+		return L.marker(site[1]).bindPopup(site[0]);
 	});
 	L.layerGroup([...siteMarkers]).addTo(map);
 
