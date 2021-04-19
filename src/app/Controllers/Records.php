@@ -1,4 +1,6 @@
-<?php namespace App\Controllers;
+<?php
+
+namespace App\Controllers;
 
 /**
  * Manage the records views.
@@ -18,6 +20,7 @@ class Records extends BaseController
 		$records                     = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
 		$this->data['download_link'] = $records->downloadLink;
 		$this->data['recordsList']   = $records->records;
+    $this->data['sites']         = $records->sites;
 		$this->data['page']          = $this->page;
 		$this->data['queryUrl']      = $records->queryUrl;
 		$this->data['totalRecords']  = $records->totalRecords;

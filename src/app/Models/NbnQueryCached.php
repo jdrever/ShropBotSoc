@@ -1,4 +1,7 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
+
 use CodeIgniter\Model;
 
 /**
@@ -18,7 +21,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	private const CACHE_ACTIVE = false;
 
 	/**
-	 * Constructor, initiliases NbnQuery
+	 * Constructor, initialises NbnQuery
 	 *
 	 * @access public
 	 */
@@ -30,17 +33,18 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache the search for species within the county
 	 *
-	 * @param [string] $nameSearchString the species name
-	 * @param [string] $nameType         scientific or common
-	 * @param [string] $speciesGroup     plants, bryophytes or both
-	 * @param int      $page             the page of results to return
+	 * @param string  $nameSearchString The species name
+	 * @param string  $nameType         Scientific or common
+	 * @param string  $speciesGroup     Plants, bryophytes or both
+	 * @param int     $page             The page of results to return
 	 *
-	 * @return nbnQueryResult
+	 * @return NbnQueryResult
 	 */
 	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
 	{
-		$nameSearchString = ucfirst($nameSearchString); //because the API respects the case
-		$cacheName         = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$page";
+		//because the API respects the case
+		$nameSearchString = ucfirst($nameSearchString);
+		$cacheName        = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page);
@@ -55,16 +59,17 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache the single species search within the county
 	 *
-	 * @param [string] $speciesName the name of the species
+	 * @param string $speciesName The name of the species
+	 * @param string $page        The page of results to return
 	 *
-	 * @return nbnQueryResult
+	 * @return NbnQueryResult
 	 */
 	public function getSingleSpeciesRecordsForCounty($speciesName, $page)
 	{
 		$cacheName = "get-single-species-for-county-$speciesName-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
-			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForCounty($speciesName,$page);
+			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForCounty($speciesName, $page);
 			if (self::CACHE_ACTIVE)
 			{
 				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
@@ -76,9 +81,9 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache the single occurence record
 	 *
-	 * @param [string] $uuid the unique id for the occurence
+	 * @param string $uuid the unique id for the occurence
 	 *
-	 * @return [nbnQueryResult]
+	 * @return NbnQueryResult
 	 */
 	public function getSingleOccurenceRecord($uuid)
 	{
@@ -97,9 +102,9 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache the site list for the county
 	 *
-	 * @param [string] $siteSearchString the name of the site
+	 * @param string $siteSearchString The name of the site
 	 *
-	 * @return [nbnQueryResult]
+	 * @return NbnQueryResult
 	 */
 	public function getSiteListForCounty($siteSearchString)
 	{
@@ -119,10 +124,10 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache for site speciest list
 	 *
-	 * @param [string] $sitename     the name of the site
-	 * @param [string] $speciesGroup plants, bryophytes or both
+	 * @param string $siteName     The name of the site
+	 * @param string $speciesGroup Plants, bryophytes or both
 	 *
-	 * @return nbnQueryResult
+	 * @return NbnQueryResult
 	 */
 	public function getSpeciesListForSite($siteName, $speciesGroup)
 	{
@@ -132,7 +137,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 			$speciesList = $this->nbnQuery->getSpeciesListForSite($siteName, $speciesGroup);
 			if (self::CACHE_ACTIVE)
 			{
-				 cache()->save($cacheName, $speciesList, CACHE_LIFE);
+				cache()->save($cacheName, $speciesList, CACHE_LIFE);
 			}
 		}
 		return $speciesList;
@@ -141,10 +146,10 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache the single species record for a site
 	 *
-	 * @param [string] $siteName    the site name
-	 * @param [string] $speciesName the species name
+	 * @param string $siteName    The site name
+	 * @param string $speciesName The species name
 	 *
-	 * @return [nbnQueryResult]
+	 * @return NbnQueryResult
 	 */
 	public function getSingleSpeciesRecordsForSite($siteName, $speciesName)
 	{
@@ -163,12 +168,12 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache species list for square
 	 *
-	 * @param [string] $gridSquare   the grid square
-	 * @param [string] $speciesGroup plants, bryophytes or both
+	 * @param string $gridSquare   The grid square
+	 * @param string $speciesGroup Plants, bryophytes or both
 	 *
-	 * @return [nbnQueryResult]
+	 * @return NbnQueryResult
 	 *
-	 * @TODO: implement speciesGroup filtering
+	 * TODO: implement speciesGroup filtering
 	 */
 	public function getSpeciesListForSquare($gridSquare, $speciesGroup)
 	{
@@ -178,7 +183,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare);
 			if (self::CACHE_ACTIVE)
 			{
-				 cache()->save($cacheName, $speciesList, CACHE_LIFE);
+				cache()->save($cacheName, $speciesList, CACHE_LIFE);
 			}
 		}
 		return $speciesList;
@@ -187,10 +192,10 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	/**
 	 * Cache for single species record in square
 	 *
-	 * @param [string] $gridSquare  the grid square
-	 * @param [string] $speciesName the species name
+	 * @param string $gridSquare  The grid square
+	 * @param string $speciesName The species name
 	 *
-	 * @return nbnQueryResult
+	 * @return NbnQueryResult
 	 */
 	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName)
 	{
@@ -200,7 +205,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName);
 			if (self::CACHE_ACTIVE)
 			{
-				 cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
+				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
 			}
 		}
 		return $speciesRecords;
