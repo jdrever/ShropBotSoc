@@ -45,7 +45,7 @@
 				</thead>
 				<tbody>
 					<?php foreach ($recordsList as $record) : ?>
-						<tr>
+						<tr data-uuid="<?= $record->uuid ?>">
 							<td>
 								<a href="/site/<?= $record->locationId ?>/group/plants/type/scientific">
 									<?= $record->locationId ?>
@@ -146,16 +146,46 @@
 	const recordMarkers = records.map(record => {
 		const lat = record.decimalLatitude;
 		const lng = record.decimalLongitude;
-		return L.circleMarker([lat, lng], {
+
+		const marker = L.circleMarker([lat, lng], {
 			fillColor: "red",
 			color: "darkRed",
 			fillOpacity: .75
-		}).bindTooltip(`
+		});
+
+		marker.uuid = record.uuid;
+
+		marker.bindPopup(`
 			${record.locationId} (${record.gridReference})<br>
 			${record.collector}<br>
 		`);
-	});
 
+		// Events for hovering over markers
+		// marker.on("mouseover", (event) => {
+		// 	const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+		// 	highlightRow.style.backgroundColor = 'rgb(255, 255, 0, 0.5)';
+		// });
+
+		// marker.on("mouseout", (event) => {
+		// 	const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+		// 	highlightRow.style.backgroundColor = 'initial';
+		// })
+
+		// When we open a popup also highlight the corresponding row in the data
+		// table. This is _essential_ for orientation when using tabs on small
+		// screens
+		marker.on("popupopen", (event) => {
+			const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+			highlightRow.style.backgroundColor = 'rgb(255, 255, 0, 0.5)';
+		});
+
+		marker.on("popupclose", (event) => {
+			const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+			highlightRow.style.backgroundColor = 'initial';
+		})
+
+		return marker;
+	});
 	L.layerGroup(recordMarkers).addTo(map);
 
 	// Plot the sites to the map as markers
