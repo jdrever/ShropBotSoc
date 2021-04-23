@@ -52,9 +52,11 @@ class Records extends BaseController
 		$this->data['classification'] = $classification;
 		$title                        = $classification->scientificName . "-" . $occurrence->recordedBy;
 		$this->data['location']       = $record->records->raw->location; # `raw` contains the locationID
-		$this->data['event']          = $record->processed->event;
+		$this->data['event']          = $record->records->processed->event;
 		$this->data['title']          = $title;
-		$this->data['downloadLink']   = $record->downloadLink;
+		//NOTE: the NBN API currently doesn't support a CSV download for
+		//detailed occurance records
+		//$this->data['downloadLink']   = $record->downloadLink;
 		echo view('single_record', $this->data);
 	}
 }

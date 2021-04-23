@@ -79,4 +79,5 @@ $data  = [
 
 <?= $table->generate($data) ?>
 
+
 <?= $this->endSection() ?>
