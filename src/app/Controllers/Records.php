@@ -20,7 +20,7 @@ class Records extends BaseController
 		$records                     = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
 		$this->data['download_link'] = $records->downloadLink;
 		$this->data['recordsList']   = $records->records;
-    $this->data['sites']         = $records->sites;
+    	$this->data['sites']         = $records->sites;
 		$this->data['page']          = $this->page;
 		$this->data['queryUrl']      = $records->queryUrl;
 		$this->data['totalRecords']  = $records->totalRecords;
@@ -46,14 +46,17 @@ class Records extends BaseController
 	public function singleRecord($uuid)
 	{
 		$record                       = $this->nbn->getSingleOccurenceRecord($uuid);
-		$occurrence                   = $record->processed->occurrence;
+		$occurrence                   = $record->records->processed->occurrence;
 		$this->data['occurrence']     = $occurrence;
-		$classification               = $record->processed->classification;
+		$classification               = $record->records->processed->classification;
 		$this->data['classification'] = $classification;
 		$title                        = $classification->scientificName . "-" . $occurrence->recordedBy;
-		$this->data['location']       = $record->raw->location; # `raw` contains the locationID
-		$this->data['event']          = $record->processed->event;
+		$this->data['location']       = $record->records->raw->location; # `raw` contains the locationID
+		$this->data['event']          = $record->records->processed->event;
 		$this->data['title']          = $title;
+		//NOTE: the NBN API currently doesn't support a CSV download for
+		//detailed occurance records
+		//$this->data['downloadLink']   = $record->downloadLink;
 		echo view('single_record', $this->data);
 	}
 }

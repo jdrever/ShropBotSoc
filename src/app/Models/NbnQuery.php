@@ -119,10 +119,15 @@ class NbnQuery implements NbnQueryInterface
 	 */
 	public function getSingleOccurenceRecord($uuid)
 	{
-		$nbn_records = new NbnRecords('occurrence/');
-		$record_json = file_get_contents($nbn_records->url() . $uuid);
-		$record      = json_decode($record_json);
-		return $record;
+		$nbnRecords = new NbnRecords('occurrence/');
+		$recordJson = file_get_contents($nbnRecords->url() . $uuid);
+		$record     = json_decode($recordJson);
+
+		$singleOccurenceResult               = new NbnQueryResult();
+		$singleOccurenceResult->records      = $record;
+		$singleOccurenceResult->downloadLink = $nbnRecords->getDownloadQueryString();
+
+		return $singleOccurenceResult;
 	}
 
 	/**
