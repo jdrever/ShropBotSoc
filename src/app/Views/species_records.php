@@ -45,7 +45,7 @@
 				</thead>
 				<tbody>
 					<?php foreach ($recordsList as $record) : ?>
-						<tr>
+						<tr data-uuid="<?= $record->uuid ?>">
 							<td>
 								<a href="/site/<?= $record->locationId ?>/group/plants/type/scientific">
 									<?= $record->locationId ?>
@@ -140,12 +140,61 @@
 			map.fitBounds(boundary.getBounds(geojson).pad(0.1));
 		});
 
+	// Plot page of records on the map with tooltips
+	const records = <?= json_encode($recordsList) ?>;
+
+	const recordMarkers = records.map(record => {
+		const lat = record.decimalLatitude;
+		const lng = record.decimalLongitude;
+
+		const marker = L.circleMarker([lat, lng], {
+			fillColor: "red",
+			color: "darkRed",
+			fillOpacity: .75
+		});
+
+		marker.uuid = record.uuid;
+
+		marker.bindPopup(`
+			${record.locationId} (${record.gridReference})<br>
+			${record.collector}<br>
+		`);
+
+		// Events for hovering over markers
+		// marker.on("mouseover", (event) => {
+		// 	const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+		// 	highlightRow.style.backgroundColor = 'rgb(255, 255, 0, 0.5)';
+		// });
+
+		// marker.on("mouseout", (event) => {
+		// 	const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+		// 	highlightRow.style.backgroundColor = 'initial';
+		// })
+
+		// When we open a popup also highlight the corresponding row in the data
+		// table. This is _essential_ for orientation when using tabs on small
+		// screens
+		marker.on("popupopen", (event) => {
+			const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+			highlightRow.style.backgroundColor = 'rgb(255, 255, 0, 0.5)';
+		});
+
+		marker.on("popupclose", (event) => {
+			const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+			highlightRow.style.backgroundColor = 'initial';
+		})
+
+		return marker;
+	});
+	L.layerGroup(recordMarkers).addTo(map);
+
 	// Plot the sites to the map as markers
 	const sites = <?= json_encode($sites) ?>;
 	const siteMarkers = Object.entries(sites).map(site => {
-		return L.marker([...site[1]]).bindPopup(site[0]);
+		return L.circleMarker(site[1]).bindTooltip(site[0]);
 	});
-	L.layerGroup([...siteMarkers]).addTo(map);
+	// Turn off rendering of sites for now
+	// L.layerGroup([...siteMarkers]).addTo(map);
 
 	// When the page loads or on resize, we check whether we are on small screen
 	// or large. If on large - >= 992px - we remove the tabs; if on small, we
