@@ -37,7 +37,10 @@ class NbnQuery implements NbnQueryInterface
 		{
 			$speciesGroup = ucfirst($speciesGroup);
 		}
-		$nbnRecords = new NbnRecords('explore/group/ALL_SPECIES');
+		$nbnRecords = new NbnRecords('/occurrences/search');
+		$nbnRecords->facets= 'common_name_and_lsid';
+
+
 
 		if ($nameType === "scientific")
 		{
