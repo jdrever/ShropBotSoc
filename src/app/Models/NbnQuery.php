@@ -17,14 +17,17 @@ class NbnQuery implements NbnQueryInterface
 	 *
 	 * e.g. https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=data_resource_uid:dr782&fq=taxon_name:B* AND species_group:Plants Bryophytes&pageSize=9&sort=
 	 *
+	 * Changing to use:
+	 * https://records-ws.nbnatlas.org/occurrences/search?facets=common_name_and_lsid&q=data_resource_uid:dr782&flimit=-1&fq=common_name:Ivy*%20AND%20species_group:Plants+Bryophytes&fsort=index&pageSize=0
+	 *
 	 * TODO: Search in common names
 	 * TODO: Search on axiophytes
 	 * TODO: Only plants, only bryophytes or both
 	 */
-	public function getSpeciesListForCounty($name_search_string, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
 	{
 		//because the API respects the case
-		$name_search_string = ucfirst($name_search_string);
+		$nameSearchString = ucfirst($nameSearchString);
 
 		if ($speciesGroup === "both")
 		{
@@ -34,30 +37,30 @@ class NbnQuery implements NbnQueryInterface
 		{
 			$speciesGroup = ucfirst($speciesGroup);
 		}
-		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
+		$nbnRecords = new NbnRecords('explore/group/ALL_SPECIES');
 
 		if ($nameType === "scientific")
 		{
-			$nbn_records
-				->add('taxon_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
+			$nbnRecords
+				->add('taxon_name:' . str_replace(" ", "+%2B", $nameSearchString) . '*')
 				->sort = "taxon_name";
 		}
 
 		if ($nameType === "common")
 		{
-			$nbn_records
-				->add('common_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
+			$nbnRecords
+				->add('common_name:' . str_replace(" ", "+%2B", $nameSearchString) . '*')
 				->sort = "common_name";
 		}
-		$nbn_records->add('species_group:' . $speciesGroup);
-		$query_url         = $nbn_records->getPagingQueryStringWithStart($page);
-		$species_list_json = file_get_contents($query_url);
-		$species_list      = json_decode($species_list_json);
+		$nbnRecords->add('species_group:' . $speciesGroup);
+		$queryUrl         = $nbnRecords->getPagingQueryStringWithStart($page);
+		$speciesListJson = file_get_contents($queryUrl);
+		$speciesList      = json_decode($speciesListJson);
 
 		$speciesQueryResult               = new NbnQueryResult();
-		$speciesQueryResult->records      = $species_list;
-		$speciesQueryResult->downloadLink = $nbn_records->getDownloadQueryString();
-		$speciesQueryResult->queryUrl     = $query_url;
+		$speciesQueryResult->records      = $speciesList;
+		$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
+		$speciesQueryResult->queryUrl     = $queryUrl;
 		return $speciesQueryResult;
 	}
 
