@@ -76,11 +76,12 @@
 		</thead>
 		<tbody>
 			<?php foreach ($speciesList as $species) : ?>
+				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
-					<td class="d-none d-md-table-cell"><?= $species->family ?></td>
-					<td><a href="<?= base_url('/species/' . $species->name) ?>"><?= $species->name ?></a></td>
+					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
+					<td><a href="<?= base_url('/species/' . $speciesArray[1]) ?>"><?= $speciesArray[1] ?></a></td>
 					<td class="d-none d-sm-table-cell">
-						<a href="<?= base_url('/species/' . $species->name . '?name=' . $species->commonName) ?>"><?= $species->commonName ?></a>
+						<a href="<?= base_url('/species/' . $speciesArray[0] . '?name=' . $speciesArray[0]) ?>"><?= $speciesArray[0] ?></a>
 					</td>
 					<td><?= $species->count ?></td>
 				</tr>

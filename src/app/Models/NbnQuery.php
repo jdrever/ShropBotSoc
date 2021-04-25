@@ -37,10 +37,9 @@ class NbnQuery implements NbnQueryInterface
 		{
 			$speciesGroup = ucfirst($speciesGroup);
 		}
-		$nbnRecords = new NbnRecords('/occurrences/search');
-		$nbnRecords->facets= 'common_name_and_lsid';
-
-
+		$nbnRecords           = new NbnRecords('/occurrences/search');
+		$nbnRecords->facets   = 'common_name_and_lsid';
+		$nbnRecords->pageSize = 0;
 
 		if ($nameType === "scientific")
 		{
@@ -61,7 +60,7 @@ class NbnQuery implements NbnQueryInterface
 		$speciesList      = json_decode($speciesListJson);
 
 		$speciesQueryResult               = new NbnQueryResult();
-		$speciesQueryResult->records      = $speciesList;
+		$speciesQueryResult->records      = $speciesList->facetResults[0]->fieldResult;
 		$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
 		$speciesQueryResult->queryUrl     = $queryUrl;
 		return $speciesQueryResult;
