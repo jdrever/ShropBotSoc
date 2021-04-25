@@ -39,7 +39,8 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbnRecords           = new NbnRecords('/occurrences/search');
 		$nbnRecords->facets   = 'common_name_and_lsid';
-		$nbnRecords->pageSize = 0;
+		$nbnRecords->flimit   = '10';
+		//$nbnRecords->pageSize = 10;
 
 		if ($nameType === "scientific")
 		{
@@ -55,14 +56,22 @@ class NbnQuery implements NbnQueryInterface
 				->sort = "common_name";
 		}
 		$nbnRecords->add('species_group:' . $speciesGroup);
-		$queryUrl         = $nbnRecords->getPagingQueryStringWithStart($page);
-		$speciesListJson = file_get_contents($queryUrl);
-		$speciesList      = json_decode($speciesListJson);
+		$queryUrl            = $nbnRecords->getPagingQueryStringWithFacetStart($page);
+		$speciesListJson     = file_get_contents($queryUrl);
+		$speciesList         = json_decode($speciesListJson);
+		$speciesQueryResult  = new NbnQueryResult();
 
-		$speciesQueryResult               = new NbnQueryResult();
-		$speciesQueryResult->records      = $speciesList->facetResults[0]->fieldResult;
-		$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
-		$speciesQueryResult->queryUrl     = $queryUrl;
+		if (count($speciesList->facetResults) > 0)
+		{
+			$speciesQueryResult->records = $speciesList->facetResults[0]->fieldResult;
+		}
+		else
+		{
+			$speciesQueryResult->records = [];
+		}
+			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
+			$speciesQueryResult->queryUrl     = $queryUrl;
+
 		return $speciesQueryResult;
 	}
 

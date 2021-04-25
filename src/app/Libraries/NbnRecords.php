@@ -151,6 +151,13 @@ class NbnRecords
 		return $pagingQuery .= "&start=" . (($start - 1) * $this->pageSize);
 	}
 
+	public function getPagingQueryStringWithFacetStart($start)
+	{
+		$pagingQuery = $this->getPagingQueryString();
+		return $pagingQuery .= "&facet.offset=" . (($start - 1) * $this->pageSize);
+	}
+
+
 	/**
 	 * Return the query string for downloading the data
 	 *
