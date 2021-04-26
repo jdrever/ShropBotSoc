@@ -31,7 +31,7 @@ class NbnQuery implements NbnQueryInterface
 
 		if ($speciesGroup === "both")
 		{
-			$speciesGroup = 'Plants+Bryophytes';
+			$speciesGroup = 'Plants+OR+Bryophytes';
 		}
 		else
 		{
@@ -62,9 +62,9 @@ class NbnQuery implements NbnQueryInterface
 
 		if ($nbnQueryResponse->status === 'OK')
 		{
-			if (isset($speciesList->facetResults))
+			if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
 			{
-				$speciesQueryResult->records = $speciesList->facetResults[0]->fieldResult;
+				$speciesQueryResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
 			}
 			else
 			{
@@ -176,7 +176,7 @@ class NbnQuery implements NbnQueryInterface
 		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
 		$nbn_records
 			->add('location_id:' . urlencode($site_name))
-			->add('species_group:Plants+Bryophytes');
+			->add('species_group:Plants+OR+Bryophytes');
 		$query_url         = $nbn_records->getPagingQueryString();
 		$species_json      = file_get_contents($query_url);
 		$site_species_list = json_decode($species_json);
@@ -212,13 +212,13 @@ class NbnQuery implements NbnQueryInterface
 		$searchWords  = explode(' ', $searchString);
 		if (count($searchWords) === 1)
 		{
-			return $searchString;
+			return $searchString . '*';
 		}
 		$preparedSearchString = $searchWords[0] . '*';
 		unset($searchWords[0]);
 		foreach ($searchWords as $searchWord)
 		{
-			$preparedSearchString .= ' AND '. $searchWord;
+			$preparedSearchString .= '+AND+'. $searchWord;
 		}
 		$preparedSearchString = str_replace(' ', '+%2B', $preparedSearchString);
 		return $preparedSearchString;
@@ -228,8 +228,16 @@ class NbnQuery implements NbnQueryInterface
 		$nbnApiResponse = new NbnApiResponse();
 		try
 		{
-			$jsonResults                  = file_get_contents($queryUrl);
-			$nbnApiResponse->jsonResponse = json_decode($jsonResults);
+			$jsonResults  = file_get_contents($queryUrl);
+			$jsonResponse = json_decode($jsonResults);
+
+			if ($jsonResponse->status === 'ERROR')
+			{
+				$nbnApiResponse->status  = 'ERROR';
+				$nbnApiResponse->message = $jsonResponse->errorMessage;
+			}
+
+			$nbnApiResponse->jsonResponse = $jsonResponse;
 			$nbnApiResponse->status       = 'OK';
 		}
 		catch (\Throwable $e)
@@ -240,7 +248,7 @@ class NbnQuery implements NbnQueryInterface
 			{
 				$errorMessage = 'It looks like there is a problem with the query.  Here are the details: ' . $errorMessage;
 			}
-			if (strpos($errorMessage, '500') !== false)
+			if (strpos($errorMessage, '500') !== false||strpos($errorMessage, '503') !== false)
 			{
 				$errorMessage = 'It looks like there is a problem with the NBN API.  Here are the details: ' . $errorMessage;
 			}
