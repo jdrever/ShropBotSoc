@@ -109,9 +109,11 @@
 		<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 	<?php endif ?>
 <?php else: ?>
+	<?php if (! empty($nameSearchString)) : ?>
 	<div class="alert alert-warning" role="alert">
 		No records could be found matching those criteria.
 	</div>
+	<?php endif ?>
 <?php endif ?>
 
 <?= $this->endSection() ?>
