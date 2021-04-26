@@ -57,7 +57,7 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbnRecords->add('species_group:' . $speciesGroup);
 		$queryUrl            = $nbnRecords->getPagingQueryStringWithFacetStart($page);
-		$nbnQueryResponse  = $this->callNbnApi($query_url);
+		$nbnQueryResponse  = $this->callNbnApi($queryUrl);
 		$speciesQueryResult  = new NbnQueryResult();
 
 		if ($nbnQueryResponse->status === 'OK')
