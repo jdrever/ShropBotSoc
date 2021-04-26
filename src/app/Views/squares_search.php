@@ -2,6 +2,11 @@
 <?= $this->section('content') ?>
 
 <h2>Find A Square</h2>
+
+<div class="alert alert-info" role="alert">
+	PLEASE NOTE: this page is currently still under development and may not return accurate information.
+</div>
+
 <div class="form-group row">
 	<label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label>
 	<div class="col-md-10">
