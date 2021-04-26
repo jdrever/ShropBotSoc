@@ -17,51 +17,64 @@ class NbnQuery implements NbnQueryInterface
 	 *
 	 * e.g. https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=data_resource_uid:dr782&fq=taxon_name:B* AND species_group:Plants Bryophytes&pageSize=9&sort=
 	 *
+	 * Changing to use:
+	 * https://records-ws.nbnatlas.org/occurrences/search?facets=common_name_and_lsid&q=data_resource_uid:dr782&flimit=-1&fq=common_name:Ivy*%20AND%20species_group:Plants+Bryophytes&fsort=index&pageSize=0
+	 *
 	 * TODO: Search in common names
 	 * TODO: Search on axiophytes
 	 * TODO: Only plants, only bryophytes or both
 	 */
-	public function getSpeciesListForCounty($name_search_string, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
 	{
 		//because the API respects the case
-		$name_search_string = ucfirst($name_search_string);
+		$nameSearchString = ucfirst($nameSearchString);
 
 		if ($speciesGroup === "both")
 		{
-			$speciesGroup = 'Plants+Bryophytes';
+			$speciesGroup = 'Plants+OR+Bryophytes';
 		}
 		else
 		{
 			$speciesGroup = ucfirst($speciesGroup);
 		}
-		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
+		$nbnRecords           = new NbnRecords('/occurrences/search');
+		$nbnRecords->facets   = 'common_name_and_lsid';
+		$nbnRecords->flimit   = '10';
+		//$nbnRecords->pageSize = 10;
 
 		if ($nameType === "scientific")
 		{
-			$nbn_records
-				->add('taxon_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
+			$nbnRecords
+				->add('taxon_name:' . $this->prepareSearchString($nameSearchString))
 				->sort = "taxon_name";
 		}
 
 		if ($nameType === "common")
 		{
-			$nbn_records
-				->add('common_name:' . str_replace(" ", "+%2B", $name_search_string) . '*')
+			$nbnRecords
+				->add('common_name:' . $this->prepareSearchString($nameSearchString))
 				->sort = "common_name";
 		}
-		$nbn_records->add('species_group:' . $speciesGroup);
-		$query_url         = $nbn_records->getPagingQueryStringWithStart($page);
-		$nbnQueryResponse  = $this->callNbnApi($query_url);
+		$nbnRecords->add('species_group:' . $speciesGroup);
+		$queryUrl            = $nbnRecords->getPagingQueryStringWithFacetStart($page);
+		$nbnQueryResponse  = $this->callNbnApi($queryUrl);
+		$speciesQueryResult  = new NbnQueryResult();
 
-		$speciesQueryResult               = new NbnQueryResult();
 		if ($nbnQueryResponse->status === 'OK')
 		{
-			$speciesQueryResult->records      = $nbnQueryResponse->jsonResponse;
-			$speciesQueryResult->downloadLink = $nbn_records->getDownloadQueryString();
+			if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+			{
+				$speciesQueryResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+			}
+			else
+			{
+				$speciesQueryResult->records = [];
+			}
+			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
 		}
 		$speciesQueryResult->status   = $nbnQueryResponse->status;
 		$speciesQueryResult->message  = $nbnQueryResponse->message;
-		$speciesQueryResult->queryUrl = $query_url;
+		$speciesQueryResult->queryUrl     = $queryUrl;
 		return $speciesQueryResult;
 	}
 
@@ -163,7 +176,7 @@ class NbnQuery implements NbnQueryInterface
 		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
 		$nbn_records
 			->add('location_id:' . urlencode($site_name))
-			->add('species_group:Plants+Bryophytes');
+			->add('species_group:Plants+OR+Bryophytes');
 		$query_url         = $nbn_records->getPagingQueryString();
 		$species_json      = file_get_contents($query_url);
 		$site_species_list = json_decode($species_json);
@@ -185,13 +198,46 @@ class NbnQuery implements NbnQueryInterface
 		return null;
 	}
 
+	/**
+	 * Deals with multi-word search terms and prepares
+	 * theme for use by the NBN API by adding ANDs
+	 *
+	 * @param string $searchString the search term to prepare
+	 *
+	 * @return string the prepared search search name
+	 */
+	private function prepareSearchString($searchString)
+	{
+
+		$searchWords  = explode(' ', $searchString);
+		if (count($searchWords) === 1)
+		{
+			return $searchString . '*';
+		}
+		$preparedSearchString = $searchWords[0] . '*';
+		unset($searchWords[0]);
+		foreach ($searchWords as $searchWord)
+		{
+			$preparedSearchString .= '+AND+'. $searchWord;
+		}
+		$preparedSearchString = str_replace(' ', '+%2B', $preparedSearchString);
+		return $preparedSearchString;
+	}
 	private function callNbnApi($queryUrl)
 	{
 		$nbnApiResponse = new NbnApiResponse();
 		try
 		{
-			$jsonResults                  = file_get_contents($queryUrl);
-			$nbnApiResponse->jsonResponse = json_decode($jsonResults);
+			$jsonResults  = file_get_contents($queryUrl);
+			$jsonResponse = json_decode($jsonResults);
+
+			if ($jsonResponse->status === 'ERROR')
+			{
+				$nbnApiResponse->status  = 'ERROR';
+				$nbnApiResponse->message = $jsonResponse->errorMessage;
+			}
+
+			$nbnApiResponse->jsonResponse = $jsonResponse;
 			$nbnApiResponse->status       = 'OK';
 		}
 		catch (\Throwable $e)
@@ -202,7 +248,7 @@ class NbnQuery implements NbnQueryInterface
 			{
 				$errorMessage = 'It looks like there is a problem with the query.  Here are the details: ' . $errorMessage;
 			}
-			if (strpos($errorMessage, '500') !== false)
+			if (strpos($errorMessage, '500') !== false||strpos($errorMessage, '503') !== false)
 			{
 				$errorMessage = 'It looks like there is a problem with the NBN API.  Here are the details: ' . $errorMessage;
 			}

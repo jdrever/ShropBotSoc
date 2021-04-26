@@ -75,6 +75,13 @@ class NbnRecords
 	public $dir = 'asc';
 
 	/**
+	 * TODO: Describe what the $flimit variable is for
+	 *
+	 * @var int $flimit
+	 */
+	public $flimit;
+
+	/**
 	 * Constructor
 	 *
 	 * Accepts a path fragment which indicates the NBN Atlas API search type to
@@ -105,6 +112,12 @@ class NbnRecords
 		$queryString .= 'sort=' . $this->sort . '&';
 		$queryString .= 'fsort=' . $this->fsort . '&';
 		$queryString .= 'dir=' . $this->dir . '&';
+
+		if (isset($this->flimit))
+		{
+			$queryString .= 'flimit=' . $this->flimit . '&';
+		}
+
 		return $queryString;
 	}
 
@@ -137,6 +150,13 @@ class NbnRecords
 		$pagingQuery = $this->getPagingQueryString();
 		return $pagingQuery .= "&start=" . (($start - 1) * $this->pageSize);
 	}
+
+	public function getPagingQueryStringWithFacetStart($start)
+	{
+		$pagingQuery = $this->getPagingQueryString();
+		return $pagingQuery .= "&facet.offset=" . (($start - 1) * $this->pageSize);
+	}
+
 
 	/**
 	 * Return the query string for downloading the data
