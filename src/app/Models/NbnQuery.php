@@ -51,7 +51,7 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbn_records->add('species_group:' . $speciesGroup);
 		$query_url         = $nbn_records->getPagingQueryStringWithStart($page);
-		$nbnQueryResponse  = callNbnApi($query_url);
+		$nbnQueryResponse  = $this->callNbnApi($query_url);
 
 		$speciesQueryResult               = new NbnQueryResult();
 		if ($nbnQueryResponse->status === 'OK')
@@ -194,10 +194,19 @@ class NbnQuery implements NbnQueryInterface
 			$nbnApiResponse->jsonResponse = json_decode($jsonResults);
 			$nbnApiResponse->status       = 'OK';
 		}
-		catch (\Exception $e)
+		catch (\Throwable $e)
 		{
-			$nbnApiResponse->status  = 'OK';
-			$nbnApiResponse->message = $e->getMessage();
+			$nbnApiResponse->status = 'ERROR';
+			$errorMessage           = $e->getMessage();
+			if (strpos($errorMessage, '400 Bad Request') !== false)
+			{
+				$errorMessage = 'It looks like there is a problem with the query.  Here are the details: ' . $errorMessage;
+			}
+			if (strpos($errorMessage, '500') !== false)
+			{
+				$errorMessage = 'It looks like there is a problem with the NBN API.  Here are the details: ' . $errorMessage;
+			}
+			$nbnApiResponse->message = $errorMessage;
 		}
 		return $nbnApiResponse;
 	}

@@ -26,6 +26,12 @@
 	</div>
 </div>
 
+<?php if (isset($message)) : ?>
+	<div class="alert alert-danger" role="alert">
+		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
+	</div>
+<?php endif ?>
+
 <div id="mapid" style="height: 300px;"></div>
 <script>
 	var mymap = L.map('mapid').setView([52.6, -3.0], 9);
