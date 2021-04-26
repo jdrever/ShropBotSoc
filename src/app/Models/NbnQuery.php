@@ -45,14 +45,14 @@ class NbnQuery implements NbnQueryInterface
 		if ($nameType === "scientific")
 		{
 			$nbnRecords
-				->add('taxon_name:' . str_replace(" ", "+%2B", $nameSearchString) . '*')
+				->add('taxon_name:' . $this->prepareSearchString($nameSearchString))
 				->sort = "taxon_name";
 		}
 
 		if ($nameType === "common")
 		{
 			$nbnRecords
-				->add('common_name:' . str_replace(" ", "+%2B", $nameSearchString) . '*')
+				->add('common_name:' . $this->prepareSearchString($nameSearchString))
 				->sort = "common_name";
 		}
 		$nbnRecords->add('species_group:' . $speciesGroup);
@@ -61,7 +61,7 @@ class NbnQuery implements NbnQueryInterface
 		$speciesList         = json_decode($speciesListJson);
 		$speciesQueryResult  = new NbnQueryResult();
 
-		if (count($speciesList->facetResults) > 0)
+		if (isset($speciesList->facetResults))
 		{
 			$speciesQueryResult->records = $speciesList->facetResults[0]->fieldResult;
 		}
@@ -193,5 +193,31 @@ class NbnQuery implements NbnQueryInterface
 	public function getSingleSpeciesRecordsForSquare($grid_square, $species_name)
 	{
 		return null;
+	}
+
+	/**
+	 * Deals with multi-word search terms and prepares
+	 * theme for use by the NBN API by adding ANDs
+	 *
+	 * @param string $searchString the search term to prepare
+	 *
+	 * @return string the prepared search search name
+	 */
+	private function prepareSearchString($searchString)
+	{
+
+		$searchWords  = explode(' ', $searchString);
+		if (count($searchWords) === 1)
+		{
+			return $searchString;
+		}
+		$preparedSearchString = $searchWords[0] . '*';
+		unset($searchWords[0]);
+		foreach ($searchWords as $searchWord)
+		{
+			$preparedSearchString .= ' AND '. $searchWord;
+		}
+		$preparedSearchString = str_replace(' ', '+%2B', $preparedSearchString);
+		return $preparedSearchString;
 	}
 }
