@@ -51,13 +51,17 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbn_records->add('species_group:' . $speciesGroup);
 		$query_url         = $nbn_records->getPagingQueryStringWithStart($page);
-		$species_list_json = file_get_contents($query_url);
-		$species_list      = json_decode($species_list_json);
+		$nbnQueryResponse  = callNbnApi($query_url);
 
 		$speciesQueryResult               = new NbnQueryResult();
-		$speciesQueryResult->records      = $species_list;
-		$speciesQueryResult->downloadLink = $nbn_records->getDownloadQueryString();
-		$speciesQueryResult->queryUrl     = $query_url;
+		if ($nbnQueryResponse->status === 'OK')
+		{
+			$speciesQueryResult->records      = $nbnQueryResponse->jsonResponse;
+			$speciesQueryResult->downloadLink = $nbn_records->getDownloadQueryString();
+		}
+		$speciesQueryResult->status   = $nbnQueryResponse->status;
+		$speciesQueryResult->message  = $nbnQueryResponse->message;
+		$speciesQueryResult->queryUrl = $query_url;
 		return $speciesQueryResult;
 	}
 
@@ -179,5 +183,22 @@ class NbnQuery implements NbnQueryInterface
 	public function getSingleSpeciesRecordsForSquare($grid_square, $species_name)
 	{
 		return null;
+	}
+
+	private function callNbnApi($queryUrl)
+	{
+		$nbnApiResponse = new NbnApiResponse();
+		try
+		{
+			$jsonResults                  = file_get_contents($queryUrl);
+			$nbnApiResponse->jsonResponse = json_decode($jsonResults);
+			$nbnApiResponse->status       = 'OK';
+		}
+		catch (\Exception $e)
+		{
+			$nbnApiResponse->status  = 'OK';
+			$nbnApiResponse->message = $e->getMessage();
+		}
+		return $nbnApiResponse;
 	}
 }

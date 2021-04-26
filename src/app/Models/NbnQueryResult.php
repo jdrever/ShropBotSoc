@@ -9,6 +9,8 @@ class NbnQueryResult
 	public $downloadLink;
 	public $totalRecords;
 	public $queryUrl;
+	public $status;
+	public $message;
 
 	public function getTotalPages()
 	{
