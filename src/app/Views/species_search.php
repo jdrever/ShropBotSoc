@@ -63,6 +63,12 @@
 	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 <?php endif ?>
 
+<?php if (isset($message)) : ?>
+	<div class="alert alert-danger" role="alert">
+		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
+	</div>
+<?php endif ?>
+
 <!-- Show the search results if there are any -->
 <?php if (isset($speciesList)) : ?>
 	<table class="table mt-3">

@@ -57,21 +57,24 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbnRecords->add('species_group:' . $speciesGroup);
 		$queryUrl            = $nbnRecords->getPagingQueryStringWithFacetStart($page);
-		$speciesListJson     = file_get_contents($queryUrl);
-		$speciesList         = json_decode($speciesListJson);
+		$nbnQueryResponse  = $this->callNbnApi($query_url);
 		$speciesQueryResult  = new NbnQueryResult();
 
-		if (isset($speciesList->facetResults))
+		if ($nbnQueryResponse->status === 'OK')
 		{
-			$speciesQueryResult->records = $speciesList->facetResults[0]->fieldResult;
-		}
-		else
-		{
-			$speciesQueryResult->records = [];
-		}
+			if (isset($speciesList->facetResults))
+			{
+				$speciesQueryResult->records = $speciesList->facetResults[0]->fieldResult;
+			}
+			else
+			{
+				$speciesQueryResult->records = [];
+			}
 			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
-			$speciesQueryResult->queryUrl     = $queryUrl;
-
+		}
+		$speciesQueryResult->status   = $nbnQueryResponse->status;
+		$speciesQueryResult->message  = $nbnQueryResponse->message;
+		$speciesQueryResult->queryUrl     = $queryUrl;
 		return $speciesQueryResult;
 	}
 
@@ -219,5 +222,30 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$preparedSearchString = str_replace(' ', '+%2B', $preparedSearchString);
 		return $preparedSearchString;
+	}
+	private function callNbnApi($queryUrl)
+	{
+		$nbnApiResponse = new NbnApiResponse();
+		try
+		{
+			$jsonResults                  = file_get_contents($queryUrl);
+			$nbnApiResponse->jsonResponse = json_decode($jsonResults);
+			$nbnApiResponse->status       = 'OK';
+		}
+		catch (\Throwable $e)
+		{
+			$nbnApiResponse->status = 'ERROR';
+			$errorMessage           = $e->getMessage();
+			if (strpos($errorMessage, '400 Bad Request') !== false)
+			{
+				$errorMessage = 'It looks like there is a problem with the query.  Here are the details: ' . $errorMessage;
+			}
+			if (strpos($errorMessage, '500') !== false)
+			{
+				$errorMessage = 'It looks like there is a problem with the NBN API.  Here are the details: ' . $errorMessage;
+			}
+			$nbnApiResponse->message = $errorMessage;
+		}
+		return $nbnApiResponse;
 	}
 }
