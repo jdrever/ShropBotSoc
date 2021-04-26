@@ -3,6 +3,10 @@
 
 <h2>Find Sites</h2>
 
+<div class="alert alert-info" role="alert">
+	PLEASE NOTE: this page is currently still under development and may not return accurate information.
+</div>
+
 <?= form_open('sites') ?>
 <div class="form-group row">
 	<label for="search" class="col-sm-2 col-form-label d-none d-md-inline">Enter all or part of a site name</label>
