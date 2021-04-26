@@ -12,6 +12,13 @@
 		<?= urldecode($site_name) ?>
 	</h2>
 </div>
+<?php if (isset($message)) : ?>
+	<div class="alert alert-danger" role="alert">
+		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
+	</div>
+<?php endif ?>
+
+
 <?php if (isset($download_link)) : ?>
 	<p><a href="<?= $download_link ?>">Download this data</a></p>
 <?php endif ?>

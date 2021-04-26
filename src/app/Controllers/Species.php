@@ -62,6 +62,7 @@ class Species extends BaseController
 		$this->data['sites']            = $speciesQueryResult->sites;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
 		$this->data['queryUrl']         = $speciesQueryResult->queryUrl;
+		$this->data['message']          = $speciesQueryResult->message;
 		$this->data['nameSearchString'] = $name_search_string;
 		set_cookie("nameType", $name_type, "3600", "localhost", "/", "", false, false, null);
 		set_cookie("speciesGroup", $species_group, "3600", "localhost", "/", "", false, false, null);
