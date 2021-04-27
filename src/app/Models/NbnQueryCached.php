@@ -18,7 +18,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 * @var    bool
 	 * @access private
 	 */
-	private const CACHE_ACTIVE = false;
+	private const CACHE_ACTIVE = true;
 
 	/**
 	 * Constructor, initialises NbnQuery
@@ -48,7 +48,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE && $speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
 			}
@@ -70,7 +70,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
 			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForCounty($speciesName, $page);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE && $speciesRecords->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
 			}
@@ -91,7 +91,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $occurenceRecord = cache($cacheName))
 		{
 			$occurenceRecord = $this->nbnQuery->getSingleOccurenceRecord($uuid);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE  && $occurenceRecord->status === 'OK')
 			{
 				cache()->save($cacheName, $occurenceRecord, CACHE_LIFE);
 			}
@@ -113,7 +113,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $siteList = cache($cacheName))
 		{
 			$siteList = $this->nbnQuery->getSiteListForCounty($nameSearchString);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE&& $siteList->status === 'OK' )
 			{
 				cache()->save($cacheName, $siteList, CACHE_LIFE);
 			}
@@ -135,7 +135,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForSite($siteName, $speciesGroup);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE && $$speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
 			}
@@ -157,7 +157,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
 			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSite($siteName, $speciesName);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE && $$speciesRecords->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
 			}
@@ -181,7 +181,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup,$page);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE && $$speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
 			}
@@ -203,7 +203,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
 			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName);
-			if (self::CACHE_ACTIVE)
+			if (self::CACHE_ACTIVE  && $$speciesRecords->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
 			}
