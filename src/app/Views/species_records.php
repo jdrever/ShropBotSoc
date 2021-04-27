@@ -9,7 +9,7 @@
 	</a>
 	<h2>
 		<?= urldecode($speciesName) ?> records in
-		<?= urldecode($siteName) ?>
+		Shropshire
 	</h2>
 </div>
 <?php if (isset($message)) : ?>

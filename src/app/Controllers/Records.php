@@ -81,8 +81,8 @@ class Records extends BaseController
 		$this->data['event']          = $record->records->processed->event;
 		$this->data['title']          = $title;
 		$this->data['recordId']       = $record->records->processed->rowKey;
-		$this->data['status']        = $records->status;
-		$this->data['message']       = $records->message;
+		$this->data['status']        = $record->status;
+		$this->data['message']       = $record->message;
 		//NOTE: the NBN API currently doesn't support a CSV download for
 		//detailed occurance records
 		//$this->data['downloadLink']   = $record->downloadLink;
