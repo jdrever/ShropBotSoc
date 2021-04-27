@@ -224,11 +224,40 @@ class NbnQuery implements NbnQueryInterface
 	public function getSpeciesListForSquare($grid_square, $species_group)
 	{
 		return null;
+
 	}
 
-	public function getSingleSpeciesRecordsForSquare($grid_square, $species_name)
+	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName)
 	{
-		return null;
+		$nbnRecords           = new NbnRecords('/occurrences/search');
+		$nbnRecords->facets   = 'common_name_and_lsid';
+		$nbnRecords->flimit   = '10';
+		$nbnRecords
+			->add('grid_ref:' . urlencode($gridSquare))
+			->add('taxon_name:' . '"' . urlencode($speciesName) . '"');
+
+		$queryUrl         = $nbnRecords->getPagingQueryString();
+
+		$nbnQueryResponse      = $this->callNbnApi($queryUrl);
+		$singleSpeciesResult = new NbnQueryResult();
+
+		if ($nbnQueryResponse->status === 'OK')
+		{
+			if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+			{
+				$singleSpeciesResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+			}
+			else
+			{
+				$singleSpeciesResult->records = [];
+			}
+			$singleSpeciesResult->downloadLink = $nbnRecords->getDownloadQueryString();
+		}
+		$singleSpeciesResult->status   = $nbnQueryResponse->status;
+		$singleSpeciesResult->message  = $nbnQueryResponse->message;
+		$singleSpeciesResult->queryUrl = $queryUrl;
+
+		return $singleSpeciesResult;
 	}
 
 	/**
@@ -269,11 +298,19 @@ class NbnQuery implements NbnQueryInterface
 			if (isset($jsonResponse->status) &&  $jsonResponse->status === 'ERROR')
 			{
 				$nbnApiResponse->status  = 'ERROR';
-				$nbnApiResponse->message = $jsonResponse->errorMessage;
+				$errorMessage = $jsonResponse->errorMessage;
+				if (strPos($errorMessage, 'No live SolrServers available') !== false)
+				{
+					$errorMessage = 'The NBN API is currently not able to provide results.';
+				}
+				$nbnApiResponse->message = $errorMessage;
+				$nbnApiResponse->jsonResponse = [];
 			}
-
-			$nbnApiResponse->jsonResponse = $jsonResponse;
-			$nbnApiResponse->status       = 'OK';
+			else
+			{
+				$nbnApiResponse->jsonResponse = $jsonResponse;
+				$nbnApiResponse->status       = 'OK';
+			}
 		}
 		catch (\Throwable $e)
 		{

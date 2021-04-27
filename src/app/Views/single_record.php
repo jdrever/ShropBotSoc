@@ -58,8 +58,8 @@
 			<td scope="row"><a href="/site/<?= $location->locationID ?>/species/<?= $classification->scientificName ?>"><?= $location->locationID ?></a></td>
 		</tr>
 		<tr>
-			<td scope="row">Full Grid Reference</td>
-			<td scope="row"><?= $location->gridReference ?></td>
+			<td scope="row">Full Grid Reference</a></td>
+			<td scope="row"><a href="/square/<?= $location->gridReference ?>/species/<?= $classification->scientificName ?>"><?= $location->gridReference ?></a></td>
 		</tr>
 		<tr>
 			<td scope="row">Recorders</td>
