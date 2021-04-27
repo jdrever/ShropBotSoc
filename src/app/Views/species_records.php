@@ -139,7 +139,7 @@
 	// the response resolves, we add the data to the boundary layer and use the
 	// fitBounds() Leaflet method to zoom and position the map around the
 	// boundary data with a touch of padding.
-	const url = "/data/shropshire_simple.geojson";
+	const url = "/data/shropshire_simple.json";
 	fetch(url)
 		.then((response) => response.json())
 		.then((geojson) => {
