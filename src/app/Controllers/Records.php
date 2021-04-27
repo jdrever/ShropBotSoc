@@ -56,6 +56,7 @@ class Records extends BaseController
 		$this->data['location']       = $record->records->raw->location; # `raw` contains the locationID
 		$this->data['event']          = $record->records->processed->event;
 		$this->data['title']          = $title;
+		$this->data['recordId']       = $record->records->processed->rowKey;
 		//NOTE: the NBN API currently doesn't support a CSV download for
 		//detailed occurance records
 		//$this->data['downloadLink']   = $record->downloadLink;

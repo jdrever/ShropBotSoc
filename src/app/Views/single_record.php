@@ -49,17 +49,13 @@
 	<thead>
 		<tr>
 			<th scope="col">Record Id</th>
-			<th scope="col"">{{record id ]]}}</th>
+			<th scope="col""><?= $recordId ?></th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td scope="row">Site Name</td>
 			<td scope="row"><?= $location->locationID ?></td>
-		</tr>
-		<tr>
-			<td scope="row">Full Grid Reference</td>
-			<td scope="row"><?= $location->gridReference ?></td>
 		</tr>
 		<tr>
 			<td scope="row">Full Grid Reference</td>
