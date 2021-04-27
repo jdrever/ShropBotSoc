@@ -48,6 +48,21 @@ class Records extends BaseController
 		echo view('site_species_records', $this->data);
 	}
 
+	public function singleSpeciesForSquare($gridSquare, $speciesName)
+	{
+		// Map of site
+		$this->data['gridSquare']    = $gridSquare;
+		$this->data['speciesName'] = $speciesName;
+
+		$records= $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName);
+		$this->data['recordsList'] = $records->records;
+		$this->data['page']          = $this->page;
+		$this->data['queryUrl']      = $records->queryUrl;
+		$this->data['totalRecords']  = $records->totalRecords;
+		$this->data['totalPages']    = $records->getTotalPages();
+		echo view('square_species_records', $this->data);
+	}
+
 	/**
 	 * Display a single record
 	 */

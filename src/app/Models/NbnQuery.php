@@ -224,9 +224,10 @@ class NbnQuery implements NbnQueryInterface
 	public function getSpeciesListForSquare($grid_square, $species_group)
 	{
 		return null;
+
 	}
 
-	public function getSingleSpeciesRecordsForSquare($grid_square, $species_name)
+	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName)
 	{
 		return null;
 	}
