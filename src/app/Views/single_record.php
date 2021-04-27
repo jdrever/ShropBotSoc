@@ -45,46 +45,47 @@
 	L.osGraticule(options).addTo(mymap);
 </script>
 
-
-<?php
-$table = new \CodeIgniter\View\Table();
-$data  = [
-	[
-		'Item',
-		'Value',
-	],
-	[
-		'Site',
-		$location->locationID,
-	],
-	[
-		'Date',
-		$event->eventDate,
-	],
-	[
-		'Grid Reference',
-		$location->gridReference,
-	],
-	[
-		'Recorder',
-		$occurrence->recordedBy,
-	],
-	[
-		'Phylum',
-		$classification->phylum,
-	],
-	[
-		'Scientific Name',
-		$classification->scientificName,
-	],
-	[
-		'Common Name',
-		$classification->vernacularName,
-	],
-];
-?>
-
-<?= $table->generate($data) ?>
-
+<table class="table table-sm">
+	<thead>
+		<tr>
+			<th scope="col">Record Id</th>
+			<th scope="col""><?= $recordId ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td scope="row">Site Name</td>
+			<td scope="row"><?= $location->locationID ?></td>
+		</tr>
+		<tr>
+			<td scope="row">Full Grid Reference</td>
+			<td scope="row"><?= $location->gridReference ?></td>
+		</tr>
+		<tr>
+			<td scope="row">Recorders</td>
+			<td scope="row"><?= $occurrence->recordedBy ?></td>
+		</tr>
+		<tr>
+			<td scope="row">Full Date</td>
+			<td scope="row"><?= $event->eventDate ?></td>
+		</tr>
+		<tr>
+			<td scope="row">Year</td>
+			<td scope="row"><?= $event->year ?></td>
+		</tr>
+		<tr>
+			<td scope="row">Phylum</td>
+			<td scope="row"><?= $classification->phylum ?></td>
+		</tr>
+		<tr>
+			<td scope="row">Scientific Name</td>
+			<td scope="row"><?= $classification->scientificName ?></td>
+		</tr>
+		<tr>
+			<td scope="row">Common Name</td>
+			<td scope="row"><?= $classification->vernacularName ?></td>
+		</tr>
+	</tbody>
+</table>
 
 <?= $this->endSection() ?>

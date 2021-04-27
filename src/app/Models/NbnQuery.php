@@ -136,14 +136,19 @@ class NbnQuery implements NbnQueryInterface
 	 */
 	public function getSingleOccurenceRecord($uuid)
 	{
-		$nbnRecords = new NbnRecords('occurrence/');
-		$recordJson = file_get_contents($nbnRecords->url() . $uuid);
-		$record     = json_decode($recordJson);
+		$nbnRecords            = new NbnRecords('occurrence/');
+		$queryUrl              = $nbnRecords->url() . $uuid;
+		$nbnQueryResponse      = $this->callNbnApi($queryUrl);
+		$singleOccurenceResult = new NbnQueryResult();
 
-		$singleOccurenceResult               = new NbnQueryResult();
-		$singleOccurenceResult->records      = $record;
-		$singleOccurenceResult->downloadLink = $nbnRecords->getDownloadQueryString();
-
+		if ($nbnQueryResponse->status === 'OK')
+		{
+			$singleOccurenceResult->records      = $nbnQueryResponse->jsonResponse;
+			$singleOccurenceResult->downloadLink = $nbnRecords->getDownloadQueryString();
+		}
+		$singleOccurenceResult->status   = $nbnQueryResponse->status;
+		$singleOccurenceResult->message  = $nbnQueryResponse->message;
+		$singleOccurenceResult->queryUrl = $queryUrl;
 		return $singleOccurenceResult;
 	}
 
@@ -223,6 +228,8 @@ class NbnQuery implements NbnQueryInterface
 		$preparedSearchString = str_replace(' ', '+%2B', $preparedSearchString);
 		return $preparedSearchString;
 	}
+
+
 	private function callNbnApi($queryUrl)
 	{
 		$nbnApiResponse = new NbnApiResponse();
@@ -231,7 +238,7 @@ class NbnQuery implements NbnQueryInterface
 			$jsonResults  = file_get_contents($queryUrl);
 			$jsonResponse = json_decode($jsonResults);
 
-			if ($jsonResponse->status === 'ERROR')
+			if (isset($jsonResponse->status) &&  $jsonResponse->status === 'ERROR')
 			{
 				$nbnApiResponse->status  = 'ERROR';
 				$nbnApiResponse->message = $jsonResponse->errorMessage;
