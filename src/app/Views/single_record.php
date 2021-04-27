@@ -55,7 +55,7 @@
 	<tbody>
 		<tr>
 			<td scope="row">Site Name</td>
-			<td scope="row"><?= $location->locationID ?></td>
+			<td scope="row"><a href="/site/<?= $location->locationID ?>/species/<?= $classification->scientificName ?>"><?= $location->locationID ?></a></td>
 		</tr>
 		<tr>
 			<td scope="row">Full Grid Reference</td>
