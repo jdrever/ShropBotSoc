@@ -318,11 +318,11 @@ class NbnQuery implements NbnQueryInterface
 			$errorMessage           = $e->getMessage();
 			if (strpos($errorMessage, '400 Bad Request') !== false)
 			{
-				$errorMessage = 'It looks like there is a problem with the query.  Here are the details: ' . $errorMessage;
+				$errorMessage = '<b>It looks like there is a problem with the query.</b>  Here are the details: ' . $errorMessage;
 			}
-			if (strpos($errorMessage, '500') !== false||strpos($errorMessage, '503') !== false)
+			if (strpos($errorMessage, '500') !== false||strpos($errorMessage, '503') !== false ||strpos($errorMessage, 'php_network_getaddresses') !== false)
 			{
-				$errorMessage = 'It looks like there is a problem with the NBN API.  Here are the details: ' . $errorMessage;
+				$errorMessage = '<b>It looks like there is a problem with the NBN API</b>.  Here are the details: ' . $errorMessage;
 			}
 			$nbnApiResponse->message = $errorMessage;
 		}
