@@ -8,7 +8,7 @@
 	</a>
 	<h2>
 		<?= urldecode($speciesName) ?> records in
-		<?= urldecode($siteName) ?>
+		<?= urldecode($gridSquare) ?>
 	</h2>
 </div>
 
@@ -17,15 +17,16 @@
 </div>
 
 <?php if (isset($message)) : ?>
-	<div class="alert alert-danger" role="alert">
-		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
-	</div>
-<?php endif ?>
+<div class="alert alert-danger" role="alert">
+	I am very sorry, but an error has occured.</b>:  <?= $message ?>
+</div>
+<?php else: ?>
 
 
-<?php if (isset($download_link)) : ?>
-	<p><a href="<?= $download_link ?>">Download this data</a></p>
-<?php endif ?>
+
+	<?php if (isset($download_link)) : ?>
+<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php endif ?>
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
@@ -82,8 +83,10 @@
 	</ul>
 </nav>
 
-<?php if (isset($download_link)) : ?>
-	<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php if (isset($download_link)) : ?>
+<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php endif ?>
+
 <?php endif ?>
 
 <?= $this->endSection() ?>

@@ -60,6 +60,8 @@ class Records extends BaseController
 		$this->data['queryUrl']      = $records->queryUrl;
 		$this->data['totalRecords']  = $records->totalRecords;
 		$this->data['totalPages']    = $records->getTotalPages();
+		$this->data['status']        = $records->status;
+		$this->data['message']       = $records->message;
 		echo view('square_species_records', $this->data);
 	}
 
@@ -70,6 +72,7 @@ class Records extends BaseController
 	{
 		$record                       = $this->nbn->getSingleOccurenceRecord($uuid);
 		$occurrence                   = $record->records->processed->occurrence;
+
 		$this->data['occurrence']     = $occurrence;
 		$classification               = $record->records->processed->classification;
 		$this->data['classification'] = $classification;
@@ -78,6 +81,8 @@ class Records extends BaseController
 		$this->data['event']          = $record->records->processed->event;
 		$this->data['title']          = $title;
 		$this->data['recordId']       = $record->records->processed->rowKey;
+		$this->data['status']        = $records->status;
+		$this->data['message']       = $records->message;
 		//NOTE: the NBN API currently doesn't support a CSV download for
 		//detailed occurance records
 		//$this->data['downloadLink']   = $record->downloadLink;
