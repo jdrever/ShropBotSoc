@@ -86,8 +86,16 @@ class Species extends BaseController
 	/**
 	 * Return the species list for a square.
 	 */
-	public function listforSquare($square, $species_group, $name_type)
+	public function listforSquare($gridSquare, $speciesGroup, $nameType)
 	{
+		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $this->page);
+		$this->data['speciesList']      = $speciesQueryResult->records;
+		$this->data['sites']            = $speciesQueryResult->sites;
+		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
+		$this->data['queryUrl']         = $speciesQueryResult->queryUrl;
+		$this->data['message']          = $speciesQueryResult->message;
+		$this->data['speciesGroup'] = $speciesGroup;
+		$this->data['page'] = $this->page;
 		echo view('square_species_list', $this->data);
 	}
 }

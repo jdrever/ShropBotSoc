@@ -221,9 +221,56 @@ class NbnQuery implements NbnQueryInterface
 		return $singleSpeciesResult;
 	}
 
-	public function getSpeciesListForSquare($grid_square, $species_group)
+	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $page)
 	{
-		return null;
+		// mainly to replace the spaces with %20
+		$speciesGroup      = rawurlencode($speciesGroup);
+		$nbnRecords       = new NbnRecords('occurrences/search');
+		$nbnRecords->sort = "year";
+		$nbnRecords->dir  = "desc";
+		// $nbnRecords->fsort = "index";
+		$nbnRecords
+			->add('grid_ref:' . rawurlencode($gridSquare));
+			//->add('species_group:' . $speciesGroup);
+		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
+		$nbnQueryResponse      = $this->callNbnApi($queryUrl);
+
+		$speciesQueryResult               = new NbnQueryResult();
+
+		if ($nbnQueryResponse->status === 'OK')
+		{
+			$recordList         = $nbnQueryResponse->jsonResponse->occurrences;
+			$totalRecords       = $nbnQueryResponse->jsonResponse->totalRecords;
+			usort($recordList, function ($a, $b) {
+				return $b->year <=> $a->year;
+			});
+
+			$sites = [];
+			foreach ($recordList as $record)
+			{
+				$record->locationId = $record->locationId ?? '';
+				$record->collector  = $record->collector ?? 'Unknown';
+
+				// To plot site markers on the map, we must capture the locationId
+				// (site name) and latLong of only the _first_ record for each site.
+				// The latLong returned from the API is a single string, so we
+				// convert into an array of two floats.
+				if (! array_key_exists($record->locationId, $sites))
+				{
+					$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
+				}
+			}
+			$speciesQueryResult->records      = $recordList;
+			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
+			$speciesQueryResult->sites        = $sites;
+			$speciesQueryResult->totalRecords = $totalRecords;
+		}
+
+		$speciesQueryResult->status   = $nbnQueryResponse->status;
+		$speciesQueryResult->message  = $nbnQueryResponse->message;
+		$speciesQueryResult->queryUrl = $queryUrl;
+
+		return $speciesQueryResult;
 
 	}
 
@@ -301,7 +348,7 @@ class NbnQuery implements NbnQueryInterface
 				$errorMessage = $jsonResponse->errorMessage;
 				if (strPos($errorMessage, 'No live SolrServers available') !== false)
 				{
-					$errorMessage = 'The NBN API is currently not able to provide results.';
+					$errorMessage = '<b>The NBN API is currently not able to provide results.</b>';
 				}
 				$nbnApiResponse->message = $errorMessage;
 				$nbnApiResponse->jsonResponse = [];
