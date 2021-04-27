@@ -33,13 +33,19 @@ class Records extends BaseController
 	/**
 	 * Display records for a single species for a site
 	 */
-	public function singleSpeciesForSite($site_name, $Nme)
+	public function singleSpeciesForSite($siteName, $speciesName)
 	{
 		// Map of site
-		$this->data['site_name']    = $site_name;
-		$this->data['Nme']          = $Nme;
-		$this->data['records_list'] = $this->nbn->getSingleSpeciesRecordsForSite($site_name, $Nme);
-		echo view('species_records', $this->data);
+		$this->data['siteName']    = $siteName;
+		$this->data['speciesName'] = $speciesName;
+
+		$records= $this->nbn->getSingleSpeciesRecordsForSite($siteName, $speciesName);
+		$this->data['recordsList'] = $records->records;
+		$this->data['page']          = $this->page;
+		$this->data['queryUrl']      = $records->queryUrl;
+		$this->data['totalRecords']  = $records->totalRecords;
+		$this->data['totalPages']    = $records->getTotalPages();
+		echo view('site_species_records', $this->data);
 	}
 
 	/**

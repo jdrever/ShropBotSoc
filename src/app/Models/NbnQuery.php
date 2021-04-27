@@ -188,9 +188,37 @@ class NbnQuery implements NbnQueryInterface
 		return $site_species_list;
 	}
 
-	public function getSingleSpeciesRecordsForSite($site_name, $species_name)
+	public function getSingleSpeciesRecordsForSite($siteName, $speciesName)
 	{
-		return null;
+		$nbnRecords           = new NbnRecords('/occurrences/search');
+		$nbnRecords->facets   = 'common_name_and_lsid';
+		$nbnRecords->flimit   = '10';
+		$nbnRecords
+			->add('location_id:' . urlencode($siteName))
+			->add('taxon_name:' . '"' . urlencode($speciesName) . '"');
+
+		$queryUrl         = $nbnRecords->getPagingQueryString();
+
+		$nbnQueryResponse      = $this->callNbnApi($queryUrl);
+		$singleSpeciesResult = new NbnQueryResult();
+
+		if ($nbnQueryResponse->status === 'OK')
+		{
+			if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+			{
+				$singleSpeciesResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+			}
+			else
+			{
+				$singleSpeciesResult->records = [];
+			}
+			$singleSpeciesResult->downloadLink = $nbnRecords->getDownloadQueryString();
+		}
+		$singleSpeciesResult->status   = $nbnQueryResponse->status;
+		$singleSpeciesResult->message  = $nbnQueryResponse->message;
+		$singleSpeciesResult->queryUrl = $queryUrl;
+
+		return $singleSpeciesResult;
 	}
 
 	public function getSpeciesListForSquare($grid_square, $species_group)
