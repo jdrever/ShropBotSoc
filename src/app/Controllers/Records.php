@@ -39,7 +39,7 @@ class Records extends BaseController
 		$this->data['siteName']    = $siteName;
 		$this->data['speciesName'] = $speciesName;
 
-		$records= $this->nbn->getSingleSpeciesRecordsForSite($siteName, $speciesName);
+		$records= $this->nbn->getSingleSpeciesRecordsForSite($siteName, $speciesName, $this->page);
 		$this->data['recordsList'] = $records->records;
 		$this->data['page']          = $this->page;
 		$this->data['queryUrl']      = $records->queryUrl;
@@ -54,7 +54,7 @@ class Records extends BaseController
 		$this->data['gridSquare']    = $gridSquare;
 		$this->data['speciesName'] = $speciesName;
 
-		$records= $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName);
+		$records= $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $this->page);
 		$this->data['recordsList'] = $records->records;
 		$this->data['page']          = $this->page;
 		$this->data['queryUrl']      = $records->queryUrl;

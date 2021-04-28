@@ -18,7 +18,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 * @var    bool
 	 * @access private
 	 */
-	private const CACHE_ACTIVE = true;
+	private const CACHE_ACTIVE = false;
 
 	/**
 	 * Constructor, initialises NbnQuery
@@ -151,12 +151,12 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return NbnQueryResult
 	 */
-	public function getSingleSpeciesRecordsForSite($siteName, $speciesName)
+	public function getSingleSpeciesRecordsForSite($siteName, $speciesName, $page)
 	{
-		$cacheName = "get-species-records-for-site-$siteName-$speciesName";
+		$cacheName = "get-species-records-for-site-$siteName-$speciesName-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
-			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSite($siteName, $speciesName);
+			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSite($siteName, $speciesName, $page);
 			if (self::CACHE_ACTIVE && $speciesRecords->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
@@ -177,10 +177,10 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 */
 	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $page)
 	{
-		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup";
+		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
-			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup,$page);
+			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup, $page);
 			if (self::CACHE_ACTIVE && $speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
@@ -197,12 +197,12 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return NbnQueryResult
 	 */
-	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName)
+	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $page)
 	{
-		$cacheName = "get-species-records-for-square-$gridSquare-$speciesName";
+		$cacheName = "get-species-records-for-square-$gridSquare-$speciesName-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesRecords = cache($cacheName))
 		{
-			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName);
+			$speciesRecords = $this->nbnQuery->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $page);
 			if (self::CACHE_ACTIVE  && $speciesRecords->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesRecords, CACHE_LIFE);
