@@ -54,12 +54,12 @@
 					<?php foreach ($recordsList as $record) : ?>
 						<tr data-uuid="<?= $record->uuid ?>">
 							<td>
-								<a href="/site/<?= $record->locationId ?>/group/plants/type/scientific">
+								<a href="/site/<?= $record->locationId ?>/species/<?=$speciesName ?>">
 									<?= $record->locationId ?>
 								</a>
 							</td>
 							<td class="d-none d-sm-table-cell">
-								<a href="/square/<?= $record->gridReference ?>/group/plants/type/scientific">
+								<a href="/square/<?= $record->gridReference ?>/species/<?=$speciesName ?>">
 									<?= $record->gridReference ?>
 								</a>
 							</td>

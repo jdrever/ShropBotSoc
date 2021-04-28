@@ -28,8 +28,8 @@
 		<?php foreach ($speciesList as $species) : ?>
 		<tr>
 			<td class="d-none d-md-table-cell"><?php echo $species->family?></td>
-			<td><?=$species->name?></td>
-			<td class="d-none d-sm-table-cell"><?php echo $species->commonName?></td>
+			<td><?=$species->scientificName?></td>
+			<td class="d-none d-sm-table-cell"><?php echo $species->vernacularName?></td>
 			<td><?=$species->count?></td>
 			<td><a href="/site/<?php echo $title ?>/species/<?=$species->name?>">see records</a></td>
 		</tr>
