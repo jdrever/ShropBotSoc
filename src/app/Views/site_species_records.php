@@ -46,24 +46,38 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Family</th>
-						<th>Scientific Name</th>
-						<th>Common Name</th>
-						<th>Records</th>
-
+						<th>Site</th>
+						<th class="d-none d-sm-table-cell">Square</th>
+						<th class="d-none d-md-table-cell">Collector</th>
+						<th>Year</th>
+						<th>Details</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ($recordsList as $record) : ?>
-						<?php $speciesArray = explode('|', (string)$record->label); ?>
-				<tr>
-					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
-					<td><a href="<?= base_url('/species/' . $speciesArray[1]) ?>"><?= $speciesArray[1] ?></a></td>
-					<td class="d-none d-sm-table-cell">
-						<a href="<?= base_url('/species/' . $speciesArray[1] . '?name=' . $speciesArray[0]) ?>"><?= $speciesArray[0] ?></a>
-					</td>
-					<td><?= $record->count ?></td>
-				</tr>
+						<tr data-uuid="<?= $record->uuid ?>">
+							<td>
+								<a href="/site/<?= $record->locationId ?>/species/<?=$speciesName ?>">
+									<?= $record->locationId ?>
+								</a>
+							</td>
+							<td class="d-none d-sm-table-cell">
+								<a href="/square/<?= $record->gridReference ?>/species/<?=$speciesName ?>">
+									<?= $record->gridReference ?>
+								</a>
+							</td>
+							<td class="d-none d-md-table-cell">
+								<?= $record->collector ?>
+							</td>
+							<td>
+								<?= $record->year ?>
+							</td>
+							<td>
+								<a href="<?= base_url(" /record/{$record->uuid}"); ?>">
+									more
+								</a>
+							</td>
+						</tr>
 					<?php endforeach; ?>
 				</tbody>
 			</table>

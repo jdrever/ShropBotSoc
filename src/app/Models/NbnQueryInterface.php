@@ -10,8 +10,8 @@ interface NbnQueryInterface
 
 	public function getSiteListForCounty($site_search_string);
 	public function getSpeciesListForSite($site_name, $species_group);
-	public function getSingleSpeciesRecordsForSite($site_name, $species_name);
+	public function getSingleSpeciesRecordsForSite($site_name, $species_name,$page);
 
 	public function getSpeciesListForSquare($gridSquare, $speciesGroup,$page);
-	public function getSingleSpeciesRecordsForSquare($grid_square, $species_name);
+	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName,$page);
 }
