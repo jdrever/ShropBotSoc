@@ -332,38 +332,6 @@ class NbnQuery implements NbnQueryInterface
 		return $speciesQueryResult;
 	}
 
-	public function OLDgetSingleSpeciesRecordsForSquare($gridSquare, $speciesName)
-	{
-		$nbnRecords           = new NbnRecords('/occurrences/search');
-		$nbnRecords->facets   = 'common_name_and_lsid';
-		$nbnRecords->flimit   = '10';
-		$nbnRecords
-			->add('grid_ref:' . urlencode($gridSquare))
-			->add('taxon_name:' . '"' . urlencode($speciesName) . '"');
-
-		$queryUrl         = $nbnRecords->getPagingQueryString();
-
-		$nbnQueryResponse      = $this->callNbnApi($queryUrl);
-		$singleSpeciesResult = new NbnQueryResult();
-
-		if ($nbnQueryResponse->status === 'OK')
-		{
-			if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
-			{
-				$singleSpeciesResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
-			}
-			else
-			{
-				$singleSpeciesResult->records = [];
-			}
-			$singleSpeciesResult->downloadLink = $nbnRecords->getDownloadQueryString();
-		}
-		$singleSpeciesResult->status   = $nbnQueryResponse->status;
-		$singleSpeciesResult->message  = $nbnQueryResponse->message;
-		$singleSpeciesResult->queryUrl = $queryUrl;
-
-		return $singleSpeciesResult;
-	}
 
 	/**
 	 * Deals with multi-word search terms and prepares
