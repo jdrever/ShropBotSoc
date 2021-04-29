@@ -1,4 +1,3 @@
-// TODO: #38 change $snake_case to $camelCase variables
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
 <div class="d-flex align-items-center">
@@ -8,7 +7,7 @@
 		</svg>
 	</a>
 	<h2>
-		<?= urldecode($speciesName) ?> records in
+		<?= urldecode($displayName) ?> records in
 		Shropshire
 	</h2>
 </div>
@@ -70,7 +69,7 @@
 								<?= $record->year ?>
 							</td>
 							<td>
-								<a href="<?= base_url(" /record/{$record->uuid}"); ?>">
+								<a href="<?= base_url("/record/{$record->uuid}") . '?displayName=' . $displayName; ?>">
 									more
 								</a>
 							</td>
