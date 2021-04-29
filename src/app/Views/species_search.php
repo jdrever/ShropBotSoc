@@ -86,7 +86,7 @@
 				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
 					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
-					<td><a href="<?= base_url('/species/' . $speciesArray[1]) ?>"><?= $speciesArray[1] ?></a></td>
+					<td><a href="<?= base_url('/species/' . $speciesArray[1] . '?nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[1] ?></a></td>
 					<td class="d-none d-sm-table-cell">
 						<a href="<?= base_url('/species/' . $speciesArray[1] . '?name=' . $speciesArray[0] . '&nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[0] ?></a>
 					</td>

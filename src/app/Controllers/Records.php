@@ -17,7 +17,7 @@ class Records extends BaseController
 		$this->data['site_name'] = "Shropshire";
 		$this->data['title']     = urldecode($speciesName);
 		$this->data['speciesName']   = $this->request->getVar('name', FILTER_SANITIZE_ENCODED) ?? $speciesName;
-		$this->data['nameSearchString'] = = $this->request->getVar('nameSearchString', FILTER_SANITIZE_ENCODED);
+		$this->data['nameSearchString'] = $this->request->getVar('nameSearchString', FILTER_SANITIZE_ENCODED);
 		$records                     = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
 		$this->data['status']        = $records->status;
 		$this->data['message']       = $records->message;

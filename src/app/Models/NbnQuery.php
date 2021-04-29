@@ -13,6 +13,24 @@ use App\Libraries\NbnRecords;
 class NbnQuery implements NbnQueryInterface
 {
 	/**
+	 * Determines whether fall back to local JSON files is active
+	 * Set to false on production environments
+	 *
+	 * @var    bool
+	 * @access private
+	 */
+	private const LOCAL_FALLBACK_ACTIVE = true;
+
+	/**
+	 * Determines the timeout for the NBN API call
+	 * Set low if testing and wanting quick turnaround
+	 *
+	 * @var    int
+	 * @access private
+	 */
+	private const API_TIMEOUT = 5;
+
+	/**
 	 * Get an alphabetical list of species.
 	 *
 	 * e.g. https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=data_resource_uid:dr782&fq=taxon_name:B* AND species_group:Plants Bryophytes&pageSize=9&sort=
@@ -57,7 +75,15 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbnRecords->add('species_group:' . $speciesGroup);
 		$queryUrl            = $nbnRecords->getPagingQueryStringWithFacetStart($page);
-		$nbnQueryResponse  = $this->callNbnApi($queryUrl);
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+
+		// get local file if NBN not responding and fallback active
+		if ($nbnQueryResponse->status === 'ERROR' && self::LOCAL_FALLBACK_ACTIVE)
+		{
+			$queryUrl ='http://localhost:8089/json/county-species-hedera.json';
+			$nbnQueryResponse = $this->callNbnApi($queryUrl);
+			$nbnQueryResponse->message = 'NBN down.  Falling back to local file.';
+		}
 		$speciesQueryResult  = new NbnQueryResult();
 
 		if ($nbnQueryResponse->status === 'OK')
@@ -68,6 +94,7 @@ class NbnQuery implements NbnQueryInterface
 			}
 			else
 			{
+
 				$speciesQueryResult->records = [];
 			}
 			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
@@ -198,7 +225,7 @@ class NbnQuery implements NbnQueryInterface
 		// $nbnRecords->fsort = "index";
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"')
-			->add('location_id:' . urlencode($siteName));
+			->add('location_id:' . '"' . urlencode($siteName) . '"');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$recordsJson        = file_get_contents($queryUrl);
 		$recordsJsonDecoded = json_decode($recordsJson);
@@ -243,8 +270,8 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords->dir  = "desc";
 		// $nbnRecords->fsort = "index";
 		$nbnRecords
-			->add('grid_ref:' . rawurlencode($gridSquare));
-			//->add('species_group:' . $speciesGroup);
+			->add('grid_ref:' . rawurlencode($gridSquare))
+			->add('species_group:' . $speciesGroup);
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$nbnQueryResponse      = $this->callNbnApi($queryUrl);
 
@@ -297,7 +324,7 @@ class NbnQuery implements NbnQueryInterface
 		// $nbnRecords->fsort = "index";
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"')
-			->add('grid_ref:' . urlencode($gridSquare));
+			->add('grid_ref:' . '"' . urlencode($gridSquare) . '"');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$recordsJson        = file_get_contents($queryUrl);
 		$recordsJsonDecoded = json_decode($recordsJson);
@@ -365,6 +392,8 @@ class NbnQuery implements NbnQueryInterface
 		$nbnApiResponse = new NbnApiResponse();
 		try
 		{
+			//setting timeout to five seconds as
+			ini_set('default_socket_timeout', self::API_TIMEOUT);
 			$jsonResults  = file_get_contents($queryUrl);
 			$jsonResponse = json_decode($jsonResults);
 
