@@ -79,15 +79,17 @@ class Records extends BaseController
 		$this->data['occurrence']     = $occurrence;
 		$classification               = $record->records->processed->classification;
 		$this->data['classification'] = $classification;
-		$displayName   = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
+		$displayName                  = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
 		$location                     = $record->records->raw->location; # `raw` contains the locationID;
 		$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $location->locationID . ' (' . $record->records->processed->event->year . ')';
 		$this->data['location']       = $location;
 		$this->data['event']          = $record->records->processed->event;
+		$this->data['displayName']    = $displayName;
 		$this->data['title']          = $displayTitle;
 		$this->data['recordId']       = $record->records->processed->rowKey;
-		$this->data['status']        = $record->status;
-		$this->data['message']       = $record->message;
+		$this->data['status']         = $record->status;
+		$this->data['message']        = $record->message;
+
 
 		//NOTE: the NBN API currently doesn't support a CSV download for
 		//detailed occurance records
