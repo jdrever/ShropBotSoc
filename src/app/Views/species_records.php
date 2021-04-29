@@ -1,5 +1,13 @@
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
+<?php if (isset($message)) : ?>
+	<div class="alert alert-danger" role="alert">
+		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
+	</div>
+<?php endif ?>
+
+<?php if ($status ==='OK') : ?>
+
 <div class="d-flex align-items-center">
 	<a href="/species/<?=$speciesName ?>/group/both/type/scientific" class="header-backArrow">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -11,16 +19,12 @@
 		Shropshire
 	</h2>
 </div>
-<?php if (isset($message)) : ?>
-	<div class="alert alert-danger" role="alert">
-		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
-	</div>
-<?php endif ?>
 
 
-<?php if (isset($download_link)) : ?>
-	<p><a href="<?= $download_link ?>">Download this data</a></p>
-<?php endif ?>
+
+	<?php if (isset($download_link)) : ?>
+<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php endif ?>
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
@@ -232,8 +236,10 @@
 	</ul>
 </nav>
 
-<?php if (isset($download_link)) : ?>
-	<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php if (isset($download_link)) : ?>
+<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php endif ?>
+
 <?php endif ?>
 
 <?= $this->endSection() ?>
