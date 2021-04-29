@@ -123,35 +123,39 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
-		$recordsJson        = file_get_contents($queryUrl);
-		$recordsJsonDecoded = json_decode($recordsJson);
-		$recordList         = $recordsJsonDecoded->occurrences;
-		$totalRecords       = $recordsJsonDecoded->totalRecords;
-		usort($recordList, function ($a, $b) {
-			return $b->year <=> $a->year;
-		});
 
-		$sites = [];
-		foreach ($recordList as $record)
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+		$speciesQueryResult               = new NbnQueryResult();
+		if ($nbnQueryResponse->status === 'OK' )
 		{
-			$record->locationId = $record->locationId ?? '';
-			$record->collector  = $record->collector ?? 'Unknown';
+			$recordList         = $nbnQueryResponse->jsonResponse->occurrences;
+			$totalRecords       = $nbnQueryResponse->jsonResponse->totalRecords;
+			usort($recordList, function ($a, $b) {
+				return $b->year <=> $a->year;
+			});
 
-			// To plot site markers on the map, we must capture the locationId
-			// (site name) and latLong of only the _first_ record for each site.
-			// The latLong returned from the API is a single string, so we
-			// convert into an array of two floats.
-			if (! array_key_exists($record->locationId, $sites))
+			$sites = [];
+			foreach ($recordList as $record)
 			{
-				$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
+				$record->locationId = $record->locationId ?? '';
+				$record->collector  = $record->collector ?? 'Unknown';
+
+				// To plot site markers on the map, we must capture the locationId
+				// (site name) and latLong of only the _first_ record for each site.
+				// The latLong returned from the API is a single string, so we
+				// convert into an array of two floats.
+				if (! array_key_exists($record->locationId, $sites))
+				{
+					$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
+				}
 			}
+			$speciesQueryResult->records      = $recordList;
+			$speciesQueryResult->sites        = $sites;
+			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
+			$speciesQueryResult->totalRecords = $totalRecords;
 		}
 
-		$speciesQueryResult               = new NbnQueryResult();
-		$speciesQueryResult->records      = $recordList;
-		$speciesQueryResult->sites        = $sites;
-		$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
-		$speciesQueryResult->totalRecords = $totalRecords;
+		$speciesQueryResult->status       = $nbnQueryResponse->status;
 		$speciesQueryResult->queryUrl     = $queryUrl;
 		return $speciesQueryResult;
 	}
