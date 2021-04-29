@@ -15,8 +15,8 @@ class Records extends BaseController
 	public function singleSpeciesForCounty($speciesName)
 	{
 		$this->data['site_name'] = "Shropshire";
-		$this->data['title']     = urldecode($speciesName);
-		$this->data['speciesName']   = $this->request->getVar('name', FILTER_SANITIZE_ENCODED) ?? $speciesName;
+		$this->data['speciesName']     = urldecode($speciesName);
+		$this->data['displayName']   = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $speciesName;
 		$this->data['nameSearchString'] = $this->request->getVar('nameSearchString', FILTER_SANITIZE_ENCODED);
 		$records                     = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
 		$this->data['status']        = $records->status;
@@ -74,16 +74,21 @@ class Records extends BaseController
 		$record                       = $this->nbn->getSingleOccurenceRecord($uuid);
 		$occurrence                   = $record->records->processed->occurrence;
 
+
+
 		$this->data['occurrence']     = $occurrence;
 		$classification               = $record->records->processed->classification;
 		$this->data['classification'] = $classification;
-		$title                        = $classification->scientificName . "-" . $occurrence->recordedBy;
-		$this->data['location']       = $record->records->raw->location; # `raw` contains the locationID
+		$displayName   = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
+		$location                     = $record->records->raw->location; # `raw` contains the locationID;
+		$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $location->locationID . ' (' . $record->records->processed->event->year . ')';
+		$this->data['location']       = $location;
 		$this->data['event']          = $record->records->processed->event;
-		$this->data['title']          = $title;
+		$this->data['title']          = $displayTitle;
 		$this->data['recordId']       = $record->records->processed->rowKey;
 		$this->data['status']        = $record->status;
 		$this->data['message']       = $record->message;
+
 		//NOTE: the NBN API currently doesn't support a CSV download for
 		//detailed occurance records
 		//$this->data['downloadLink']   = $record->downloadLink;

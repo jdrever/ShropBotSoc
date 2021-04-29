@@ -1,7 +1,7 @@
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
 
-<h2>Single Record</h2>
+<h2><?= $title ?></h2>
 
 <?php if (isset($message)) : ?>
 	<div class="alert alert-danger" role="alert">
