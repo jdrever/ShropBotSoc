@@ -14,6 +14,7 @@
 	<!-- Mapping -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" integrity="sha256-BPfK9M5v34c2XP6p0cxVz1mUQLst0gTLk0mlc7kuodA=" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet-src.js" integrity="sha256-dG7rUAec0UN0e3nlMEuYJzsbK0rpoz4hBbNp0ir9iF8=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/wicket@1.3.6/wicket.min.js"></script>
 	<script type="text/javascript" src="/js/L.OSGraticule.js"></script>
 	<script type="text/javascript" src="/js/leaflet.wms.js"></script>
 	<title>
