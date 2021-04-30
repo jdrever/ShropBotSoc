@@ -35,12 +35,12 @@
 				<thead>
 					<tr>
 						<th scope="col">Record Id</th>
-						<th scope="col""><?= $recordId ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td scope=" row">Site Name</td>
+						<th scope="col"><?= $recordId ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td scope=" row">Site Name</td>
 						<td scope="row"><a href="/site/<?= $location->locationID ?>/species/<?= $classification->scientificName ?>"><?= $location->locationID ?></a></td>
 					</tr>
 					<tr>
@@ -71,7 +71,7 @@
 						<td scope="row">Common Name</td>
 						<td scope="row"><?= $classification->vernacularName ?></td>
 					</tr>
-					</tbody>
+				</tbody>
 			</table>
 		</div>
 		<div id="map-container" class="tab-pane fade show active col-lg">
