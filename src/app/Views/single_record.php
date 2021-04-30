@@ -103,11 +103,16 @@
 			"opacity": 0.33
 		});
 
+		// Initialise geoJson record layer
+		const record = L.geoJSON(null, {
+			"color": "#0996DB",
+			"weight": 5,
+			"opacity": 0.33
+		})
+
 		// Create a Layer Group and add to map
 		const layers = L.layerGroup([minimal, boundary]);
 		layers.addTo(map);
-
-
 
 		// We load the geojson data from disk using the JavaScript Fetch API. When
 		// the response resolves, we add the data to the boundary layer and use the
@@ -118,8 +123,13 @@
 			.then((response) => response.json())
 			.then((geojson) => {
 				boundary.addData(geojson);
-				map.fitBounds(boundary.getBounds(geojson).pad(0.1));
 			});
+
+		const wkt = new Wkt.Wkt();
+		wkt.read("<?= $location->gridReferenceWKT ?>");
+		const wktRecord = wkt.toJson();
+		boundary.addData(wktRecord);
+		map.fitBounds(boundary.getBounds(wktRecord).pad(0.5));
 
 
 		["load", "resize"].forEach((event) => {
