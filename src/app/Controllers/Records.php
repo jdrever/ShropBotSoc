@@ -14,20 +14,20 @@ class Records extends BaseController
 	 */
 	public function singleSpeciesForCounty($speciesName)
 	{
-		$this->data['site_name'] = "Shropshire";
-		$this->data['speciesName']     = urldecode($speciesName);
-		$this->data['displayName']   = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $speciesName;
+		$this->data['site_name']        = "Shropshire";
+		$this->data['speciesName']      = urldecode($speciesName);
+		$this->data['displayName']      = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $speciesName;
 		$this->data['nameSearchString'] = $this->request->getVar('nameSearchString', FILTER_SANITIZE_ENCODED);
-		$records                     = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
-		$this->data['status']        = $records->status;
-		$this->data['message']       = $records->message;
-		$this->data['download_link'] = $records->downloadLink;
-		$this->data['recordsList']   = $records->records;
-    	$this->data['sites']         = $records->sites;
-		$this->data['page']          = $this->page;
-		$this->data['queryUrl']      = $records->queryUrl;
-		$this->data['totalRecords']  = $records->totalRecords;
-		$this->data['totalPages']    = $records->getTotalPages();
+		$records                        = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
+		$this->data['status']           = $records->status;
+		$this->data['message']          = $records->message;
+		$this->data['download_link']    = $records->downloadLink;
+		$this->data['recordsList']      = $records->records;
+		$this->data['sites']            = $records->sites;
+		$this->data['page']             = $this->page;
+		$this->data['queryUrl']         = $records->queryUrl;
+		$this->data['totalRecords']     = $records->totalRecords;
+		$this->data['totalPages']       = $records->getTotalPages();
 		echo view('species_records', $this->data);
 	}
 
@@ -40,29 +40,29 @@ class Records extends BaseController
 		$this->data['siteName']    = $siteName;
 		$this->data['speciesName'] = $speciesName;
 
-		$records= $this->nbn->getSingleSpeciesRecordsForSite($siteName, $speciesName, $this->page);
-		$this->data['recordsList'] = $records->records;
-		$this->data['page']          = $this->page;
-		$this->data['queryUrl']      = $records->queryUrl;
-		$this->data['totalRecords']  = $records->totalRecords;
-		$this->data['totalPages']    = $records->getTotalPages();
+		$records                    = $this->nbn->getSingleSpeciesRecordsForSite($siteName, $speciesName, $this->page);
+		$this->data['recordsList']  = $records->records;
+		$this->data['page']         = $this->page;
+		$this->data['queryUrl']     = $records->queryUrl;
+		$this->data['totalRecords'] = $records->totalRecords;
+		$this->data['totalPages']   = $records->getTotalPages();
 		echo view('site_species_records', $this->data);
 	}
 
 	public function singleSpeciesForSquare($gridSquare, $speciesName)
 	{
 		// Map of site
-		$this->data['gridSquare']    = $gridSquare;
+		$this->data['gridSquare']  = $gridSquare;
 		$this->data['speciesName'] = $speciesName;
 
-		$records= $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $this->page);
-		$this->data['recordsList'] = $records->records;
-		$this->data['page']          = $this->page;
-		$this->data['queryUrl']      = $records->queryUrl;
-		$this->data['totalRecords']  = $records->totalRecords;
-		$this->data['totalPages']    = $records->getTotalPages();
-		$this->data['status']        = $records->status;
-		$this->data['message']       = $records->message;
+		$records                    = $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $this->page);
+		$this->data['recordsList']  = $records->records;
+		$this->data['page']         = $this->page;
+		$this->data['queryUrl']     = $records->queryUrl;
+		$this->data['totalRecords'] = $records->totalRecords;
+		$this->data['totalPages']   = $records->getTotalPages();
+		$this->data['status']       = $records->status;
+		$this->data['message']      = $records->message;
 		echo view('square_species_records', $this->data);
 	}
 
@@ -87,7 +87,6 @@ class Records extends BaseController
 			$this->data['displayName']    = $displayName;
 			$this->data['title']          = $displayTitle;
 			$this->data['recordId']       = $record->records->processed->rowKey;
-
 		}
 		$this->data['status']  = $record->status;
 		$this->data['message'] = $record->message;
