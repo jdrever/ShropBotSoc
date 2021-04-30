@@ -2,6 +2,16 @@
 <html lang="en">
 
 <head>
+<script>
+    window.Userback = window.Userback || {};
+    Userback.access_token = '29781|43535|YIPEfSYjB9Mq6GisE6r00WWO9';
+    (function(d) {
+        var s = d.createElement('script');s.async = true;
+        s.src = 'https://static.userback.io/widget/v1.js';
+        (d.head || d.body).appendChild(s);
+    })(document);
+</script>
+
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,5 +84,4 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 	</div>
 </body>
-
 </html>

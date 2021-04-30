@@ -69,6 +69,7 @@ class Species extends BaseController
 		$this->data['nameType']     = $name_type;
 		$this->data['speciesGroup'] = $species_group;
 		$this->data['page'] = $this->page;
+		$this->data['totalPages']       = $speciesQueryResult->getTotalPages();
 		echo view('species_search', $this->data);
     }
 

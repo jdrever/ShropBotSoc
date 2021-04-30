@@ -228,6 +228,27 @@
 		<?php if ($page > 1) : ?>
 			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page - 1) ?>">Previous</a></li>
 		<?php endif ?>
+		<?php
+		$range = 3;
+		for ($x = ($page - $range); $x < (($page + $range) + 1); $x++)
+		{
+			if (($x > 0) && ($x <= $totalPages))
+			{
+				if ($x === $page)
+				{
+					?>
+
+			<li class="page-item"><span class="page-link" style="font-color:#000000;"><?= $x?></span></li>
+		<?php
+				}
+				else
+				{
+					?>
+ 			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . $x?> "><?= $x?></a></li>
+		<?php
+			}
+		}
+	} ?>
 		<?php if (count($recordsList) === 10) : ?>
 			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page + 1) ?>">Next</a></li>
 		<?php endif ?>
