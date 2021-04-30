@@ -75,8 +75,23 @@ class Records extends BaseController
 
 		if ($record->status === 'OK')
 		{
-			$occurrence                   = $record->records->processed->occurrence;
-			$this->data['occurrence']     = $occurrence;
+			$occurrence               = $record->records->processed->occurrence;
+			$this->data['occurrence'] = $occurrence;
+
+			// Sort out and separate recorder name pairs with a semi-colon
+			$recorders    = explode("|", $this->data['occurrence']->recordedBy);
+			$newRecorders = [];
+			foreach ($recorders as $key => $value)
+			{
+				// Stick a semicolon between every other name pair
+				if ($key !== 0 && $key % 2 === 0)
+				{
+					array_push($newRecorders, '; ');
+				}
+				array_push($newRecorders, $value);
+			}
+			$this->data['occurrence']->recordedBy = implode($newRecorders);
+
 			$classification               = $record->records->processed->classification;
 			$this->data['classification'] = $classification;
 			$displayName                  = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
