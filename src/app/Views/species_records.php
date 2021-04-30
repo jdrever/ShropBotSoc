@@ -28,20 +28,15 @@
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
-		<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="true">Map</button>
+		<button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="true">Data</button>
 	</li>
 	<li class="nav-item" role="presentation">
-		<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false">Data</button>
+		<button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="false">Map</button>
 	</li>
 </ul>
 <p><?= $totalRecords ?> records</p>
 <div id="tab-content" class="row">
-
-	<div id="map-container" class="tab-pane fade show active col-lg">
-		<div id="map" class=""></div>
-	</div>
-
-	<div id="data" class="tab-pane fade show col-lg">
+	<div id="data" class="tab-pane fade show active col-lg">
 		<?php if (isset($recordsList)) : ?>
 			<table class="table">
 				<thead>
@@ -82,6 +77,9 @@
 				</tbody>
 			</table>
 		<?php endif ?>
+	</div>
+	<div id="map-container" class="tab-pane fade show col-lg">
+		<div id="map" class=""></div>
 	</div>
 </div>
 <script>
