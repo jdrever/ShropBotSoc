@@ -19,7 +19,7 @@ class NbnQuery implements NbnQueryInterface
 	 * @var    bool
 	 * @access private
 	 */
-	private const LOCAL_FALLBACK_ACTIVE = true;
+	private const LOCAL_FALLBACK_ACTIVE = false;
 
 	/**
 	 * Determines the timeout for the NBN API call
