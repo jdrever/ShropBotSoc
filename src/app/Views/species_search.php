@@ -17,19 +17,19 @@
 <div class="row justify-content-center gy-3">
 	<div class="form-group col-sm-4 col-lg-3">
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="scientific-name" value="scientific" <?= set_radio('name-type', 'scientific', ($nameType === 'scientific')); ?> />
+			<input class="form-check-input" type="radio" name="name-type" id="scientific-name" value="scientific" onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('name-type', 'scientific', ($nameType === 'scientific')); ?> />
 			<label class="form-check-label" for="scientific-name">
 				scientific<span class="d-none d-lg-inline"> name only</span>
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="common-name" value="common" <?= set_radio('name-type', 'common', ($nameType === 'common')); ?> />
+			<input class="form-check-input" type="radio" name="name-type" id="common-name" value="common"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('name-type', 'common', ($nameType === 'common')); ?> />
 			<label class="form-check-label" for="common-name">
 				common<span class="d-none d-lg-inline"> name only</span>
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte" <?= set_radio('name-type', 'axiophyte'); ?> disabled />
+			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('name-type', 'axiophyte'); ?> disabled />
 			<label class="form-check-label" for="axiophyte-name">
 				<span class="d-lg-none">axiophyte names</span>
 				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
@@ -38,19 +38,19 @@
 	</div>
 	<div class="form-group col-sm-4 col-lg-3">
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants" <?= set_radio('groups', 'plants', $speciesGroup === 'plants'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="plants" value="plants"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('groups', 'plants', $speciesGroup === 'plants'); ?> />
 			<label class="form-check-label" for="plants">
 				only plants
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="bryophytes" <?= set_radio('groups', 'bryophytes', $speciesGroup === 'bryophytes'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="bryophytes"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('groups', 'bryophytes', $speciesGroup === 'bryophytes'); ?> />
 			<label class="form-check-label" for="bryophytes">
 				only bryophytes
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="species-group" id="both" value="both" <?= set_radio('groups', 'both', $speciesGroup === 'both'); ?> />
+			<input class="form-check-input" type="radio" name="species-group" id="both" value="both"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('groups', 'both', $speciesGroup === 'both'); ?> />
 			<label class="form-check-label" for="both">
 				both <span class="d-none d-xl-inline">plants and bryophytes</span>
 			</label>
