@@ -23,7 +23,7 @@
 
 
 	<?php if (isset($download_link)) : ?>
-<p><a href="<?= $download_link ?>">Download this data</a></p>
+<p><a href='<?= $download_link ?>''>Download this data</a></p>
 	<?php endif ?>
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
