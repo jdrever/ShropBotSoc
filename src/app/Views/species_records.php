@@ -98,17 +98,27 @@
 		accessToken: "pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw"
 	});
 
-	//OS Grid 10k graticule
-	const graticule10km = L.osGraticule({
-		interval: 10000,
+	// OS Grid graticules
+	// 10km grid graticule shown between zoom levels 8 and 11 and has no axis labels
+	const graticule10km = L.britishGrid({
+		color: '#216fff',
+		weight: 1,
+		showAxisLabels: [],
+		minInterval: 10000,
+		maxInterval: 10000,
 		minZoom: 8,
-		maxZoom: 11,
+		maxZoom: 11
 	});
 
-	const graticule1km = L.osGraticule({
-		interval: 1000,
+	// 1km grid graticule shown between zoom levels 11 and 15 and has labelled axis
+	const graticule1km = L.britishGrid({
+		color: '#216fff',
+		weight: 1,
+		showAxisLabels: [1000],
+		minInterval: 1000,
+		maxInterval: 1000,
 		minZoom: 11,
-		maxZoom: 15,
+		maxZoom: 15
 	});
 
 	//make a dot map layer
