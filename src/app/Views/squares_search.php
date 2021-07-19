@@ -58,7 +58,7 @@
 	osmLayer.addTo(mymap);
 
 	var options = {};
-	L.osGraticule(options).addTo(mymap);
+	//L.osGraticule(options).addTo(mymap);
 
 	const url = '/data/shropshire.json';
 
