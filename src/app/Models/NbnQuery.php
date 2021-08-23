@@ -28,7 +28,7 @@ class NbnQuery implements NbnQueryInterface
 	 * @var    int
 	 * @access private
 	 */
-	private const API_TIMEOUT = 5;
+	private const API_TIMEOUT = 30;
 
 	/**
 	 * Get an alphabetical list of species.
