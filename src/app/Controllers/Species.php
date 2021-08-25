@@ -19,7 +19,7 @@ class Species extends BaseController
 			$name_search_string  = trim($name_search_string);
 
 			// If the search field is empty, go to the begining of the alphabet
-			if (empty(trim($name_search_string)))
+			if (empty($name_search_string))
 			{
 				$name_search_string = "A";
 			}

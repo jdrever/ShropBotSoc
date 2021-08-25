@@ -12,14 +12,18 @@ class Sites extends BaseController
      */
     public function index()
     {
-        if ($this->isPostBack()) 
+        if ($this->isPostBack())
         {
             $this->data['title'] = $this->data['title']." - results";
             $site_search_string = $this->request->getVar('search');
             $site_search_string = trim($site_search_string);
-            if (trim($site_search_string) == NULL) $site_search_string = "A";
+            if (empty($site_search_string))
+			{
+				$site_search_string = "A";
+			}
             return redirect()->to("sites/{$site_search_string}");
         };
+		$this->data['siteSearchString'] = "";
         echo view('sites_search', $this->data);
     }
 
@@ -28,8 +32,10 @@ class Sites extends BaseController
      */
     public function listForCounty($site_search_string)
     {
-        $this->data['search'] = $site_search_string;
-        $this->data['sites'] = $this->nbn->getSiteListForCounty($site_search_string);
+        $this->data['siteSearchString'] = $site_search_string;
+		$siteQueryResults = $this->nbn->getSiteListForCounty($site_search_string);
+        $this->data['sites'] = $siteQueryResults->sites;
+		$this->data['queryUrl'] = $siteQueryResults->queryUrl;
         echo view('sites_search', $this->data);
     }
 }

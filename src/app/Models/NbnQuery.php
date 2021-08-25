@@ -94,7 +94,6 @@ class NbnQuery implements NbnQueryInterface
 			}
 			else
 			{
-
 				$speciesQueryResult->records = [];
 			}
 			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
@@ -190,16 +189,32 @@ class NbnQuery implements NbnQueryInterface
 	 */
 	public function getSiteListForCounty($site_search_string)
 	{
-		$nbn_records           = new NbnRecords('occurrences/search');
-		$nbn_records->facets   = "location_id";
-		$nbn_records->pageSize = 0;
-		$nbn_records
+		$nbnRecords           = new NbnRecords('occurrences/search');
+		$nbnRecords->facets   = "location_id";
+		$nbnRecords->flimit   = '10';
+		//$nbnRecords->pageSize = 0;
+
+		$nbnRecords
 			->add('location_id:[' . $site_search_string . '%20TO%20*]');
-		$query_url  = $nbn_records->getPagingQueryString();
-		$sites_json = file_get_contents($query_url);
-		$sites_list = json_decode($sites_json)->facetResults[0]->fieldResult;
-		$sites_list = truncateArray(9, $sites_list);
-		return $sites_list;
+		$queryUrl  = $nbnRecords->getPagingQueryString();
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+
+		$sitesQueryResult  = new NbnQueryResult();
+
+		if ($nbnQueryResponse->status === 'OK' && isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+		{
+			$sitesQueryResult->sites = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+		}
+		else
+		{
+			$sitesQueryResult->sites = [];
+		}
+
+		$sitesQueryResult->status   = $nbnQueryResponse->status;
+		$sitesQueryResult->message  = $nbnQueryResponse->message;
+		$sitesQueryResult->queryUrl = $queryUrl;
+
+		return $sitesQueryResult;
 	}
 
 	/**
