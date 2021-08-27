@@ -187,7 +187,7 @@ class NbnQuery implements NbnQueryInterface
 	 *
 	 * e.g. 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0';
 	 */
-	public function getSiteListForCounty($site_search_string)
+	public function getSiteListForCounty($siteSearchString)
 	{
 		$nbnRecords           = new NbnRecords('occurrences/search');
 		$nbnRecords->facets   = "location_id";
@@ -195,7 +195,7 @@ class NbnQuery implements NbnQueryInterface
 		//$nbnRecords->pageSize = 0;
 
 		$nbnRecords
-			->add('location_id:[' . $site_search_string . '%20TO%20*]');
+			->add('location_id:[%22' . urlencode($siteSearchString) . '%22%20TO%20*]');
 		$queryUrl  = $nbnRecords->getPagingQueryString();
 		$nbnQueryResponse = $this->callNbnApi($queryUrl);
 
