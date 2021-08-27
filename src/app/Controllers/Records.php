@@ -107,6 +107,12 @@ class Records extends BaseController
 			$this->data['event']          = $record->records->processed->event;
 			$this->data['displayName']    = $displayName;
 			$this->data['title']          = $displayTitle;
+
+			$fullDate='Not available';
+			if (isset($record->records->processed->event->eventDate))
+				$fullDate =date_format(date_create($record->records->processed->event->eventDate),'jS F Y') ;
+			$this->data['fullDate'] = $fullDate;
+
 			$this->data['recordId']       = $record->records->processed->rowKey;
 		}
 		$this->data['status']  = $record->status;
