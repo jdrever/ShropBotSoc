@@ -68,7 +68,7 @@
 <?php endif ?>
 
 <!-- Show the search results if there are any -->
-<?php if (isset($speciesList)&&count($speciesList)>0) : ?>
+<?php if (isset($records)&&count($records)>0) : ?>
 	<?php if (isset($downloadLink)) : ?>
 	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 	<?php endif ?>
@@ -82,7 +82,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($speciesList as $species) : ?>
+			<?php foreach ($records as $species) : ?>
 				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
 					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
@@ -95,48 +95,7 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-	<nav>
-		<ul class="pagination justify-content-center">
-	<?php
-	$range = 3;
-	if ($page + $range >7) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=1' ?>">First</a></li>
-	<?php endif ?>
-	<?php if ($page > 1) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page - 1) ?>">Previous</a></li>
-	<?php endif ?>
-	<?php
-		for ($x = ($page - $range); $x < (($page + $range) + 1); $x++)
-		{
-			if (($x > 0) && ($x <= $totalPages))
-			{
-				if ($x === $page)
-				{
-					?>
-
-			<li class="page-item"><span class="page-link" style="font-color:#000000;"><?= $x?></span></li>
-		<?php
-				}
-				else
-				{
-					?>
- 			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . $x?> "><?= $x?></a></li>
-		<?php
-			}
-		}
-	} ?>
-	<?php
-	if ($page<$totalPages) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page+1) ?>">Next</a></li>
-	<?php endif ?>
-	<?php
-	if (($page + $range)<$totalPages) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' .$totalPages?>">Last</a></li>
-	<?php endif ?>
-	</ul>
-	<p class="text-center" style="font-size:small;"><?= $totalRecords ?> records in <?= $totalPages ?> pages </p>
-</nav>
-
+	<?= $this->include('pagination') ?>
 
 	<?php if (isset($downloadLink)) : ?>
 		<p><a href="<?= $downloadLink ?>">Download this data</a></p>
