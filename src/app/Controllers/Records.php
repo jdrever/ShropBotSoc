@@ -17,7 +17,7 @@ class Records extends BaseController
 		$this->data['site_name']        = "Shropshire";
 		$this->data['speciesName']      = urldecode($speciesName);
 		$this->data['displayName']      = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $speciesName;
-		$this->data['nameSearchString'] = $this->request->getVar('nameSearchString', FILTER_SANITIZE_ENCODED);
+		//$this->data['nameSearchString'] = $this->request->getVar('nameSearchString', FILTER_SANITIZE_ENCODED);
 		$records                        = $this->nbn->getSingleSpeciesRecordsForCounty($speciesName, $this->page);
 		$this->data['status']           = $records->status;
 		$this->data['message']          = $records->message;
@@ -28,6 +28,12 @@ class Records extends BaseController
 		$this->data['queryUrl']         = $records->queryUrl;
 		$this->data['totalRecords']     = $records->totalRecords;
 		$this->data['totalPages']       = $records->getTotalPages();
+
+		$speciesNameSearch=get_cookie("speciesNameSearch");
+		if (empty($speciesNameSearch))
+			$speciesNameSearch=$speciesName;
+		$this->data['speciesNameSearch']	= $speciesNameSearch;
+
 		echo view('species_records', $this->data);
 	}
 
