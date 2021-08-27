@@ -53,8 +53,7 @@
 					</tr>
 					<tr>
 						<td scope="row">Full Date</td>
-						<?php $eventDate = new DateTime($event->eventDate); ?>
-						<td scope="row"><?= $eventDate->format('jS F Y') ?></td>
+						<td scope="row"><?= $fullDate ?></td>
 					</tr>
 					<tr>
 						<td scope="row">Year</td>
