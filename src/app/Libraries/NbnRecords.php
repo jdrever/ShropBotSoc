@@ -134,6 +134,21 @@ class NbnRecords
 	}
 
 	/**
+	 * Return the query string without paging
+	 * Used to determine total number of records for query
+	 * without paging
+	 *
+	 * @return string
+	 */
+	public function getUnpagedQueryString()
+	{
+		$queryString  = $this->getQueryString($this::BASE_URL . $this->path);
+		$queryString .= 'pageSize=0&flimit=-1';
+		return $queryString;
+	}
+
+
+	/**
 	 * Return the query string for paging
 	 *
 	 * @return string

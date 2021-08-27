@@ -57,7 +57,7 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbnRecords           = new NbnRecords('/occurrences/search');
 		$nbnRecords->facets   = 'common_name_and_lsid';
-		$nbnRecords->flimit   = '10';
+
 		//$nbnRecords->pageSize = 10;
 
 		if ($nameType === "scientific")
@@ -74,6 +74,15 @@ class NbnQuery implements NbnQueryInterface
 				->sort = "common_name";
 		}
 		$nbnRecords->add('species_group:' . $speciesGroup);
+
+		$queryUrl            = $nbnRecords->getUnpagedQueryString();
+		$nbnQueryResponse    = $this->callNbnApi($queryUrl);
+		$totalRecords 		 = 0;
+		if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+		{
+			$totalRecords = count($nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult);
+		}
+		$nbnRecords->flimit   = '10';
 		$queryUrl            = $nbnRecords->getPagingQueryStringWithFacetStart($page);
 		$nbnQueryResponse = $this->callNbnApi($queryUrl);
 
@@ -90,7 +99,8 @@ class NbnQuery implements NbnQueryInterface
 		{
 			if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
 			{
-				$speciesQueryResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+				$speciesQueryResult->records = 	$nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+
 			}
 			else
 			{
@@ -99,9 +109,10 @@ class NbnQuery implements NbnQueryInterface
 			}
 			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
 		}
-		$speciesQueryResult->status   = $nbnQueryResponse->status;
-		$speciesQueryResult->message  = $nbnQueryResponse->message;
+		$speciesQueryResult->status   	  = $nbnQueryResponse->status;
+		$speciesQueryResult->message  	  = $nbnQueryResponse->message;
 		$speciesQueryResult->queryUrl     = $queryUrl;
+		$speciesQueryResult->totalRecords = $totalRecords;
 		return $speciesQueryResult;
 	}
 
