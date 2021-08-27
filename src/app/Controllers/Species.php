@@ -67,6 +67,7 @@ class Species extends BaseController
 		$this->data['nameType']     = $name_type;
 		$this->data['speciesGroup'] = $species_group;
 		$this->data['page'] = $this->page;
+		$this->data['totalRecords'] = $speciesQueryResult->totalRecords;
 		$this->data['totalPages']       = $speciesQueryResult->getTotalPages();
 
 		set_cookie("speciesNameSearch",$name_search_string,"3600", "localhost", "/", "", false, false, null);
