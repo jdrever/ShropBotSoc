@@ -186,11 +186,14 @@ class NbnQuery implements NbnQueryInterface
 		if ($nbnQueryResponse->status === 'OK')
 		{
 			$singleOccurenceResult->records      = $nbnQueryResponse->jsonResponse;
-			$singleOccurenceResult->downloadLink = $nbnRecords->getDownloadQueryString();
+			//$singleOccurenceResult->downloadLink = $nbnRecords->getDownloadQueryString();
 		}
 		$singleOccurenceResult->status   = $nbnQueryResponse->status;
 		$singleOccurenceResult->message  = $nbnQueryResponse->message;
 		$singleOccurenceResult->queryUrl = $queryUrl;
+
+		$nbnRecord = new NbnRecords("occurrences/index/download");
+		$singleOccurenceResult->downloadLink = $nbnRecords->getSingleRecordDownloadQueryString($singleOccurenceResult->records->raw->occurrence->occurrenceID);
 		return $singleOccurenceResult;
 	}
 

@@ -114,6 +114,8 @@ class Records extends BaseController
 			$this->data['fullDate'] = $fullDate;
 
 			$this->data['recordId']       = $record->records->processed->rowKey;
+
+			$this->data['download_link']    = $record->downloadLink;
 		}
 		$this->data['status']  = $record->status;
 		$this->data['message'] = $record->message;
