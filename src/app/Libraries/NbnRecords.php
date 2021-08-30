@@ -121,6 +121,24 @@ class NbnRecords
 		return $queryString;
 	}
 
+
+	/**
+	 * Return the url for single record download querty
+	 *
+	 * @param string $url The full url to query
+	 *
+	 * @return string
+	 */
+	private function getSingleRecordDownloadUrl(string $url, string $occurrenceId)
+	{
+		$queryString  = $url . '?';
+		$queryString .= 'fq=occurrence_id:' .$occurrenceId . '&';
+
+
+		return $queryString;
+	}
+
+
 	/**
 	 * Return the base url and path (really only used for getting a single
 	 * occurence record)
@@ -132,6 +150,21 @@ class NbnRecords
 	{
 		return $this::BASE_URL . $this->path;
 	}
+
+	/**
+	 * Return the query string without paging
+	 * Used to determine total number of records for query
+	 * without paging
+	 *
+	 * @return string
+	 */
+	public function getUnpagedQueryString()
+	{
+		$queryString  = $this->getQueryString($this::BASE_URL . $this->path);
+		$queryString .= 'pageSize=0&flimit=-1';
+		return $queryString;
+	}
+
 
 	/**
 	 * Return the query string for paging
@@ -167,6 +200,18 @@ class NbnRecords
 	{
 		$queryString  = $this->getQueryString($this::BASE_URL . 'occurrences/index/download');
 		$queryString .= '&reasonTypeId=11&fileType=csv';
+		return $queryString;
+	}
+
+		/**
+	 * Return the query string for downloading the data
+	 *
+	 * @return string
+	 */
+	public function getSingleRecordDownloadQueryString($occurrenceId)
+	{
+		$queryString  = $this->getSingleRecordDownloadUrl($this::BASE_URL . 'occurrences/index/download',$occurrenceId);
+		$queryString .= '&reasonTypeId=11';
 		return $queryString;
 	}
 

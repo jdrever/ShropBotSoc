@@ -53,8 +53,7 @@
 					</tr>
 					<tr>
 						<td scope="row">Full Date</td>
-						<?php $eventDate = new DateTime($event->eventDate); ?>
-						<td scope="row"><?= $eventDate->format('jS F Y') ?></td>
+						<td scope="row"><?= $fullDate ?></td>
 					</tr>
 					<tr>
 						<td scope="row">Year</td>
@@ -149,5 +148,10 @@
 			});
 		});
 	</script>
+
+	<?php if (isset($download_link)) : ?>
+<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php endif ?>
+
 <?php endif ?>
 <?= $this->endSection() ?>

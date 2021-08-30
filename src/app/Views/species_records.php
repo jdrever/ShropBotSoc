@@ -9,7 +9,7 @@
 <?php if ($status ==='OK') : ?>
 
 <div class="d-flex align-items-center">
-	<a href="/species/<?=$speciesName ?>/group/both/type/scientific" class="header-backArrow">
+	<a href="/species/<?=$speciesNameSearch ?>/group/both/type/scientific" class="header-backArrow">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
 			<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
 		</svg>
@@ -233,37 +233,8 @@
 		});
 	});
 </script>
-<nav>
-	<ul class="pagination justify-content-center">
-		<?php if ($page > 1) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page - 1) ?>">Previous</a></li>
-		<?php endif ?>
-		<?php
-		$range = 3;
-		for ($x = ($page - $range); $x < (($page + $range) + 1); $x++)
-		{
-			if (($x > 0) && ($x <= $totalPages))
-			{
-				if ($x === $page)
-				{
-					?>
 
-			<li class="page-item"><span class="page-link" style="font-color:#000000;"><?= $x?></span></li>
-		<?php
-				}
-				else
-				{
-					?>
- 			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . $x?> "><?= $x?></a></li>
-		<?php
-			}
-		}
-	} ?>
-		<?php if (count($recordsList) === 10) : ?>
-			<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page + 1) ?>">Next</a></li>
-		<?php endif ?>
-	</ul>
-</nav>
+<?= $this->include('pagination') ?>
 
 	<?php if (isset($download_link)) : ?>
 <p><a href="<?= $download_link ?>">Download this data</a></p>

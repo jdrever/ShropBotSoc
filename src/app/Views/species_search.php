@@ -68,7 +68,7 @@
 <?php endif ?>
 
 <!-- Show the search results if there are any -->
-<?php if (isset($speciesList)&&count($speciesList)>0) : ?>
+<?php if (isset($records)&&count($records)>0) : ?>
 	<?php if (isset($downloadLink)) : ?>
 	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 	<?php endif ?>
@@ -82,7 +82,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($speciesList as $species) : ?>
+			<?php foreach ($records as $species) : ?>
 				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
 					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
@@ -95,16 +95,8 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-	<nav>
-		<ul class="pagination justify-content-center">
-			<?php if ($page > 1) : ?>
-				<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page - 1) ?>">Previous</a></li>
-			<?php endif ?>
-			<?php if (count($speciesList) === 10) : ?>
-				<li class="page-item"><a class="page-link" href="<?= current_url() . '?page=' . ($page + 1) ?>">Next</a></li>
-			<?php endif ?>
-		</ul>
-	</nav>
+	<?= $this->include('pagination') ?>
+
 	<?php if (isset($downloadLink)) : ?>
 		<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 	<?php endif ?>
