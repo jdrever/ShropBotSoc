@@ -45,12 +45,8 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-	<nav>
-		<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
-		</ul>
-	</nav>
+
+	<?= $this->include('pagination') ?>
+
 <?php endif ?>
 <?= $this->endSection() ?>

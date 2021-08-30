@@ -33,9 +33,13 @@ class Sites extends BaseController
     public function listForCounty($site_search_string)
     {
         $this->data['siteSearchString'] = $site_search_string;
-		$siteQueryResults = $this->nbn->getSiteListForCounty($site_search_string);
+		$siteQueryResults = $this->nbn->getSiteListForCounty($site_search_string, $this->page);
         $this->data['sites'] = $siteQueryResults->sites;
 		$this->data['queryUrl'] = $siteQueryResults->queryUrl;
+		$this->data['page'] = $this->page;
+		$this->data['totalRecords'] = $siteQueryResults->totalRecords;
+		$this->data['totalPages']       = $siteQueryResults->getTotalPages();
+
         echo view('sites_search', $this->data);
     }
 }

@@ -106,13 +106,13 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return NbnQueryResult
 	 */
-	public function getSiteListForCounty($siteSearchString)
+	public function getSiteListForCounty($siteSearchString, $page)
 	{
 		$nameSearchString = ucfirst($siteSearchString);
-		$cacheName        = "get-site-list-for-county-$nameSearchString";
+		$cacheName        = "get-site-list-for-county-$nameSearchString-$page";
 		if (! self::CACHE_ACTIVE || ! $siteList = cache($cacheName))
 		{
-			$siteList = $this->nbnQuery->getSiteListForCounty($nameSearchString);
+			$siteList = $this->nbnQuery->getSiteListForCounty($nameSearchString, $page);
 			if (self::CACHE_ACTIVE && $siteList->status === 'OK' )
 			{
 				cache()->save($cacheName, $siteList, CACHE_LIFE);
