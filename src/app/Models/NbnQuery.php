@@ -199,18 +199,20 @@ class NbnQuery implements NbnQueryInterface
 	/**
 	 * Search for sites matching the string
 	 *
-	 * e.g. 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0';
+	 * e.g. 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782%20AND%20&location_id:Shrews*facets=location_id&facet=on&pageSize=0';
 	 */
 	public function getSiteListForCounty($siteSearchString, $page)
 	{
 		// API respects case - upper case all words in search string
 		$siteSearchString = ucwords($siteSearchString);
+		// Replace spaces with "\%20" so the query searches for the whole string
+		$siteSearchString = str_replace(" ", "\%20", $siteSearchString);
 
 		$nbnRecords           = new NbnRecords('occurrences/search');
 		$nbnRecords->facets   = "location_id";
 
 		$nbnRecords
-			->add('location_id:[%22' . urlencode($siteSearchString) . '%22%20TO%20*]');
+			->addExtraQueryParameter('location_id:'.$siteSearchString.'*');
 
 		$queryUrl            = $nbnRecords->getUnpagedQueryString();
 		$nbnQueryResponse    = $this->callNbnApi($queryUrl);
