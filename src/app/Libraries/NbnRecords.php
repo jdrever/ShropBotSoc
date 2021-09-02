@@ -106,7 +106,7 @@ class NbnRecords
 	private function getQueryString(string $url)
 	{
 		$queryString  = $url . '?';
-		$queryParameters = array('data_resource_uid:' . $this->dataResourceUid, ...$this->extraQueryParameters);
+		$queryParameters = array_merge(array('data_resource_uid:' . $this->dataResourceUid), $this->extraQueryParameters);
 		$queryString .= 'q=' . implode('%20AND%20', $queryParameters) . '&';
 		$queryString .= 'fq=' . implode('%20AND%20', $this->filterQueryParameters) . '&';
 		$queryString .= 'facets=' . $this->facets . '&';
