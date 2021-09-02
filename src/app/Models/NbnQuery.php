@@ -56,22 +56,22 @@ class NbnQuery implements NbnQueryInterface
 			$speciesGroup = ucfirst($speciesGroup);
 		}
 		$nbnRecords           = new NbnRecords('/occurrences/search');
-		$nbnRecords->facets   = 'common_name_and_lsid';
+
 
 		//$nbnRecords->pageSize = 10;
 
 		if ($nameType === "scientific")
 		{
-			$nbnRecords
-				->add('taxon_name:' . $this->prepareSearchString($nameSearchString))
-				->sort = "taxon_name";
+			$nbnRecords->add('taxon_name:' . $this->prepareSearchString($nameSearchString));
+			$nbnRecords->facets   = 'names_and_lsid';
+			$nbnRecords->fsort = "index";
 		}
 
 		if ($nameType === "common")
 		{
-			$nbnRecords
-				->add('common_name:' . $this->prepareSearchString($nameSearchString))
-				->sort = "common_name";
+			$nbnRecords->add('common_name:' . $this->prepareSearchString($nameSearchString));
+			$nbnRecords->facets   = 'common_name_and_lsid';
+			$nbnRecords->fsort = "index";
 		}
 		$nbnRecords->add('species_group:' . $speciesGroup);
 

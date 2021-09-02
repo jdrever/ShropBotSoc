@@ -85,11 +85,20 @@
 			<?php foreach ($records as $species) : ?>
 				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
-					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
-					<td <?php if ($nameType === 'common') : ?>class="d-none d-sm-table-cell" <?php endif ?>><a href="<?= base_url('/species/' . $speciesArray[1] . '?nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[1] ?></a></td>
-					<td <?php if ($nameType === 'scientific') : ?>class="d-none d-sm-table-cell" <?php endif ?>>
-						<a href="<?= base_url('/species/' . $speciesArray[1] . '?displayName=' . $speciesArray[0] . '&nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[0] ?></a>
+				<?php if ($nameType === 'scientific') : ?>
+					<td class="d-none d-md-table-cell"><?= $speciesArray[4] ?></td>
+					<td><a href="<?= base_url('/species/' . $speciesArray[0] . '?nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[0] ?></a></td>
+					<td class="d-none d-sm-table-cell">
+						<a href="<?= base_url('/species/' . $speciesArray[0] . '?displayName=' . $speciesArray[2] . '&nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[2] ?></a>
 					</td>
+				<?php endif ?>
+				<?php if ($nameType === 'common') : ?>
+					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
+					<td class="d-none d-sm-table-cell"><a href="<?= base_url('/species/' . $speciesArray[1] . '?nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[1] ?></a></td>
+					<td>
+						<a href="<?= base_url(urldecode('/species/' . $speciesArray[1] . '?displayName=' . $speciesArray[0] . '&nameSearchString=' . $nameSearchString)) ?>"><?= $speciesArray[0] ?></a>
+					</td>
+				<?php endif ?>
 					<td><?= $species->count ?></td>
 				</tr>
 			<?php endforeach ?>

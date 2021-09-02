@@ -123,7 +123,7 @@
 
 	//make a dot map layer
 	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?" +
-		"Q=lsid:<?= $recordsList[0]->speciesGuid ?>" +
+		"Q=lsid:<?= $speciesGuid ?>" +
 		"&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;" +
 		"gridlabels:true;gridres:singlegrid" +
 		"&fq=data_resource_uid:dr782";
