@@ -86,7 +86,7 @@
 	// Initialise the map
 	const map = L.map("map", {
 		zoomSnap: 0,
-	});
+	}).setView([52.6354, -2.71975], 9);
 
 	// Make a minimal base layer using Mapbox data
 	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
