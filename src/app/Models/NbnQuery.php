@@ -104,7 +104,6 @@ class NbnQuery implements NbnQueryInterface
 			}
 			else
 			{
-
 				$speciesQueryResult->records = [];
 			}
 			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
@@ -200,20 +199,50 @@ class NbnQuery implements NbnQueryInterface
 	/**
 	 * Search for sites matching the string
 	 *
-	 * e.g. 'https://records-ws.nbnatlas.org/occurrences/search?fq=location_id:[Shrews%20TO%20*]&fq=data_resource_uid:dr782&facets=location_id&facet=on&pageSize=0';
+	 * e.g. 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782%20AND%20&location_id:Shrews*facets=location_id&facet=on&pageSize=0';
 	 */
-	public function getSiteListForCounty($site_search_string)
+	public function getSiteListForCounty($siteSearchString, $page)
 	{
-		$nbn_records           = new NbnRecords('occurrences/search');
-		$nbn_records->facets   = "location_id";
-		$nbn_records->pageSize = 0;
-		$nbn_records
-			->add('location_id:[' . $site_search_string . '%20TO%20*]');
-		$query_url  = $nbn_records->getPagingQueryString();
-		$sites_json = file_get_contents($query_url);
-		$sites_list = json_decode($sites_json)->facetResults[0]->fieldResult;
-		$sites_list = truncateArray(9, $sites_list);
-		return $sites_list;
+		// API respects case - upper case all words in search string
+		$siteSearchString = ucwords($siteSearchString);
+		// Replace spaces with "\%20" so the query searches for the whole string
+		$siteSearchString = str_replace(" ", "\%20", $siteSearchString);
+
+		$nbnRecords           = new NbnRecords('occurrences/search');
+		$nbnRecords->facets   = "location_id";
+
+		$nbnRecords
+			->addExtraQueryParameter('location_id:'.$siteSearchString.'*');
+
+		$queryUrl            = $nbnRecords->getUnpagedQueryString();
+		$nbnQueryResponse    = $this->callNbnApi($queryUrl);
+		$totalRecords 		 = 0;
+		if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+		{
+			$totalRecords = count($nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult);
+		}
+
+		$nbnRecords->flimit   = '10';
+		$queryUrl  = $nbnRecords->getPagingQueryStringWithFacetStart($page);
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+
+		$sitesQueryResult  = new NbnQueryResult();
+
+		if ($nbnQueryResponse->status === 'OK' && isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+		{
+			$sitesQueryResult->sites = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+		}
+		else
+		{
+			$sitesQueryResult->sites = [];
+		}
+
+		$sitesQueryResult->status   = $nbnQueryResponse->status;
+		$sitesQueryResult->message  = $nbnQueryResponse->message;
+		$sitesQueryResult->queryUrl = $queryUrl;
+		$sitesQueryResult->totalRecords = $totalRecords;
+
+		return $sitesQueryResult;
 	}
 
 	/**

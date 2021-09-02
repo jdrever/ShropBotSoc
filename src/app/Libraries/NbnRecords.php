@@ -106,7 +106,8 @@ class NbnRecords
 	private function getQueryString(string $url)
 	{
 		$queryString  = $url . '?';
-		$queryString .= 'q=data_resource_uid:' . $this->dataResourceUid . '&';
+		$queryParameters = array('data_resource_uid:' . $this->dataResourceUid, ...$this->extraQueryParameters);
+		$queryString .= 'q=' . implode('%20AND%20', $queryParameters) . '&';
 		$queryString .= 'fq=' . implode('%20AND%20', $this->filterQueryParameters) . '&';
 		$queryString .= 'facets=' . $this->facets . '&';
 		$queryString .= 'sort=' . $this->sort . '&';
@@ -238,6 +239,26 @@ class NbnRecords
 	public function add(string $filterQueryParameter)
 	{
 		$this->filterQueryParameters[] = $filterQueryParameter;
+		return $this;
+	}
+
+	/**
+	 * List of extra parameters to be added to the query (in addition to data_resource_uid)
+	 *
+	 * @var string[] Array of strings
+	 */
+	protected $extraQueryParameters = [];
+
+	/**
+	 * Adds to the list of extra query parameters
+	 *
+	 * @param string $extraQueryParameter A single extra query parameter
+	 *
+	 * @return $this
+	 */
+	public function addExtraQueryParameter(string $extraQueryParameter)
+	{
+		$this->extraQueryParameters[] = $extraQueryParameter;
 		return $this;
 	}
 }
