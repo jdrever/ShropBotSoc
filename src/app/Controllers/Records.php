@@ -34,6 +34,9 @@ class Records extends BaseController
 			$speciesNameSearch=$speciesName;
 		$this->data['speciesNameSearch']	= $speciesNameSearch;
 
+		$this->data['speciesNameType'] = !empty(get_cookie('nameType')) ? get_cookie('nameType') : 'scientific' ;
+		$this->data['speciesGroup'] = !empty(get_cookie('speciesGroup')) ? get_cookie('speciesGroup') : 'both' ;
+
 		echo view('species_records', $this->data);
 	}
 
