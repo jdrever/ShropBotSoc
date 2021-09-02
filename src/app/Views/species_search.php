@@ -76,8 +76,8 @@
 		<thead>
 			<tr>
 				<th class="d-none d-md-table-cell">Family</th>
-				<th>Scientific Name</th>
-				<th class="d-none d-sm-table-cell">Common Name</th>
+				<th <?php if ($nameType === 'common') : ?>class="d-none d-sm-table-cell" <?php endif ?>>Scientific Name</th>
+				<th <?php if ($nameType === 'scientific') : ?>class="d-none d-sm-table-cell" <?php endif ?>>Common Name</th>
 				<th>Records</th>
 			</tr>
 		</thead>
@@ -86,8 +86,8 @@
 				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
 					<td class="d-none d-md-table-cell"><?= $speciesArray[5] ?></td>
-					<td><a href="<?= base_url('/species/' . $speciesArray[1] . '?nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[1] ?></a></td>
-					<td class="d-none d-sm-table-cell">
+					<td <?php if ($nameType === 'common') : ?>class="d-none d-sm-table-cell" <?php endif ?>><a href="<?= base_url('/species/' . $speciesArray[1] . '?nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[1] ?></a></td>
+					<td <?php if ($nameType === 'scientific') : ?>class="d-none d-sm-table-cell" <?php endif ?>>
 						<a href="<?= base_url('/species/' . $speciesArray[1] . '?displayName=' . $speciesArray[0] . '&nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[0] ?></a>
 					</td>
 					<td><?= $species->count ?></td>
