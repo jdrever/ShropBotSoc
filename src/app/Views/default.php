@@ -2,15 +2,6 @@
 <html lang="en">
 
 <head>
-<script>
-    window.Userback = window.Userback || {};
-    Userback.access_token = '29781|43535|YIPEfSYjB9Mq6GisE6r00WWO9';
-    (function(d) {
-        var s = d.createElement('script');s.async = true;
-        s.src = 'https://static.userback.io/widget/v1.js';
-        (d.head || d.body).appendChild(s);
-    })(document);
-</script>
 
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
