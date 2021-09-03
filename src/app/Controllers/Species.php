@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use CodeIgniter\Cookie\Cookie;
+use DateTime;
 /**
  * Manage the species or taxa views.
  */
@@ -70,9 +72,10 @@ class Species extends BaseController
 		$this->data['totalRecords'] = $speciesQueryResult->totalRecords;
 		$this->data['totalPages']       = $speciesQueryResult->getTotalPages();
 
-		set_cookie("speciesNameSearch",$name_search_string,"3600", "", "/", "", false, false, null);
-		set_cookie("nameType", $name_type);//, "3600", "localhost", "/", "", false, false, null);
-		set_cookie("speciesGroup", $species_group);//, "3600", "localhost", "/", "", false, false, null);
+
+		set_cookie("speciesNameSearch",$name_search_string,"3600", "", "/", "", false, false, Cookie::SAMESITE_STRICT);
+		set_cookie("nameType", $name_type, "3600", "", "/", "", false, false, null);
+		set_cookie("speciesGroup", $species_group, "3600", "", "/", "", false, false, null);
 
 		echo view('species_search', $this->data);
     }
