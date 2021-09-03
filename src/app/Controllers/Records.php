@@ -27,7 +27,7 @@ class Records extends BaseController
 		$this->data['page']             = $this->page;
 		$this->data['queryUrl']         = $records->queryUrl;
 		$this->data['totalRecords']     = $records->totalRecords;
-		$this->data['speciesGuid']		= isset($recordsList[0]->speciesGuid) ? $recordsList[0]->speciesGuid : '';
+		$this->data['speciesGuid']		= isset($records->records[0]->speciesGuid) ? $records->records[0]->speciesGuid : '';
 
 		$this->data['totalPages']       = $records->getTotalPages();
 
