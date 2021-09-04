@@ -55,7 +55,6 @@
 				both <span class="d-none d-xl-inline">plants and bryophytes</span>
 			</label>
 		</div>
-
 	</div>
 </div>
 <?= form_close() ?>

@@ -14,18 +14,28 @@ class Species extends BaseController
 	{
 		if ($this->isPostBack())
 		{
-			$this->data['title'] = $this->data['title'] . " - results";
-			$name_search_string  = $this->request->getVar('search');
-			$name_search_string  = trim($name_search_string);
+			$nameType = $this->request->getVar('name-type');
+			$speciesGroup = $this->request->getVar('species-group');
 
-			// If the search field is empty, go to the begining of the alphabet
-			if (empty($name_search_string))
+			// If there is a site name specified, assume we want to do a search for species at
+			// that site. If not, go to species in county as normal.
+			$siteName = $this->request->getVar('site-name');
+			if (isset($siteName))
 			{
-				$name_search_string = "A";
+				return redirect()->to("/site/{$siteName}/group/{$speciesGroup}/type/{$nameType}");
 			}
-			$nameType      = $this->request->getVar('name-type');
-			$species_group = $this->request->getVar('species-group');
-			return redirect()->to("/species/{$name_search_string}/group/{$species_group}/type/{$nameType}");
+			else
+			{
+				$nameSearchString  = $this->request->getVar('search');
+				$nameSearchString  = trim($nameSearchString);
+				// If the search field is empty, go to the begining of the alphabet
+				if (empty($nameSearchString))
+				{
+					$nameSearchString = "A";
+				}
+
+				return redirect()->to("/species/{$nameSearchString}/group/{$speciesGroup}/type/{$nameType}");
+			}
 		};
 
 		$nameTypeCookie = get_cookie("nameType");
@@ -37,8 +47,8 @@ class Species extends BaseController
 		{
 			$this->data['nameType'] = "scientific";
 		}
-		$speciesGroupCookie = get_cookie("speciesGroup");
 
+		$speciesGroupCookie = get_cookie("speciesGroup");
 		if (isset($speciesGroupCookie))
 		{
 			$this->data['speciesGroup'] = $speciesGroupCookie;
@@ -47,33 +57,34 @@ class Species extends BaseController
 		{
 			$this->data['speciesGroup'] = "both";
 		}
+
 		$this->data['nameSearchString'] = "";
+
 		echo view('species_search', $this->data);
 	}
 
 	/**
 	 * Return the species list for the county
 	 */
-	public function listForCounty($name_search_string, $species_group, $name_type)
+	public function listForCounty($nameSearchString, $speciesGroup, $nameType)
 	{
-		$this->data['title']            = $this->data['title'] . " - " . $name_search_string;
-		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($name_search_string, $name_type, $species_group, $this->page);
-		$this->data['records']      = $speciesQueryResult->records;
+		$this->data['title']            = $this->data['title'] . " - " . $nameSearchString;
+		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $this->page);
+		$this->data['records']          = $speciesQueryResult->records;
 		$this->data['sites']            = $speciesQueryResult->sites;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
 		$this->data['queryUrl']         = $speciesQueryResult->queryUrl;
 		$this->data['message']          = $speciesQueryResult->message;
-		$this->data['nameSearchString'] = $name_search_string;
-		$this->data['nameType']     = $name_type;
-		$this->data['speciesGroup'] = $species_group;
-		$this->data['page'] = $this->page;
-		$this->data['totalRecords'] = $speciesQueryResult->totalRecords;
+		$this->data['nameSearchString'] = $nameSearchString;
+		$this->data['nameType']         = $nameType;
+		$this->data['speciesGroup']     = $speciesGroup;
+		$this->data['page']             = $this->page;
+		$this->data['totalRecords']     = $speciesQueryResult->totalRecords;
 		$this->data['totalPages']       = $speciesQueryResult->getTotalPages();
 
-
-		set_cookie("speciesNameSearch",$name_search_string,"3600", "", "/", "", false, false, null);
-		set_cookie("nameType", $name_type, "3600", "", "/", "", false, false, null);
-		set_cookie("speciesGroup", $species_group, "3600", "", "/", "", false, false, null);
+		set_cookie("speciesNameSearch",$nameSearchString,"3600", "", "/", "", false, false, null);
+		set_cookie("nameType", $nameType, "3600", "", "/", "", false, false, null);
+		set_cookie("speciesGroup", $speciesGroup, "3600", "", "/", "", false, false, null);
 
 		echo view('species_search', $this->data);
     }
@@ -81,11 +92,26 @@ class Species extends BaseController
 	/**
 	 * Return the species list for a named site.
 	 */
-	public function listForSite($site_name, $species_group, $name_type)
+	public function listForSite($siteName, $speciesGroup, $nameType)
 	{
-		$this->data['title']       = urldecode($site_name);
-		$species_group             = $this->request->getVar('species-group');
-		$this->data['speciesList'] = $this->nbn->getSpeciesListForSite($site_name, $species_group);
+		$this->data['siteName']     = urldecode($siteName);
+		$this->data['title']        = $this->data['title'] . " - " . $this->data['siteName'];
+		$speciesQueryResult         = $this->nbn->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $this->page);
+		$this->data['speciesList']  = $speciesQueryResult->records;
+		$this->data['downloadLink'] = $speciesQueryResult->downloadLink;
+		$this->data['queryUrl']     = $speciesQueryResult->queryUrl;
+		$this->data['message']      = $speciesQueryResult->message;
+		$this->data['nameType']     = $nameType;
+		$this->data['speciesGroup'] = $speciesGroup;
+		$this->data['page']         = $this->page;
+		$this->data['totalRecords'] = $speciesQueryResult->totalRecords;
+		$this->data['totalPages']   = $speciesQueryResult->getTotalPages();
+
+		$this->data['siteNameSearch'] = get_cookie("siteNameSearch");
+
+		set_cookie("nameType", $nameType, "3600", "", "/", "", false, false, null);
+		set_cookie("speciesGroup", $speciesGroup, "3600", "", "/", "", false, false, null);
+
 		echo view('site_species_list', $this->data);
 	}
 

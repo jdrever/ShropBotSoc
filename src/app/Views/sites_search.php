@@ -36,7 +36,7 @@
 			<?php foreach ($sites as $site) : ?>
 				<tr>
 					<td>
-						<a href="<?= base_url('/site/' . $site->label . '/group/plants/type/scientific'); ?>">
+						<a href="<?= base_url('/site/' . $site->label . '/group/both/type/scientific'); ?>">
 							<?= $site->label ?>
 						</a>
 					</td>

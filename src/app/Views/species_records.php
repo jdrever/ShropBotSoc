@@ -236,9 +236,9 @@
 
 <?= $this->include('pagination') ?>
 
-	<?php if (isset($download_link)) : ?>
-<p><a href="<?= $download_link ?>">Download this data</a></p>
-	<?php endif ?>
+<?php if (isset($download_link)) : ?>
+	<p><a href="<?= $download_link ?>">Download this data</a></p>
+<?php endif ?>
 
 <?php endif ?>
 
