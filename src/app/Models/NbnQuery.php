@@ -298,6 +298,18 @@ class NbnQuery implements NbnQueryInterface
 			$speciesQueryResult->records = [];
 		}
 
+		// Get site location from first occurrence
+		$occurrence = $nbnQueryResponse->jsonResponse->occurrences[0];
+		if (isset($occurrence->decimalLatitude))
+		{
+			$speciesQueryResult->siteLocation = [$occurrence->decimalLatitude, $occurrence->decimalLongitude];
+		}
+		else
+		{
+			// No location data - currently just doesn't show a site marker
+			$speciesQueryResult->siteLocation = [];
+		}
+
 		$speciesQueryResult->status   = $nbnQueryResponse->status;
 		$speciesQueryResult->message  = $nbnQueryResponse->message;
 		$speciesQueryResult->queryUrl = $queryUrl;
