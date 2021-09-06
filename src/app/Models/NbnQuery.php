@@ -299,10 +299,9 @@ class NbnQuery implements NbnQueryInterface
 		}
 
 		// Get site location from first occurrence
-		$occurrence = $nbnQueryResponse->jsonResponse->occurrences[0];
-		if (isset($occurrence->decimalLatitude))
+		if (isset($nbnQueryResponse->jsonResponse->occurrences[0]->decimalLatitude))
 		{
-			$speciesQueryResult->siteLocation = [$occurrence->decimalLatitude, $occurrence->decimalLongitude];
+			$speciesQueryResult->siteLocation = [$nbnQueryResponse->jsonResponse->occurrences[0]->decimalLatitude, $nbnQueryResponse->jsonResponse->occurrences[0]->decimalLongitude];
 		}
 		else
 		{
