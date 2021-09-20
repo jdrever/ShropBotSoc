@@ -19,12 +19,16 @@
 	<script type="text/javascript" src="/js/proj4.js"></script>
 	<script type="text/javascript" src="/js/Leaflet.MetricGrid.js"></script>
 	<script type="text/javascript" src="/js/leaflet.wms.js"></script>
+	<!-- Manifest for PWA -->
+	<link rel="manifest" href="/manifest.json">
+	<script type="text/javascript" src="/js/index.js" defer></script>
 	<title>
 		<?= $title ?>
 	</title>
 </head>
 
 <body>
+<button class="add-button">Add to home screen</button>
 	<div class="container-fluid p-2 pt-0 mt-2">
 		<nav class="navbar navbar-expand-sm navbar-light px-3 py-2">
 			<a class="navbar-brand fs-4" href="/">Botanical Records</a>
