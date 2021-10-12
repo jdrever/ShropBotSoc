@@ -118,6 +118,8 @@ class Records extends BaseController
 				$fullDate =date_format(date_create($record->records->processed->event->eventDate),'jS F Y') ;
 			$this->data['fullDate'] = $fullDate;
 
+			$this->data['queryUrl']       = $record->queryUrl;
+
 			$this->data['recordId']       = $record->records->processed->rowKey;
 
 			$this->data['download_link']    = $record->downloadLink;
