@@ -46,17 +46,7 @@ class NbnQuery implements NbnQueryInterface
 	{
 		//because the API respects the case
 		$nameSearchString = ucfirst($nameSearchString);
-
-		if ($speciesGroup === "both")
-		{
-			$speciesGroup = 'Plants+OR+Bryophytes';
-		}
-		else
-		{
-			$speciesGroup = ucfirst($speciesGroup);
-		}
 		$nbnRecords           = new NbnRecords('/occurrences/search');
-
 
 		//$nbnRecords->pageSize = 10;
 		$preparedName=$this->prepareSearchString($nameSearchString);
@@ -74,13 +64,21 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->facets   = 'common_name_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
+
+		$speciesGroup = ucfirst($speciesGroup);
 		if ($speciesGroup=== "Plants")
 		{
+			$nbnRecords->add('species_group:' . "Plants");
 			$nbnRecords->addNot('species_group:' . "Bryophytes");
+		}
+		else if ($speciesGroup=== "Bryophytes")
+		{
+			$nbnRecords->addNot('species_group:' . "Plants");
+			$nbnRecords->add('species_group:' . "Bryophytes");
 		}
 		else
 		{
-			$nbnRecords->add('species_group:' . $speciesGroup);
+			$nbnRecords->add('species_group:' . 'Plants+OR+Bryophytes');
 		}
 		$queryUrl            = $nbnRecords->getUnpagedQueryString();
 		$nbnQueryResponse    = $this->callNbnApi($queryUrl);
