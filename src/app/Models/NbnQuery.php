@@ -425,7 +425,7 @@ class NbnQuery implements NbnQueryInterface
 		$searchWords  = explode(' ', $searchString);
 		if (count($searchWords) === 1)
 		{
-			return $searchString . '*';
+			return '*' . $searchString . '*';
 		}
 		$preparedSearchString = $searchWords[0] . '*';
 		unset($searchWords[0]);
