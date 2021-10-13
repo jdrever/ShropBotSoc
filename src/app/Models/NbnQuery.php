@@ -59,17 +59,18 @@ class NbnQuery implements NbnQueryInterface
 
 
 		//$nbnRecords->pageSize = 10;
-
+		$preparedName=$this->prepareSearchString($nameSearchString);
 		if ($nameType === "scientific")
 		{
-			$nbnRecords->add('taxon_name:' . $this->prepareSearchString($nameSearchString));
+
+			$nbnRecords->add('taxon_name:' . $preparedName);
 			$nbnRecords->facets   = 'names_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
 
 		if ($nameType === "common")
 		{
-			$nbnRecords->add('common_name:' . $this->prepareSearchString($nameSearchString));
+			$nbnRecords->add('common_name:' . $preparedName);
 			$nbnRecords->facets   = 'common_name_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
@@ -415,7 +416,8 @@ class NbnQuery implements NbnQueryInterface
 
 	/**
 	 * Deals with multi-word search terms and prepares
-	 * theme for use by the NBN API by adding ANDs
+	 * theme for use by the NBN API by adding ANDs and
+	 * setting to all lower case
 	 *
 	 * @param string $searchString the search term to prepare
 	 *
@@ -423,7 +425,7 @@ class NbnQuery implements NbnQueryInterface
 	 */
 	private function prepareSearchString($searchString)
 	{
-
+		$searchString=ucfirst(strtolower($searchString));
 		$searchWords  = explode(' ', $searchString);
 		if (count($searchWords) === 1)
 		{
