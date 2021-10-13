@@ -38,9 +38,7 @@ class NbnQuery implements NbnQueryInterface
 	 * Changing to use:
 	 * https://records-ws.nbnatlas.org/occurrences/search?facets=common_name_and_lsid&q=data_resource_uid:dr782&flimit=-1&fq=common_name:Ivy*%20AND%20species_group:Plants+Bryophytes&fsort=index&pageSize=0
 	 *
-	 * TODO: Search in common names
 	 * TODO: Search on axiophytes
-	 * TODO: Only plants, only bryophytes or both
 	 */
 	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
 	{
