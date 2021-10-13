@@ -73,8 +73,14 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->facets   = 'common_name_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
-		$nbnRecords->add('species_group:' . $speciesGroup);
-
+		if ($speciesGroup=== "Plants")
+		{
+			$nbnRecords->addNot('species_group:' . "Bryophytes");
+		}
+		else
+		{
+			$nbnRecords->add('species_group:' . $speciesGroup);
+		}
 		$queryUrl            = $nbnRecords->getUnpagedQueryString();
 		$nbnQueryResponse    = $this->callNbnApi($queryUrl);
 		$totalRecords 		 = 0;
