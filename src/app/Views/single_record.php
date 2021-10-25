@@ -45,7 +45,7 @@
 					</tr>
 					<tr>
 						<td scope="row">Full Grid Reference</a></td>
-						<td scope="row"><a href="/square/<?= $location->gridReference ?>/species/<?= $classification->scientificName ?>"><?= $location->gridReference ?></a></td>
+						<td scope="row"><a href="/square/<?= $gridReference ?>/species/<?= $classification->scientificName ?>"><?= $gridReference ?></a></td>
 					</tr>
 					<tr>
 						<td scope="row">Recorders</td>
@@ -78,7 +78,7 @@
 			<div id="map" class=""></div>
 		</div>
 	</div>
-
+	<?php if (isset($location->gridReferenceWKT)) : ?>
 	<script>
 		// Initialise the map
 		const map = L.map("map", {
@@ -148,6 +148,8 @@
 			});
 		});
 	</script>
+	<?php endif ?>
+
 
 	<?php if (isset($download_link)) : ?>
 <p><a href="<?= $download_link ?>">Download this data</a></p>

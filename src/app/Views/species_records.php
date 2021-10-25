@@ -57,9 +57,11 @@
 								</a>
 							</td>
 							<td class="d-none d-sm-table-cell">
+							<?php if (isset($record->gridReference)) : ?>
 								<a href="/square/<?= $record->gridReference ?>/species/<?=$speciesName ?>">
 									<?= $record->gridReference ?>
 								</a>
+							<?php endif ?>
 							</td>
 							<td class="d-none d-md-table-cell">
 								<?= $record->collector ?>

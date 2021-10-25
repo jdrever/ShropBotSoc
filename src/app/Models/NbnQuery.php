@@ -157,7 +157,7 @@ class NbnQuery implements NbnQueryInterface
 				// (site name) and latLong of only the _first_ record for each site.
 				// The latLong returned from the API is a single string, so we
 				// convert into an array of two floats.
-				if (! array_key_exists($record->locationId, $sites))
+				if (! array_key_exists($record->locationId, $sites)&& isset($record->latLong))
 				{
 					$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
 				}
@@ -295,7 +295,7 @@ class NbnQuery implements NbnQueryInterface
 			// (site name) and latLong of only the _first_ record for each site.
 			// The latLong returned from the API is a single string, so we
 			// convert into an array of two floats.
-			if (! array_key_exists($record->locationId, $sites))
+			if (! array_key_exists($record->locationId, $sites)&& isset($record->latLong))
 			{
 				$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
 			}
