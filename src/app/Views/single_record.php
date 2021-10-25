@@ -69,7 +69,11 @@
 					</tr>
 					<tr>
 						<td scope="row">Common Name</td>
-						<td scope="row"><?= $classification->vernacularName ?></td>
+						<td scope="row">
+						<?php if (isset($classification->vernacularName)) : ?>
+							<?= $classification->vernacularName ?>
+						<?php endif ?>
+						</td>
 					</tr>
 				</tbody>
 			</table>
