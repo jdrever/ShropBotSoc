@@ -107,7 +107,7 @@ class Records extends BaseController
 			$this->data['classification'] = $classification;
 			$displayName                  = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
 			$location                     = $record->records->raw->location; # `raw` contains the locationID;
-			$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $location->locationID . ' (' .$location->gridReference . '),' . $record->records->processed->event->year . ')';
+			$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $location->locationID . ' (' .$location->gridReference . '),' . $record->records->processed->event->year . '.';
 			$this->data['location']       = $location;
 			$this->data['event']          = $record->records->processed->event;
 			$this->data['displayName']    = $displayName;
