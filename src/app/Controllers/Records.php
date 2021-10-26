@@ -69,7 +69,6 @@ class Records extends BaseController
 		// Map of site
 		$this->data['gridSquare']  = $gridSquare;
 		$this->data['speciesName'] = $speciesName;
-
 		$records                    = $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $this->page);
 		$this->data['recordsList']  = $records->records;
 		$this->data['page']         = $this->page;
