@@ -374,7 +374,7 @@ class NbnQuery implements NbnQueryInterface
 		// $nbnRecords->fsort = "index";
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"')
-			->add('grid_ref:' . '"' . urlencode($gridSquare) . '"');
+			->add('grid_ref_1000:' . '"' . urlencode($gridSquare) . '"');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$recordsJson        = file_get_contents($queryUrl);
 		$recordsJsonDecoded = json_decode($recordsJson);

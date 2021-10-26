@@ -62,6 +62,10 @@ class Records extends BaseController
 
 	public function singleSpeciesForSquare($gridSquare, $speciesName)
 	{
+		if (strlen($gridSquare)>6)
+		{
+			$gridSquare=substr($gridSquare,0,4) . substr($gridSquare,5,2);
+		}
 		// Map of site
 		$this->data['gridSquare']  = $gridSquare;
 		$this->data['speciesName'] = $speciesName;
