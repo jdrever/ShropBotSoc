@@ -371,7 +371,6 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords       = new NbnRecords('occurrences/search');
 		$nbnRecords->sort = "year";
 		$nbnRecords->dir  = "desc";
-		// $nbnRecords->fsort = "index";
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"')
 			->add('grid_ref_1000:' . '"' . urlencode($gridSquare) . '"');
