@@ -71,7 +71,6 @@ class NbnQuery implements NbnQueryInterface
 		}
 		else if ($speciesGroup=== "Bryophytes")
 		{
-			$nbnRecords->addNot('species_group:' . "Plants");
 			$nbnRecords->add('species_group:' . "Bryophytes");
 		}
 		else
