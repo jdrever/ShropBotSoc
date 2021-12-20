@@ -81,11 +81,17 @@ class Species extends BaseController
 	/**
 	 * Return the species list for a named site.
 	 */
-	public function listForSite($site_name, $species_group, $name_type)
+	public function listForSite($siteName, $speciesGroup, $nameType)
 	{
-		$this->data['title']       = urldecode($site_name);
-		$species_group             = $this->request->getVar('species-group');
-		$this->data['speciesList'] = $this->nbn->getSpeciesListForSite($site_name, $species_group);
+		$this->data['siteName']       = urldecode($siteName);
+		$speciesGroup             = $this->request->getVar('species-group');
+		$this->data['speciesList'] = $this->nbn->getSpeciesListForSite($siteName, $speciesGroup);
+
+		$siteNameSearch=get_cookie("siteNameSearch");
+		if (empty($siteNameSearch))
+			$siteNameSearch=$siteName;
+		$this->data['siteNameSearch']	= $siteNameSearch;
+
 		echo view('site_species_list', $this->data);
 	}
 
