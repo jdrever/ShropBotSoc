@@ -38,40 +38,45 @@ class NbnQuery implements NbnQueryInterface
 	 * Changing to use:
 	 * https://records-ws.nbnatlas.org/occurrences/search?facets=common_name_and_lsid&q=data_resource_uid:dr782&flimit=-1&fq=common_name:Ivy*%20AND%20species_group:Plants+Bryophytes&fsort=index&pageSize=0
 	 *
-	 * TODO: Search in common names
 	 * TODO: Search on axiophytes
-	 * TODO: Only plants, only bryophytes or both
 	 */
 	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
 	{
 		//because the API respects the case
 		$nameSearchString = ucfirst($nameSearchString);
 
-		if ($speciesGroup === "both")
-		{
-			$speciesGroup = 'Plants+OR+Bryophytes';
-		}
-		else
-		{
-			$speciesGroup = ucfirst($speciesGroup);
-		}
-		$nbnRecords = new NbnRecords('/occurrences/search');
+		$nbnRecords           = new NbnRecords('/occurrences/search');
 
+		//$nbnRecords->pageSize = 10;
+		$preparedName=$this->prepareSearchString($nameSearchString);
 		if ($nameType === "scientific")
 		{
-			$nbnRecords->add('taxon_name:' . $this->prepareSearchString($nameSearchString));
+
+			$nbnRecords->add('taxon_name:' . $preparedName);
 			$nbnRecords->facets   = 'names_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
 
 		if ($nameType === "common")
 		{
-			$nbnRecords->add('common_name:' . $this->prepareSearchString($nameSearchString));
+			$nbnRecords->add('common_name:' . $preparedName);
 			$nbnRecords->facets   = 'common_name_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
-	 	$nbnRecords->add('species_group:' . $speciesGroup);
-
+		$speciesGroup = ucfirst($speciesGroup);
+		if ($speciesGroup=== "Plants")
+		{
+			$nbnRecords->add('species_group:' . "Plants");
+			$nbnRecords->addNot('species_group:' . "Bryophytes");
+		}
+		else if ($speciesGroup=== "Bryophytes")
+		{
+			$nbnRecords->add('species_group:' . "Bryophytes");
+		}
+		else
+		{
+			$nbnRecords->add('species_group:' . 'Plants+OR+Bryophytes');
+		}
 		$queryUrl            = $nbnRecords->getUnpagedQueryString();
 		$nbnQueryResponse    = $this->callNbnApi($queryUrl);
 		$totalRecords 		 = 0;
@@ -151,7 +156,7 @@ class NbnQuery implements NbnQueryInterface
 				// (site name) and latLong of only the _first_ record for each site.
 				// The latLong returned from the API is a single string, so we
 				// convert into an array of two floats.
-				if (! array_key_exists($record->locationId, $sites))
+				if (! array_key_exists($record->locationId, $sites)&& isset($record->latLong))
 				{
 					$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
 				}
@@ -347,7 +352,7 @@ class NbnQuery implements NbnQueryInterface
 			// (site name) and latLong of only the _first_ record for each site.
 			// The latLong returned from the API is a single string, so we
 			// convert into an array of two floats.
-			if (! array_key_exists($record->locationId, $sites))
+			if (! array_key_exists($record->locationId, $sites)&& isset($record->latLong))
 			{
 				$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
 			}
@@ -423,10 +428,9 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords       = new NbnRecords('occurrences/search');
 		$nbnRecords->sort = "year";
 		$nbnRecords->dir  = "desc";
-		// $nbnRecords->fsort = "index";
 		$nbnRecords
 			->add('taxon_name:' . '"' . $speciesName . '"')
-			->add('grid_ref:' . '"' . urlencode($gridSquare) . '"');
+			->add('grid_ref_1000:' . '"' . urlencode($gridSquare) . '"');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$recordsJson        = file_get_contents($queryUrl);
 		$recordsJsonDecoded = json_decode($recordsJson);
@@ -464,7 +468,8 @@ class NbnQuery implements NbnQueryInterface
 
 	/**
 	 * Deals with multi-word search terms and prepares
-	 * theme for use by the NBN API by adding ANDs
+	 * theme for use by the NBN API by adding ANDs and
+	 * setting to all lower case
 	 *
 	 * @param string $searchString the search term to prepare
 	 *
@@ -472,11 +477,11 @@ class NbnQuery implements NbnQueryInterface
 	 */
 	private function prepareSearchString($searchString)
 	{
-
+		$searchString=ucfirst(strtolower($searchString));
 		$searchWords  = explode(' ', $searchString);
 		if (count($searchWords) === 1)
 		{
-			return $searchString . '*';
+			return '*' . $searchString . '*';
 		}
 		$preparedSearchString = $searchWords[0] . '*';
 		unset($searchWords[0]);

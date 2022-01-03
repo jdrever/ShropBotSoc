@@ -107,8 +107,14 @@ class NbnRecords
 	{
 		$queryString  = $url . '?';
 		$queryParameters = array_merge(array('data_resource_uid:' . $this->dataResourceUid), $this->extraQueryParameters);
+		$fqAndParameters = implode('%20AND%20', $this->filterQueryParameters);
+		$fqNotParameters = '';
+		if (count($this->filterNotQueryParameters)>0)
+		{
+			$fqNotParameters = '%20AND%20NOT%20' . implode('%20AND%20NOT%20', $this->filterNotQueryParameters);
+		}
 		$queryString .= 'q=' . implode('%20AND%20', $queryParameters) . '&';
-		$queryString .= 'fq=' . implode('%20AND%20', $this->filterQueryParameters) . '&';
+		$queryString .= 'fq=' . $fqAndParameters . $fqNotParameters . '&';
 		$queryString .= 'facets=' . $this->facets . '&';
 		$queryString .= 'sort=' . $this->sort . '&';
 		$queryString .= 'fsort=' . $this->fsort . '&';
@@ -239,6 +245,32 @@ class NbnRecords
 	public function add(string $filterQueryParameter)
 	{
 		$this->filterQueryParameters[] = $filterQueryParameter;
+		return $this;
+	}
+
+	/**
+	 * Keeps an internal array of query filter parameters.
+	 *
+	 * A list of available index fields can be found at
+	 * https://species-ws.nbnatlas.org/admin/indexFields
+	 *
+	 * @var string[] Array of strings
+	 */
+	protected $filterNotQueryParameters = [];
+
+	/**
+	 * Adds to the internal list of filter NOT query parameters
+	 *
+	 * A list of available index fields can be found at
+	 * https://species-ws.nbnatlas.org/admin/indexFields
+	 *
+	 * @param string $filterNotQueryParameter A single filter query parameter
+	 *
+	 * @return $this
+	 */
+	public function addNot(string $filterNotQueryParameter)
+	{
+		$this->filterNotQueryParameters[] = $filterNotQueryParameter;
 		return $this;
 	}
 

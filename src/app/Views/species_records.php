@@ -28,10 +28,10 @@
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
-		<button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="true">Data</button>
+		<button class="nav-link active fw-bold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="true">Data</button>
 	</li>
 	<li class="nav-item" role="presentation">
-		<button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="false">Map</button>
+		<button class="nav-link fw-bold" id="home-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="false">Map</button>
 	</li>
 </ul>
 <p><?= $totalRecords ?> records</p>
@@ -57,9 +57,11 @@
 								</a>
 							</td>
 							<td class="d-none d-sm-table-cell">
+							<?php if (isset($record->gridReference)) : ?>
 								<a href="/square/<?= $record->gridReference ?>/species/<?=$speciesName ?>">
 									<?= $record->gridReference ?>
 								</a>
+							<?php endif ?>
 							</td>
 							<td class="d-none d-md-table-cell">
 								<?= $record->collector ?>
@@ -236,9 +238,10 @@
 
 <?= $this->include('pagination') ?>
 
-<?php if (isset($download_link)) : ?>
-	<p><a href="<?= $download_link ?>">Download this data</a></p>
-<?php endif ?>
+	<?php if (isset($download_link)) : ?>
+<p><a href='<?= $download_link ?>''>Download this data</a></p>
+	<?php endif ?>
+
 
 <?php endif ?>
 

@@ -22,10 +22,10 @@
 
 	<ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 		<li class="nav-item" role="presentation">
-			<button class="nav-link active" id="map-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="true">Data</button>
+			<button class="nav-link active fw-bold" id="map-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="true">Data</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="false">Map</button>
+			<button class="nav-link fw-bold" id="data-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="false">Map</button>
 		</li>
 	</ul>
 
@@ -45,7 +45,7 @@
 					</tr>
 					<tr>
 						<td scope="row">Full Grid Reference</a></td>
-						<td scope="row"><a href="/square/<?= $location->gridReference ?>/species/<?= $classification->scientificName ?>"><?= $location->gridReference ?></a></td>
+						<td scope="row"><a href="/square/<?= $gridReference ?>/species/<?= $classification->scientificName ?>"><?= $gridReference ?></a></td>
 					</tr>
 					<tr>
 						<td scope="row">Recorders</td>
@@ -69,7 +69,11 @@
 					</tr>
 					<tr>
 						<td scope="row">Common Name</td>
-						<td scope="row"><?= $classification->vernacularName ?></td>
+						<td scope="row">
+						<?php if (isset($classification->vernacularName)) : ?>
+							<?= $classification->vernacularName ?>
+						<?php endif ?>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -78,7 +82,7 @@
 			<div id="map" class=""></div>
 		</div>
 	</div>
-
+	<?php if (isset($location->gridReferenceWKT)) : ?>
 	<script>
 		// Initialise the map
 		const map = L.map("map", {
@@ -148,6 +152,8 @@
 			});
 		});
 	</script>
+	<?php endif ?>
+
 
 	<?php if (isset($download_link)) : ?>
 <p><a href="<?= $download_link ?>">Download this data</a></p>

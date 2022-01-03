@@ -62,10 +62,13 @@ class Records extends BaseController
 
 	public function singleSpeciesForSquare($gridSquare, $speciesName)
 	{
+		if (strlen($gridSquare)>6)
+		{
+			$gridSquare=substr($gridSquare,0,4) . substr($gridSquare,5,2);
+		}
 		// Map of site
 		$this->data['gridSquare']  = $gridSquare;
 		$this->data['speciesName'] = $speciesName;
-
 		$records                    = $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $this->page);
 		$this->data['recordsList']  = $records->records;
 		$this->data['page']         = $this->page;
@@ -107,16 +110,24 @@ class Records extends BaseController
 			$this->data['classification'] = $classification;
 			$displayName                  = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
 			$location                     = $record->records->raw->location; # `raw` contains the locationID;
-			$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $location->locationID . ' (' . $record->records->processed->event->year . ')';
+			$gridReference				  = "Unknown grid reference";
+			if (isset($location->gridReference))
+			{
+				$gridReference=$location->gridReference;
+			}
+
+			$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $location->locationID . ' (' .$gridReference . '),' . $record->records->processed->event->year . '.';
 			$this->data['location']       = $location;
 			$this->data['event']          = $record->records->processed->event;
 			$this->data['displayName']    = $displayName;
 			$this->data['title']          = $displayTitle;
-
+			$this->data['gridReference']    = $gridReference;
 			$fullDate='Not available';
 			if (isset($record->records->processed->event->eventDate))
 				$fullDate =date_format(date_create($record->records->processed->event->eventDate),'jS F Y') ;
 			$this->data['fullDate'] = $fullDate;
+
+			$this->data['queryUrl']       = $record->queryUrl;
 
 			$this->data['recordId']       = $record->records->processed->rowKey;
 

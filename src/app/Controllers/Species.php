@@ -122,6 +122,11 @@ class Species extends BaseController
 	public function listforSquare($gridSquare, $speciesGroup, $nameType)
 	{
 		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $this->page);
+		if (strlen($gridSquare)>6)
+		{
+			$gridSquare=substr($gridSquare,0,4) . substr($gridSquare,5,2);
+		}
+
 		$this->data['speciesList']      = $speciesQueryResult->records;
 		$this->data['sites']            = $speciesQueryResult->sites;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
