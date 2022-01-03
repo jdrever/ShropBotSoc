@@ -269,7 +269,7 @@ class NbnQuery implements NbnQueryInterface
 		}
 		else
 		{
-			$nbnRecords->add('species_group:' . 'Plants+OR+Bryophytes');
+			$nbnRecords->add('species_group:Bryophytes+OR+Plants');
 		}
 
 		if ($nameType === "scientific")
@@ -282,9 +282,7 @@ class NbnQuery implements NbnQueryInterface
 		}
 		$nbnRecords->fsort   = 'index';
 
-		$nbnRecords
-			->add('location_id:' . str_replace(" ", "\%20", $siteName)) // Use "\ " instead of spaces to search only for species matching whole site name
-			->add('species_group:' . $speciesGroup);
+		$nbnRecords->add('location_id:' . str_replace(" ", "\%20", $siteName)); // Use "\ " instead of spaces to search only for species matching whole site name
 		$queryUrl         = $nbnRecords->getUnpagedQueryString();
 		$nbnQueryResponse = $this->callNbnApi($queryUrl);
 
