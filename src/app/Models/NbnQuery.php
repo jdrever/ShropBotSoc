@@ -257,13 +257,19 @@ class NbnQuery implements NbnQueryInterface
 	{
 		$nbnRecords = new NbnRecords('occurrences/search');
 
-		if ($speciesGroup === "both")
+		$speciesGroup = ucfirst($speciesGroup);
+		if ($speciesGroup=== "Plants")
 		{
-			$speciesGroup = 'Plants+OR+Bryophytes';
+			$nbnRecords->add('species_group:' . "Plants");
+			$nbnRecords->addNot('species_group:' . "Bryophytes");
+		}
+		else if ($speciesGroup=== "Bryophytes")
+		{
+			$nbnRecords->add('species_group:' . "Bryophytes");
 		}
 		else
 		{
-			$speciesGroup = ucfirst($speciesGroup);
+			$nbnRecords->add('species_group:' . 'Plants+OR+Bryophytes');
 		}
 
 		if ($nameType === "scientific")
