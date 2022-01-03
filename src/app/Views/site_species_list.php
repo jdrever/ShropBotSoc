@@ -83,14 +83,14 @@
 								<td><?=$speciesArray[0]?></td>
 								<td class="d-none d-sm-table-cell"><?php echo $speciesArray[2]?></td>
 								<td><?=$species->count?></td>
-								<td><a href="/site/<?php echo $title ?>/species/<?=$speciesArray[0]?>">see records</a></td>
+								<td><a href="/site/<?php echo $siteName ?>/species/<?=$speciesArray[0]?>">see records</a></td>
 							<?php endif?>
 							<?php if ($nameType === 'common') : ?>
 								<td class="d-none d-md-table-cell"><?php echo $speciesArray[5]?></td>
 								<td><?=$speciesArray[1]?></td>
 								<td class="d-none d-sm-table-cell"><?php echo $speciesArray[3]?></td>
 								<td><?=$species->count?></td>
-								<td><a href="/site/<?php echo $title ?>/species/<?=$speciesArray[5]?>">see records</a></td>
+								<td><a href="/site/<?php echo $siteName ?>/species/<?=$speciesArray[5]?>">see records</a></td>
 							<?php endif?>
 						</tr>
 					<?php endforeach ?>
