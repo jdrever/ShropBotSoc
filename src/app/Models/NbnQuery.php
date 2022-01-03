@@ -44,6 +44,7 @@ class NbnQuery implements NbnQueryInterface
 	{
 		//because the API respects the case
 		$nameSearchString = ucfirst($nameSearchString);
+
 		$nbnRecords           = new NbnRecords('/occurrences/search');
 
 		//$nbnRecords->pageSize = 10;
@@ -62,7 +63,6 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->facets   = 'common_name_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
-
 		$speciesGroup = ucfirst($speciesGroup);
 		if ($speciesGroup=== "Plants")
 		{
@@ -201,7 +201,7 @@ class NbnQuery implements NbnQueryInterface
 	/**
 	 * Search for sites matching the string
 	 *
-	 * e.g. 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782%20AND%20&location_id:Shrews*facets=location_id&facet=on&pageSize=0';
+	 * e.g. 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782%20AND%20&location_id:Shrews*&fq=species_group:Plants+OR+Bryophytes&facets=location_id&facet=on&pageSize=0';
 	 */
 	public function getSiteListForCounty($siteSearchString, $page)
 	{
@@ -213,8 +213,8 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords           = new NbnRecords('occurrences/search');
 		$nbnRecords->facets   = "location_id";
 
-		$nbnRecords
-			->addExtraQueryParameter('location_id:'.$siteSearchString.'*');
+		$nbnRecords->addExtraQueryParameter('location_id:'.$siteSearchString.'*');
+		$nbnRecords->add('species_group:Plants+OR+Bryophytes');
 
 		$queryUrl            = $nbnRecords->getUnpagedQueryString();
 		$nbnQueryResponse    = $this->callNbnApi($queryUrl);
@@ -249,22 +249,80 @@ class NbnQuery implements NbnQueryInterface
 
 	/**
 	 * Get species list for a site.
+	 * e.g. 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+location_id:Shrewsbury+AND+species_group:Plants+Bryophytes&pageSize=9
 	 *
-	 * e.g. 'https://records-ws.nbnatlas.org/explore/group/ALL_SPECIES?q=&fq=data_resource_uid:dr782+AND+location_id:Shrewsbury+AND+species_group:Plants+Bryophytes&pageSize=9'
+	 * Changed to use 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=location_id:Shrewsbury+AND+species_group:Plants+Bryophytes
 	 */
-	public function getSpeciesListForSite($site_name, $species_group)
+	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $page)
 	{
-		$nbn_records = new NbnRecords('explore/group/ALL_SPECIES');
-		$nbn_records
-			->add('location_id:' . urlencode($site_name))
-			->add('species_group:Plants+OR+Bryophytes');
-		$query_url         = $nbn_records->getPagingQueryString();
-		$species_json      = file_get_contents($query_url);
-		$site_species_list = json_decode($species_json);
-		return $site_species_list;
+		$nbnRecords = new NbnRecords('occurrences/search');
+
+		if ($speciesGroup === "both")
+		{
+			$speciesGroup = 'Plants+OR+Bryophytes';
+		}
+		else
+		{
+			$speciesGroup = ucfirst($speciesGroup);
+		}
+
+		if ($nameType === "scientific")
+		{
+			$nbnRecords->facets   = 'names_and_lsid';
+		}
+		if ($nameType === "common")
+		{
+			$nbnRecords->facets   = 'common_name_and_lsid';
+		}
+		$nbnRecords->fsort   = 'index';
+
+		$nbnRecords
+			->add('location_id:' . str_replace(" ", "\%20", $siteName)) // Use "\ " instead of spaces to search only for species matching whole site name
+			->add('species_group:' . $speciesGroup);
+		$queryUrl         = $nbnRecords->getUnpagedQueryString();
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+
+		$totalRecords = 0;
+		if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+		{
+			$totalRecords = count($nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult);
+		}
+
+		$nbnRecords->flimit = '10';
+		$queryUrl = $nbnRecords->getPagingQueryStringWithFacetStart($page);
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+
+		$speciesQueryResult = new NbnQueryResult();
+
+		if ($nbnQueryResponse->status === 'OK' && isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+		{
+			$speciesQueryResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+		}
+		else
+		{
+			$speciesQueryResult->records = [];
+		}
+
+		// Get site location from first occurrence
+		if (isset($nbnQueryResponse->jsonResponse->occurrences[0]->decimalLatitude))
+		{
+			$speciesQueryResult->siteLocation = [$nbnQueryResponse->jsonResponse->occurrences[0]->decimalLatitude, $nbnQueryResponse->jsonResponse->occurrences[0]->decimalLongitude];
+		}
+		else
+		{
+			// No location data - currently just doesn't show a site marker
+			$speciesQueryResult->siteLocation = [];
+		}
+
+		$speciesQueryResult->status   = $nbnQueryResponse->status;
+		$speciesQueryResult->message  = $nbnQueryResponse->message;
+		$speciesQueryResult->queryUrl = $queryUrl;
+		$speciesQueryResult->totalRecords = $totalRecords;
+
+		return $speciesQueryResult;
 	}
 
-	public function getSingleSpeciesRecordsForSite($siteName, $speciesName,$page)
+	public function getSingleSpeciesRecordsForSite($siteName, $speciesName, $page)
 	{
 		// mainly to replace the spaces with %20
 		$speciesName      = rawurlencode($speciesName);
