@@ -94,6 +94,7 @@ class Species extends BaseController
 	 */
 	public function listForSite($siteName, $speciesGroup, $nameType)
 	{
+
 		$this->data['siteName']     = urldecode($siteName);
 		$this->data['title']        = $this->data['title'] . " - " . $this->data['siteName'];
 		$speciesQueryResult         = $this->nbn->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $this->page);

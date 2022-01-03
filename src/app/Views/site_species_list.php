@@ -57,6 +57,7 @@
 </div>
 <?= form_close() ?>
 
+
 <!-- Display search results and map showing site location-->
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">

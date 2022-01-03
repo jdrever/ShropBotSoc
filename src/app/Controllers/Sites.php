@@ -32,6 +32,7 @@ class Sites extends BaseController
      */
     public function listForCounty($siteSearchString)
     {
+
 		$this->data['title'] 			= $this->data['title'] . ' - ' . $siteSearchString;
         $this->data['siteSearchString'] = $siteSearchString;
 		$siteQueryResults 				= $this->nbn->getSiteListForCounty($siteSearchString, $this->page);
