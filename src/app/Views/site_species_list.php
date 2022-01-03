@@ -17,10 +17,6 @@
 	</h2>
 </div>
 
-<div class="alert alert-info" role="alert">
-	PLEASE NOTE: this page is currently still under development and may not return accurate information.
-</div>
-
 <?= form_open('species', '', array('site-name'=>$siteName)) ?>
 <div class="row justify-content-center gy-3">
 	<div class="form-group col-sm-4 col-lg-3">
