@@ -20,8 +20,13 @@ class Sites extends BaseController
 			{
 				$siteSearchString = "A";
 			}
+
+
+
             return redirect()->to("sites/{$siteSearchString}");
         };
+
+
 
 		$this->data['siteSearchString'] = "";
         echo view('sites_search', $this->data);
@@ -43,6 +48,27 @@ class Sites extends BaseController
 		$this->data['totalPages']       = $siteQueryResults->getTotalPages();
 
 		set_cookie("siteNameSearch", $siteSearchString, "3600", "", "/", "", false, false, null);
+
+		$nameTypeCookie = get_cookie("nameType");
+		if (isset($nameTypeCookie))
+		{
+			$this->data['nameType'] = $nameTypeCookie;
+		}
+		else
+		{
+			$this->data['nameType'] = "scientific";
+		}
+
+		$speciesGroupCookie = get_cookie("speciesGroup");
+		if (isset($speciesGroupCookie))
+		{
+			$this->data['speciesGroup'] = $speciesGroupCookie;
+		}
+		else
+		{
+			$this->data['speciesGroup'] = "both";
+		}
+
 
         echo view('sites_search', $this->data);
     }

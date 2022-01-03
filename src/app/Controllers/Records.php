@@ -58,6 +58,9 @@ class Records extends BaseController
 		$this->data['totalRecords'] = $records->totalRecords;
 		$this->data['totalPages']   = $records->getTotalPages();
 
+		$this->data['speciesNameType'] = !empty(get_cookie('nameType')) ? get_cookie('nameType') : 'scientific' ;
+		$this->data['speciesGroup'] = !empty(get_cookie('speciesGroup')) ? get_cookie('speciesGroup') : 'both' ;
+
 
 
 		echo view('site_species_records', $this->data);
