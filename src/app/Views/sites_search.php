@@ -24,7 +24,7 @@
 	</div>
 <?php endif ?>
 
-<?php if (isset($sites)) : ?>
+<?php if (isset($sites) && count($sites) > 0) : ?>
 	<table class="table mt-3">
 		<thead>
 			<tr>
@@ -36,7 +36,7 @@
 			<?php foreach ($sites as $site) : ?>
 				<tr>
 					<td>
-						<a href="<?= base_url('/site/' . $site->label . '/group/plants/type/scientific'); ?>">
+						<a href="<?= base_url('/site/' . $site->label . '/group/both/type/scientific'); ?>">
 							<?= $site->label ?>
 						</a>
 					</td>
@@ -48,5 +48,10 @@
 
 	<?= $this->include('pagination') ?>
 
+<?php elseif (!empty($siteSearchString)) : ?>
+	<div class="alert alert-warning" role="alert">
+		No records could be found matching those criteria.
+	</div>
 <?php endif ?>
+
 <?= $this->endSection() ?>

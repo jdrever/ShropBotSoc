@@ -14,15 +14,15 @@ class Sites extends BaseController
     {
         if ($this->isPostBack())
         {
-            $this->data['title'] = $this->data['title']." - results";
-            $site_search_string = $this->request->getVar('search');
-            $site_search_string = trim($site_search_string);
-            if (empty($site_search_string))
+            $siteSearchString = $this->request->getVar('search');
+            $siteSearchString = trim($siteSearchString);
+            if (empty($siteSearchString))
 			{
-				$site_search_string = "A";
+				$siteSearchString = "A";
 			}
-            return redirect()->to("sites/{$site_search_string}");
+            return redirect()->to("sites/{$siteSearchString}");
         };
+
 		$this->data['siteSearchString'] = "";
         echo view('sites_search', $this->data);
     }
@@ -30,15 +30,18 @@ class Sites extends BaseController
     /**
      * Display a list of sites in the county
      */
-    public function listForCounty($site_search_string)
+    public function listForCounty($siteSearchString)
     {
-        $this->data['siteSearchString'] = $site_search_string;
-		$siteQueryResults = $this->nbn->getSiteListForCounty($site_search_string, $this->page);
-        $this->data['sites'] = $siteQueryResults->sites;
-		$this->data['queryUrl'] = $siteQueryResults->queryUrl;
-		$this->data['page'] = $this->page;
-		$this->data['totalRecords'] = $siteQueryResults->totalRecords;
+		$this->data['title'] 			= $this->data['title'] . ' - ' . $siteSearchString;
+        $this->data['siteSearchString'] = $siteSearchString;
+		$siteQueryResults 				= $this->nbn->getSiteListForCounty($siteSearchString, $this->page);
+        $this->data['sites'] 			= $siteQueryResults->sites;
+		$this->data['queryUrl'] 		= $siteQueryResults->queryUrl;
+		$this->data['page'] 			= $this->page;
+		$this->data['totalRecords'] 	= $siteQueryResults->totalRecords;
 		$this->data['totalPages']       = $siteQueryResults->getTotalPages();
+
+		set_cookie("siteNameSearch", $siteSearchString, "3600", "", "/", "", false, false, null);
 
         echo view('sites_search', $this->data);
     }
