@@ -69,10 +69,12 @@ class Records extends BaseController
 
 	public function singleSpeciesForSquare($gridSquare, $speciesName)
 	{
-		if (strlen($gridSquare)>6)
-		{
-			$gridSquare=substr($gridSquare,0,4) . substr($gridSquare,5,2);
-		}
+		// Get a 6 digit grid reference (1km square) from any length of original
+		// grid reference by finding the midpoint of the position splitting the
+		// string.
+		$gsSplitPoint = strlen($gridSquare) / 2 + 1;
+		$gridSquare = substr($gridSquare, 0, 4) . substr($gridSquare, $gsSplitPoint, 2);
+
 		// Map of site
 		$this->data['gridSquare']  = $gridSquare;
 		$this->data['speciesName'] = $speciesName;
