@@ -1,8 +1,9 @@
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 <h2>Find A Square</h2>
-
 <div class="alert alert-info" role="alert">
 	PLEASE NOTE: this page is currently still under development and may not return accurate information.
 </div>
@@ -37,38 +38,73 @@
 	</div>
 <?php endif ?>
 
-<div id="mapid" style="height: 300px;"></div>
+<div id="map"></div>
 <script>
-	var mymap = L.map('mapid').setView([52.6, -3.0], 9);
+	// Initialise the map
+	const map = L.map("map", {
+		zoomSnap: 0,
+	}).setView([52.6354, -2.71975], 9);
 
-	var osmLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	// Make a minimal base layer using Mapbox data
+	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
 		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 		maxZoom: 18,
-		id: 'mapbox/streets-v11',
+		id: "mapbox/outdoors-v11",
 		tileSize: 512,
 		zoomOffset: -1,
-		accessToken: 'pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw'
+		accessToken: "pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw"
 	});
 
+// OS Grid graticules
+	// 10km grid graticule shown between zoom levels 8 and 11 and has no axis labels
+	const graticule10km = L.britishGrid({
+		color: '#216fff',
+		weight: 1,
+		showAxisLabels: [],
+		minInterval: 10000,
+		maxInterval: 10000,
+		minZoom: 8,
+		maxZoom: 11
+	});
 
-	var baseMaps = {
-		"OSM": osmLayer
-	};
+	// 1km grid graticule shown between zoom levels 11 and 15 and has labelled axis
+	const graticule1km = L.britishGrid({
+		color: '#216fff',
+		weight: 1,
+		showAxisLabels: [1000],
+		minInterval: 1000,
+		maxInterval: 1000,
+		minZoom: 11,
+		maxZoom: 15
+	});
 
-	osmLayer.addTo(mymap);
+	// Initialise geoJson boundary layer
+	const boundary = L.geoJSON(null, {
+		"color": "#0996DB",
+		"weight": 5,
+		"opacity": 0.33
+	});
+
+	// Create a Layer Group and add to map
+	const layers = L.layerGroup([minimal,  graticule10km, graticule1km, boundary]);
+	layers.addTo(map);
+
+	// Load shropshire geojson and fit map to boundaries
+	const url = "/data/shropshire_simple.json";
+	fetch(url)
+		.then((response) => response.json())
+		.then((geojson) => {
+			boundary.addData(geojson);
+			map.fitBounds(boundary.getBounds(geojson).pad(0.1));
+		});
+
+
+	L.control.locate().addTo(map);
 
 	var options = {};
-	//L.osGraticule(options).addTo(mymap);
+	//L.osGraticule(options).addTo(map);
 
-	const url = '/data/shropshire.json';
 
-	fetch(url)
-		.then(function(response) {
-			return response.json();
-		})
-		.then(function(data) {
-			L.geoJSON(data).addTo(mymap);
-		});
 </script>
 
 <?= $this->endSection() ?>
