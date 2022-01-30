@@ -83,80 +83,29 @@
 		</div>
 	</div>
 	<?php if (isset($location->gridReferenceWKT)) : ?>
-	<script>
-		// Initialise the map
-		const map = L.map("map", {
-			zoomSnap: 0,
-		}).setView([52.6354, -2.71975], 13);
+		<script>
+			// Basic map code (in BasicMap.js) - not fitting to Shropshire
+			const map = initialiseBasicMap(fitToShropshire = false);
 
-
-		// Make a minimal base layer using Mapbox data
-		const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-			maxZoom: 18,
-			id: "mapbox/outdoors-v11",
-			tileSize: 512,
-			zoomOffset: -1,
-			accessToken: "pk.eyJ1IjoiY2hhcmxlc3JvcGVyIiwiYSI6ImNrbmY2YXl4ZTJjbDQydm1xOW83MXh1eDIifQ.ntclZm-a8OxwUEBODW08FQ"
-		});
-
-		// Initialise geoJson boundary layer
-		const boundary = L.geoJSON(null, {
-			"color": "#0996DB",
-			"weight": 5,
-			"opacity": 0.33
-		});
-
-		// Initialise geoJson record layer
-		const record = L.geoJSON(null, {
-			"color": "#0996DB",
-			"weight": 5,
-			"opacity": 0.33
-		})
-
-		// Create a Layer Group and add to map
-		const layers = L.layerGroup([minimal, boundary]);
-		layers.addTo(map);
-
-		// We load the geojson data from disk using the JavaScript Fetch API. When
-		// the response resolves, we add the data to the boundary layer and use the
-		// fitBounds() Leaflet method to zoom and position the map around the
-		// boundary data with a touch of padding.
-		const url = "/data/shropshire_simple.json";
-		fetch(url)
-			.then((response) => response.json())
-			.then((geojson) => {
-				boundary.addData(geojson);
+			// Initialise geoJson boundary layer for wkt polygon
+			const wktBoundary = L.geoJSON(null, {
+				"color": "#0996DB",
+				"weight": 5,
+				"opacity": 0.33
 			});
 
-		const wkt = new Wkt.Wkt();
-		wkt.read("<?= $location->gridReferenceWKT ?>");
-		const wktRecord = wkt.toJson();
-		boundary.addData(wktRecord);
-		map.fitBounds(boundary.getBounds(wktRecord).pad(0.5));
-
-
-		["load", "resize"].forEach((event) => {
-			window.addEventListener(event, () => {
-				const activeTab = document.querySelector("[aria-selected='true']");
-				new bootstrap.Tab(activeTab).show();
-
-				if (window.matchMedia("(min-width: 992px)").matches) {
-					document.querySelector("#tab-content").classList.remove("tab-content");
-					document.querySelector("#map-container").classList.add("show");
-					document.querySelector("#data").classList.add("show");
-				} else {
-					document.querySelector("#tab-content").classList.add("tab-content");
-					bootstrap.Tab.getInstance(activeTab).show();
-				}
-			});
-		});
-	</script>
+			// Create outline of record location and zoom to fit to it
+			const wkt = new Wkt.Wkt();
+			wkt.read("<?= $location->gridReferenceWKT ?>");
+			const wktRecord = wkt.toJson();
+			wktBoundary.addData(wktRecord);
+			wktBoundary.addTo(map)
+			map.fitBounds(wktBoundary.getBounds(wktRecord).pad(0.5));
+		</script>
 	<?php endif ?>
 
-
 	<?php if (isset($download_link)) : ?>
-<p><a href="<?= $download_link ?>">Download this data</a></p>
+		<p><a href="<?= $download_link ?>">Download this data</a></p>
 	<?php endif ?>
 
 <?php endif ?>

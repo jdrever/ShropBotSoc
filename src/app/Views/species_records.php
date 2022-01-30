@@ -20,11 +20,9 @@
 	</h2>
 </div>
 
-
-
-	<?php if (isset($download_link)) : ?>
-<p><a href='<?= $download_link ?>''>Download this data</a></p>
-	<?php endif ?>
+<?php if (isset($download_link)) : ?>
+	<p><a href='<?= $download_link ?>''>Download this data</a></p>
+<?php endif ?>
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
@@ -86,44 +84,9 @@
 </div>
 <script>
 	// Initialise the map
-	const map = L.map("map", {
-		zoomSnap: 0,
-	}).setView([52.6354, -2.71975], 9);
+	const map = initialiseBasicMap();
 
-	// Make a minimal base layer using Mapbox data
-	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		maxZoom: 18,
-		id: "mapbox/outdoors-v11",
-		tileSize: 512,
-		zoomOffset: -1,
-		accessToken: "pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw"
-	});
-
-	// OS Grid graticules
-	// 10km grid graticule shown between zoom levels 8 and 11 and has no axis labels
-	const graticule10km = L.britishGrid({
-		color: '#216fff',
-		weight: 1,
-		showAxisLabels: [],
-		minInterval: 10000,
-		maxInterval: 10000,
-		minZoom: 8,
-		maxZoom: 11
-	});
-
-	// 1km grid graticule shown between zoom levels 11 and 15 and has labelled axis
-	const graticule1km = L.britishGrid({
-		color: '#216fff',
-		weight: 1,
-		showAxisLabels: [1000],
-		minInterval: 1000,
-		maxInterval: 1000,
-		minZoom: 11,
-		maxZoom: 15
-	});
-
-	//make a dot map layer
+	// Make a dot map layer
 	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?" +
 		"Q=lsid:<?= $speciesGuid ?>" +
 		"&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;" +
@@ -137,28 +100,7 @@
 		"transparent": true
 	});
 
-	// Initialise geoJson boundary layer
-	const boundary = L.geoJSON(null, {
-		"color": "#0996DB",
-		"weight": 5,
-		"opacity": 0.33
-	});
-
-	// Create a Layer Group and add to map
-	const layers = L.layerGroup([minimal, graticule10km, graticule1km, boundary, species]);
-	layers.addTo(map);
-
-	// We load the geojson data from disk using the JavaScript Fetch API. When
-	// the response resolves, we add the data to the boundary layer and use the
-	// fitBounds() Leaflet method to zoom and position the map around the
-	// boundary data with a touch of padding.
-	const url = "/data/shropshire_simple.json";
-	fetch(url)
-		.then((response) => response.json())
-		.then((geojson) => {
-			boundary.addData(geojson);
-			map.fitBounds(boundary.getBounds(geojson).pad(0.1));
-		});
+	species.addTo(map);
 
 	// Plot page of records on the map with tooltips
 	const records = <?= json_encode($recordsList) ?>;
@@ -215,33 +157,13 @@
 	});
 	// Turn off rendering of sites for now
 	// L.layerGroup([...siteMarkers]).addTo(map);
-
-	// When the page loads or on resize, we check whether we are on small screen
-	// or large. If on large - >= 992px - we remove the tabs; if on small, we
-	// them again.
-	["load", "resize"].forEach((event) => {
-		window.addEventListener(event, () => {
-			const activeTab = document.querySelector("[aria-selected='true']");
-			new bootstrap.Tab(activeTab).show();
-
-			if (window.matchMedia("(min-width: 992px)").matches) {
-				document.querySelector("#tab-content").classList.remove("tab-content");
-				document.querySelector("#map-container").classList.add("show");
-				document.querySelector("#data").classList.add("show");
-			} else {
-				document.querySelector("#tab-content").classList.add("tab-content");
-				bootstrap.Tab.getInstance(activeTab).show();
-			}
-		});
-	});
 </script>
 
 <?= $this->include('pagination') ?>
 
-	<?php if (isset($download_link)) : ?>
-<p><a href='<?= $download_link ?>''>Download this data</a></p>
-	<?php endif ?>
-
+<?php if (isset($download_link)) : ?>
+	<p><a href='<?= $download_link ?>''>Download this data</a></p>
+<?php endif ?>
 
 <?php endif ?>
 

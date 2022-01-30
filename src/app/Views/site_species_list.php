@@ -103,29 +103,7 @@
 	</div>
 	<script>
 		// Initialise the map
-		const map = L.map("map", {
-			zoomSnap: 0,
-		}).setView([52.6354, -2.71975], 13);
-
-		// Make a minimal base layer using Mapbox data
-		const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-			maxZoom: 18,
-			id: "mapbox/outdoors-v11",
-			tileSize: 512,
-			zoomOffset: -1,
-			accessToken: "pk.eyJ1IjoiY2hhcmxlc3JvcGVyIiwiYSI6ImNrbmY2YXl4ZTJjbDQydm1xOW83MXh1eDIifQ.ntclZm-a8OxwUEBODW08FQ"
-		});
-
-		// Initialise geoJson boundary layer
-		const boundary = L.geoJSON(null, {
-			color: "#0996DB",
-			weight: 5,
-			opacity: 0.33
-		});
-
-		// Create a Layer Group and add to map
-		const layers = L.layerGroup([minimal, boundary]);
+		const map = initialiseBasicMap();
 
 		// Unless the first occurrence didn't contain a site location, create a
 		// marker for the site's location
@@ -133,38 +111,8 @@
 		const siteMarker = L.marker(<?= json_encode($siteLocation) ?>, {
 			opacity: 0.75
 		});
-		layers.addLayer(siteMarker);
+		siteMarker.addTo(map);
 		<?php endif ?>
-
-		layers.addTo(map);
-
-		// We load the geojson data from disk using the JavaScript Fetch API. When
-		// the response resolves, we add the data to the boundary layer and use the
-		// fitBounds() Leaflet method to zoom and position the map around the
-		// boundary data with a touch of padding.
-		const url = "/data/shropshire_simple.json";
-		fetch(url)
-			.then((response) => response.json())
-			.then((geojson) => {
-				boundary.addData(geojson);
-				map.fitBounds(boundary.getBounds(geojson).pad(0.1));
-			});
-
-		["load", "resize"].forEach((event) => {
-			window.addEventListener(event, () => {
-				const activeTab = document.querySelector("[aria-selected='true']");
-				new bootstrap.Tab(activeTab).show();
-
-				if (window.matchMedia("(min-width: 992px)").matches) {
-					document.querySelector("#tab-content").classList.remove("tab-content");
-					document.querySelector("#map-container").classList.add("show");
-					document.querySelector("#data").classList.add("show");
-				} else {
-					document.querySelector("#tab-content").classList.add("tab-content");
-					bootstrap.Tab.getInstance(activeTab).show();
-				}
-			});
-		});
 	</script>
 
 	<?= $this->include('pagination') ?>
