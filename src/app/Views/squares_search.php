@@ -3,13 +3,13 @@
 
 <style>
     #map {
-      width: 960px;
+      max-width: 960px;
       height: 500px;
     }
     svg {
       position: relative;
     }
-    path {
+    .square {
       fill: #000;
       fill-opacity: .2;
       stroke-width: 1px;
@@ -76,88 +76,86 @@
 <div id="map"></div>
 <script>
 	// Initialise the map
-	const map = initialiseBasicMap(true, false);
+	const map = initialiseBasicMap(true, false)
 
-	L.control.locate().addTo(map);
+	L.control.locate().addTo(map)
 
-	var options = {};
-
-	var svg = d3.select(map.getPanes().overlayPane).append("svg");
-    var g = svg.append("g").attr("class", "leaflet-zoom-hide");
-    var transform = d3.geoTransform({point: projectPoint});
-    var path = d3.geoPath().projection(transform);
+	var svg = d3.select(map.getPanes().overlayPane).append("svg")
+    var g = svg.append("g").attr("class", "leaflet-zoom-hide")
+    var transform = d3.geoTransform({point: projectPoint})
+    var path = d3.geoPath().projection(transform)
     var ftrSquares, squares
 
 	function onMapClick(e) {
-		var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000]);
-    	alert(grs.p1000);
+		var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
+		// TODO - go to species list for square page
+    	alert(grs.p1000)
 	}
 
-	map.on('click', onMapClick);
-    map.on("zoomend", reset);
+	map.on('click', onMapClick)
+    map.on("zoomend", reset)
     map.on("mousemove", function(e) {
-      	var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000]);
+      	var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
 
-      	if (!grs.p100000) return;
+      	if (!grs.p100000) return
 
       	var ftr1 = {
         	type: 'Feature',
         	geometry: bigr.getGjson(grs.p100000, 'wg', 'square')
-      	};
+      	}
       	var ftr2 = {
         	type: 'Feature',
         	geometry: bigr.getGjson(grs.p10000, 'wg', 'square')
-      	};
+      	}
       	var ftr3 = {
         	type: 'Feature',
         	geometry: bigr.getGjson(grs.p5000, 'wg', 'square')
-      	};
+      	}
       	var ftr4 = {
-        	ype: 'Feature',
+        	type: 'Feature',
         	geometry: bigr.getGjson(grs.p1000, 'wg', 'square')
-      	};
+      	}
 
       	ftrSquares = [ftr1, ftr2, ftr3, ftr4] //,
       	squares = g.selectAll("path")
-		  	.data(ftrSquares);
+		  	.data(ftrSquares)
 
       	squares.enter()
         	.append("path")
         	.attr("d", path)
         	.attr("class", function(d, i) {
-          	return 'c' + i
-        })
+				// Add ci and square classes to style the path of the highlighted square
+          		return 'c' + i + ' square'
+        	})
 
 		// Update currently selected square
-		document.getElementById("selection").innerText = "Currently selecting: " + grs.p1000;
+		document.getElementById("selection").innerHTML = "Currently selecting: <b>" + grs.p1000 + "</b>";
 
-      	reset();
+      	reset()
     });
 
-    function reset() {
-      var bounds = path.bounds({
-        type: "FeatureCollection",
-        features: ftrSquares
-      });
-      var topLeft = bounds[0];
-      var bottomRight = bounds[1];
+	function reset() {
+		var bounds = path.bounds({
+			type: "FeatureCollection",
+			features: ftrSquares
+		})
 
-      svg.attr("width", bottomRight[0] - topLeft[0])
-        .attr("height", bottomRight[1] - topLeft[1])
-        .style("left", topLeft[0] + "px")
-        .style("top", topLeft[1] + "px");
+		var topLeft = bounds[0]
+		var bottomRight = bounds[1]
 
-      g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+		svg.attr("width", bottomRight[0] - topLeft[0])
+			.attr("height", bottomRight[1] - topLeft[1])
+			.style("left", topLeft[0] + "px")
+			.style("top", topLeft[1] + "px")
 
-      squares.attr("d", path);
-    }
+		g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
+		squares.attr("d", path)
+	}
 
     function projectPoint(x, y) {
-      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
-      this.stream.point(point.x, point.y);
+		var point = map.latLngToLayerPoint(new L.LatLng(y, x))
+    	this.stream.point(point.x, point.y)
     }
-
-	//L.osGraticule(options).addTo(map);
 </script>
 
 <?= $this->endSection() ?>
