@@ -105,7 +105,6 @@
     var g = svg.append("g").attr("class", "leaflet-zoom-hide");
     var transform = d3.geoTransform({point: projectPoint})
     var path = d3.geoPath().projection(transform)
-    var ftrSquares, squares
 
     map.on("zoomend", reset)
 
@@ -115,10 +114,10 @@
       		geometry: bigr.getGjson("<?= $gridSquare ?>", 'wg', 'square')
     	}
 
-    	squares = g.selectAll("path")
+    	var square = g.selectAll("path")
       		.data([ftrSquare])
 
-    	squares.enter()
+    	square.enter()
       		.append("path")
       		.attr("d", path)
       		.attr("class", 'square')
@@ -138,7 +137,7 @@
 
       	g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
 
-      	squares.attr("d", path)
+      	square.attr("d", path)
     }
 
     function projectPoint(x, y) {

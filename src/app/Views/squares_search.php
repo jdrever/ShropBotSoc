@@ -125,7 +125,7 @@
         	.attr("d", path)
         	.attr("class", function(d, i) {
 				// Add ci and square classes to style the path of the highlighted square
-          		return 'c' + i + ' square'
+          		return 'square c' + i
         	})
 
 		// Update currently selected square
