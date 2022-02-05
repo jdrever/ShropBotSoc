@@ -89,7 +89,10 @@
 	function onMapClick(e) {
 		var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
 		// TODO - go to species list for square page
-    	alert(grs.p1000)
+		// go to /square/grs.1000
+		var speciesGroup = "both"
+		var nameType = "scientific"
+		window.location.href = "/square/" + grs.p1000 + "/group/" + speciesGroup + "/type/" + nameType;
 	}
 
 	map.on('click', onMapClick)

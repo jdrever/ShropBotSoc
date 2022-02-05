@@ -12,6 +12,6 @@ interface NbnQueryInterface
 	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $page);
 	public function getSingleSpeciesRecordsForSite($site_name, $species_name,$page);
 
-	public function getSpeciesListForSquare($gridSquare, $speciesGroup,$page);
-	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName,$page);
+	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page);
+	public function getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $page);
 }

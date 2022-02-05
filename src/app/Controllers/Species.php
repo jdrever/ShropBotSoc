@@ -122,19 +122,28 @@ class Species extends BaseController
 	 */
 	public function listforSquare($gridSquare, $speciesGroup, $nameType)
 	{
-		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $this->page);
-		if (strlen($gridSquare)>6)
-		{
-			$gridSquare=substr($gridSquare,0,4) . substr($gridSquare,5,2);
-		}
+		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $this->page);
+
+		// TODO - should only get passed 6 figure grid refs?
+		//if (strlen($gridSquare)>6)
+		//{
+		//	$gridSquare=substr($gridSquare,0,4) . substr($gridSquare,5,2);
+		//}
 
 		$this->data['speciesList']      = $speciesQueryResult->records;
 		$this->data['sites']            = $speciesQueryResult->sites;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
 		$this->data['queryUrl']         = $speciesQueryResult->queryUrl;
 		$this->data['message']          = $speciesQueryResult->message;
-		$this->data['speciesGroup'] = $speciesGroup;
+		$this->data['status']          = $speciesQueryResult->status;
+		$this->data['totalRecords'] = $speciesQueryResult->totalRecords;
+		$this->data['totalPages']   = $speciesQueryResult->getTotalPages();
+
 		$this->data['page'] = $this->page;
+		$this->data['speciesGroup'] = $speciesGroup;
+		$this->data['gridSquare'] = $gridSquare;
+		$this->data['nameType']     = $nameType;
+
 		echo view('square_species_list', $this->data);
 	}
 }
