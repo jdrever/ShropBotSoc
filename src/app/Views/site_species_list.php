@@ -17,7 +17,7 @@
 	</h2>
 </div>
 
-<?= form_open('species', '', array('site-name'=>$siteName)) ?>
+<?= form_open('sites', '', array('site-name'=>$siteName)) ?>
 <div class="row justify-content-center gy-3">
 	<div class="form-group col-sm-4 col-lg-3">
 		<div class="form-check">
@@ -52,7 +52,6 @@
 	</div>
 </div>
 <?= form_close() ?>
-
 
 <!-- Display search results and map showing site location-->
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
@@ -90,7 +89,7 @@
 								<td><?=$speciesArray[1]?></td>
 								<td class="d-none d-sm-table-cell"><?php echo $speciesArray[3]?></td>
 								<td><?=$species->count?></td>
-								<td><a href="/site/<?php echo $siteName ?>/species/<?=$speciesArray[5]?>">see records</a></td>
+								<td><a href="/site/<?php echo $siteName ?>/species/<?=$speciesArray[1]?>">see records</a></td>
 							<?php endif?>
 						</tr>
 					<?php endforeach ?>

@@ -374,12 +374,7 @@ class NbnQuery implements NbnQueryInterface
 
 	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page)
 	{
-		// mainly to replace the spaces with %20
-		$speciesGroup      = rawurlencode($speciesGroup);
 		$nbnRecords       = new NbnRecords('occurrences/search');
-		$nbnRecords->dir  = "desc";
-
-		$nbnRecords->add('grid_ref_1000:"' . rawurlencode($gridSquare) . '"');
 
 		$speciesGroup = ucfirst($speciesGroup);
 		if ($speciesGroup === "Plants")
@@ -389,11 +384,11 @@ class NbnQuery implements NbnQueryInterface
 		}
 		else if ($speciesGroup === "Bryophytes")
 		{
-			$nbnRecords->add('species_group:' . "Bryophytes");
+			$nbnRecords->add('species_group:Bryophytes');
 		}
 		else
 		{
-			$nbnRecords->add('species_group:Bryophytes+OR+Plants');
+			$nbnRecords->add('species_group:Plants');
 		}
 
 		if ($nameType === "scientific")
@@ -404,6 +399,10 @@ class NbnQuery implements NbnQueryInterface
 		{
 			$nbnRecords->facets   = 'common_name_and_lsid';
 		}
+
+		$nbnRecords->add('grid_ref_1000:"' . rawurlencode($gridSquare) . '"');
+
+		$nbnRecords->fsort   = 'index';
 		$queryUrl         = $nbnRecords->getUnpagedQueryString();
 		$nbnQueryResponse = $this->callNbnApi($queryUrl);
 
@@ -413,7 +412,8 @@ class NbnQuery implements NbnQueryInterface
 			$totalRecords = count($nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult);
 		}
 
-		$queryUrl = $nbnRecords->getPagingQueryStringWithStart($page);
+		$nbnRecords->flimit = '10';
+		$queryUrl = $nbnRecords->getPagingQueryStringWithFacetStart($page);
 		$nbnQueryResponse = $this->callNbnApi($queryUrl);
 
 		$speciesQueryResult = new NbnQueryResult();

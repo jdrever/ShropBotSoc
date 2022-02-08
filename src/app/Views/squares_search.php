@@ -41,30 +41,6 @@
 	PLEASE NOTE: this page is currently still under development and may not return accurate information.
 </div>
 
-<div class="form-group row">
-	<label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label>
-	<div class="col-md-10">
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="species-group" id="plants" value="scientific" <?= set_radio('groups', 'plants', true); ?> />
-			<label class="form-check-label" for="scientific-name">
-				only plants
-			</label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="axiophyte" <?= set_radio('groups', 'bryophytes'); ?> />
-			<label class="form-check-label" for="axiophyte-name">
-				only bryophytes
-			</label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="species-group" id="both" value="common" <?= set_radio('groups', 'both'); ?> />
-			<label class="form-check-label" for="common-name">
-				both plants and bryophytes
-			</label>
-		</div>
-	</div>
-</div>
-
 <p id="selection"> Select a square </p>
 
 <?php if (isset($message)) : ?>
@@ -87,18 +63,20 @@
     var ftrSquares, squares
 
 	function onMapClick(e) {
-		var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
-		// TODO - go to species list for square page
-		// go to /square/grs.1000
-		var speciesGroup = "both"
-		var nameType = "scientific"
-		window.location.href = "/square/" + grs.p1000 + "/group/" + speciesGroup + "/type/" + nameType;
+		// Only let the user click on a square if the map is zoomed in enough
+		// (such that the 1km grid graticule is shown)
+		// TODO - check if e.latlng is within Shropshire boundary?
+		if (map.getZoom() >= 11) {
+			// Go to species list for square page
+			var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
+			window.location.href = "/square/" + grs.p1000 + "/group/<?= $speciesGroup ?>/type/<?= $nameType ?>";
+		}
 	}
 
 	map.on('click', onMapClick)
     map.on("zoomend", reset)
     map.on("mousemove", function(e) {
-      	var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
+      	var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
 
       	if (!grs.p100000) return
 

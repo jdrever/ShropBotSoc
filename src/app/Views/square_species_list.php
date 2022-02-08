@@ -26,6 +26,8 @@
 	</div>
 <?php endif ?>
 
+<?php if ($status ==='OK') : ?>
+
 <div class="d-flex align-items-center">
 	<a href="/squares" class="header-backArrow">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -38,7 +40,7 @@
 </div>
 
 <!-- TODO - this like entirely doesn't work -->
-<?= form_open('square', '', array('square'=>$gridSquare)) ?>
+<?= form_open('squares', '', array('square'=>$gridSquare)) ?>
 <div class="row justify-content-center gy-3">
 	<div class="form-group col-sm-4 col-lg-3">
 		<div class="form-check">
@@ -74,7 +76,8 @@
 </div>
 <?= form_close() ?>
 
-<?php if ($status ==='OK') : ?>
+
+<?php if (isset($speciesList) && count($speciesList) > 0) : ?>
 <!-- Display search results and map showing square location-->
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
@@ -86,7 +89,6 @@
 </ul>
 <div id="tab-content" class="row">
 	<div id="data" class="tab-pane fade show col-lg">
-		<?php if (isset($speciesList)) : ?>
 		<table class="table">
 			<thead><tr>
 				<th class="d-none d-md-table-cell">Family</th>
@@ -99,17 +101,24 @@
 				<?php foreach ($speciesList as $species) : ?>
 				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
-					<!-- TODO - common names -->
-					<td class="d-none d-md-table-cell"><?php echo $speciesArray[4]?></td>
-					<td><?=$speciesArray[0]?></td>
-					<td class="d-none d-sm-table-cell"><?php echo $speciesArray[2]?></td>
-					<td><?=$species->count?></td>
-					<td><a href="/square/<?php echo $gridSquare ?>/species/<?=$speciesArray[0]?>">see records</a></td>
+					<?php if ($nameType === 'scientific') : ?>
+						<td class="d-none d-md-table-cell"><?php echo $speciesArray[4]?></td>
+						<td><?=$speciesArray[0]?></td>
+						<td class="d-none d-sm-table-cell"><?php echo $speciesArray[2]?></td>
+						<td><?=$species->count?></td>
+						<td><a href="/square/<?php echo $gridSquare ?>/species/<?=$speciesArray[0]?>">see records</a></td>
+					<?php endif?>
+					<?php if ($nameType === 'common') : ?>
+						<td class="d-none d-md-table-cell"><?php echo $speciesArray[5]?></td>
+						<td><?=$speciesArray[1]?></td>
+						<td class="d-none d-sm-table-cell"><?php echo $speciesArray[3]?></td>
+						<td><?=$species->count?></td>
+						<td><a href="/square/<?php echo $gridSquare ?>/species/<?=$speciesArray[1]?>">see records</a></td>
+					<?php endif?>
 				</tr>
 				<?php endforeach ?>
 			</tbody>
 		</table>
-		<?php endif ?>
 	</div>
 	<div id="map-container" class="tab-pane fade show active col-lg">
 		<div id="map" class=""></div>
@@ -165,6 +174,11 @@
 		this.stream.point(point.x, point.y)
     }
 </script>
+<?php else: ?>
+<div class="alert alert-warning" role="alert">
+	No records could be found matching those criteria.
+</div>
+<?php endif ?>
 
 <?= $this->include('pagination') ?>
 
