@@ -41,7 +41,7 @@
 	PLEASE NOTE: this page is currently still under development and may not return accurate information.
 </div>
 
-<p id="selection"> Select a square </p>
+<p id="selection"> Zoom in to select a 1km square </p>
 
 <?php if (isset($message)) : ?>
 	<div class="alert alert-danger" role="alert">
@@ -60,7 +60,7 @@
     var g = svg.append("g").attr("class", "leaflet-zoom-hide")
     var transform = d3.geoTransform({point: projectPoint})
     var path = d3.geoPath().projection(transform)
-    var ftrSquares, squares
+    var ftrSquares, squares, grs
 
 	function onMapClick(e) {
 		// Only let the user click on a square if the map is zoomed in enough
@@ -76,9 +76,9 @@
 	map.on('click', onMapClick)
     map.on("zoomend", reset)
     map.on("mousemove", function(e) {
-      	var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
+		grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
 
-      	if (!grs.p100000) return
+		if (!grs.p100000) return
 
       	var ftr1 = {
         	type: 'Feature',
@@ -97,23 +97,21 @@
         	geometry: bigr.getGjson(grs.p1000, 'wg', 'square')
       	}
 
-      	ftrSquares = [ftr1, ftr2, ftr3, ftr4] //,
-      	squares = g.selectAll("path")
-		  	.data(ftrSquares)
+		ftrSquares = [ftr1, ftr2, ftr3, ftr4]
 
-      	squares.enter()
-        	.append("path")
-        	.attr("d", path)
-        	.attr("class", function(d, i) {
-				// Add ci and square classes to style the path of the highlighted square
-          		return 'square c' + i
-        	})
+		squares = g.selectAll("path").data(ftrSquares)
 
-		// Update currently selected square
-		document.getElementById("selection").innerHTML = "Currently selecting: <b>" + grs.p1000 + "</b>";
+		squares.enter()
+			.append("path")
+			.attr("d", path)
+			.attr("class", function(d, i) {
+				// Add ci and square classes to style the path of the
+				// highlighted square
+				return 'square c' + i
+			})
 
-      	reset()
-    });
+		reset()
+	});
 
 	function reset() {
 		var bounds = path.bounds({
@@ -131,6 +129,19 @@
 
 		g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
 		squares.attr("d", path)
+
+		if (!grs) return
+
+		// Update currently selected square text and hide the 1km square (the
+		// fourth of the grs feature squares, class "c3")
+		if (map.getZoom() >= 11) {
+			document.getElementById("selection").innerHTML = "Currently selecting: <b>" + grs.p1000 + "</b>"
+			g.select(".c3").style("fill-opacity", 0.2)
+		}
+		else {
+			document.getElementById("selection").innerHTML = "Zoom in to select a 1km square"
+			g.select(".c3").style("fill-opacity", 0)
+		}
 	}
 
     function projectPoint(x, y) {
