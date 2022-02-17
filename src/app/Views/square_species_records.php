@@ -1,6 +1,20 @@
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
 
+<style>
+	svg {
+      position: relative;
+    }
+    .square {
+      fill: #000;
+      fill-opacity: .2;
+	  stroke: red;
+      stroke-width: 3px;
+	}
+</style>
+
+<script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
 
 <?php if (isset($message)) : ?>
 <div class="alert alert-danger" role="alert">
@@ -22,11 +36,9 @@
 	</h2>
 </div>
 
-
-
-	<?php if (isset($download_link)) : ?>
-<p><a href="<?= $download_link ?>">Download this data</a></p>
-	<?php endif ?>
+<?php if (isset($download_link)) : ?>
+	<p><a href="<?= $download_link ?>">Download this data</a></p>
+<?php endif ?>
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
@@ -84,103 +96,61 @@
 	</div>
 </div>
 <script>
-
 	// Initialise the map
-	const map = L.map("map", {
-		zoomSnap: 0,
-	}).setView([52.6354, -2.71975], 9);
+	const map = initialiseBasicMap()
 
+	// Use d3 and bigr to convert the gridSquare into a path that is rendered
+	// onto the map whenever it is zoomed to highlight the grid square
+	var svg = d3.select(map.getPanes().overlayPane).append("svg")
+    var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+    var transform = d3.geoTransform({point: projectPoint})
+    var path = d3.geoPath().projection(transform)
 
+    map.on("zoomend", reset)
 
+    function reset() {
+		var ftrSquare = {
+      		type: 'Feature',
+      		geometry: bigr.getGjson("<?= $gridSquare ?>", 'wg', 'square')
+    	}
 
+    	var square = g.selectAll("path")
+      		.data([ftrSquare])
 
-	// Make a minimal base layer using Mapbox data
-	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		maxZoom: 18,
-		id: "mapbox/outdoors-v11",
-		tileSize: 512,
-		zoomOffset: -1,
-		accessToken: "pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw"
-	});
+    	square.enter()
+      		.append("path")
+      		.attr("d", path)
+      		.attr("class", 'square')
 
-	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?" +
-		"Q=<?= $speciesName ?>" +
-		"&ENV=colourmode:osgrid;gridres:singlegrid;color:ff0000;size:4;opacity:0.5" +
-		"&fq=data_resource_uid:dr782%20AND%20grid_ref_1000:<?= $gridSquare ?>";
+      	var bounds = path.bounds({
+        	type: "FeatureCollection",
+        	features: [ftrSquare]
+      	})
 
-	const gridSquareTile = L.tileLayer.wms(wmsUrl, {
-		"layers": "ALA:occurrences",
-		"uppercase": true,
-		"format": "image/png",
-		"transparent": true
-	});
+      	var topLeft = bounds[0]
+      	var bottomRight = bounds[1]
 
-	// OS Grid graticules
-	// 10km grid graticule shown between zoom levels 8 and 11 and has no axis labels
-	const graticule10km = L.britishGrid({
-		color: '#216fff',
-		weight: 1,
-		showAxisLabels: [],
-		minInterval: 10000,
-		maxInterval: 10000,
-		minZoom: 8,
-		maxZoom: 11
-	});
+      	svg.attr("width", bottomRight[0] - topLeft[0])
+        	.attr("height", bottomRight[1] - topLeft[1])
+        	.style("left", topLeft[0] + "px")
+        	.style("top", topLeft[1] + "px")
 
-	// 1km grid graticule shown between zoom levels 11 and 15 and has labelled axis
-	const graticule1km = L.britishGrid({
-		color: '#216fff',
-		weight: 1,
-		showAxisLabels: [1000],
-		minInterval: 1000,
-		maxInterval: 1000,
-		minZoom: 11,
-		maxZoom: 15
-	});
+      	g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
 
-	// Initialise geoJson boundary layer
-	const boundary = L.geoJSON(null, {
-		"color": "#0996DB",
-		"weight": 5,
-		"opacity": 0.33
-	});
+      	square.attr("d", path)
+    }
 
-	// Create a Layer Group and add to map
-	const layers = L.layerGroup([minimal, gridSquareTile, graticule10km, graticule1km, boundary]);
-	layers.addTo(map);
-
-	// Load shropshire geojson and fit map to boundaries
-	const url = "/data/shropshire_simple.json";
-	fetch(url)
-		.then((response) => response.json())
-		.then((geojson) => {
-			boundary.addData(geojson);
-			map.fitBounds(boundary.getBounds(geojson).pad(0.1));
-		});
-
-	["load", "resize"].forEach((event) => {
-		window.addEventListener(event, () => {
-			const activeTab = document.querySelector("[aria-selected='true']");
-			new bootstrap.Tab(activeTab).show();
-
-			if (window.matchMedia("(min-width: 992px)").matches) {
-				document.querySelector("#tab-content").classList.remove("tab-content");
-				document.querySelector("#map-container").classList.add("show");
-				document.querySelector("#data").classList.add("show");
-			} else {
-				document.querySelector("#tab-content").classList.add("tab-content");
-				bootstrap.Tab.getInstance(activeTab).show();
-			}
-		});
-	});
+    function projectPoint(x, y) {
+    	var point = map.latLngToLayerPoint(new L.LatLng(y, x))
+		this.stream.point(point.x, point.y)
+    }
 </script>
 
 <?= $this->include('pagination') ?>
 
-	<?php if (isset($download_link)) : ?>
-<p><a href="<?= $download_link ?>">Download this data</a></p>
-	<?php endif ?>
+<?php if (isset($download_link)) : ?>
+	<p><a href="<?= $download_link ?>">Download this data</a></p>
+<?php endif ?>
 
 <?php endif ?>
 

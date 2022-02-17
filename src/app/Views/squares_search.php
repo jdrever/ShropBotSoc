@@ -3,13 +3,13 @@
 
 <style>
     #map {
-      width: 960px;
+      max-width: 960px;
       height: 500px;
     }
     svg {
       position: relative;
     }
-    path {
+    .square {
       fill: #000;
       fill-opacity: .2;
       stroke-width: 1px;
@@ -23,20 +23,18 @@
     .c2 {
       stroke: blue;
     }
-  </style>
+</style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/a11y-light.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/a11y-light.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
-  <script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
-
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-
+<script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
 
 <h2>Find A Square</h2>
 <div class="alert alert-info" role="alert">
@@ -67,6 +65,8 @@
 	</div>
 </div>
 
+<p id="selection"> Select a square </p>
+
 <?php if (isset($message)) : ?>
 	<div class="alert alert-danger" role="alert">
 		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
@@ -76,123 +76,86 @@
 <div id="map"></div>
 <script>
 	// Initialise the map
-	const map = L.map("map", {
-		zoomSnap: 0,
-	}).setView([52.6354, -2.71975], 9);
+	const map = initialiseBasicMap(true, false)
 
-	// Make a minimal base layer using Mapbox data
-	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		maxZoom: 18,
-		id: "mapbox/outdoors-v11",
-		tileSize: 512,
-		zoomOffset: -1,
-		accessToken: "pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw"
-	});
-
-
-	// Initialise geoJson boundary layer
-	const boundary = L.geoJSON(null, {
-		"color": "#0996DB",
-		"weight": 5,
-		"opacity": 0.33
-	});
-
-	// Create a Layer Group and add to map
-	const layers = L.layerGroup([minimal, boundary]);
-	layers.addTo(map);
-
-	// Load shropshire geojson and fit map to boundaries
-	const url = "/data/shropshire_simple.json";
-	fetch(url)
-		.then((response) => response.json())
-		.then((geojson) => {
-			boundary.addData(geojson);
-			map.fitBounds(boundary.getBounds(geojson).pad(0.1));
-		});
-
-
-	L.control.locate().addTo(map);
-
-	var options = {};
+	L.control.locate().addTo(map)
 
 	var svg = d3.select(map.getPanes().overlayPane).append("svg")
-    var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+    var g = svg.append("g").attr("class", "leaflet-zoom-hide")
     var transform = d3.geoTransform({point: projectPoint})
     var path = d3.geoPath().projection(transform)
     var ftrSquares, squares
 
 	function onMapClick(e) {
 		var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
-    	alert(grs.p1000);
-}
+		// TODO - go to species list for square page
+    	alert(grs.p1000)
+	}
 
-	map.on('click', onMapClick);
-
+	map.on('click', onMapClick)
     map.on("zoomend", reset)
     map.on("mousemove", function(e) {
-      var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
+      	var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
 
-      if (!grs.p100000) return
+      	if (!grs.p100000) return
 
-      var ftr1 = {
-        type: 'Feature',
-        geometry: bigr.getGjson(grs.p100000, 'wg', 'square')
-      }
-      var ftr2 = {
-        type: 'Feature',
-        geometry: bigr.getGjson(grs.p10000, 'wg', 'square')
-      }
-      var ftr3 = {
-        type: 'Feature',
-        geometry: bigr.getGjson(grs.p5000, 'wg', 'square')
-      }
-      var ftr4 = {
-        type: 'Feature',
-        geometry: bigr.getGjson(grs.p1000, 'wg', 'square')
-      }
+      	var ftr1 = {
+        	type: 'Feature',
+        	geometry: bigr.getGjson(grs.p100000, 'wg', 'square')
+      	}
+      	var ftr2 = {
+        	type: 'Feature',
+        	geometry: bigr.getGjson(grs.p10000, 'wg', 'square')
+      	}
+      	var ftr3 = {
+        	type: 'Feature',
+        	geometry: bigr.getGjson(grs.p5000, 'wg', 'square')
+      	}
+      	var ftr4 = {
+        	type: 'Feature',
+        	geometry: bigr.getGjson(grs.p1000, 'wg', 'square')
+      	}
 
+      	ftrSquares = [ftr1, ftr2, ftr3, ftr4] //,
+      	squares = g.selectAll("path")
+		  	.data(ftrSquares)
 
-      ftrSquares=[ftr1,ftr2,ftr3,ftr4] //,
-      squares = g.selectAll("path")
-        .data(ftrSquares)
+      	squares.enter()
+        	.append("path")
+        	.attr("d", path)
+        	.attr("class", function(d, i) {
+				// Add ci and square classes to style the path of the highlighted square
+          		return 'square c' + i
+        	})
 
-      squares.enter()
-        .append("path")
-        .attr("d", path)
-        .attr("class", function(d, i) {
-          return 'c' + i
-        })
-      reset()
-    })
+		// Update currently selected square
+		document.getElementById("selection").innerHTML = "Currently selecting: <b>" + grs.p1000 + "</b>";
 
+      	reset()
+    });
 
-    function reset() {
-      var bounds = path.bounds({
-        type: "FeatureCollection",
-        features: ftrSquares
-      })
-      var topLeft = bounds[0]
-      var bottomRight = bounds[1]
+	function reset() {
+		var bounds = path.bounds({
+			type: "FeatureCollection",
+			features: ftrSquares
+		})
 
-      svg.attr("width", bottomRight[0] - topLeft[0])
-        .attr("height", bottomRight[1] - topLeft[1])
-        .style("left", topLeft[0] + "px")
-        .style("top", topLeft[1] + "px")
+		var topLeft = bounds[0]
+		var bottomRight = bounds[1]
 
-      g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
+		svg.attr("width", bottomRight[0] - topLeft[0])
+			.attr("height", bottomRight[1] - topLeft[1])
+			.style("left", topLeft[0] + "px")
+			.style("top", topLeft[1] + "px")
 
-      squares.attr("d", path)
-    }
+		g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
+		squares.attr("d", path)
+	}
+
     function projectPoint(x, y) {
-      var point = map.latLngToLayerPoint(new L.LatLng(y, x))
-      this.stream.point(point.x, point.y)
+		var point = map.latLngToLayerPoint(new L.LatLng(y, x))
+    	this.stream.point(point.x, point.y)
     }
-
-
-	//L.osGraticule(options).addTo(map);
-
-
 </script>
 
 <?= $this->endSection() ?>
