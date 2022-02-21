@@ -33,6 +33,13 @@ class NbnRecords
 	private $dataResourceUid = 'dr782';
 
 	/**
+	 * The filter for axiophytes, as supplied by Sophie at NBN
+	 *
+	 * @var string $axiophyteFilter
+	 */
+	private $axiophyteFilter='species_list_uid:dr1940';
+
+	/**
 	 * TODO: Describe what the $path member variable is for
 	 *
 	 * @var string $path
@@ -271,6 +278,13 @@ class NbnRecords
 	public function addNot(string $filterNotQueryParameter)
 	{
 		$this->filterNotQueryParameters[] = $filterNotQueryParameter;
+		return $this;
+	}
+
+
+	public function addAxiophyteFilter()
+	{
+		$this->filterQueryParameters[] = $this->axiophyteFilter;
 		return $this;
 	}
 

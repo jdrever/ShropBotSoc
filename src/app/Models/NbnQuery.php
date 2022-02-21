@@ -38,7 +38,6 @@ class NbnQuery implements NbnQueryInterface
 	 * Changing to use:
 	 * https://records-ws.nbnatlas.org/occurrences/search?facets=common_name_and_lsid&q=data_resource_uid:dr782&flimit=-1&fq=common_name:Ivy*%20AND%20species_group:Plants+Bryophytes&fsort=index&pageSize=0
 	 *
-	 * TODO: Search on axiophytes
 	 */
 	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
 	{
@@ -59,7 +58,7 @@ class NbnQuery implements NbnQueryInterface
 
 		if ($nameType === "axiophyte")
 		{
-			$nbnRecords->add('species_list_uid:dr1940');
+			$nbnRecords->addAxiophyteFilter();
 		}
 		if ($nameType === "common")
 		{
@@ -282,7 +281,7 @@ class NbnQuery implements NbnQueryInterface
 		}
 		if ($nameType === "axiophyte")
 		{
-			$nbnRecords->add('species_list_uid:dr1940');
+			$nbnRecords->addAxiophyteFilter();
 		}
 		if ($nameType === "common")
 		{
@@ -400,9 +399,13 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->add('species_group:Plants');
 		}
 
-		if ($nameType === "scientific")
+		if ($nameType === "scientific" || $nameType === "axiophyte")
 		{
 			$nbnRecords->facets   = 'names_and_lsid';
+		}
+		if ($nameType === "axiophyte")
+		{
+			$nbnRecords->addAxiophyteFilter();
 		}
 		if ($nameType === "common")
 		{
