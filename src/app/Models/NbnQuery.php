@@ -49,7 +49,7 @@ class NbnQuery implements NbnQueryInterface
 
 		//$nbnRecords->pageSize = 10;
 		$preparedName=$this->prepareSearchString($nameSearchString);
-		if ($nameType === "scientific")
+		if ($nameType === "scientific" || $nameType === "axiophyte")
 		{
 
 			$nbnRecords->add('taxon_name:' . $preparedName);
@@ -57,6 +57,10 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->fsort = "index";
 		}
 
+		if ($nameType === "axiophyte")
+		{
+			$nbnRecords->add('species_list_uid:dr1940');
+		}
 		if ($nameType === "common")
 		{
 			$nbnRecords->add('common_name:' . $preparedName);
@@ -272,14 +276,19 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->add('species_group:Bryophytes+OR+Plants');
 		}
 
-		if ($nameType === "scientific")
+		if ($nameType === "scientific" || $nameType === "axiophyte")
 		{
 			$nbnRecords->facets   = 'names_and_lsid';
+		}
+		if ($nameType === "axiophyte")
+		{
+			$nbnRecords->add('species_list_uid:dr1940');
 		}
 		if ($nameType === "common")
 		{
 			$nbnRecords->facets   = 'common_name_and_lsid';
 		}
+
 		$nbnRecords->fsort   = 'index';
 
 		$nbnRecords->add('location_id:' . str_replace(" ", "\%20", $siteName)); // Use "\ " instead of spaces to search only for species matching whole site name
