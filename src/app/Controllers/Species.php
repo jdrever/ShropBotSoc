@@ -17,25 +17,15 @@ class Species extends BaseController
 			$nameType = $this->request->getVar('name-type');
 			$speciesGroup = $this->request->getVar('species-group');
 
-			// If there is a site name specified, assume we want to do a search for species at
-			// that site. If not, go to species in county as normal.
-			$siteName = $this->request->getVar('site-name');
-			if (isset($siteName))
+			$nameSearchString  = $this->request->getVar('search');
+			$nameSearchString  = trim($nameSearchString);
+			// If the search field is empty, go to the begining of the alphabet
+			if (empty($nameSearchString))
 			{
-				return redirect()->to("/site/{$siteName}/group/{$speciesGroup}/type/{$nameType}");
+				$nameSearchString = "A";
 			}
-			else
-			{
-				$nameSearchString  = $this->request->getVar('search');
-				$nameSearchString  = trim($nameSearchString);
-				// If the search field is empty, go to the begining of the alphabet
-				if (empty($nameSearchString))
-				{
-					$nameSearchString = "A";
-				}
 
-				return redirect()->to("/species/{$nameSearchString}/group/{$speciesGroup}/type/{$nameType}");
-			}
+			return redirect()->to("/species/{$nameSearchString}/group/{$speciesGroup}/type/{$nameType}");
 		};
 
 		$nameTypeCookie = get_cookie("nameType");
@@ -122,19 +112,25 @@ class Species extends BaseController
 	 */
 	public function listforSquare($gridSquare, $speciesGroup, $nameType)
 	{
-		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $this->page);
-		if (strlen($gridSquare)>6)
-		{
-			$gridSquare=substr($gridSquare,0,4) . substr($gridSquare,5,2);
-		}
+		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $this->page);
 
 		$this->data['speciesList']      = $speciesQueryResult->records;
 		$this->data['sites']            = $speciesQueryResult->sites;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
 		$this->data['queryUrl']         = $speciesQueryResult->queryUrl;
 		$this->data['message']          = $speciesQueryResult->message;
-		$this->data['speciesGroup'] = $speciesGroup;
+		$this->data['status']          = $speciesQueryResult->status;
+		$this->data['totalRecords'] = $speciesQueryResult->totalRecords;
+		$this->data['totalPages']   = $speciesQueryResult->getTotalPages();
+
 		$this->data['page'] = $this->page;
+		$this->data['speciesGroup'] = $speciesGroup;
+		$this->data['gridSquare'] = $gridSquare;
+		$this->data['nameType']     = $nameType;
+
+		set_cookie("nameType", $nameType, "3600", "", "/", "", false, false, null);
+		set_cookie("speciesGroup", $speciesGroup, "3600", "", "/", "", false, false, null);
+
 		echo view('square_species_list', $this->data);
 	}
 }

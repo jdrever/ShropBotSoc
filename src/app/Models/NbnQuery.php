@@ -372,48 +372,64 @@ class NbnQuery implements NbnQueryInterface
 	}
 
 
-	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $page)
+	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page)
 	{
-		// mainly to replace the spaces with %20
-		$speciesGroup      = rawurlencode($speciesGroup);
 		$nbnRecords       = new NbnRecords('occurrences/search');
-		$nbnRecords->sort = "year";
-		$nbnRecords->dir  = "desc";
-		// $nbnRecords->fsort = "index";
-		$nbnRecords
-			->add('grid_ref:' . rawurlencode($gridSquare))
-			->add('species_group:' . $speciesGroup);
-		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
-		$nbnQueryResponse      = $this->callNbnApi($queryUrl);
 
-		$speciesQueryResult               = new NbnQueryResult();
+		$speciesGroup = ucfirst($speciesGroup);
+		if ($speciesGroup === "Plants")
+		{
+			$nbnRecords->add('species_group:' . "Plants");
+			$nbnRecords->addNot('species_group:' . "Bryophytes");
+		}
+		else if ($speciesGroup === "Bryophytes")
+		{
+			$nbnRecords->add('species_group:Bryophytes');
+		}
+		else
+		{
+			$nbnRecords->add('species_group:Plants');
+		}
+
+		if ($nameType === "scientific")
+		{
+			$nbnRecords->facets   = 'names_and_lsid';
+		}
+		if ($nameType === "common")
+		{
+			$nbnRecords->facets   = 'common_name_and_lsid';
+		}
+
+		$nbnRecords->add('grid_ref_1000:"' . rawurlencode($gridSquare) . '"');
+
+		$nbnRecords->fsort   = 'index';
+		$queryUrl         = $nbnRecords->getUnpagedQueryString();
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+
+		$totalRecords = 0;
+		if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
+		{
+			$totalRecords = count($nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult);
+		}
+
+		$nbnRecords->flimit = '10';
+		$queryUrl = $nbnRecords->getPagingQueryStringWithFacetStart($page);
+		$nbnQueryResponse = $this->callNbnApi($queryUrl);
+
+		$speciesQueryResult = new NbnQueryResult();
 
 		if ($nbnQueryResponse->status === 'OK')
 		{
-			$recordList         = $nbnQueryResponse->jsonResponse->occurrences;
-			$totalRecords       = $nbnQueryResponse->jsonResponse->totalRecords;
-			usort($recordList, function ($a, $b) {
-				return $b->year <=> $a->year;
-			});
-
-			$sites = [];
-			foreach ($recordList as $record)
+			if (isset($nbnQueryResponse->jsonResponse->facetResults[0]))
 			{
-				$record->locationId = $record->locationId ?? '';
-				$record->collector  = $record->collector ?? 'Unknown';
-
-				// To plot site markers on the map, we must capture the locationId
-				// (site name) and latLong of only the _first_ record for each site.
-				// The latLong returned from the API is a single string, so we
-				// convert into an array of two floats.
-				if (! array_key_exists($record->locationId, $sites))
-				{
-					$sites[$record->locationId] = array_map('floatval', explode(",", $record->latLong));
-				}
+				$speciesQueryResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
 			}
-			$speciesQueryResult->records      = $recordList;
+			else
+			{
+				$speciesQueryResult->records = [];
+			}
+
 			$speciesQueryResult->downloadLink = $nbnRecords->getDownloadQueryString();
-			$speciesQueryResult->sites        = $sites;
 			$speciesQueryResult->totalRecords = $totalRecords;
 		}
 

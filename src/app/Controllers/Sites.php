@@ -14,19 +14,28 @@ class Sites extends BaseController
     {
         if ($this->isPostBack())
         {
-            $siteSearchString = $this->request->getVar('search');
-            $siteSearchString = trim($siteSearchString);
-            if (empty($siteSearchString))
+			$nameType = $this->request->getVar('name-type');
+			$speciesGroup = $this->request->getVar('species-group');
+
+			// If there is a site name specified, assume we want are doing a search for species at
+			// that site. If not, go to species in county as normal.
+			$siteName = $this->request->getVar('site-name');
+			if (isset($siteName))
 			{
-				$siteSearchString = "A";
+				return redirect()->to("/site/{$siteName}/group/{$speciesGroup}/type/{$nameType}");
 			}
+			else
+			{
+				$siteSearchString = $this->request->getVar('search');
+            	$siteSearchString = trim($siteSearchString);
+            	if (empty($siteSearchString))
+				{
+					$siteSearchString = "A";
+				}
 
-
-
-            return redirect()->to("sites/{$siteSearchString}");
+            	return redirect()->to("sites/{$siteSearchString}");
+			}
         };
-
-
 
 		$this->data['siteSearchString'] = "";
         echo view('sites_search', $this->data);

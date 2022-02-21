@@ -175,12 +175,12 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * TODO: implement speciesGroup filtering
 	 */
-	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $page)
+	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page)
 	{
-		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup-$page";
+		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup-$nameType-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
-			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup, $page);
+			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page);
 			if (self::CACHE_ACTIVE && $speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);

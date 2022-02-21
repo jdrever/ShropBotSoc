@@ -41,31 +41,7 @@
 	PLEASE NOTE: this page is currently still under development and may not return accurate information.
 </div>
 
-<div class="form-group row">
-	<label for="in" class="col-md-2 col-form-label d-none d-md-inline">Groups</label>
-	<div class="col-md-10">
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="species-group" id="plants" value="scientific" <?= set_radio('groups', 'plants', true); ?> />
-			<label class="form-check-label" for="scientific-name">
-				only plants
-			</label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="species-group" id="bryophytes" value="axiophyte" <?= set_radio('groups', 'bryophytes'); ?> />
-			<label class="form-check-label" for="axiophyte-name">
-				only bryophytes
-			</label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="species-group" id="both" value="common" <?= set_radio('groups', 'both'); ?> />
-			<label class="form-check-label" for="common-name">
-				both plants and bryophytes
-			</label>
-		</div>
-	</div>
-</div>
-
-<p id="selection"> Select a square </p>
+<p id="selection"> Zoom in to select a 1km square </p>
 
 <?php if (isset($message)) : ?>
 	<div class="alert alert-danger" role="alert">
@@ -84,20 +60,25 @@
     var g = svg.append("g").attr("class", "leaflet-zoom-hide")
     var transform = d3.geoTransform({point: projectPoint})
     var path = d3.geoPath().projection(transform)
-    var ftrSquares, squares
+    var ftrSquares, squares, grs
 
 	function onMapClick(e) {
-		var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
-		// TODO - go to species list for square page
-    	alert(grs.p1000)
+		// Only let the user click on a square if the map is zoomed in enough
+		// (such that the 1km grid graticule is shown)
+		// TODO - check if e.latlng is within Shropshire boundary?
+		if (map.getZoom() >= 11) {
+			// Go to species list for square page
+			var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
+			window.location.href = "/square/" + grs.p1000 + "/group/<?= $speciesGroup ?>/type/<?= $nameType ?>";
+		}
 	}
 
 	map.on('click', onMapClick)
     map.on("zoomend", reset)
     map.on("mousemove", function(e) {
-      	var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000,1000])
+		grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
 
-      	if (!grs.p100000) return
+		if (!grs.p100000) return
 
       	var ftr1 = {
         	type: 'Feature',
@@ -116,23 +97,21 @@
         	geometry: bigr.getGjson(grs.p1000, 'wg', 'square')
       	}
 
-      	ftrSquares = [ftr1, ftr2, ftr3, ftr4] //,
-      	squares = g.selectAll("path")
-		  	.data(ftrSquares)
+		ftrSquares = [ftr1, ftr2, ftr3, ftr4]
 
-      	squares.enter()
-        	.append("path")
-        	.attr("d", path)
-        	.attr("class", function(d, i) {
-				// Add ci and square classes to style the path of the highlighted square
-          		return 'square c' + i
-        	})
+		squares = g.selectAll("path").data(ftrSquares)
 
-		// Update currently selected square
-		document.getElementById("selection").innerHTML = "Currently selecting: <b>" + grs.p1000 + "</b>";
+		squares.enter()
+			.append("path")
+			.attr("d", path)
+			.attr("class", function(d, i) {
+				// Add ci and square classes to style the path of the
+				// highlighted square
+				return 'square c' + i
+			})
 
-      	reset()
-    });
+		reset()
+	});
 
 	function reset() {
 		var bounds = path.bounds({
@@ -150,6 +129,19 @@
 
 		g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
 		squares.attr("d", path)
+
+		if (!grs) return
+
+		// Update currently selected square text and hide the 1km square (the
+		// fourth of the grs feature squares, class "c3")
+		if (map.getZoom() >= 11) {
+			document.getElementById("selection").innerHTML = "Currently selecting: <b>" + grs.p1000 + "</b>"
+			g.select(".c3").style("fill-opacity", 0.2)
+		}
+		else {
+			document.getElementById("selection").innerHTML = "Zoom in to select a 1km square"
+			g.select(".c3").style("fill-opacity", 0)
+		}
 	}
 
     function projectPoint(x, y) {
