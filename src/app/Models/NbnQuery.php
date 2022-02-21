@@ -49,7 +49,7 @@ class NbnQuery implements NbnQueryInterface
 
 		//$nbnRecords->pageSize = 10;
 		$preparedName=$this->prepareSearchString($nameSearchString);
-		if ($nameType === "scientific")
+		if ($nameType === "scientific" || $nameType === "axiophyte")
 		{
 
 			$nbnRecords->add('taxon_name:' . $preparedName);
@@ -57,6 +57,10 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->fsort = "index";
 		}
 
+		if ($nameType === "axiophyte")
+		{
+			$nbnRecords->add('species_list_uid:dr1940');
+		}
 		if ($nameType === "common")
 		{
 			$nbnRecords->add('common_name:' . $preparedName);
