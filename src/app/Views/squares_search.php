@@ -51,8 +51,10 @@
 
 <div id="map"></div>
 <script>
-	// Initialise the map
-	const map = initialiseBasicMap(true, false)
+	// Get mapState from the php data and initialise the map using that state
+	// (and not fitting to shropshire or handling resize)
+	var mapState = <?= json_encode(explode(",", $mapState)) ?>;
+	const map = initialiseBasicMap(fitToShropshire = false, handleResize = false, mapState = mapState)
 
 	L.control.locate().addTo(map)
 
@@ -62,18 +64,16 @@
     var path = d3.geoPath().projection(transform)
     var ftrSquares, squares, grs
 
-	function onMapClick(e) {
+	map.on('click', function(e) {
 		// Only let the user click on a square if the map is zoomed in enough
 		// (such that the 1km grid graticule is shown)
 		// TODO - check if e.latlng is within Shropshire boundary?
 		if (map.getZoom() >= 11) {
 			// Go to species list for square page
-			var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
+			grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
 			window.location.href = "/square/" + grs.p1000 + "/group/<?= $speciesGroup ?>/type/<?= $nameType ?>";
 		}
-	}
-
-	map.on('click', onMapClick)
+	})
     map.on("zoomend", reset)
     map.on("mousemove", function(e) {
 		grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
@@ -142,6 +142,9 @@
 			document.getElementById("selection").innerHTML = "Zoom in to select a 1km square"
 			g.select(".c3").style("fill-opacity", 0)
 		}
+
+		// Update mapState cookie with map position and zoom
+		document.cookie = "mapState="+map.getCenter().lat+","+map.getCenter().lng+","+map.getZoom()+";SameSite=Lax;"
 	}
 
     function projectPoint(x, y) {

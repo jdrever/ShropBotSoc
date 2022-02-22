@@ -47,6 +47,17 @@ class Squares extends BaseController
 			$this->data['speciesGroup'] = "both";
 		}
 
+		// Get map position and zoom data from cookie
+		$mapStateCookie = get_cookie("mapState");
+		if (isset($mapStateCookie))
+		{
+			$this->data['mapState'] = $mapStateCookie;
+		}
+		else
+		{
+			$this->data['mapState'] = "52.6354,-2.71975,9";
+		}
+
         echo view('squares_search', $this->data);
     }
 }
