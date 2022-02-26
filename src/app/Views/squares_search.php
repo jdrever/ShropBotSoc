@@ -37,9 +37,6 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <h2>Find A Square</h2>
-<div class="alert alert-info" role="alert">
-	PLEASE NOTE: this page is currently still under development and may not return accurate information.
-</div>
 
 <p id="selection"> Zoom in to select a 1km square </p>
 
