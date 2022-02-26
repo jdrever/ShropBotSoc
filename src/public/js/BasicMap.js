@@ -1,9 +1,9 @@
-function initialiseBasicMap(fitToShropshire = true, handleResize = true) {
+function initialiseBasicMap(fitToShropshire = true, handleResize = true, mapState =  [52.6354, -2.71975, 9]) {
 	// Initialise the map
+	// mapState = map center lat, map center lng, map zoom level
 	const map = L.map("map", {
 		zoomSnap: 0,
-	}).setView([52.6354, -2.71975], 9);
-
+	}).setView(mapState.slice(0, 2), mapState[2]);
 
 	// Make a minimal base layer using Mapbox data
 	const minimal = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
