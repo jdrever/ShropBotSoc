@@ -16,10 +16,6 @@
 <script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
-<div class="alert alert-info" role="alert">
-	PLEASE NOTE: this page is currently still under development and may not return accurate information.
-</div>
-
 <?php if (isset($message)) : ?>
 	<div class="alert alert-danger" role="alert">
 		I am very sorry, but an error has occured.</b>:  <?= $message ?>
@@ -88,7 +84,7 @@
 	</li>
 </ul>
 <div id="tab-content" class="row">
-	<div id="data" class="tab-pane fade show col-lg">
+	<div id="data" class="tab-pane fade show active col-lg">
 		<table class="table">
 			<thead><tr>
 				<th class="d-none d-md-table-cell">Family</th>
@@ -120,7 +116,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div id="map-container" class="tab-pane fade show active col-lg">
+	<div id="map-container" class="tab-pane fade show col-lg">
 		<div id="map" class=""></div>
 	</div>
 </div>
