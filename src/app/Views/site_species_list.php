@@ -29,7 +29,7 @@
 			<label class="form-check-label" for="common-name">common<span class="d-none d-lg-inline"> name only</span></label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="checkbox" name="axiophyte-filter" id="axiophyte-filter" value="true"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('axiophyte-filter', 'true', ($axiophyteFilter === 'true')); ?> />
+			<input class="form-check-input" type="checkbox" name="axiophyte-filter" id="axiophyte-filter" value="true"  onchange="this.form.submit();" <?= set_radio('axiophyte-filter', 'true', ($axiophyteFilter === 'true')); ?> />
 			<label class="form-check-label" for="axiophyte-name">
 				<span class="d-lg-none">axiophytes</span>
 				<span class="d-none d-lg-inline">axiophytes only</span>
@@ -77,7 +77,7 @@
 					<?php foreach ($speciesList as $species) : ?>
 						<?php $speciesArray = explode('|', (string)$species->label); ?>
 						<tr>
-							<?php if ($nameType === 'scientific' || $nameType === "axiophyte" ) : ?>
+							<?php if ($nameType === 'scientific') : ?>
 								<td class="d-none d-md-table-cell"><?php echo $speciesArray[4]?></td>
 								<td><?=$speciesArray[0]?></td>
 								<td class="d-none d-sm-table-cell"><?php echo $speciesArray[2]?></td>

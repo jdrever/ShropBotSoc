@@ -79,6 +79,15 @@ class Sites extends BaseController
 		{
 			$this->data['speciesGroup'] = "both";
 		}
+		$axiophyteFilterCookie = get_cookie("axiophyteFilter");
+		if (isset($axiophyteFilterCookie))
+		{
+			$this->data['axiophyteFilter'] = $axiophyteFilterCookie;
+		}
+		else
+		{
+			$this->data['axiophyteFilter'] = "";
+		}
 
 
         echo view('sites_search', $this->data);

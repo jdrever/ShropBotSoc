@@ -32,7 +32,7 @@
 			<?php foreach ($sites as $site) : ?>
 				<tr>
 					<td>
-						<a href="<?= base_url('/site/' . $site->label . '/group/' . $speciesGroup .  '/type/' . $nameType); ?>">
+						<a href="<?= base_url('/site/' . $site->label . '/group/' . $speciesGroup .  '/type/' . $nameType . '/axiophyte/' . $axiophyteFilter); ?>">
 							<?= $site->label ?>
 						</a>
 					</td>
