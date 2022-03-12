@@ -4,6 +4,7 @@ image:
 ports:
   - port: 8001
     onOpen: ignore
+    visibility: public
   - port: 9001
     onOpen: ignore
 vscode:
