@@ -384,7 +384,7 @@ class NbnQuery implements NbnQueryInterface
 	}
 
 
-	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page)
+	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter, $page)
 	{
 		$nbnRecords       = new NbnRecords('occurrences/search');
 
@@ -403,17 +403,19 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->add('species_group:Plants');
 		}
 
-		if ($nameType === "scientific" || $nameType === "axiophyte")
+		if ($nameType === "scientific")
 		{
 			$nbnRecords->facets   = 'names_and_lsid';
 		}
-		if ($nameType === "axiophyte")
-		{
-			$nbnRecords->addAxiophyteFilter();
-		}
+
 		if ($nameType === "common")
 		{
 			$nbnRecords->facets   = 'common_name_and_lsid';
+		}
+
+		if ($axiophyteFilter === "true")
+		{
+			$nbnRecords->addAxiophyteFilter();
 		}
 
 		$nbnRecords->add('grid_ref_1000:"' . rawurlencode($gridSquare) . '"');

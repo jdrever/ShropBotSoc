@@ -16,6 +16,8 @@ class Squares extends BaseController
         {
 			$nameType = $this->request->getVar('name-type');
 			$speciesGroup = $this->request->getVar('species-group');
+			$axiophyteFilter = $this->request->getVar('axiophyte-filter');
+			if (!isset($axiophyteFilter)) $axiophyteFilter="false";
 
 			// If there is a square specified then we are searching at a square
 			// and want to change the group/type
@@ -45,6 +47,16 @@ class Squares extends BaseController
 		else
 		{
 			$this->data['speciesGroup'] = "both";
+		}
+
+		$axiophyteFilterCookie = get_cookie("axiophyteFilter");
+		if (isset($axiophyteFilterCookie))
+		{
+			$this->data['axiophyteFilter'] = $axiophyteFilterCookie;
+		}
+		else
+		{
+			$this->data['axiophyteFilter'] = "";
 		}
 
 		// Get map position and zoom data from cookie
