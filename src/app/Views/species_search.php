@@ -29,10 +29,10 @@
 			</label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('name-type', 'axiophyte', ($nameType === 'axiophyte')); ?> />
+			<input class="form-check-input" type="checkbox" name="axiophyte-filter" id="axiophyte-filter" value="true"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('axiophyte-filter', 'true', ($axiophyteFilter === 'true')); ?> />
 			<label class="form-check-label" for="axiophyte-name">
-				<span class="d-lg-none">axiophyte names</span>
-				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
+				<span class="d-lg-none">axiophytes</span>
+				<span class="d-none d-lg-inline">axiophytes only</span>
 			</label>
 		</div>
 	</div>
@@ -76,7 +76,7 @@
 			<tr>
 				<th class="d-none d-md-table-cell">Family</th>
 				<th <?php if ($nameType === 'common') : ?>class="d-none d-sm-table-cell" <?php endif ?>>Scientific Name</th>
-				<th <?php if ($nameType === 'scientific' || $nameType === 'axiophyte') : ?>class="d-none d-sm-table-cell" <?php endif ?>>Common Name</th>
+				<th <?php if ($nameType === 'scientific') : ?>class="d-none d-sm-table-cell" <?php endif ?>>Common Name</th>
 				<th>Records</th>
 			</tr>
 		</thead>
@@ -84,7 +84,7 @@
 			<?php foreach ($records as $species) : ?>
 				<?php $speciesArray = explode('|', (string)$species->label); ?>
 				<tr>
-				<?php if ($nameType === 'scientific' || $nameType === 'axiophyte') : ?>
+				<?php if ($nameType === 'scientific') : ?>
 					<td class="d-none d-md-table-cell"><?= $speciesArray[4] ?></td>
 					<td><a href="<?= base_url('/species/' . $speciesArray[0] . '?nameSearchString=' . $nameSearchString) ?>"><?= $speciesArray[0] ?></a></td>
 					<td class="d-none d-sm-table-cell">

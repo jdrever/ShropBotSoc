@@ -39,7 +39,7 @@ class NbnQuery implements NbnQueryInterface
 	 * https://records-ws.nbnatlas.org/occurrences/search?facets=common_name_and_lsid&q=data_resource_uid:dr782&flimit=-1&fq=common_name:Ivy*%20AND%20species_group:Plants+Bryophytes&fsort=index&pageSize=0
 	 *
 	 */
-	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
 		//because the API respects the case
 		$nameSearchString = ucfirst($nameSearchString);
@@ -48,7 +48,7 @@ class NbnQuery implements NbnQueryInterface
 
 		//$nbnRecords->pageSize = 10;
 		$preparedName=$this->prepareSearchString($nameSearchString);
-		if ($nameType === "scientific" || $nameType === "axiophyte")
+		if ($nameType === "scientific")
 		{
 
 			$nbnRecords->add('taxon_name:' . $preparedName);
@@ -56,16 +56,18 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->fsort = "index";
 		}
 
-		if ($nameType === "axiophyte")
-		{
-			$nbnRecords->addAxiophyteFilter();
-		}
 		if ($nameType === "common")
 		{
 			$nbnRecords->add('common_name:' . $preparedName);
 			$nbnRecords->facets   = 'common_name_and_lsid';
 			$nbnRecords->fsort = "index";
 		}
+
+		if ($axiophyteFilter === "true")
+		{
+			$nbnRecords->addAxiophyteFilter();
+		}
+
 		$speciesGroup = ucfirst($speciesGroup);
 		if ($speciesGroup=== "Plants")
 		{
@@ -256,7 +258,7 @@ class NbnQuery implements NbnQueryInterface
 	 *
 	 * Changed to use 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=location_id:Shrewsbury+AND+species_group:Plants+Bryophytes
 	 */
-	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
 		$nbnRecords = new NbnRecords('occurrences/search');
 
@@ -275,17 +277,19 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->add('species_group:Bryophytes+OR+Plants');
 		}
 
-		if ($nameType === "scientific" || $nameType === "axiophyte")
+		if ($nameType === "scientific")
 		{
 			$nbnRecords->facets   = 'names_and_lsid';
 		}
-		if ($nameType === "axiophyte")
-		{
-			$nbnRecords->addAxiophyteFilter();
-		}
+
 		if ($nameType === "common")
 		{
 			$nbnRecords->facets   = 'common_name_and_lsid';
+		}
+
+		if ($axiophyteFilter === "true")
+		{
+			$nbnRecords->addAxiophyteFilter();
 		}
 
 		$nbnRecords->fsort   = 'index';
@@ -380,7 +384,7 @@ class NbnQuery implements NbnQueryInterface
 	}
 
 
-	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page)
+	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter, $page)
 	{
 		$nbnRecords       = new NbnRecords('occurrences/search');
 
@@ -399,17 +403,19 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->add('species_group:Plants');
 		}
 
-		if ($nameType === "scientific" || $nameType === "axiophyte")
+		if ($nameType === "scientific")
 		{
 			$nbnRecords->facets   = 'names_and_lsid';
 		}
-		if ($nameType === "axiophyte")
-		{
-			$nbnRecords->addAxiophyteFilter();
-		}
+
 		if ($nameType === "common")
 		{
 			$nbnRecords->facets   = 'common_name_and_lsid';
+		}
+
+		if ($axiophyteFilter === "true")
+		{
+			$nbnRecords->addAxiophyteFilter();
 		}
 
 		$nbnRecords->add('grid_ref_1000:"' . rawurlencode($gridSquare) . '"');
