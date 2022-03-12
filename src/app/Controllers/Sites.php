@@ -16,13 +16,15 @@ class Sites extends BaseController
         {
 			$nameType = $this->request->getVar('name-type');
 			$speciesGroup = $this->request->getVar('species-group');
+			$axiophyteFilter = $this->request->getVar('axiophyte-filter');
+			if (!isset($axiophyteFilter)) $axiophyteFilter="false";
 
 			// If there is a site name specified, assume we want are doing a search for species at
 			// that site. If not, go to species in county as normal.
 			$siteName = $this->request->getVar('site-name');
 			if (isset($siteName))
 			{
-				return redirect()->to("/site/{$siteName}/group/{$speciesGroup}/type/{$nameType}");
+				return redirect()->to("/site/{$siteName}/group/{$speciesGroup}/type/{$nameType}/axiophyte/{$axiophyteFilter}");
 			}
 			else
 			{
