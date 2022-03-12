@@ -38,7 +38,7 @@ class Records extends BaseController
 
 		$this->data['speciesNameType'] = !empty(get_cookie('nameType')) ? get_cookie('nameType') : 'scientific' ;
 		$this->data['speciesGroup'] = !empty(get_cookie('speciesGroup')) ? get_cookie('speciesGroup') : 'both' ;
-
+		$this->data['axiophyteFilter'] = !empty(get_cookie('axiophyteFilter')) ? get_cookie('axiophyteFilter') : 'false' ;
 		echo view('species_records', $this->data);
 	}
 
