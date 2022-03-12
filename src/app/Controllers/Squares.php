@@ -24,7 +24,7 @@ class Squares extends BaseController
 			$square = $this->request->getVar('square');
 			if (isset($square))
 			{
-				return redirect()->to("/square/{$square}/group/{$speciesGroup}/type/{$nameType}");
+				return redirect()->to("/square/{$square}/group/{$speciesGroup}/type/{$nameType}/axiophyte/{$axiophyteFilter}");
 			}
         };
 

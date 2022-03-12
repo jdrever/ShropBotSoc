@@ -126,9 +126,9 @@ class Species extends BaseController
 	/**
 	 * Return the species list for a square.
 	 */
-	public function listforSquare($gridSquare, $speciesGroup, $nameType)
+	public function listforSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter)
 	{
-		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $this->page);
+		$speciesQueryResult             = $this->nbn->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter, $this->page);
 
 		$this->data['speciesList']      = $speciesQueryResult->records;
 		$this->data['sites']            = $speciesQueryResult->sites;
@@ -143,10 +143,11 @@ class Species extends BaseController
 		$this->data['speciesGroup'] = $speciesGroup;
 		$this->data['gridSquare'] = $gridSquare;
 		$this->data['nameType']     = $nameType;
+		$this->data['axiophyteFilter']  = $axiophyteFilter;
 
 		set_cookie("nameType", $nameType, "3600", "", "/", "", false, false, null);
 		set_cookie("speciesGroup", $speciesGroup, "3600", "", "/", "", false, false, null);
-
+		set_cookie("axiophyteFilter", $axiophyteFilter, "3600", "", "/", "", false, false, null);
 		echo view('square_species_list', $this->data);
 	}
 }

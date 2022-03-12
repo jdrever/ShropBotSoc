@@ -68,7 +68,7 @@
 		if (map.getZoom() >= 11) {
 			// Go to species list for square page
 			grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 1000])
-			window.location.href = "/square/" + grs.p1000 + "/group/<?= $speciesGroup ?>/type/<?= $nameType ?>/axiophyte/<?= $axiophyteFiler ?>";
+			window.location.href = "/square/" + grs.p1000 + "/group/<?= $speciesGroup ?>/type/<?= $nameType ?>/axiophyte/<?= $axiophyteFilter ?>";
 		}
 	})
     map.on("zoomend", reset)
