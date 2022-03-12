@@ -15,6 +15,8 @@ class Species extends BaseController
 		if ($this->isPostBack())
 		{
 			$nameType = $this->request->getVar('name-type');
+			$axiophyteFilter = $this->request->getVar('axiophyte-filter');
+			if (!isset($axiophyteFilter)) $axiophyteFilter="false";
 			$speciesGroup = $this->request->getVar('species-group');
 
 			$nameSearchString  = $this->request->getVar('search');
@@ -25,7 +27,7 @@ class Species extends BaseController
 				$nameSearchString = "A";
 			}
 
-			return redirect()->to("/species/{$nameSearchString}/group/{$speciesGroup}/type/{$nameType}");
+			return redirect()->to("/species/{$nameSearchString}/group/{$speciesGroup}/type/{$nameType}/axiophyte/$axiophyteFilter");
 		};
 
 		$nameTypeCookie = get_cookie("nameType");
@@ -50,16 +52,26 @@ class Species extends BaseController
 
 		$this->data['nameSearchString'] = "";
 
+		$axiophyteFilterCookie = get_cookie("axiophyteFilter");
+		if (isset($axiophyteFilterCookie))
+		{
+			$this->data['axiophyteFilter'] = $axiophyteFilterCookie;
+		}
+		else
+		{
+			$this->data['axiophyteFilter'] = "";
+		}
+
 		echo view('species_search', $this->data);
 	}
 
 	/**
 	 * Return the species list for the county
 	 */
-	public function listForCounty($nameSearchString, $speciesGroup, $nameType)
+	public function listForCounty($nameSearchString, $speciesGroup, $nameType, $axiophyteFilter)
 	{
 		$this->data['title']            = $this->data['title'] . " - " . $nameSearchString;
-		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $this->page);
+		$speciesQueryResult             = $this->nbn->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $this->page);
 		$this->data['records']          = $speciesQueryResult->records;
 		$this->data['sites']            = $speciesQueryResult->sites;
 		$this->data['downloadLink']     = $speciesQueryResult->downloadLink;
@@ -67,6 +79,7 @@ class Species extends BaseController
 		$this->data['message']          = $speciesQueryResult->message;
 		$this->data['nameSearchString'] = $nameSearchString;
 		$this->data['nameType']         = $nameType;
+		$this->data['axiophyteFilter']  = $axiophyteFilter;
 		$this->data['speciesGroup']     = $speciesGroup;
 		$this->data['page']             = $this->page;
 		$this->data['totalRecords']     = $speciesQueryResult->totalRecords;
@@ -74,6 +87,7 @@ class Species extends BaseController
 
 		set_cookie("speciesNameSearch",$nameSearchString,"3600", "", "/", "", false, false, null);
 		set_cookie("nameType", $nameType, "3600", "", "/", "", false, false, null);
+		set_cookie("axiophyteFilter", $axiophyteFilter, "3600", "", "/", "", false, false, null);
 		set_cookie("speciesGroup", $speciesGroup, "3600", "", "/", "", false, false, null);
 
 		echo view('species_search', $this->data);

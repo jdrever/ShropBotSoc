@@ -40,14 +40,14 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return NbnQueryResult
 	 */
-	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
 		//because the API respects the case
 		$nameSearchString = ucfirst($nameSearchString);
 		$cacheName        = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
-			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page);
+			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $page);
 			if (self::CACHE_ACTIVE && $speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
