@@ -29,10 +29,10 @@
 			<label class="form-check-label" for="common-name">common<span class="d-none d-lg-inline"> name only</span></label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte"  onchange="this.form.submit();" <?= set_radio('name-type', 'axiophyte',($nameType === 'axiophyte')); ?> />
+			<input class="form-check-input" type="checkbox" name="axiophyte-filter" id="axiophyte-filter" value="true"  onchange="if (this.form.search.value!='') { this.form.submit(); }" <?= set_radio('axiophyte-filter', 'true', ($axiophyteFilter === 'true')); ?> />
 			<label class="form-check-label" for="axiophyte-name">
-				<span class="d-lg-none">axiophyte names</span>
-				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
+				<span class="d-lg-none">axiophytes</span>
+				<span class="d-none d-lg-inline">axiophytes only</span>
 			</label>
 		</div>
 	</div>

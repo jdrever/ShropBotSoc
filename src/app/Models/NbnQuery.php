@@ -258,7 +258,7 @@ class NbnQuery implements NbnQueryInterface
 	 *
 	 * Changed to use 'https://records-ws.nbnatlas.org/occurrences/search?q=data_resource_uid:dr782&fq=location_id:Shrewsbury+AND+species_group:Plants+Bryophytes
 	 */
-	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
 		$nbnRecords = new NbnRecords('occurrences/search');
 
@@ -277,17 +277,19 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->add('species_group:Bryophytes+OR+Plants');
 		}
 
-		if ($nameType === "scientific" || $nameType === "axiophyte")
+		if ($nameType === "scientific")
 		{
 			$nbnRecords->facets   = 'names_and_lsid';
 		}
-		if ($nameType === "axiophyte")
-		{
-			$nbnRecords->addAxiophyteFilter();
-		}
+
 		if ($nameType === "common")
 		{
 			$nbnRecords->facets   = 'common_name_and_lsid';
+		}
+
+		if ($axiophyteFilter === "true")
+		{
+			$nbnRecords->addAxiophyteFilter();
 		}
 
 		$nbnRecords->fsort   = 'index';

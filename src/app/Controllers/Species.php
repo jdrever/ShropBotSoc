@@ -96,18 +96,19 @@ class Species extends BaseController
 	/**
 	 * Return the species list for a named site.
 	 */
-	public function listForSite($siteName, $speciesGroup, $nameType)
+	public function listForSite($siteName, $speciesGroup, $nameType, $axiophyteFilter)
 	{
 
 		$this->data['siteName']     = urldecode($siteName);
 		$this->data['title']        = $this->data['title'] . " - " . $this->data['siteName'];
-		$speciesQueryResult         = $this->nbn->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $this->page);
+		$speciesQueryResult         = $this->nbn->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $this->page);
 		$this->data['speciesList']  = $speciesQueryResult->records;
 		$this->data['siteLocation']	= $speciesQueryResult->siteLocation;
 		$this->data['downloadLink'] = $speciesQueryResult->downloadLink;
 		$this->data['queryUrl']     = $speciesQueryResult->queryUrl;
 		$this->data['message']      = $speciesQueryResult->message;
 		$this->data['nameType']     = $nameType;
+		$this->data['axiophyteFilter']  = $axiophyteFilter;
 		$this->data['speciesGroup'] = $speciesGroup;
 		$this->data['page']         = $this->page;
 		$this->data['totalRecords'] = $speciesQueryResult->totalRecords;
@@ -117,6 +118,7 @@ class Species extends BaseController
 
 		set_cookie("nameType", $nameType, "3600", "", "/", "", false, false, null);
 		set_cookie("speciesGroup", $speciesGroup, "3600", "", "/", "", false, false, null);
+		set_cookie("axiophyteFilter", $axiophyteFilter, "3600", "", "/", "", false, false, null);
 
 		echo view('site_species_list', $this->data);
 	}

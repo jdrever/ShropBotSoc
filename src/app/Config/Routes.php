@@ -31,7 +31,7 @@ $routes->get('/', 'Species::index');
 
 // Lists of species for the county, a site and a square
 $routes->add('species/(:segment)/group/(:segment)/type/(:segment)/axiophyte/(:segment)', 'Species::listForCounty/$1/$2/$3/$4');
-$routes->add('site/(:segment)/group/(:segment)/type/(:segment)', 'Species::listForSite/$1/$2/$3');
+$routes->add('site/(:segment)/group/(:segment)/type/(:segment)/axiophyte/(:segment)', 'Species::listForSite/$1/$2/$3/$4');
 $routes->add('square/(:segment)/group/(:segment)/type/(:segment)', 'Species::listForSquare/$1/$2/$3');
 
 // List of sites in the county
