@@ -1,82 +1,170 @@
-<?php echo $this->extend('default') ?>
-<?php echo $this->section('content') ?>
-<h2>Records - <?php echo urldecode($site_name)?> - <?php echo urldecode($species_name)?></h2>
-
-<?php if (isset($download_link)):?>
-<p><a href="<?php echo $download_link?>">Download this data</a></p>
+<?= $this->extend('default') ?>
+<?= $this->section('content') ?>
+<?php if (isset($message)) : ?>
+	<div class="alert alert-danger" role="alert">
+		I am very sorry, but an error has occured.</b>:  <?= $message ?>">
+	</div>
 <?php endif ?>
 
-<div id="map" style="height:400px;width:500px"></div>
+<?php if ($status ==='OK') : ?>
+
+<div class="d-flex align-items-center">
+	<a href="/species/<?=$speciesNameSearch ?>/group/<?=$speciesGroup ?>/type/<?=$speciesNameType ?>/axiophyte/<?=$axiophyteFilter?>" class="header-backArrow">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+			<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+		</svg>
+	</a>
+	<h2>
+		<?= urldecode($displayName) ?> records in
+		Shropshire
+	</h2>
+</div>
+
+<?php if (isset($download_link)) : ?>
+	<p><a href='<?= $download_link ?>''>Download this data</a></p>
+<?php endif ?>
+
+<ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
+	<li class="nav-item" role="presentation">
+		<button class="nav-link active fw-bold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="true">Data</button>
+	</li>
+	<li class="nav-item" role="presentation">
+		<button class="nav-link fw-bold" id="home-tab" data-bs-toggle="tab" data-bs-target="#map-container" type="button" role="tab" aria-controls="map" aria-selected="false">Map</button>
+	</li>
+</ul>
+<p><?= $totalRecords ?> records</p>
+<div id="tab-content" class="row">
+	<div id="data" class="tab-pane fade show active col-lg">
+		<?php if (isset($recordsList)) : ?>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Site</th>
+						<th class="d-none d-sm-table-cell">Square</th>
+						<th class="d-none d-md-table-cell">Collector</th>
+						<th>Year</th>
+						<th>Details</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($recordsList as $record) : ?>
+						<tr data-uuid="<?= $record->uuid ?>">
+							<td>
+								<a href="/site/<?= $record->locationId ?>/species/<?=$speciesName ?>">
+									<?= $record->locationId ?>
+								</a>
+							</td>
+							<td class="d-none d-sm-table-cell">
+							<?php if (isset($record->gridReference)) : ?>
+								<a href="/square/<?= $record->gridReference ?>/species/<?=$speciesName ?>">
+									<?= $record->gridReference ?>
+								</a>
+							<?php endif ?>
+							</td>
+							<td class="d-none d-md-table-cell">
+								<?= $record->collector ?>
+							</td>
+							<td>
+								<?= $record->year ?>
+							</td>
+							<td>
+								<a href="<?= base_url("/record/{$record->uuid}") . '?displayName=' . $displayName; ?>">
+									more
+								</a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif ?>
+	</div>
+	<div id="map-container" class="tab-pane fade show col-lg">
+		<div id="map" class=""></div>
+	</div>
+</div>
 <script>
-//make a minimal base layer 
-var minimal = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'pk.eyJ1Ijoiam9lamNvbGxpbnMiLCJhIjoiY2tnbnpjZmtpMGM2MTJ4czFqdHEzdmNhbSJ9.Fin7MSPizbCcQi6hSzVigw'
-});
+	// Initialise the map
+	const map = initialiseBasicMap();
 
-//County boundary
-const url = '/data/shropshire.json';
-var boundary = L.geoJSON()
-fetch(url).then(function(response) {
-        return response.json();
-    }).then(function(data) {
-        boundary.addData(data);
-    });
+	// Make a dot map layer
+	const wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?" +
+		"Q=lsid:<?= $speciesGuid ?>" +
+		"&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;" +
+		"gridlabels:true;gridres:singlegrid" +
+		"&fq=data_resource_uid:dr782";
 
-//OS Grid graticule
-var options = {};
-var graticule = L.osGraticule(options);
+	const species = L.tileLayer.wms(wmsUrl, {
+		"layers": "ALA:occurrences",
+		"uppercase": true,
+		"format": "image/png",
+		"transparent": true
+	});
 
-//make a dot map layer
-var wmsUrl = "https://records-ws.nbnatlas.org/mapping/wms/reflect?";
-  wmsUrl += "Q=lsid:<?php echo $records_list[0]->speciesGuid?>";
-  wmsUrl += "&ENV=colourmode:osgrid;color:ffff00;name:circle;size:4;opacity:0.5;gridlabels:true;gridres:singlegrid";
-  wmsUrl += "&fq=data_resource_uid:dr782";
+	species.addTo(map);
 
-var species = L.tileLayer.wms(
-    wmsUrl, {
-    "layers": "ALA:occurrences",
-    "uppercase": true,
-    "format": "image/png",
-    "transparent": true
-});
-//make a map and add the layers
-   var map = L.map('map', {
-      center: [52.6, -3.0],
-      zoom: 9,
-      layers: [minimal, graticule, boundary, species]
-   });
+	// Plot page of records on the map with tooltips
+	const records = <?= json_encode($recordsList) ?>;
 
+	const recordMarkers = records.map(record => {
+		const lat = record.decimalLatitude;
+		const lng = record.decimalLongitude;
+
+		const marker = L.circleMarker([lat, lng], {
+			fillColor: "red",
+			color: "darkRed",
+			fillOpacity: .75
+		});
+
+		marker.uuid = record.uuid;
+
+		marker.bindPopup(`
+			${record.locationId} (${record.gridReference})<br>
+			${record.collector}<br>
+		`);
+
+		// Events for hovering over markers
+		// marker.on("mouseover", (event) => {
+		// 	const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+		// 	highlightRow.style.backgroundColor = 'rgb(255, 255, 0, 0.5)';
+		// });
+
+		// marker.on("mouseout", (event) => {
+		// 	const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+		// 	highlightRow.style.backgroundColor = 'initial';
+		// })
+
+		// When we open a popup also highlight the corresponding row in the data
+		// table. This is _essential_ for orientation when using tabs on small
+		// screens
+		marker.on("popupopen", (event) => {
+			const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+			highlightRow.style.backgroundColor = 'rgb(255, 255, 0, 0.5)';
+		});
+
+		marker.on("popupclose", (event) => {
+			const highlightRow = document.querySelector(`[data-uuid="${event.target.uuid}"]`);
+			highlightRow.style.backgroundColor = 'initial';
+		})
+
+		return marker;
+	});
+	L.layerGroup(recordMarkers).addTo(map);
+
+	// Plot the sites to the map as markers
+	const sites = <?= json_encode($sites) ?>;
+	const siteMarkers = Object.entries(sites).map(site => {
+		return L.circleMarker(site[1]).bindTooltip(site[0]);
+	});
+	// Turn off rendering of sites for now
+	// L.layerGroup([...siteMarkers]).addTo(map);
 </script>
 
-<?php if (isset($records_list)):?>
-    <table class="table">
-        <thead><tr><th>Site</th><th>Square</th><th>Collector</th><th>Year</th><th>Details</th></tr></thead>
-        <tbody>
-        <?php foreach ($records_list as $record):?>
-        <tr>
-            <td>
-              <a href="/site/<?php echo $record->locationId?>/group/plants/type/scientific"><?php echo $record->locationId?></a>
-            </td>
-            <td><a href="/square/<?php echo $record->gridReference?>/group/plants/type/scientific"><?php echo $record->gridReference?></a></td>
-            <td><?php echo $record->collector?></td>
-            <td><?php echo $record->year?></td>
-            <td><a href="<?php echo base_url("/record/{$record->uuid}");?>">more</td>
-        </tr>
-        <?php endforeach;?>
-        </tbody>
-    </table>
+<?= $this->include('pagination') ?>
+
+<?php if (isset($download_link)) : ?>
+	<p><a href='<?= $download_link ?>''>Download this data</a></p>
 <?php endif ?>
-<nav>
-    <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-</nav>
-<?php echo $this->endSection() ?>
+
+<?php endif ?>
+
+<?= $this->endSection() ?>

@@ -4,10 +4,9 @@ namespace App\Controllers;
 /**
  * Class BaseController
  *
- * BaseController provides a convenient place for loading components
- * and performing functions that are needed by all your controllers.
- * Extend this class in any new controllers:
- *     class Home extends BaseController
+ * BaseController provides a convenient place for loading components and
+ * performing functions that are needed by all your controllers. Extend this
+ * class in any new controllers: class Home extends BaseController
  *
  * For security be sure to declare any new methods as protected or private.
  *
@@ -19,13 +18,19 @@ use CodeIgniter\Controller;
 class BaseController extends Controller
 {
 	/**
-	 * An array of helpers to be loaded automatically upon
-	 * class instantiation. These helpers will be available
-	 * to all other controllers that extend BaseController.
+	 * An array of helpers to be loaded automatically upon class instantiation.
+	 * These helpers will be available to all other controllers that extend
+	 * BaseController.
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['form', 'app_utility'];
+	protected $helpers = [
+		'form',
+		'app_utility',
+		'cookie',
+	];
+
+
 
 	/**
 	 * Constructor.
@@ -39,15 +44,21 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		$this->nbn = model('App\Models\NbnQueryCached', false);
+		$this->page = ! empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
+		$this->currentUrl = strtok($_SERVER["REQUEST_URI"], '?');
 	}
 
-  /**
-	 * Determine if this is a post back so you can do that isPostBack thing
-	 * like they do in ASP and ASP.NET.  Strange that you don't really see
-	 * it elsewhere but there you go.
+	/**
+	 * Determine if this is a post back so you can do that isPostBack thing like they do in ASP and ASP.NET.  Strange
+	 * that you don't really see it elsewhere but there you go.
 	 */
-	function isPostBack()
+	protected function isPostBack()
 	{
 		return $_SERVER['REQUEST_METHOD'] === 'POST';
+	}
+
+	protected function getPageInfo()
+	{
+
 	}
 }
