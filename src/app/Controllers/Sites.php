@@ -39,6 +39,39 @@ class Sites extends BaseController
 			}
         };
 
+		$nameTypeCookie = get_cookie("nameType");
+		if (isset($nameTypeCookie))
+		{
+			$this->data['nameType'] = $nameTypeCookie;
+		}
+		else
+		{
+			$this->data['nameType'] = "scientific";
+		}
+
+		$speciesGroupCookie = get_cookie("speciesGroup");
+		if (isset($speciesGroupCookie))
+		{
+			$this->data['speciesGroup'] = $speciesGroupCookie;
+		}
+		else
+		{
+			$this->data['speciesGroup'] = "both";
+		}
+
+		$this->data['nameSearchString'] = "";
+
+		$axiophyteFilterCookie = get_cookie("axiophyteFilter");
+		if (isset($axiophyteFilterCookie))
+		{
+			$this->data['axiophyteFilter'] = $axiophyteFilterCookie;
+		}
+		else
+		{
+			$this->data['axiophyteFilter'] = "";
+		}
+
+
 		$this->data['siteSearchString'] = "";
         echo view('sites_search', $this->data);
     }
