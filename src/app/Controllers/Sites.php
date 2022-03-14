@@ -68,7 +68,7 @@ class Sites extends BaseController
 		}
 		else
 		{
-			$this->data['axiophyteFilter'] = "";
+			$this->data['axiophyteFilter'] = "false";
 		}
 
 
