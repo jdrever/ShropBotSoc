@@ -63,6 +63,10 @@
 	</li>
 </ul>
 <?php if (isset($speciesList) && count($speciesList) > 0) : ?>
+
+	<?php if (isset($downloadLink)) : ?>
+	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+	<?php endif ?>
 	<div id="tab-content" class="row">
 		<div id="data" class="tab-pane fade show active col-lg">
 			<table class="table">
@@ -122,8 +126,8 @@
 
 	<?= $this->include('pagination') ?>
 
-	<?php if (isset($download_link)) : ?>
-		<p><a href="<?= $download_link ?>">Download this data</a></p>
+	<?php if (isset($downloadLink)) : ?>
+		<p><a href="<?= $downloadLink ?>">Download this data</a></p>
 	<?php endif ?>
 
 <?php else: ?>

@@ -80,6 +80,7 @@ class Records extends BaseController
 		$this->data['speciesName'] = $speciesName;
 		$records                    = $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $this->page);
 		$this->data['recordsList']  = $records->records;
+		$this->data['downloadLink']  = $records->downloadLink;
 		$this->data['page']         = $this->page;
 		$this->data['queryUrl']     = $records->queryUrl;
 		$this->data['totalRecords'] = $records->totalRecords;

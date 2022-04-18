@@ -74,6 +74,10 @@
 
 
 <?php if (isset($speciesList) && count($speciesList) > 0) : ?>
+
+	<?php if (isset($downloadLink)) : ?>
+	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+	<?php endif ?>
 <!-- Display search results and map showing square location-->
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
@@ -170,6 +174,9 @@
 		this.stream.point(point.x, point.y)
     }
 </script>
+<?php if (isset($downloadLink)) : ?>
+	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+	<?php endif ?>
 <?php else: ?>
 <div class="alert alert-warning" role="alert">
 	No records could be found matching those criteria.
