@@ -50,7 +50,16 @@ class Species extends BaseController
 			$this->data['speciesGroup'] = "both";
 		}
 
-		$this->data['nameSearchString'] = "";
+
+		$speciesNameSearch= get_cookie("speciesNameSearch");
+		if (isset($speciesGroupCookie))
+		{
+			$this->data['nameSearchString'] = $speciesNameSearch;
+		}
+		else
+		{
+			$this->data['nameSearchString'] = "";
+		}
 
 		$axiophyteFilterCookie = get_cookie("axiophyteFilter");
 		if (isset($axiophyteFilterCookie))
