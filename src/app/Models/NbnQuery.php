@@ -313,6 +313,7 @@ class NbnQuery implements NbnQueryInterface
 		if ($nbnQueryResponse->status === 'OK' && isset($nbnQueryResponse->jsonResponse->facetResults[0]))
 		{
 			$speciesQueryResult->records = $nbnQueryResponse->jsonResponse->facetResults[0]->fieldResult;
+			$speciesQueryResult->downloadLink=$nbnRecords->getDownloadQueryString();
 		}
 		else
 		{
@@ -418,7 +419,7 @@ class NbnQuery implements NbnQueryInterface
 			$nbnRecords->addAxiophyteFilter();
 		}
 
-		$nbnRecords->add('grid_ref_1000:"' . rawurlencode($gridSquare) . '"');
+		$nbnRecords->add('grid_ref_1000:' . rawurlencode($gridSquare));
 
 		$nbnRecords->fsort   = 'index';
 		$queryUrl         = $nbnRecords->getUnpagedQueryString();

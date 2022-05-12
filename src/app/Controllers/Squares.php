@@ -56,7 +56,7 @@ class Squares extends BaseController
 		}
 		else
 		{
-			$this->data['axiophyteFilter'] = "";
+			$this->data['axiophyteFilter'] = "false";
 		}
 
 		// Get map position and zoom data from cookie

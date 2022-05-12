@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = "https://flora.shropshirebotany.org.uk/";
+	public $baseURL = BASE;
 
 	/*
 	|--------------------------------------------------------------------------

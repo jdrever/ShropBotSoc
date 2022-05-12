@@ -28,9 +28,12 @@ Options All -Indexes
 	# Checks to see if the user is attempting to access a valid file,
     # such as an image or css document, if this isn't true it sends the
     # request to the front controller, index.php
+	# added ? as per
+	# https://www.willis-owen.co.uk/how-to-fix-codeigniter-3-cloudways-file-not-found-problem/
+	# to ensure redirects works with Cloudflare hosting
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
+	RewriteRule ^([\s\S]*)$ index.php?/$1 [L,NC,QSA]
 
 	# Ensure Authorization header is passed along
     RewriteCond %{HTTP:Authorization} .

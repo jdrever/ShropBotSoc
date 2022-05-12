@@ -36,8 +36,8 @@
 	</h2>
 </div>
 
-<?php if (isset($download_link)) : ?>
-	<p><a href="<?= $download_link ?>">Download this data</a></p>
+<?php if (isset($downloadLink)) : ?>
+	<p><a href='<?= $downloadLink ?>'>Download this data</a></p>
 <?php endif ?>
 
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
@@ -148,8 +148,8 @@
 
 <?= $this->include('pagination') ?>
 
-<?php if (isset($download_link)) : ?>
-	<p><a href="<?= $download_link ?>">Download this data</a></p>
+<?php if (isset($downloadLink)) : ?>
+	<p><a href='<?= $downloadLink ?>'>Download this data</a></p>
 <?php endif ?>
 
 <?php endif ?>
