@@ -44,7 +44,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	{
 		//because the API respects the case
 		$nameSearchString = ucfirst($nameSearchString);
-		$cacheName        = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$page";
+		$cacheName        = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$axiophyteFilter-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $page);
@@ -131,7 +131,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 */
 	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
-		$cacheName = "get-species-list-for-site-$speciesGroup";
+		$cacheName = "get-species-list-for-site-$speciesGroup-$axiophyteFilter";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page);
@@ -176,7 +176,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 */
 	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter, $page)
 	{
-		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup-$nameType-$page";
+		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup-$nameType-$axiophyteFilter-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter, $page);
