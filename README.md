@@ -1,4 +1,4 @@
-# Online Flora
+# Shropshire Botanical Society Online Flora
 
 The Shropshire Botanical Society
 online flora based on records from the
