@@ -131,7 +131,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 */
 	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
-		$cacheName = "get-species-list-for-site-$speciesGroup-$axiophyteFilter";
+		$cacheName = "get-species-list-for-site-$siteName-$nameType-$speciesGroup-$axiophyteFilter-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
 			$speciesList = $this->nbnQuery->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page);
