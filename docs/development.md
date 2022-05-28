@@ -1,5 +1,7 @@
 ---
 layout: default
+title: Development
+navigation_weight: 2
 ---
 # Development
 

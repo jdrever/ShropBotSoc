@@ -7,10 +7,6 @@ theme_settings:
   # Meta
   title: Captain Magenta
 
-  # Header and footer text
-  header_text: >
-     <h1>Shropshire Botanical Online Flora</h1>
-
 # PAGINATION
 paginate: 5
 paginate_path: "blog/page:num"
