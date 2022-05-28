@@ -2,6 +2,11 @@
 
 The [NBN Atlas](https://nbnatlas.org/) provides open access to many of the UKs
 biological records via a sophisticated [interface](https://spatial.nbnatlas.org/).
+Using this interfact you can answer the question...
+what's been recorded in a location for all the records in the NBN collections.
+
+However, often naturalist want to know about the most recent sighting
+for their taxonomic group of interest.
 
 ## NBN Records Simplified
 
