@@ -1,26 +1,10 @@
 # SITE CONFIGURATION
-baseurl: "" # the sub path of your site, e.g. /blog/
-url: "0.0.0.0" # the base hostname & protocol for your site
+url: https://joejcollins.github.io
+baseurl: /captain-magenta # the sub path of your site, e.g. /blog/
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: Captain Magenta
+  title: NBN Records App
 
-# PAGINATION
-paginate: 5
-paginate_path: "blog/page:num"
-
-# COLLECTIONS
-collections:
-  portfolio:
-    output: true
-
-# BUILD SETTINGS
-markdown: kramdown
-sass:
-  sass_dir: _sass
-  style: :compressed
-
-gems: [jekyll-paginate]
-theme: jekyll-theme-minimal
+timezone: Europe/London
