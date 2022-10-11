@@ -9,7 +9,7 @@ ports:
     onOpen: ignore
 vscode:
   extensions:
-    - felixfbecker.php-debug
+    - xdebug.php-debug
 tasks:
   - command: composer install --working-dir ./src
   - command: apachectl start
