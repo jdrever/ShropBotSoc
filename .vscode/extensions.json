@@ -8,6 +8,6 @@
 		"wongjn.php-sniffer",
 		"esbenp.prettier-vscode",
 		"stkb.rewrap",
-		"felixfbecker.php-debug"
+		"xdebug.php-debug"
 	]
 }

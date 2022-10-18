@@ -1,3 +1,8 @@
+---
+layout: default
+title: Style Guide
+navigation_weight: 2
+---
 # Coding Style Guide
 
 - [Coding Style Guide](#coding-style-guide)
