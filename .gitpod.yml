@@ -1,6 +1,5 @@
 image:
   file: Dockerfile
-# This is to get rid of the annoying popup feel free to leave this out
 ports:
   - port: 8001
     onOpen: ignore
