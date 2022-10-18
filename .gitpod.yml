@@ -1,5 +1,5 @@
 image:
-  file: .gitpod.Dockerfile
+  file: Dockerfile
 # This is to get rid of the annoying popup feel free to leave this out
 ports:
   - port: 8001
@@ -9,7 +9,7 @@ ports:
     onOpen: ignore
 vscode:
   extensions:
-    - xdebug.php-debug
+    - felixfbecker.php-debug
 tasks:
   - command: composer install --working-dir ./src
   - command: apachectl start
