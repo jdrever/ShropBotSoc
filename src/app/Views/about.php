@@ -24,4 +24,6 @@
 	<p> If You Share Adapted Material You produce, the Adapter's License You apply must not prevent recipients of the Adapted Material from complying with this <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank">Public License</a>.</p>
 </div>
 
+<p>This website was made by <a href="https://careful.digital/">Careful Digital</a>.</p>
+
 <?= $this->endSection() ?>

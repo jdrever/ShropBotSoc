@@ -38,7 +38,7 @@ class Records extends BaseController
 
 		$this->data['speciesNameType'] = !empty(get_cookie('nameType')) ? get_cookie('nameType') : 'scientific' ;
 		$this->data['speciesGroup'] = !empty(get_cookie('speciesGroup')) ? get_cookie('speciesGroup') : 'both' ;
-
+		$this->data['axiophyteFilter'] = !empty(get_cookie('axiophyteFilter')) ? get_cookie('axiophyteFilter') : 'false' ;
 		echo view('species_records', $this->data);
 	}
 
@@ -80,6 +80,7 @@ class Records extends BaseController
 		$this->data['speciesName'] = $speciesName;
 		$records                    = $this->nbn->getSingleSpeciesRecordsForSquare($gridSquare, $speciesName, $this->page);
 		$this->data['recordsList']  = $records->records;
+		$this->data['downloadLink']  = $records->downloadLink;
 		$this->data['page']         = $this->page;
 		$this->data['queryUrl']     = $records->queryUrl;
 		$this->data['totalRecords'] = $records->totalRecords;

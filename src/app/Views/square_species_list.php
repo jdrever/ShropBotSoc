@@ -16,10 +16,6 @@
 <script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
-<div class="alert alert-info" role="alert">
-	PLEASE NOTE: this page is currently still under development and may not return accurate information.
-</div>
-
 <?php if (isset($message)) : ?>
 	<div class="alert alert-danger" role="alert">
 		I am very sorry, but an error has occured.</b>:  <?= $message ?>
@@ -29,7 +25,7 @@
 <?php if ($status ==='OK') : ?>
 
 <div class="d-flex align-items-center">
-	<a href="/squares" class="header-backArrow">
+	<a href="javascript:history.back()" class="header-backArrow">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
 			<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
 		</svg>
@@ -52,10 +48,10 @@
 			<label class="form-check-label" for="common-name">common<span class="d-none d-lg-inline"> name only</span></label>
 		</div>
 		<div class="form-check">
-			<input class="form-check-input" type="radio" name="name-type" id="axiophyte-name" value="axiophyte"  onchange="this.form.submit();" <?= set_radio('name-type', 'axiophyte', ($nameType === 'axiophyte')); ?> />
+			<input class="form-check-input" type="checkbox" name="axiophyte-filter" id="axiophyte-filter" value="true"  onchange="this.form.submit();" <?= set_radio('axiophyte-filter', 'true', ($axiophyteFilter === 'true')); ?> />
 			<label class="form-check-label" for="axiophyte-name">
-				<span class="d-lg-none">axiophyte names</span>
-				<span class="d-none d-lg-inline">axiophyte scientific name only</span>
+				<span class="d-lg-none">axiophytes</span>
+				<span class="d-none d-lg-inline">axiophytes only</span>
 			</label>
 		</div>
 	</div>
@@ -78,6 +74,10 @@
 
 
 <?php if (isset($speciesList) && count($speciesList) > 0) : ?>
+
+	<?php if (isset($downloadLink)) : ?>
+	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+	<?php endif ?>
 <!-- Display search results and map showing square location-->
 <ul id="tabs" class="nav nav-tabs d-lg-none" role="tablist">
 	<li class="nav-item" role="presentation">
@@ -88,7 +88,7 @@
 	</li>
 </ul>
 <div id="tab-content" class="row">
-	<div id="data" class="tab-pane fade show col-lg">
+	<div id="data" class="tab-pane fade show active col-lg">
 		<table class="table">
 			<thead><tr>
 				<th class="d-none d-md-table-cell">Family</th>
@@ -120,7 +120,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div id="map-container" class="tab-pane fade show active col-lg">
+	<div id="map-container" class="tab-pane fade show col-lg">
 		<div id="map" class=""></div>
 	</div>
 </div>
@@ -174,6 +174,9 @@
 		this.stream.point(point.x, point.y)
     }
 </script>
+<?php if (isset($downloadLink)) : ?>
+	<p><a href="<?= $downloadLink ?>">Download this data</a></p>
+	<?php endif ?>
 <?php else: ?>
 <div class="alert alert-warning" role="alert">
 	No records could be found matching those criteria.

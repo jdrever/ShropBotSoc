@@ -13,7 +13,7 @@
 	<link href="/css/from-blogger.css" rel="stylesheet">
 	<link href="/css/enhancements.css" rel="stylesheet">
 	<!-- A2HS -->
-	<link rel="manifest" href="manifest.webmanifest">
+	<link rel="manifest" href="/manifest.webmanifest">
 	<!-- Mapping -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" integrity="sha256-BPfK9M5v34c2XP6p0cxVz1mUQLst0gTLk0mlc7kuodA=" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet-src.js" integrity="sha256-dG7rUAec0UN0e3nlMEuYJzsbK0rpoz4hBbNp0ir9iF8=" crossorigin="anonymous"></script>
@@ -30,6 +30,12 @@
 		gtag('js', new Date());
 
 		gtag('config', 'G-C98GEQTFC5');
+	</script>
+	<script>
+		if (navigator && navigator.serviceWorker)
+		{
+  			navigator.serviceWorker.register('/js/sw.js');
+		}
 	</script>
 	<title>
 		<?= $title ?>

@@ -6,7 +6,7 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# The GAE file system is not writeable so this is not needed.  However it 
+# The GAE file system is not writeable so this is not needed.  However it
 # might be handy for developing an alternative cache so it has been left in.
 RUN chown -R www-data:www-data /var/www/html/writable
 
@@ -27,9 +27,10 @@ RUN apt-get update \
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # For some strange reason the ARG needs to be defined, go figure.
-ARG GIT_PERSONAL_ACCESS_TOKEN 
-RUN composer config -g github-oauth.github.Composer $GIT_PERSONAL_ACCESS_TOKEN
-# RUN composer install --prefer-dist # This is lost be because the volume is lost.
+#ARG GIT_PERSONAL_ACCESS_TOKEN
+#RUN composer config -g github-oauth.github.Composer $GIT_PERSONAL_ACCESS_TOKEN
+RUN composer install --prefer-dist
+#This is lost be because the volume is lost.
 # CMD bash -c "composer install --prefer-dist"
 COPY docker-entrypoint.sh /usr/local/bin/dockerInit
 RUN chmod +x /usr/local/bin/dockerInit

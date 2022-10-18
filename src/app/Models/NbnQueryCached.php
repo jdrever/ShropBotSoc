@@ -18,7 +18,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 * @var    bool
 	 * @access private
 	 */
-	private const CACHE_ACTIVE = false;
+	private const CACHE_ACTIVE = true;
 
 	/**
 	 * Constructor, initialises NbnQuery
@@ -40,14 +40,14 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return NbnQueryResult
 	 */
-	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
 		//because the API respects the case
 		$nameSearchString = ucfirst($nameSearchString);
-		$cacheName        = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$page";
+		$cacheName        = "get-species-list-for-county-$nameType-$speciesGroup-$nameSearchString-$axiophyteFilter-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
-			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $page);
+			$speciesList = $this->nbnQuery->getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $page);
 			if (self::CACHE_ACTIVE && $speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
@@ -129,12 +129,12 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return NbnQueryResult
 	 */
-	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $page)
+	public function getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
-		$cacheName = "get-species-list-for-site-$speciesGroup";
+		$cacheName = "get-species-list-for-site-$siteName-$nameType-$speciesGroup-$axiophyteFilter-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
-			$speciesList = $this->nbnQuery->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $page);
+			$speciesList = $this->nbnQuery->getSpeciesListForSite($siteName, $nameType, $speciesGroup, $axiophyteFilter, $page);
 			if (self::CACHE_ACTIVE && $speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
@@ -173,14 +173,13 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 *
 	 * @return NbnQueryResult
 	 *
-	 * TODO: implement speciesGroup filtering
 	 */
-	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page)
+	public function getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter, $page)
 	{
-		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup-$nameType-$page";
+		$cacheName = "get-species-list-for-square-$gridSquare-$speciesGroup-$nameType-$axiophyteFilter-$page";
 		if (! self::CACHE_ACTIVE || ! $speciesList = cache($cacheName))
 		{
-			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $page);
+			$speciesList = $this->nbnQuery->getSpeciesListForSquare($gridSquare, $speciesGroup, $nameType, $axiophyteFilter, $page);
 			if (self::CACHE_ACTIVE && $speciesList->status === 'OK')
 			{
 				cache()->save($cacheName, $speciesList, CACHE_LIFE);
