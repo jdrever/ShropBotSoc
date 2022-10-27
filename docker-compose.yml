@@ -3,10 +3,11 @@ services:
     php:
         build:
             context: .
-            args: 
+            args:
                 GIT_PERSONAL_ACCESS_TOKEN: ${GIT_PERSONAL_ACCESS_TOKEN}
             dockerfile: ./Dockerfile
         image: captain-magenta
+        pull_policy: never
         container_name: captain-magenta-php
         environment:
             XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1 remote_autostart=1 remote_connect_back=0
@@ -14,10 +15,10 @@ services:
         ports:
             - '8080:80'
         volumes:
-            - './src:/var/www/html'
+             - './src:/var/www/html'
     docs:
         image: jekyll/jekyll:latest
-        environment: 
+        environment:
             JEKYLL_VERSION: 3.8
         container_name: captain-magenta-docs
         volumes:
