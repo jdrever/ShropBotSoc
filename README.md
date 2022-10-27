@@ -66,6 +66,11 @@ Typically on a mobile phone at a specific site.
 
 ![Captain Magenta](./docs/assets/img/captain-magenta.webp)
 
+
 Captain Magenta was the former godfather of an organised-cybercrime syndicate
 whom the Spectrum Organisation recruited into its ranks out of its realisation
 that it would need a criminal mind to help it understand the criminal mind.
+
+The project is supported by the [Shropshire Botanical Society](https://www.shropshirebotany.org.uk/)
+whose [NBN records](https://registry.nbnatlas.org/public/show/dp120)
+can be seen via their [online flora](https://flora.shropshirebotany.org.uk/).
