@@ -22,15 +22,9 @@
 	<script type="text/javascript" src="/js/Leaflet.MetricGrid.js"></script>
 	<script type="text/javascript" src="/js/leaflet.wms.js"></script>
 	<script type="text/javascript" src="/js/BasicMap.js"></script>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C98GEQTFC5"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'G-C98GEQTFC5');
-	</script>
+	<!-- Fathom - beautiful, simple website analytics -->
+	<script src="https://cdn.usefathom.com/script.js" data-site="OHAJYDDO" defer></script>
+	<!-- / Fathom -->
 	<script>
 		if (navigator && navigator.serviceWorker)
 		{
