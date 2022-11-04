@@ -29,7 +29,9 @@ $routes->set404Override();
 $routes->get('/', 'Species::index');
 $routes->post('/species', 'Species::index');
 
-//adding in 
+$routes->post('/sites', 'Sites::index');
+
+//adding in
 $routes->get('/species', 'Species::index');
 $routes->get('/sites', 'Sites::index');
 $routes->get('/squares', 'Squares::index');
@@ -39,9 +41,9 @@ $routes->get('/about', 'About::index');
 $routes->add('species/(:segment)/group/(:segment)/type/(:segment)/axiophyte/(:segment)', 'Species::listForCounty/$1/$2/$3/$4');
 $routes->add('site/(:segment)/group/(:segment)/type/(:segment)/axiophyte/(:segment)', 'Species::listForSite/$1/$2/$3/$4');
 $routes->add('square/(:segment)/group/(:segment)/type/(:segment)/axiophyte/(:segment)', 'Species::listForSquare/$1/$2/$3/$4');
-
 // List of sites in the county
 $routes->add('sites/(:segment)', 'Sites::listForCounty/$1');
+
 
 // Lists of records for the county, a site and a square
 $routes->add('species/(:segment)', 'Records::singleSpeciesForCounty/$1');
