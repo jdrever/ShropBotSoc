@@ -20,7 +20,6 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(true);
 
 /**
  * --------------------------------------------------------------------
@@ -28,6 +27,13 @@ $routes->setAutoRoute(true);
  * --------------------------------------------------------------------
  */
 $routes->get('/', 'Species::index');
+$routes->post('/species', 'Species::index');
+
+//adding in 
+$routes->get('/species', 'Species::index');
+$routes->get('/sites', 'Sites::index');
+$routes->get('/squares', 'Squares::index');
+$routes->get('/about', 'About::index');
 
 // Lists of species for the county, a site and a square
 $routes->add('species/(:segment)/group/(:segment)/type/(:segment)/axiophyte/(:segment)', 'Species::listForCounty/$1/$2/$3/$4');
