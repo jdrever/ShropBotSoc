@@ -19,6 +19,7 @@ class Squares extends BaseController
 			$axiophyteFilter = $this->request->getVar('axiophyte-filter');
 			if (!isset($axiophyteFilter)) $axiophyteFilter="false";
 
+
 			// If there is a square specified then we are searching at a square
 			// and want to change the group/type
 			$square = $this->request->getVar('square');

@@ -35,6 +35,7 @@ $routes->post('/sites', 'Sites::index');
 $routes->get('/species', 'Species::index');
 $routes->get('/sites', 'Sites::index');
 $routes->get('/squares', 'Squares::index');
+$routes->post('/squares', 'Squares::index');
 $routes->get('/about', 'About::index');
 
 // Lists of species for the county, a site and a square

@@ -12,8 +12,8 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Enable the Apache URL rewriter so the Codeigniter routes work.
 RUN a2enmod rewrite
 
-# Install XDebug
-RUN pecl install -f xdebug \
+# Install XDebug (need older version due to PHP 7.4 dependence)
+RUN pecl install -f xdebug-3.1.5 \
   && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
 
 # Install Codeigniter Dependencies
