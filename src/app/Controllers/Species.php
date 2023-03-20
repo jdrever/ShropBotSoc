@@ -20,7 +20,7 @@ class Species extends BaseController
 			$speciesGroup = $this->request->getVar('species-group');
 
 			$nameSearchString  = $this->request->getVar('search');
-			$nameSearchString  = trim($nameSearchString);
+			$nameSearchString  = str_replace(" ","+",trim($nameSearchString));
 			// If the search field is empty, go to the begining of the alphabet
 			if (empty($nameSearchString))
 			{
