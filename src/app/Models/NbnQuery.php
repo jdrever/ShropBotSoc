@@ -42,7 +42,7 @@ class NbnQuery implements NbnQueryInterface
 	public function getSpeciesListForCounty($nameSearchString, $nameType, $speciesGroup, $axiophyteFilter, $page)
 	{
 		//because the API respects the case
-		$nameSearchString = ucfirst($nameSearchString);
+		$nameSearchString = str_replace("*","+",ucfirst($nameSearchString));
 
 		$nbnRecords           = new NbnRecords('/occurrences/search');
 
