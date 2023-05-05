@@ -547,6 +547,7 @@ class NbnQuery implements NbnQueryInterface
 			//setting timeout to five seconds as
 			ini_set('default_socket_timeout', self::API_TIMEOUT);
 			$jsonResults  = file_get_contents($queryUrl);
+			echo($jsonResults);
 			$jsonResponse = json_decode($jsonResults);
 
 			if (isset($jsonResponse->status) &&  $jsonResponse->status === 'ERROR')

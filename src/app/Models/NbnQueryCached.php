@@ -27,7 +27,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 */
 	public function __construct()
 	{
-		$this->nbnQuery = model('App\Models\NbnQuery', false);
+		$this->nbnQuery = model('App\Models\NbnQuery', true);
 	}
 
 	/**
