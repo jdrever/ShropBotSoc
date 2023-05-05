@@ -18,7 +18,7 @@ class NbnQueryCached extends Model implements NbnQueryInterface
 	 * @var    bool
 	 * @access private
 	 */
-	private const CACHE_ACTIVE = false;
+	private const CACHE_ACTIVE = true;
 
 	/**
 	 * Constructor, initialises NbnQuery
