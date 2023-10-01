@@ -143,7 +143,6 @@ class NbnQuery implements NbnQueryInterface
 
 		$nbnQueryResponse = $this->callNbnApi($queryUrl);
 		$speciesQueryResult               = new NbnQueryResult();
-		echo(var_dump($nbnQueryResponse));
 		if ($nbnQueryResponse->status === 'OK' )
 		{
 			$recordList         = $nbnQueryResponse->jsonResponse->occurrences;
