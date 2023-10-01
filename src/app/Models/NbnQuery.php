@@ -138,11 +138,12 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords->dir  = "desc";
 		// $nbnRecords->fsort = "index";
 		$nbnRecords
-			->add('taxon_name:' . '"' . $speciesName . '"');
+			->add('taxon_name:' . '%22' . $speciesName . '%22');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 
 		$nbnQueryResponse = $this->callNbnApi($queryUrl);
 		$speciesQueryResult               = new NbnQueryResult();
+		echo(var_dump($nbnQueryResponse));
 		if ($nbnQueryResponse->status === 'OK' )
 		{
 			$recordList         = $nbnQueryResponse->jsonResponse->occurrences;
@@ -350,8 +351,8 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords->dir  = "desc";
 		// $nbnRecords->fsort = "index";
 		$nbnRecords
-			->add('taxon_name:' . '"' . $speciesName . '"')
-			->add('location_id:' . '"' . urlencode($siteName) . '"');
+			->add('taxon_name:' . '%22' . $speciesName . '%22')
+			->add('location_id:' . '%22' . urlencode($siteName) . '%22');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 		$recordsJson        = file_get_contents($queryUrl);
 		$recordsJsonDecoded = json_decode($recordsJson);
@@ -470,8 +471,8 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords->sort = "year";
 		$nbnRecords->dir  = "desc";
 		$nbnRecords
-			->add('taxon_name:' . '"' . $speciesName . '"')
-			->add('grid_ref_1000:' . '"' . urlencode($gridSquare) . '"');
+			->add('taxon_name:' . '%22' . $speciesName . '%22')
+			->add('grid_ref_1000:' . '%22' . urlencode($gridSquare) . '%22');
 		$queryUrl           = $nbnRecords->getPagingQueryStringWithStart($page);
 
 		$nbnQueryResponse 	= $this->callNbnApi($queryUrl);
