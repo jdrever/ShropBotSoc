@@ -218,7 +218,7 @@ class NbnQuery implements NbnQueryInterface
 		$nbnRecords           = new NbnRecords('occurrences/search');
 		$nbnRecords->facets   = "location_id";
 
-		$nbnRecords->addExtraQueryParameter('location_id:'.$siteSearchString.'*');
+		$nbnRecords->addExtraQueryParameter('location_id:'.$siteSearchString.'%2a');
 		$nbnRecords->add('species_group:Plants+OR+Bryophytes');
 
 		$queryUrl            = $nbnRecords->getUnpagedQueryString();
