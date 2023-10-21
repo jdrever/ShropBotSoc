@@ -271,7 +271,16 @@ class NbnQuery implements NbnQueryInterface
 	{
 		$nbnRecords = new NbnRecords('occurrences/search');
 
-		$nbnRecords->add('location_id:' . '%22'. urlencode($siteName) . '%22'); // Use "\ " instead of spaces to search only for species matching whole site name
+		$siteName = str_replace(" ", "%20", $siteName);
+
+		if (strpos($siteName, '%20') !== false)
+		{
+			$nbnRecords->add('location_id:'.'%22'. $siteName.'%22');
+		}
+		else
+		{
+			$nbnRecords->add('location_id:'.$siteName.'%2a');
+		}
 
 		$speciesGroup = ucfirst($speciesGroup);
 		if ($speciesGroup=== "Plants")
