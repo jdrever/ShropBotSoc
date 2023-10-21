@@ -213,12 +213,21 @@ class NbnQuery implements NbnQueryInterface
 		// API respects case - upper case all words in search string
 		$siteSearchString = ucwords($siteSearchString);
 		// Replace spaces with "\%20" so the query searches for the whole string
-		$siteSearchString = str_replace(" ", "%2F%20", $siteSearchString);
+		$siteSearchString = str_replace(" ", "%20", $siteSearchString);
 
 		$nbnRecords           = new NbnRecords('occurrences/search');
 		$nbnRecords->facets   = "location_id";
 
-		$nbnRecords->addExtraQueryParameter('location_id:'.$siteSearchString.'%2a');
+		if (strpos($siteSearchString, '%20') !== false)
+		{
+			$nbnRecords->addExtraQueryParameter('location_id:'.'%22'. $siteSearchString.'%22');
+		}
+		else
+		{
+			$nbnRecords->addExtraQueryParameter('location_id:'.$siteSearchString.'%2a');
+		}
+
+
 		$nbnRecords->add('species_group:Plants+OR+Bryophytes');
 
 		$queryUrl            = $nbnRecords->getUnpagedQueryString();
