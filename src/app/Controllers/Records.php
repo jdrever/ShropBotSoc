@@ -96,63 +96,69 @@ class Records extends BaseController
 	 */
 	public function singleRecord($uuid)
 	{
-		$record = $this->nbn->getSingleOccurenceRecord($uuid);
+		try {
+			$record = $this->nbn->getSingleOccurenceRecord($uuid);
 
-		if ($record->status === 'OK')
-		{
-			$occurrence               = $record->records->processed->occurrence;
-			$this->data['occurrence'] = $occurrence;
 
-			// Sort out and separate recorder name pairs with a semi-colon
-			$recorders    = explode("|", $this->data['occurrence']->recordedBy);
-			$newRecorders = [];
-			foreach ($recorders as $key => $value)
+			if ($record->status === 'OK')
 			{
-				// Stick a semicolon between every other name pair
-				if ($key !== 0 && $key % 2 === 0)
+				$occurrence               = $record->records->processed->occurrence;
+				$this->data['occurrence'] = $occurrence;
+
+				// Sort out and separate recorder name pairs with a semi-colon
+				$recorders    = explode("|", $this->data['occurrence']->recordedBy);
+				$newRecorders = [];
+				foreach ($recorders as $key => $value)
 				{
-					array_push($newRecorders, '; ');
+					// Stick a semicolon between every other name pair
+					if ($key !== 0 && $key % 2 === 0)
+					{
+						array_push($newRecorders, '; ');
+					}
+					array_push($newRecorders, $value);
 				}
-				array_push($newRecorders, $value);
+				$this->data['occurrence']->recordedBy = implode($newRecorders);
+
+				$classification               = $record->records->processed->classification;
+				$this->data['classification'] = $classification;
+				$displayName                  = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
+				$location                     = $record->records->raw->location; # `raw` contains the locationID;
+				$gridReference				  = "Unknown grid reference";
+				if (isset($location->gridReference))
+				{
+					$gridReference=$location->gridReference;
+				}
+
+				$locationID = $locationID ?? 'unknown';
+
+				$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $locationID . ' (' .$gridReference . '),' . $record->records->processed->event->year . '.';
+				$this->data['location']       = $location;
+				$this->data['locationID']     = $locationID;
+				$this->data['event']          = $record->records->processed->event;
+				$this->data['displayName']    = $displayName;
+				$this->data['title']          = $displayTitle;
+				$this->data['gridReference']    = $gridReference;
+				$fullDate='Not available';
+				if (isset($record->records->processed->event->eventDate))
+					$fullDate =date_format(date_create($record->records->processed->event->eventDate),'jS F Y') ;
+				$this->data['fullDate'] = $fullDate;
+
+				$this->data['queryUrl']       = $record->queryUrl;
+
+				$this->data['recordId']       = $record->records->processed->rowKey;
+
+				$this->data['download_link']    = $record->downloadLink;
 			}
-			$this->data['occurrence']->recordedBy = implode($newRecorders);
+			$this->data['status']  = $record->status;
+			$this->data['message'] = $record->message;
 
-			$classification               = $record->records->processed->classification;
-			$this->data['classification'] = $classification;
-			$displayName                  = $this->request->getVar('displayName', FILTER_SANITIZE_ENCODED) ?? $classification->scientificName;
-			$location                     = $record->records->raw->location; # `raw` contains the locationID;
-			$gridReference				  = "Unknown grid reference";
-			if (isset($location->gridReference))
-			{
-				$gridReference=$location->gridReference;
-			}
-
-			$locationID = $locationID ?? 'unknown';
-
-			$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $locationID . ' (' .$gridReference . '),' . $record->records->processed->event->year . '.';
-			$this->data['location']       = $location;
-			$this->data['locationID']     = $locationID;
-			$this->data['event']          = $record->records->processed->event;
-			$this->data['displayName']    = $displayName;
-			$this->data['title']          = $displayTitle;
-			$this->data['gridReference']    = $gridReference;
-			$fullDate='Not available';
-			if (isset($record->records->processed->event->eventDate))
-				$fullDate =date_format(date_create($record->records->processed->event->eventDate),'jS F Y') ;
-			$this->data['fullDate'] = $fullDate;
-
-			$this->data['queryUrl']       = $record->queryUrl;
-
-			$this->data['recordId']       = $record->records->processed->rowKey;
-
-			$this->data['download_link']    = $record->downloadLink;
+			//NOTE: the NBN API currently doesn't support a CSV download for
+			//detailed occurance records
+			//$this->data['downloadLink']   = $record->downloadLink;
+			echo view('single_record', $this->data);
 		}
-		$this->data['status']  = $record->status;
-		$this->data['message'] = $record->message;
-
-		//NOTE: the NBN API currently doesn't support a CSV download for
-		//detailed occurance records
-		//$this->data['downloadLink']   = $record->downloadLink;
-		echo view('single_record', $this->data);
+		catch (\Exception $e) {
+			var_dump($e);
+		}
 	}
 }

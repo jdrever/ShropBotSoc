@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.1-apache
 COPY ./src/ /var/www/html/
 
 # Codeigniter4 has index.php in /public so change the Apache configuration
