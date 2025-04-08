@@ -127,8 +127,11 @@ class Records extends BaseController
 				$gridReference=$location->gridReference;
 			}
 
-			$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $location->locationID . ' (' .$gridReference . '),' . $record->records->processed->event->year . '.';
+			$locationID = $locationID ?? 'unknown';
+
+			$displayTitle                 = 'Record detail for ' . urldecode($displayName) . ' recorded by ' . $occurrence->recordedBy . ' at ' . $locationID . ' (' .$gridReference . '),' . $record->records->processed->event->year . '.';
 			$this->data['location']       = $location;
+			$this->data['locationID']     = $locationID;
 			$this->data['event']          = $record->records->processed->event;
 			$this->data['displayName']    = $displayName;
 			$this->data['title']          = $displayTitle;
