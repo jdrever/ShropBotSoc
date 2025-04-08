@@ -96,6 +96,8 @@ class Records extends BaseController
 	 */
 	public function singleRecord($uuid)
 	{
+		echo('here');
+		die();
 		try {
 			$record = $this->nbn->getSingleOccurenceRecord($uuid);
 
