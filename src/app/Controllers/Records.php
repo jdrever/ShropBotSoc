@@ -105,7 +105,7 @@ class Records extends BaseController
 				$occurrence               = $record->records->processed->occurrence;
 				$this->data['occurrence'] = $occurrence;
 
-				var_dump($this->data['occurrence']);
+				var_dump($record);
 				die();
 
 				// Sort out and separate recorder name pairs with a semi-colon
