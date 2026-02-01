@@ -10,6 +10,8 @@
 composer.lock
 .DS_Store
 
+/.idea/
+
 # Caches
 /.vagrant
 

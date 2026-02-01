@@ -75,7 +75,7 @@
 								</a>
 							</td>
 							<td class="d-none d-md-table-cell">
-								<?= $record->collector ?>
+								<?= implode(',', $record->collector) ?>
 							</td>
 							<td>
 								<?= $record->year ?>
