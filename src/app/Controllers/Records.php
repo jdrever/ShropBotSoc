@@ -105,11 +105,8 @@ class Records extends BaseController
 				$occurrence               = $record->records->processed->occurrence;
 				$this->data['occurrence'] = $occurrence;
 
-				var_dump($record);
-				die();
-
 				// Sort out and separate recorder name pairs with a semi-colon
-				$recorders    = explode("|", $this->data['occurrence']->recordedBy);
+				$recorders    = explode("|", $record->records->recorderBy); //$this->data['occurrence']->recordedBy);
 				$newRecorders = [];
 				foreach ($recorders as $key => $value)
 				{
